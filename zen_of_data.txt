@@ -1,0 +1,5 @@
+Data science centers on 2 things:
+- truth-telling
+    e.g. unearth relationships, make predictions, state significance
+- story-telling
+    drama...
