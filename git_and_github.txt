@@ -1,0 +1,28 @@
+###########################
+Navigating a commit history
+###########################
+
+Find difference using Mac
+diff -u old_game.js new_game.js
+-u: Unified diff format, making the output easier to read
+
+View history using Git
+git log
+Shows serial number, author, date, and commit message
+
+Find difference using Git
+git diff serial_number_1 serial_number_2
+
+Statistics of which files have changed in each commit
+git log --stat
+Shows ++++-- across multiple files
+Press q to exit git log
+
+Clone Git repository
+git clone <url>
+
+Getting Colored Output
+To get colored diff output, run git config --global color.ui auto
+
+Checkout an old version
+git checkout serial_number 
