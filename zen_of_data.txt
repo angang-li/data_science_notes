@@ -3,3 +3,14 @@ Data science centers on 2 things:
     e.g. unearth relationships, make predictions, state significance
 - story-telling
     drama...
+
+The analytics paradigm
+- decompose the ask
+- identify data sources
+- define strategy and metrics
+- build data retrieval plan 
+- retrieve the data
+- assemble and clean the data
+- analyze for trends
+- acknowledge limitations
+- make the call or tell the story
