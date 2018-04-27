@@ -40,4 +40,14 @@
     next i
 
 ' functions
+    sub function_name():
+        msgbox("Hello!") ' message box
+        Cells(2,1).Value = "string in the A2 cell" ' cell
+		Range("A1").Value = "string in the A1 cell" ' range
+		Range("A3", "C3").Value = "something else" ' whole thing extends from A3 to B3
+		Range("A3, C3").Value = "something else" ' whole thing only in A3 and C3
+		Range("A4:H4").Value = "something else"
+    end sub
+
+
 
