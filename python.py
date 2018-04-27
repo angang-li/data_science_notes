@@ -76,7 +76,6 @@
 
 ####################
 # List, tuple, and set
-
         creation  ordered  mixed data types  elements accessed by  mutable  repeatable
 list    []        y        y                 index                 y        y
 tuple   ()        y        y                 index                 n        y
@@ -121,6 +120,44 @@ set     {}        n        y                 key                   y        n
     set1.union(set2)        # union
     set1.difference(set2)   # difference set1 - (intersection set1 and set2)
 
+####################
+# File I/O
+# Reading files
+    # generally
+    file_in = open('Data/ages.csv', 'r')
+    lines_str = file_in.read() # read file into a string
+    lines_list = file_in.readlines() # read file into a list of strings
+    file_in.close
 
+    # alternatively
+    with open('Data/ages.csv', 'r') as file_in:
+        lines_list = file_in.readlines()
 
+    # reading csv files
+    import csv
+    with open('Data/ages.csv', newline='') as file_in:
+        csvreader = csv.reader(file_in, delimiter=',')
+        for row in csvreader:
+            print(row)
+
+# Writing files
+    delimiter = ','
+    age_dictionary = zip(names, ages) # zip into a list of tuples
+    
+    # generally
+    file_out = open('../Data/TA_ages.csv', 'w')
+    for name, age in age_dictionary:
+        file_out.write(name + delimiter + str(age) + '\n')    
+    file_out.close()
+
+    # alternatively
+    with open('../Data/TA_ages.csv', 'w') as file_out:
+        for name, age in age_dictionary.items():
+            file_out.write(name + delimiter + str(age) + '\n')
+    file_out.close()
+
+    # writing csv files
+    with open(output_path, 'w', newline='') as file_out:
+        csvwriter = csv.writer(file_out, delimiter=',')
+        csvwriter.writerow(['', '', ''])
 
