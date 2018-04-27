@@ -30,5 +30,14 @@
     ' operators: and, or, <>
 
 ' iterations
+    ' nested for loop
+    dim i as integer
+    dim j as integer
+    for i = 1 to 3
+        for j = 1 to 5
+            ...
+        next j
+    next i
+
 ' functions
 
