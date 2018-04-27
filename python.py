@@ -34,6 +34,8 @@
     .strips(' ') # strip away characters from the right side 
     .lstrip(' ') # strip away characters starting from the left
 
+    .split(',') # split
+
     .isalpha # check if all of the characters are alphabetical
     .isnumeric # check if the string is a number
 
@@ -71,4 +73,36 @@
 
 # Debugging
     import pdb; pdb.set_trace() # code will run up to this line
+
+####################
+# List, tuple, and set
+
+        creation  ordered  mixed data types  elements accessed by  mutable  repeatable
+list    []        y        y                 index                 y        y
+tuple   ()        y        y                 index                 n        y
+set     {}        n        y                 key                   y        n
+
+# List
+    # add, remove, replace
+    items = []
+    items.append('item1')
+    items.extend(['item2', 'item3'])
+    items + ['item4']
+    items.insert(4, 'item5')
+
+    items[0] = 'item1_new'
+    items.index('item5')
+
+    items.pop(4)
+    items.remove('item4')
+    del items[-1]
+
+    # order
+    items.reverse() # methods act on the variable directly
+    items.sort()
+    reversed(items) # functions keep the original variable unchanged
+    sorted(items)
+
+
+
 
