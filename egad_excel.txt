@@ -1,0 +1,15 @@
+Excel functions
+  conditional   e.g. = if(and(x<1, x>0), true, false); countif(range, criteria)
+  nested if
+  
+Excel interface utilities
+  define name
+  conditional formatting
+
+Advanced Excel
+  pivot tables
+  vlookup, hlookup
+  
+Excel keyboard shortcuts
+  https://support.office.com/en-us/article/keyboard-shortcuts-in-excel-2016-for-mac-acf5419e-1f87-444d-962f-4e951a658ccd
+  e.g. command t: add $ signs for anchoring
