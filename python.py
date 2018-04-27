@@ -41,38 +41,38 @@
 
 ####################
 # Flow control
-# What if
-    if 'a' in 'abcd':
-        ...
-    elif ...:
-        ...
-    else:
-        ...
+    # What if
+        if 'a' in 'abcd':
+            ...
+        elif ...:
+            ...
+        else:
+            ...
 
-# While loop
-    while ...:
-        ...
+    # While loop
+        while ...:
+            ...
 
-# For loop:
-    for i in range(1, 5):
-        ...
+    # For loop:
+        for i in range(1, 5):
+            ...
 
 ####################
 # Error handling
-# Handling exceptions
-    try: 
-        number = int(number_to_square)
-        print("Your number squared is ", number**2)
-    except:
-        print("You didn't enter an integer!")
+    # Handling exceptions
+        try: 
+            number = int(number_to_square)
+            print("Your number squared is ", number**2)
+        except:
+            print("You didn't enter an integer!")
 
-# Checking the validity of code
-    def square(number):
-        return square_of_number
-    assert(square(3) == 9)
+    # Checking the validity of code
+        def square(number):
+            return square_of_number
+        assert(square(3) == 9)
 
-# Debugging
-    import pdb; pdb.set_trace() # code will run up to this line
+    # Debugging
+        import pdb; pdb.set_trace() # code will run up to this line
 
 ####################
 # List, tuple, and set
@@ -122,42 +122,86 @@ set     {}        n        y                 key                   y        n
 
 ####################
 # File I/O
-# Reading files
-    # generally
-    file_in = open('Data/ages.csv', 'r')
-    lines_str = file_in.read() # read file into a string
-    lines_list = file_in.readlines() # read file into a list of strings
-    file_in.close
+    # Reading files
+        # generally
+        file_in = open('Data/ages.csv', 'r')
+        lines_str = file_in.read() # read file into a string
+        lines_list = file_in.readlines() # read file into a list of strings
+        file_in.close
 
-    # alternatively
-    with open('Data/ages.csv', 'r') as file_in:
-        lines_list = file_in.readlines()
+        # alternatively
+        with open('Data/ages.csv', 'r') as file_in:
+            lines_list = file_in.readlines()
 
-    # reading csv files
-    import csv
-    with open('Data/ages.csv', newline='') as file_in:
-        csvreader = csv.reader(file_in, delimiter=',')
-        for row in csvreader:
-            print(row)
+        # reading csv files
+        import csv
+        with open('Data/ages.csv', newline='') as file_in:
+            csvreader = csv.reader(file_in, delimiter=',')
+            for row in csvreader:
+                print(row)
 
-# Writing files
-    delimiter = ','
-    age_dictionary = zip(names, ages) # zip into a list of tuples
-    
-    # generally
-    file_out = open('../Data/TA_ages.csv', 'w')
-    for name, age in age_dictionary:
-        file_out.write(name + delimiter + str(age) + '\n')    
-    file_out.close()
+    # Writing files
+        delimiter = ','
+        age_dictionary = zip(names, ages) # zip into a list of tuples
+        
+        # generally
+        file_out = open('../Data/TA_ages.csv', 'w')
+        for name, age in age_dictionary:
+            file_out.write(name + delimiter + str(age) + '\n')    
+        file_out.close()
 
-    # alternatively
-    with open('../Data/TA_ages.csv', 'w') as file_out:
-        for name, age in age_dictionary.items():
-            file_out.write(name + delimiter + str(age) + '\n')
-    file_out.close()
+        # alternatively
+        with open('../Data/TA_ages.csv', 'w') as file_out:
+            for name, age in age_dictionary.items():
+                file_out.write(name + delimiter + str(age) + '\n')
+        file_out.close()
 
-    # writing csv files
-    with open(output_path, 'w', newline='') as file_out:
-        csvwriter = csv.writer(file_out, delimiter=',')
-        csvwriter.writerow(['', '', ''])
+        # writing csv files
+        with open(output_path, 'w', newline='') as file_out:
+            csvwriter = csv.writer(file_out, delimiter=',')
+            csvwriter.writerow(['', '', ''])
+
+####################
+# Standard library
+    # Documentation
+    brief tour of the standard library
+    https://docs.python.org/3/tutorial/stdlib.html
+    the Python standard library
+    https://docs.python.org/3/library/index.html
+
+    # Greatest hits
+    math
+    random
+        random.random() # returns a number in the range [0.0, 1.0)
+        random.randint(a, b) # returns an integer in the range [a, b]
+        random.choice(x) # randomly returns a value from the sequence x
+        random.sample(x, y) # randomly returns a sample of length y from the sequence x without replacement
+    os
+        os.getcwd() # get current directory
+        os.listdir(directory_name) # list of files in the directory
+        os.path.join(file_directory, 'file_name.txt')
+    glob
+        glob.glob(directory_name + '/*.py') # return a list of paths matching a pathname pattern
+    time
+        time.sleep(x) # pauses for x seconds
+        time.time() # gets current time in seconds
+    datetime
+        today = datetime.date.today()   birthday = datetime.date(1984, 2, 25)
+        print(today)                    print(birthday)
+        print(today.day)                print(birthday.day)
+        print(today.month)              print(birthday.month)
+        print(today.year)               print(birthday.year)
+    copy
+        copy.copy(x) # shallow copy of x
+        copy.deepcopy(x) # deep copy of x
+    operator
+        x.sort(key=operator.itemgetter(2)) # sort based off the 3nd value of each list in x
+    collections
+        collections.Counter # counts repeated instances from an iterable
+    numpy # import numpy as np
+    scipy # from scipy import stats
+
+
+
+
 
