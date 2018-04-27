@@ -201,7 +201,17 @@ set     {}        n        y                 key                   y        n
     numpy # import numpy as np
     scipy # from scipy import stats
 
-
-
+####################
+# Functions
+    def function_name(input_var):
+        """
+        Return all roster filenames in directory
+        input:
+            input_var - str, Directory that contains the roster files
+        output:
+            output_var - list, List of roster filenames in directory
+        """
+        statements
+    return output_var
 
 
