@@ -50,4 +50,22 @@
     end sub
 
 
+'''''''''''''''''''''''''''''
+' Formatting with VBA
+' color
+    ' operates on cells(...) or range(...)
+    .Font.ColorIndex = 1     ' font color black
+    .Interior.ColorIndex = 6 ' cell color yellow
+    .Interior.olor = vbGreen ' cell color green
+
+    ' color index:
+    ' https://msdn.microsoft.com/en-us/vba/excel-vba/articles/colorindex-property
+    ' http://dmcritchie.mvps.org/excel/colors.htm
+
+' number
+    ' operates on cells(...) or range(...)
+    .NumberFormat = "$#,##0.00" ' currency
+    .Style = "Currency"         ' currency
+    .NumberFormat = "0.00%"     ' percentage
+
 
