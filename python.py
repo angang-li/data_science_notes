@@ -54,3 +54,21 @@
 # For loop:
     for i in range(1, 5):
         ...
+
+####################
+# Error handling
+# Handling exceptions
+    try: 
+        number = int(number_to_square)
+        print("Your number squared is ", number**2)
+    except:
+        print("You didn't enter an integer!")
+
+# Checking the validity of code
+    def square(number):
+        return square_of_number
+    assert(square(3) == 9)
+
+# Debugging
+    import pdb; pdb.set_trace() # code will run up to this line
+
