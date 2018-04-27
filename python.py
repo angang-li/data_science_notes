@@ -103,6 +103,24 @@ set     {}        n        y                 key                   y        n
     reversed(items) # functions keep the original variable unchanged
     sorted(items)
 
+# Tuple
+    # once created, cannot be readily modified
+    penny = (60, 'yellow')
+    penny + ('amber', ) # , so () is different from math operation
+
+# Set
+    # add, remove, replace
+    pets = {}
+    pets.add('bulldog')
+    pets.discard('bulldog')
+
+    # set operations
+    set1 = {}
+    set2 = {}
+    set1.intersection(set2) # intersection
+    set1.union(set2)        # union
+    set1.difference(set2)   # difference set1 - (intersection set1 and set2)
+
 
 
 
