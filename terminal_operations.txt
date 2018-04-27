@@ -1,0 +1,30 @@
+Terminal operations
+
+Cheatsheet:
+https://github.com/0nn0/terminal-mac-cheatsheet
+
+create file
+    touch file_name.txt
+
+remove file
+    rm file_name.txt
+
+create directory
+    mkdir dir_name
+
+remove directory
+    rmdir dir_name  #only remove empty directory
+    rm -r dir_name  #remove both folder and content recursively
+
+open directory
+    open . #open the current folder in Finder
+
+open file
+    open file_name.txt #open the file using the default application
+    subl file_name.txt #after config .bash_profile
+    code file_name.txt #after config Visual Studio Code app
+
+Conda is a virtual environment manager
+    conda create -n new_environment_name python=3.6 anaconda
+    source activate environment_name
+    source deactivate
