@@ -19,6 +19,16 @@
     ' casting: convert variable types, e.g., str(age)
 
 ' conditionals
+    if ... then
+        ...
+    elseif ... then
+        ...
+    else
+        ...
+    end if
+
+    ' operators: and, or, <>
+
 ' iterations
 ' functions
 
