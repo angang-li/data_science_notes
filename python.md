@@ -74,16 +74,16 @@
 * `.lower()`, makes the entire string lowercase <br>
 * `.upper()`, makes the entire string uppercase <br>
 * `.title()`, capitalizes every word in a string <br>
-<br>
+
 * `.strips(' ')`, strip away characters from the right side <br>
 * `.lstrip(' ')`, strip away characters starting from the left <br>
-<br>
+
 * `.split(',')`, split <br>
 * `','.join(['a','b'])`, opposite of split <br>
-<br>
+
 * `.isalpha`, check if all of the characters are alphabetical <br>
 * `.isnumeric`, check if the string is a number <br>
-<br>
+
 * `"Hi my name is {}. My hobby is {}?".format(name, hobby)`
 * `f"Hi my name is {name}. My hobby is {hobby}"`, f-string, only available in Python 3.6+
 * `"{:.1%}".format(percentage)`, formatting string
