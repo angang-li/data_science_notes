@@ -203,7 +203,7 @@
         with open('Data/ages.csv', 'r') as file_in:
             lines_list = file_in.readlines()
 
-* ### Reading csv file
+* ### Reading `csv` file
         import csv
         with open('Data/ages.csv', newline='') as file_in:
             csvreader = csv.reader(file_in, delimiter=',')
@@ -211,12 +211,22 @@
             for row in csvreader:
                 print(row)
 
-* ### Reading csv file to dictionary
+* ### Reading `csv` file to dictionary
         import csv
         with open('names.csv', newline='') as file_in:
             reader = csv.DictReader(file_in)
             for row in reader:
                 print(row['first_name']
+
+* ### Reading `json` file
+    ### `json` stores complex data structures that take on these forms:
+    * ### object (e.g., dictionary)
+    * ### array <br> 
+    ```
+      import json
+      with open('records.json', 'r') as file_in:
+          loaded_records = json.load(file_in)
+    ```
 
 ## 6.2. Writing files
 ```
@@ -236,13 +246,13 @@
                 file_out.write(name + delimiter + str(age) + '\n')
         file_out.close()
 
-* ### Writing csv file
+* ### Writing `csv` file
         import csv
         with open(output_path, 'w', newline='') as file_out:
             csvwriter = csv.writer(file_out, delimiter=',')
             csvwriter.writerow(['', '', ''])
 
-* ### Writing dictionary to csv file
+* ### Writing dictionary to `csv` file
         import csv
         with open('names.csv', 'w', newline='') as csvfile:
             fieldnames = ['first_name', 'last_name']
@@ -250,6 +260,11 @@
             writer.writeheader()
             writer.writerow({'first_name': 'Baked', 'last_name': 'Beans'})
             # writer.writerow(list_of_dictionary)
+
+* ### Reading `json` file
+        import json
+        with open('records.json', 'w') as file_out:
+            json.dump(all_records, file_out)
 
 <br>
 
