@@ -1,16 +1,46 @@
 # **Python notes**
 
+<!-- TOC -->
 
+- [**Python notes**](#python-notes)
+- [1. Data types](#1-data-types)
+    - [1.1. Single value](#11-single-value)
+    - [1.2. Collections](#12-collections)
+- [2. Operations on single values](#2-operations-on-single-values)
+    - [2.1. Integer and float](#21-integer-and-float)
+    - [2.2. Boolean](#22-boolean)
+    - [2.3. Built-in methods on string](#23-built-in-methods-on-string)
+- [3. Flow control](#3-flow-control)
+    - [3.1. What if](#31-what-if)
+    - [3.2. While loop](#32-while-loop)
+    - [3.3. For loop](#33-for-loop)
+- [4. Error handling](#4-error-handling)
+    - [4.1. Handling exceptions](#41-handling-exceptions)
+    - [4.2. Checking the validity of code](#42-checking-the-validity-of-code)
+    - [4.3. Debugging](#43-debugging)
+- [5. Operations on collections](#5-operations-on-collections)
+    - [5.1. List](#51-list)
+    - [5.2. Tuple](#52-tuple)
+    - [5.3. Set](#53-set)
+- [6. File I/O](#6-file-i-o)
+    - [6.1. Reading files](#61-reading-files)
+    - [6.2. Writing files](#62-writing-files)
+- [7. Standard library](#7-standard-library)
+    - [7.1. Documentation](#71-documentation)
+    - [7.2. Greatest hits](#72-greatest-hits)
+- [8. Functions](#8-functions)
+
+<!-- /TOC -->
 
 <br>
 
-# Data types
-## Single value
+# 1. Data types
+## 1.1. Single value
 * integer
 * float
 * boolean
 * string
-## Collections
+## 1.2. Collections
 * list
 * tuple
 * set
@@ -24,20 +54,20 @@
 
 <br>
 
-# Operations on single values
-## Integer and float
+# 2. Operations on single values
+## 2.1. Integer and float
 * `//`, truncating division
 * `%`, remainder
 * `**`, exponentiation
 
-## Boolean
+## 2.2. Boolean
 * `==`, note assignment vs equality test
 * `!=`
 * `and`
 * `or`
 * `not`
 
-## Built-in methods on string
+## 2.3. Built-in methods on string
 * `.capitalize()`, capitalizes the first character <br>
 * `.lower()`, makes the entire string lowercase <br>
 * `.upper()`, makes the entire string uppercase <br>
@@ -53,8 +83,8 @@
 
 <br>
 
-# Flow control
-## What if
+# 3. Flow control
+## 3.1. What if
         if 'a' in 'abcd':
             ...
         elif ...:
@@ -62,36 +92,36 @@
         else:
             ...
 
-## While loop
+## 3.2. While loop
         while ...:
             ...
 
-## For loop
+## 3.3. For loop
         for i in range(1, 5):
             ...
 
 <br>
 
-# Error handling
-## Handling exceptions
+# 4. Error handling
+## 4.1. Handling exceptions
         try: 
             number = int(number_to_square)
             print("Your number squared is ", number**2)
         except:
             print("You didn't enter an integer!")
 
-## Checking the validity of code
+## 4.2. Checking the validity of code
         def square(number):
             return square_of_number
         assert(square(3) == 9)
 
-## Debugging
+## 4.3. Debugging
         import pdb; pdb.set_trace() # code will run up to this line
 
 <br>
 
-# Operations on collections
-## List
+# 5. Operations on collections
+## 5.1. List
 * ### Add, remove, replace <br>
         items = []
         items.append('item1')
@@ -112,12 +142,12 @@
         reversed(items) # functions keep the original variable unchanged
         sorted(items)
 
-## Tuple
+## 5.2. Tuple
 * ### Once created, cannot be readily modified
         penny = (60, 'yellow')
         penny + ('amber', )    # add a , so () is different from math operation
 
-## Set
+## 5.3. Set
 * ### Add, remove, replace
         pets = {}
         pets.add('bulldog')
@@ -132,8 +162,8 @@
 
 <br>
 
-# File I/O
-## Reading files
+# 6. File I/O
+## 6.1. Reading files
 * ### Generally
         file_in = open('Data/ages.csv', 'r')
         lines_str = file_in.read()          # read file into a string
@@ -158,7 +188,7 @@
             for row in reader:
                 print(row['first_name']
 
-## Writing files
+## 6.2. Writing files
 ```
     delimiter = ','
     age_dictionary = zip(names, ages) # zip into a list of tuples
@@ -193,13 +223,13 @@
 
 <br>
 
-# Standard library
-## Documentation
+# 7. Standard library
+## 7.1. Documentation
 * [Brief Tour of the Standard Library](https://docs.python.org/3/tutorial/stdlib.html)
 * [The Python Standard Library - Index](https://docs.python.org/3/library/index.html)
 
 
-## Greatest hits
+## 7.2. Greatest hits
 * ### math
 
 * ### random
@@ -244,7 +274,7 @@
 
 <br>
 
-# Functions
+# 8. Functions
     def function_name(input_var1, input_var2 = "Anna"): 
                     # var2 has a default and is optional
         """
