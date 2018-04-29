@@ -75,7 +75,7 @@
 * `.upper()`, makes the entire string uppercase <br>
 * `.title()`, capitalizes every word in a string <br>
 
-* `.strips(' ')`, strip away characters from the right side <br>
+* `.strip(' ')`, strip away characters from the right side <br>
 * `.lstrip(' ')`, strip away characters starting from the left <br>
 
 * `.split(',')`, split <br>
