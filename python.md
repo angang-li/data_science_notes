@@ -76,6 +76,7 @@
 * `.title()`, capitalizes every word in a string <br>
 
 * `.strip(' ')`, strip away characters from the right side <br>
+* `.strip()`, remove all whitespaces from both sides <br>
 * `.lstrip(' ')`, strip away characters starting from the left <br>
 
 * `.split(',')`, split <br>
