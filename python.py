@@ -203,7 +203,8 @@ set     {}        n        y                 key                   y        n
 
 ####################
 # Functions
-    def function_name(input_var):
+    def function_name(input_var1, input_var2 = "Anna"): 
+                    # var2 has a default and is optional
         """
         Return all roster filenames in directory
         input:
@@ -212,6 +213,9 @@ set     {}        n        y                 key                   y        n
             output_var - list, List of roster filenames in directory
         """
         statements
-    return output_var
+        return output_var1, output_var2 # a tuple of both variables are returned
+
+output_var1, output_var2 = function_name(input_var1, input_var2) # unpacking
+print(function_name.__doc__) # print the docstring
 
 
