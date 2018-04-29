@@ -14,7 +14,7 @@
     - [3.1. List](#31-list)
     - [3.2. Tuple](#32-tuple)
     - [3.3. Set](#33-set)
-    - [3.4 Dictionary](#34-dictionary)
+    - [3.4. Dictionary](#34-dictionary)
 - [4. Flow control](#4-flow-control)
     - [4.1. What if](#41-what-if)
     - [4.2. While loop](#42-while-loop)
@@ -106,6 +106,9 @@
         items.remove('item4')
         del items[-1]
 
+* ### Zip
+        zip(names, ages) # zip multiple lists into a list of tuples
+
 * ### Order
         items.reverse() # methods act on the variable directly
         items.sort()
@@ -139,7 +142,7 @@
         set1.union(set2)        # union
         set1.difference(set2)   # difference set1 - (intersection set1 and set2)
 
-## 3.4 Dictionary
+## 3.4. Dictionary
 * ### Add, remove, replace
         roster = {}
         roster['Favorite Sport'] = 'Soccer' # add a new item
@@ -229,24 +232,22 @@
     ```
 
 ## 6.2. Writing files
-```
-    delimiter = ','
-    age_dictionary = zip(names, ages) # zip into a list of tuples
-```
-
 * ### Generally
+        delimiter = ','
         file_out = open('../Data/TA_ages.csv', 'w')
-        for name, age in age_dictionary:
+        for name, age in all_records:
             file_out.write(name + delimiter + str(age) + '\n')    
         file_out.close()
 
 * ### Alternatively
+        delimiter = ','
         with open('../Data/TA_ages.csv', 'w') as file_out:
-            for name, age in age_dictionary.items():
+            for name, age in all_records.items():
                 file_out.write(name + delimiter + str(age) + '\n')
         file_out.close()
 
 * ### Writing `csv` file
+        delimiter = ','
         import csv
         with open(output_path, 'w', newline='') as file_out:
             csvwriter = csv.writer(file_out, delimiter=',')
