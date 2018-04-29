@@ -14,6 +14,7 @@
     - [3.1. List](#31-list)
     - [3.2. Tuple](#32-tuple)
     - [3.3. Set](#33-set)
+    - [3.4 Dictionary](#34-dictionary)
 - [4. Flow control](#4-flow-control)
     - [4.1. What if](#41-what-if)
     - [4.2. While loop](#42-while-loop)
@@ -51,6 +52,7 @@
 | **list** | [] |  y   |    y             | index                | y       | y          |
 | **tuple** | () | y   |    y             | index                | n       | y          |
 | **set** | {} |   n   |    y             | key                  | y       | n          |
+| **dictionry** | {} | n |  y             | key                  | y       | n          |
 
 <br>
 
@@ -136,6 +138,19 @@
         set1.intersection(set2) # intersection
         set1.union(set2)        # union
         set1.difference(set2)   # difference set1 - (intersection set1 and set2)
+
+## 3.4 Dictionary
+* ### Add, remove, replace
+        roster = {}
+        roster['Favorite Sport'] = 'Soccer' # add a new item
+        roster.update({'Favorite Sports Team': 'S. L. Benfica', 'Favorite Sports Team Mascot': 'Eagle'}) # add multiple new items
+        del roster['Favorite Sports Team Mascot']
+        print( roster.pop('Favorite Sports Team') )
+        
+* ### Access all items, keys, or values
+        roster.items() # returns iterators
+        roster.keys()
+        roster.values()
 
 <br>
 
