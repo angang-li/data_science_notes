@@ -10,18 +10,18 @@
     - [2.1. Integer and float](#21-integer-and-float)
     - [2.2. Boolean](#22-boolean)
     - [2.3. Built-in methods on string](#23-built-in-methods-on-string)
-- [3. Flow control](#3-flow-control)
-    - [3.1. What if](#31-what-if)
-    - [3.2. While loop](#32-while-loop)
-    - [3.3. For loop](#33-for-loop)
-- [4. Error handling](#4-error-handling)
-    - [4.1. Handling exceptions](#41-handling-exceptions)
-    - [4.2. Checking the validity of code](#42-checking-the-validity-of-code)
-    - [4.3. Debugging](#43-debugging)
-- [5. Operations on collections](#5-operations-on-collections)
-    - [5.1. List](#51-list)
-    - [5.2. Tuple](#52-tuple)
-    - [5.3. Set](#53-set)
+- [3. Operations on collections](#3-operations-on-collections)
+    - [3.1. List](#31-list)
+    - [3.2. Tuple](#32-tuple)
+    - [3.3. Set](#33-set)
+- [4. Flow control](#4-flow-control)
+    - [4.1. What if](#41-what-if)
+    - [4.2. While loop](#42-while-loop)
+    - [4.3. For loop](#43-for-loop)
+- [5. Error handling](#5-error-handling)
+    - [5.1. Handling exceptions](#51-handling-exceptions)
+    - [5.2. Checking the validity of code](#52-checking-the-validity-of-code)
+    - [5.3. Debugging](#53-debugging)
 - [6. File I/O](#6-file-i-o)
     - [6.1. Reading files](#61-reading-files)
     - [6.2. Writing files](#62-writing-files)
@@ -72,56 +72,24 @@
 * `.lower()`, makes the entire string lowercase <br>
 * `.upper()`, makes the entire string uppercase <br>
 * `.title()`, capitalizes every word in a string <br>
-
+<br>
 * `.strips(' ')`, strip away characters from the right side <br>
 * `.lstrip(' ')`, strip away characters starting from the left <br>
-
+<br>
 * `.split(',')`, split <br>
-
+* `','.join(['a','b'])`, opposite of split <br>
+<br>
 * `.isalpha`, check if all of the characters are alphabetical <br>
 * `.isnumeric`, check if the string is a number <br>
+<br>
+* `"Hi my name is {}. My hobby is {}?".format(name, hobby)`
+* `f"Hi my name is {name}. My hobby is {hobby}"`, f-string, only available in Python 3.6+
+* `"{:.1%}".format(percentage)`, formatting string
 
 <br>
 
-# 3. Flow control
-## 3.1. What if
-        if 'a' in 'abcd':
-            ...
-        elif ...:
-            ...
-        else:
-            ...
-
-## 3.2. While loop
-        while ...:
-            ...
-
-## 3.3. For loop
-        for i in range(1, 5):
-            ...
-
-<br>
-
-# 4. Error handling
-## 4.1. Handling exceptions
-        try: 
-            number = int(number_to_square)
-            print("Your number squared is ", number**2)
-        except:
-            print("You didn't enter an integer!")
-
-## 4.2. Checking the validity of code
-        def square(number):
-            return square_of_number
-        assert(square(3) == 9)
-
-## 4.3. Debugging
-        import pdb; pdb.set_trace() # code will run up to this line
-
-<br>
-
-# 5. Operations on collections
-## 5.1. List
+# 3. Operations on collections
+## 3.1. List
 * ### Add, remove, replace <br>
         items = []
         items.append('item1')
@@ -142,12 +110,21 @@
         reversed(items) # functions keep the original variable unchanged
         sorted(items)
 
-## 5.2. Tuple
+* ### Enumerate
+        for index, name in enumerate(names):
+            print(f"Name {name} is at index {index}")
+
+* ### List comprehension
+        price_strings = ['24', '13', '1']
+        price_nums = [int(price) for price in price_strings]
+        price_new = [int(price) for price in price_strings if price != '1']
+
+## 3.2. Tuple
 * ### Once created, cannot be readily modified
         penny = (60, 'yellow')
         penny + ('amber', )    # add a , so () is different from math operation
 
-## 5.3. Set
+## 3.3. Set
 * ### Add, remove, replace
         pets = {}
         pets.add('bulldog')
@@ -159,6 +136,43 @@
         set1.intersection(set2) # intersection
         set1.union(set2)        # union
         set1.difference(set2)   # difference set1 - (intersection set1 and set2)
+
+<br>
+
+# 4. Flow control
+## 4.1. What if
+        if 'a' in 'abcd':
+            ...
+        elif ...:
+            ...
+        else:
+            ...
+
+## 4.2. While loop
+        while ...:
+            ...
+
+## 4.3. For loop
+        for i in range(1, 5):
+            ...
+
+<br>
+
+# 5. Error handling
+## 5.1. Handling exceptions
+        try: 
+            number = int(number_to_square)
+            print("Your number squared is ", number**2)
+        except:
+            print("You didn't enter an integer!")
+
+## 5.2. Checking the validity of code
+        def square(number):
+            return square_of_number
+        assert(square(3) == 9)
+
+## 5.3. Debugging
+        import pdb; pdb.set_trace() # code will run up to this line
 
 <br>
 
@@ -178,6 +192,7 @@
         import csv
         with open('Data/ages.csv', newline='') as file_in:
             csvreader = csv.reader(file_in, delimiter=',')
+            next(csvreader, None) # skip header
             for row in csvreader:
                 print(row)
 
@@ -242,6 +257,7 @@
     `os.getcwd()`, get current directory <br>
     `os.listdir(directory_name)`, list of files in the directory <br>
     `os.path.join(file_directory, 'file_name.txt')`
+    `print(os.path.exists(file_path))`, check if the path exists
 
 * ### glob
     `glob.glob(directory_name + '/*.py')`, return a list of paths matching a pathname pattern
