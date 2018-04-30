@@ -1,6 +1,8 @@
 # **Python notes**
 Notes taken from [Northwestern University Data Science Bootcamp](https://bootcamp.northwestern.edu/data/) and [online materials](https://github.com/amarallab/Introduction-to-Python-Programming-and-Data-Science)
 
+<br>
+
 <!-- TOC -->
 
 - [**Python notes**](#python-notes)
@@ -90,7 +92,7 @@ Notes taken from [Northwestern University Data Science Bootcamp](https://bootcam
 * `f"Hi my name is {name}. My hobby is {hobby}"`, f-string, only available in Python 3.6+
 * `"{:.1%}".format(percentage)`, formatting string
 
-    Find substrings inside of strings
+    Find substrings inside of strings:
 * `.find('the')`, returns index if found, or `-1` if not found
 * `.index('the')`, returns index if found, or `ValueError` if not found
 
