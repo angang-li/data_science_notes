@@ -89,6 +89,10 @@
 * `f"Hi my name is {name}. My hobby is {hobby}"`, f-string, only available in Python 3.6+
 * `"{:.1%}".format(percentage)`, formatting string
 
+    ### Find substrings inside of strings
+* `.find('the')`, returns index if found, or `-1` if not found
+* `.index('the')`, returns index if found, or `ValueError` if not found
+
 <br>
 
 # 3. Operations on collections
@@ -117,7 +121,7 @@
         sorted(items)
 
 * ### Enumerate
-        for index, name in enumerate(names):
+        for index, name in enumerate(names): # enumerate creates a list of tuples
             print(f"Name {name} is at index {index}")
 
 * ### List comprehension
