@@ -1,6 +1,8 @@
 # **Git and Github**
 Notes taken from [Udacity](https://www.udacity.com/course/how-to-use-git-and-github--ud775)'s online course
 
+<br>
+
 <!-- TOC -->
 
 - [**Git and Github**](#git-and-github)
@@ -31,6 +33,14 @@ Notes taken from [Udacity](https://www.udacity.com/course/how-to-use-git-and-git
     - [Delete previous branch](#delete-previous-branch)
     - [Merge branch2 and branch3 into master branch](#merge-branch2-and-branch3-into-master-branch)
     - [Show the difference added by 1 particular commit without knowing its parent](#show-the-difference-added-by-1-particular-commit-without-knowing-its-parent)
+- [Using GitHub to collaborate](#using-github-to-collaborate)
+    - [Create a git repository online](#create-a-git-repository-online)
+    - [Push](#push)
+    - [Pull](#pull)
+    - [Resolving conflict](#resolving-conflict)
+    - [Pull request on Github](#pull-request-on-github)
+    - [Conflicting changes](#conflicting-changes)
+    - [Fork and keep a fork up to date](#fork-and-keep-a-fork-up-to-date)
 
 <!-- /TOC -->
 
@@ -177,4 +187,70 @@ git merge branch2 branch3
 ```
 git show commit_id
 ```
+<br>
+
+# Using GitHub to collaborate
+## Create a git repository online
+Add this repository as a remote to the local repository <br>
+```
+git remote      # to view and create remote
+git remote add <repository_name(e.g. origin)> <url_of_remote>
+git remote -v   # to check whether url was added correctly
+```
+
+## Push
+```
+git push <remote_name> <branch_name>
+```
+
+## Pull
+```
+git pull <remote_name> <branch_name>  # fast-forward merge
+```
+
+## Resolving conflict
+```
+git pull <remote_name> <branch_name>
+```
+Equivalently
+```
+git fetch <remote_name>
+git merge <branch_name> <remote_name>/<branch_name>
+```
+
+* Before fetch:
+    | local   |   remote   |
+    | ---     | ---        |
+    | c-v1 (master)	<br> ↓ <br> b (origin/master) <br> ↓ <br> a | c-v2 (master) <br> ↓ <br> b <br> ↓ <br> a|
+
+* After fetch:
+    | local   |
+    | ---     |
+    | c-v1 (master) <br> ↓  c-v2 (origin/master) <br> ↓ ↙ <br> b <br> ↓ <br> a |
+
+* After merge:
+    | local   |
+    | ---     |
+    | d (master) <br> ↓ ↘ <br> ↓ <br> c-v1  ↓ <br> ↓ c-v2 (origin/master) <br> ↓ ↙ <br> b <br> ↓ <br> a |
+
+## Pull request on Github
+* Make another branch
+* Commit change on this new branch
+* Push to remote
+* Pull request
+
+## Conflicting changes
+* checkout master branch
+* pull changes from Github master
+* checkout the pull-requested-branch
+* merge the pull-requested-branch with the new master branch
+* push the pull-requested-branch to remote
+
+## Fork and keep a fork up to date
+* Fork on Github
+* Clone to local
+* Add the original repository as a remote, name it upstream
+* Pull the master branch of the original repository 
+* Merge the master branch into your change branch
+* Push your change branch to your fork
 
