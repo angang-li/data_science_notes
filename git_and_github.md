@@ -218,17 +218,17 @@ git fetch <remote_name>
 git merge <branch_name> <remote_name>/<branch_name>
 ```
 
-* Before fetch:
+* #### Before fetch:
     | local   |   remote   |
     | ---     | ---        |
     | c-v1 (master)	<br> ↓ <br> b (origin/master) <br> ↓ <br> a | c-v2 (master) <br> ↓ <br> b <br> ↓ <br> a|
 
-* After fetch:
+* #### After fetch:
     | local   |
     | ---     |
     | c-v1 (master) <br> ↓  c-v2 (origin/master) <br> ↓ ↙ <br> b <br> ↓ <br> a |
 
-* After merge:
+* #### After merge:
     | local   |
     | ---     |
     | d (master) <br> ↓ ↘ <br> ↓ <br> c-v1  ↓ <br> ↓ c-v2 (origin/master) <br> ↓ ↙ <br> b <br> ↓ <br> a |
