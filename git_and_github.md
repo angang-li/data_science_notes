@@ -41,6 +41,8 @@ Notes taken from [Udacity](https://www.udacity.com/course/how-to-use-git-and-git
     - [Pull request on Github](#pull-request-on-github)
     - [Conflicting changes](#conflicting-changes)
     - [Fork and keep a fork up to date](#fork-and-keep-a-fork-up-to-date)
+    - [Removing commits on git](#removing-commits-on-git)
+    - [Force push to remove commits on Github](#force-push-to-remove-commits-on-github)
 
 <!-- /TOC -->
 
@@ -254,3 +256,13 @@ git merge <branch_name> <remote_name>/<branch_name>
 * Merge the master branch into your change branch
 * Push your change branch to your fork
 
+## Removing commits on git
+```
+git reset --hard HEAD^   # remove the last commit from git
+git reset --hard HEAD~2  # remove the last 2 commits from git
+```
+
+## Force push to remove commits on Github
+```
+git push origin +master
+```
