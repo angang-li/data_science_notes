@@ -15,6 +15,9 @@ Train and test on different sets of data, otherwise overfitting. Save ~10% as te
     - [1.1. Naive Bayes](#11-naive-bayes)
     - [1.2. Support Vector Machines](#12-support-vector-machines)
     - [1.3. Decision Trees](#13-decision-trees)
+    - [1.4. K-Nearest Neighbors](#14-k-nearest-neighbors)
+    - [1.5. AdaBoost ("ensemble method")](#15-adaboost-ensemble-method)
+    - [1.6. Random Forest ("ensemble method")](#16-random-forest-ensemble-method)
 
 <!-- /TOC -->
 
@@ -142,4 +145,52 @@ Train with examples that have correct answers
     * DT is graphically easy to understand
     * DT is prone to overfitting, especially with lots of features
     * DT is able to build bigger classifiers out of DT in **ensemble methods**
+
+## 1.4. K-Nearest Neighbors
+* ### Algorithm
+    A new point is classified by the popular votes among the k training samples nearest to that query point.
+
+* ### Parameters
+    * `n_neighbors` <br>
+        k, higher k implies smoother decision surfaces
+
+* ### Scikit learn on k-NN
+    ```
+    from sklearn.neighbors import KNeighborsClassifier
+    clf = KNeighborsClassifier(n_neighbors=3, weights='distance')
+    clf.fit(features_train, labels_train)
+    labels_predicted = clf.predict(features_test)
+    ```
+
+* ### Strengths and weaknesses
+    * k-NN takes no a-prior assumption of data
+    * k-NN is simple to interpret
+    * k-NN requires high memory because the algorithm stores all training data
+
+
+## 1.5. AdaBoost ("ensemble method")
+**Ensemble methods** are meta-classifiers built from many classifiers, usually decision trees
+
+## 1.6. Random Forest ("ensemble method")
+* ### Algorithm
+    * The **Forest** is an ensemble of **Decision Trees**, most of the time trained with the **“bagging”** method. 
+    * Random forest randomly selects observations and features to builds multiple decision trees, and then merges them together to get a more accurate and stable prediction.
+
+* ### Parameters
+    * `n_estimators` <br>
+        The number of trees the algorithm builds before taking the maximum voting or taking averages of predictions. In general, a higher number of trees increases the performance and makes the predictions more stable, but it also slows down the computation. (default=10)
+
+    * `max_depth` <br>
+        The maximum depth of the tree. If None, then nodes are expanded until all leaves are pure or until all leaves contain less than min_samples_split samples.
+    
+* ### Scikit learn on RF
+    ```
+    from sklearn.ensemble import RandomForestClassifier
+    clf = RandomForestClassifier(min_samples_split=5)
+    clf.fit(features_train, labels_train)
+    labels_predicted = clf.predict(features_test)
+    ```
+* ### Strengths and weaknesses
+    * Given enough trees in the forest, the classifier won’t overfit the model.
+    * A large number of trees can make the algorithm to slow and ineffective for real-time predictions. Fast to train, but slow to make predictions.
 
