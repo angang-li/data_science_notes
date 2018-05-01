@@ -15,6 +15,12 @@ Pandas takes 2 data structures: DataFrame and Series
     - [2.2. Index, values, and cloumns](#22-index--values--and-cloumns)
     - [2.3. Column selection, addition, and deletion](#23-column-selection--addition--and-deletion)
     - [2.4. Row selection, addition, and deletion](#24-row-selection--addition--and-deletion)
+- [3. DataFrame operations](#3-dataframe-operations)
+    - [3.1. Math and statistics](#31-math-and-statistics)
+    - [3.2. Relational joins](#32-relational-joins)
+- [4. DataFrame I/O](#4-dataframe-i-o)
+    - [4.1. Reading](#41-reading)
+    - [4.2. Writing](#42-writing)
 
 <!-- /TOC -->
 
@@ -244,4 +250,43 @@ Pandas takes 2 data structures: DataFrame and Series
 
 <br>
 
+# 3. DataFrame operations
+## 3.1. Math and statistics
+*    `df['age'].mean()` <br>
+*    `df['color'].unique()` <br>
+*    `df['age'].sum()` <br>
+*    `df['color'].value_counts()` <br>
+*    `df.describe()`                   # display a statistical overview of df <br>
+*    `data_df.describe(include='all')` # include non-numbers <br>
 
+## 3.2. Relational joins
+
+
+
+<br>
+
+# 4. DataFrame I/O
+#### [Pandas I/O documentation](https://pandas.pydata.org/pandas-docs/stable/api.html#id12)
+## 4.1. Reading 
+* ### Read csv
+    ```
+    df = pd.read_csv(file_path)
+    df.head()    # data_df.tail()
+    ```
+
+<br>
+
+## 4.2. Writing
+* ### Export data to Excel
+    ```
+    writer = pd.ExcelWriter('output.xlsx')
+    df.to_excel(writer,'Sheet1')
+    writer.save()
+    ```
+
+* ### Export data to csv
+    ```
+    df.to_csv('output.csv', index=False, header=True)  # index=True, index_label= 'Ind'
+    ```
+
+<br>
