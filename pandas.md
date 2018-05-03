@@ -257,6 +257,7 @@ Pandas takes 2 data structures: DataFrame and Series
 ## 3.1. Math and statistics
 *   `df['age'].mean()` <br>
 *   `df['color'].unique()` <br>
+*   `df['color'].nunique()` <br>
 *   `df['age'].sum()` <br>
 *   `df['age'].sum(axis=1)`, sum across rows <br>
 *   `df['color'].value_counts()` <br>
@@ -274,6 +275,13 @@ Pandas takes 2 data structures: DataFrame and Series
 * Convert to numeric <br>
     `pd.to_numeric(df['col1'])` <br>
 
+* Convert continuous variable to categorical variable <br>
+    ```
+    bins = np.arange(0, 16, 5)
+    labels = ['<5','5-9','10-14']
+    s_categories = pd.cut(df['age'], bins = bins, right = False, labels = labels)
+    ```
+    
 * Replace, clean data <br>
     `df['col1'] = df['col1'].replace({'value1':'value 1', 'val1':'value 1'})` <br>
 
@@ -292,6 +300,9 @@ Pandas takes 2 data structures: DataFrame and Series
 
 * Reset index <br>
     `df.reset_index(drop=True)`, drop=False keeps old index in a new column <br>
+
+* Format a column to currency <br>
+    `df['col1'] = df['col1'].map('${:,.2f}'.format)` <br>
 
     <br>
 
