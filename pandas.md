@@ -17,7 +17,8 @@ Pandas takes 2 data structures: DataFrame and Series
     - [2.4. Row selection, addition, and deletion](#24-row-selection--addition--and-deletion)
 - [3. DataFrame operations](#3-dataframe-operations)
     - [3.1. Math and statistics](#31-math-and-statistics)
-    - [3.2. Relational joins](#32-relational-joins)
+    - [3.2. Methods on data cleaning](#32-methods-on-data-cleaning)
+    - [3.3. Relational joins](#33-relational-joins)
 - [4. DataFrame I/O](#4-dataframe-i-o)
     - [4.1. Reading](#41-reading)
     - [4.2. Writing](#42-writing)
@@ -185,9 +186,11 @@ Pandas takes 2 data structures: DataFrame and Series
 
 ## 2.2. Index, values, and cloumns
 * ### Extract index, values, and columns
+    `df.shape` <br>
     `df.index` <br>
     `df.values` <br>
     `df.columns` <br>
+    `df.dtypes` <br>
 
 <br>
 
@@ -252,16 +255,72 @@ Pandas takes 2 data structures: DataFrame and Series
 
 # 3. DataFrame operations
 ## 3.1. Math and statistics
-*    `df['age'].mean()` <br>
-*    `df['color'].unique()` <br>
-*    `df['age'].sum()` <br>
-*    `df['color'].value_counts()` <br>
-*    `df.describe()`                   # display a statistical overview of df <br>
-*    `data_df.describe(include='all')` # include non-numbers <br>
+*   `df['age'].mean()` <br>
+*   `df['color'].unique()` <br>
+*   `df['age'].sum()` <br>
+*   `df['age'].sum(axis=1)`, sum across rows <br>
+*   `df['color'].value_counts()` <br>
+*   `df.describe()`                   # display a statistical overview of df <br>
+*   `data_df.describe(include='all')` # include non-numbers <br>
+*   `df.count()`
 
-## 3.2. Relational joins
+    <br>
 
+## 3.2. Methods on data cleaning
 
+* Drop all rows with missing data <br>
+    `df.dropna(how='any')`, 'any' or 'all'<br>
+
+* Convert to numeric <br>
+    `pd.to_numeric(df['col1'])` <br>
+
+* Replace, clean data <br>
+    `df['col1'] = df['col1'].replace({'value1':'value 1', 'val1':'value 1'})` <br>
+
+* Whether there is missing data <br>
+    `df.isnull().sum()` <br>
+
+* Group by <br>
+    `df.groupby(['col1'])` <br>
+
+* Sort by <br>
+    `df.sort_values(by=['col1'], ascending=False)` <br>
+
+* See documentation of built-in methods <br>
+    `dir(df)` <br>
+    `print(df.first.\_\_doc__)` <br>
+
+* Reset index <br>
+    `df.reset_index(drop=True)`, drop=False keeps old index in a new column <br>
+
+    <br>
+
+## 3.3. Relational joins
+*   `df_to_join = pd.DataFrame({'type': ['cat', 'dog', 'parrot', 'mouse'], 
+                           'favorite food': ['fish', 'bones', 'sunflower seeds', 'cheese']})`
+
+    **df_to_join:**
+    |    | pet  | favorite food   |
+    |--- | ---  | ---             |
+    |0   |cat   | fish            |
+    |1   |dog   | bones           |
+    |2   |parrot| sunflower seeds | 
+    |3   |mouse | cheese          | 
+
+    **df:**
+    |	|age|	color|	type|
+    |---|---|--------|------|
+    |0	|2	|black	 |dog   |
+    |1	|3	|white	 |cat   |
+    |2	|10	|green	 |parrot|
+
+*   `pd.merge(df, df_to_join, left_on = 'type', right_on = 'pet', how = 'inner').drop('type', axis = 1)`, how: {‘left’, ‘right’, ‘outer’, ‘inner’}
+
+    |	|age|color   |pet   |favorite food  |
+    |---|---|--------|------|------         |
+    |0	|2	|black	 |dog   |bones          |
+    |1	|3	|white	 |cat   |fish           |
+    |2	|10	|green	 |parrot|sunflower seeds|
 
 <br>
 
@@ -288,5 +347,12 @@ Pandas takes 2 data structures: DataFrame and Series
     ```
     df.to_csv('output.csv', index=False, header=True)  # index=True, index_label= 'Ind'
     ```
-
+    
 <br>
+
+
+
+
+
+
+
