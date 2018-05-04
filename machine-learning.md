@@ -56,6 +56,8 @@ Train with examples that have correct answers
     from sklearn.metrics import accuracy_score
     accuracy = accuracy_score(pred, labels_test)
     ```
+* ### Accuracy vs. training set size
+    * More training data -> fine-tuned algorithm
 
 * ### Strengths and weaknesses
     * Naive Bayes doesn't account for word order, only looks at word frequency, so phrases with distinct meanings don't work well in Naive Bayes <br>
