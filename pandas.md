@@ -19,6 +19,8 @@ Pandas takes 2 data structures: DataFrame and Series
     - [3.1. Math and statistics](#31-math-and-statistics)
     - [3.2. Methods on data cleaning](#32-methods-on-data-cleaning)
     - [3.3. Relational joins](#33-relational-joins)
+    - [3.4. Binning](#34-binning)
+    - [3.5. Mapping](#35-mapping)
 - [4. DataFrame I/O](#4-dataframe-i-o)
     - [4.1. Reading](#41-reading)
     - [4.2. Writing](#42-writing)
@@ -264,6 +266,8 @@ Pandas takes 2 data structures: DataFrame and Series
 *   `df.describe()`                   # display a statistical overview of df <br>
 *   `data_df.describe(include='all')` # include non-numbers <br>
 *   `df.count()`
+*   `df.round(2)`
+*   `df.round({'age': 0})`
 
     <br>
 
@@ -275,12 +279,8 @@ Pandas takes 2 data structures: DataFrame and Series
 * Convert to numeric <br>
     `pd.to_numeric(df['col1'])` <br>
 
-* Convert continuous variable to categorical variable <br>
-    ```
-    bins = np.arange(0, 16, 5)
-    labels = ['<5','5-9','10-14']
-    s_categories = pd.cut(df['age'], bins = bins, right = False, labels = labels)
-    ```
+* Work with % entries <br>
+    `df['percent'].replace('%', '', regex = True).astype('float')`
     
 * Replace, clean data <br>
     `df['col1'] = df['col1'].replace({'value1':'value 1', 'val1':'value 1'})` <br>
@@ -301,12 +301,13 @@ Pandas takes 2 data structures: DataFrame and Series
 * Reset index <br>
     `df.reset_index(drop=True)`, drop=False keeps old index in a new column <br>
 
-* Format a column to currency <br>
-    `df['col1'] = df['col1'].map('${:,.2f}'.format)` <br>
-
     <br>
 
 ## 3.3. Relational joins
+* **Normalized** vs **denormalized** tables <br>
+    * Normalize: divide data into multiple tables <br>
+    * Denormalize: data from multiple tables are combined into one table <br>
+
 *   `df_to_join = pd.DataFrame({'type': ['cat', 'dog', 'parrot', 'mouse'], 
                            'favorite food': ['fish', 'bones', 'sunflower seeds', 'cheese']})`
 
@@ -325,13 +326,38 @@ Pandas takes 2 data structures: DataFrame and Series
     |1	|3	|white	 |cat   |
     |2	|10	|green	 |parrot|
 
-*   `pd.merge(df, df_to_join, left_on = 'type', right_on = 'pet', how = 'inner').drop('type', axis = 1)`, how: {‘left’, ‘right’, ‘outer’, ‘inner’}
+*   `pd.merge(df, df_to_join, left_on = 'type', right_on = 'pet', how = 'inner').drop('type', axis = 1)` <br>
+    * how: {‘left’, ‘right’, ‘outer’, ‘inner’} <br>
+    * left_index = True, right_index = True <br>
+    * suffixes = ('_bitcoin', '_dash') <br>
+    <br>
 
     |	|age|color   |pet   |favorite food  |
     |---|---|--------|------|------         |
     |0	|2	|black	 |dog   |bones          |
     |1	|3	|white	 |cat   |fish           |
     |2	|10	|green	 |parrot|sunflower seeds|
+
+    <br>
+
+## 3.4. Binning
+* Convert continuous variable to categorical variable <br>
+    ```
+    bins = np.arange(0, 16, 5)
+    labels = ['<5','5-9','10-14']
+    s_categories = pd.cut(df['age'], bins = bins, right = False, labels = labels)
+    ```
+    <br>
+
+## 3.5. Mapping
+* Format a column to currency <br>
+    `df['col1'] = df['col1'].map('${:,.2f}'.format)` <br>
+
+* Format a column to number <br>
+    `df['col1'] = df['col1'].map('{:,}'.format)` <br>
+    `df['col1'] = df['col1'].map('{:,.2f}'.format)` <br>
+    
+* **Mapping changes the data type!**
 
 <br>
 
@@ -360,10 +386,4 @@ Pandas takes 2 data structures: DataFrame and Series
     ```
     
 <br>
-
-
-
-
-
-
 
