@@ -1,60 +1,116 @@
 # **Python visualization**
-
+* [visualizing named colors](https://matplotlib.org/gallery/color/named_colors.html)
+* [markers](https://matplotlib.org/api/markers_api.html)
+* starting code
+    ```
     %matplotlib inline
+    # %matplotlib notebook # interactive
     import matplotlib.pyplot as plt
     import matplotlib as mpl
     import matplotlib.cm as cm
-
+    ```
 <br>
 
 # 1. Create a fully-customizable figure
 * ### Change the baseline font
-        mpl.rcParams['font.family'] = 'sans-serif'
-        mpl.rcParams['font.sans-serif'] = ['Arial']
+    ```
+    mpl.rcParams['font.family'] = 'sans-serif'
+    mpl.rcParams['font.sans-serif'] = ['Arial']
+    ```
 
 * ### Create the figure
-        fig = plt.figure(figsize = (5, 4))
-        ax = fig.add_subplot(1, 1, 1)
-        ax.plot([1, 2, 3, 4], [1, 4, 9, 16], color = 'steelblue', linewidth = 3, marker = 'o', markersize = 10, label = "Quadratic") # add a label to the dataset that will go into a legend
+    ```
+    fig = plt.figure(figsize = (5, 4))
+    ax = fig.add_subplot(1, 1, 1)
+    ax.plot([1, 2, 3, 4], [1, 4, 9, 16], color = 'steelblue', linewidth = 3, marker = 'o', markersize = 10, label = "Quadratic") # add a label to the dataset that will go into a legend
+    ```
+
+    ```
+    plt.plot([1, 2, 3, 4], [1, 4, 9, 16])
+    ``` 
 
 * ### Label axes
-        font_size = 15
-        ax.set_xlabel("x", fontsize = font_size) # or LaTeX: "$x$"
-        ax.set_ylabel("f(x)", fontsize = font_size) # or LaTeX: "$f(x)$"
+    ```
+    font_size = 15
+    ax.set_xlabel("x", fontsize = font_size) # or LaTeX: "$x$"
+    ax.set_ylabel("f(x)", fontsize = font_size) # or LaTeX: "$f(x)$"
+    ```
+    ```
+    plt.xlabel("Time With MatPlotLib")
+    plt.ylabel("How Cool MatPlotLib Seems")
+    ```
+
+* ### Set x tick location and/or labels
+    ```
+    plt.xticks([1, 2, 3], ['','','']) 
+    ```
 
 * ### Display legend
-        ax.legend(loc='best', frameon=False, fontsize = font_size, markerscale = 1.2) 
+    ```
+    ax.legend(loc='best', frameon=False, fontsize = font_size, markerscale = 1.2)  # loc='lower right'
+    ```
 
 * ### Add a figure label
-        ax.text(1, 25, "(A)", fontsize = font_size)
+    ```
+    ax.text(1, 25, "(A)", fontsize = font_size)
+    ```
 
-* ### Turn off the spines
-        for axis in ['bottom','left']:
-            ax.spines[axis].set_linewidth(2)
-            ax.spines[axis].set_position(("axes", -0.01))
-        for axis in ['top','right']:
-            ax.spines[axis].set_visible(False)
+* ### Turn off the spines and axes ticks
+    ```
+    for axis in ['bottom','left']:
+        ax.spines[axis].set_linewidth(2)
+        ax.spines[axis].set_position(("axes", -0.01))
+    for axis in ['top','right']:
+        ax.spines[axis].set_visible(False)
+    ```
+    ```
+    ax.yaxis.set_ticks_position('left')
+    ax.xaxis.set_ticks_position('bottom')
+    ```
 
-* ### Also need to turn off the ticks on the axes that we turned off
-        ax.yaxis.set_ticks_position('left')
-        ax.xaxis.set_ticks_position('bottom')
+* ### Add or remove gridlines
+    ```
+    plt.grid()
+    plt.grid(False)
+    ```        
 
 * ### Change the y-scale to log
-        ax.set_yscale('log')
+    ```
+    ax.set_yscale('log')
+    ```
 
 * ### Set axes ranges
-        ax.set_ylim(1, 20)
+    ```
+    ax.set_ylim(1, 20)
+    ```
+    ```
+    plt.xlim((0, 10)) # left, right
+    plt.ylim(bottom=0, top=100)
+    ```
 
 * ### Set tick label size
-        plt.tick_params(labelsize=14)
+    ```
+    # Change the fontsize of major and minor ticks label 
+    ax.tick_params(axis='both', which='major', labelsize=10)
+    ax.tick_params(axis='both', which='minor', labelsize=8)
+    ```
+    ```
+    plt.tick_params(labelsize=14)
+    ```
 
 * ### Add title of figure
-        fig.suptitle('Overall title', fontsize=font_size)
-        ax.set_title('Axis title', fontsize=font_size)
+    ```
+    fig.suptitle('Overall title', fontsize=font_size)
+    ax.set_title('Axis title', fontsize=font_size)
+    ```
+    ```
+    plt.title('title')
+    ```
 
 * ### Save the figure
-        plt.savefig('quadratic_logscale_half_frame.png', bbox_inches="tight", dpi = 300)
-
+    ```
+    plt.savefig('quadratic_logscale_half_frame.png', bbox_inches="tight", dpi = 300)
+    ```
     ![](python/visualization/line.png)
 
 # 2. Quick plots
@@ -118,7 +174,7 @@
         offset = 0.3 # offset so the bars don't stack on each other
 
         #Now we can add the 18-24yo
-        ax.bar(x_positions, young_spending, offset, label='18-24yo', color='steelblue')
+        ax.bar(x_positions, young_spending, offset, label='18-24yo', color='steelblue') # align: 'edge' vs 'center'
 
         #Then the 25-29yo
         old_xpos = [x_pos + offset +.01 for x_pos in x_positions]
@@ -144,7 +200,7 @@
         ax = fig.add_subplot(1, 1, 1)
 
         #We add in the x-data points and then the y-data points
-        ax.scatter(young_spending, old_spending, s=market_size, color='orange') # or s=5
+        ax.scatter(young_spending, old_spending, s=market_size, color='orange') # or s=5, facecolors='red', edgecolors='black'
 
         #Labels....
         ax.set_xlabel('18-24yo Spending (\$)', fontsize = font_size)
@@ -194,3 +250,6 @@
         cbar.set_label('Market Size (\$Millions)', fontsize = font_size)
     ![](python/visualization/scatter-color.png)
 
+* ### Pie chart
+        plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
+        plt.axis('equal') # fits outside plot by square
