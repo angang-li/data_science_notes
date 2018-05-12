@@ -29,6 +29,10 @@
     plt.plot([1, 2, 3, 4], [1, 4, 9, 16])
     ``` 
 
+    ```
+    fig, (ax1, ax2, ax3) = plt.subplots(3, sharex=True)
+    ```
+
 * ### Label axes
     ```
     font_size = 15
