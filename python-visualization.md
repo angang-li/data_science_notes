@@ -113,6 +113,13 @@
     ```
     ![](python/visualization/line.png)
 
+* ### Create a figure with pandas
+    [pandas dataframe plot documentation](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.plot.html)
+    ```
+    multi_plot = df.plot(kind="bar", figsize=(20,5))
+    multi_plot.set_xticklabels(df["State"], rotation=45)
+    ```
+
 # 2. Quick plots
 * ### Change the default plot style
         with plt.style.context('ggplot'):
