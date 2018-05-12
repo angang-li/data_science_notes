@@ -94,7 +94,13 @@ Pandas takes 2 data structures: DataFrame and Series
     
 * ### select rows by boolean mask <br>
     `s[s > 2]` <br>
-    
+
+<br>
+
+## 1.3. Series addition
+* ### add series s1 and s2
+    `s1.add(s2, fill_value=0)`, Fill missing (NaN) values with this value
+
 <br>
 
 # 2. Pandas DataFrame
@@ -275,6 +281,9 @@ Pandas takes 2 data structures: DataFrame and Series
 
 * Drop all rows with missing data <br>
     `df.dropna(how='any')`, 'any' or 'all'<br>
+
+* Fill NaN with 0 <br>
+    `df.fillna(0)`
 
 * Convert to numeric <br>
     `pd.to_numeric(df['col1'])` <br>
