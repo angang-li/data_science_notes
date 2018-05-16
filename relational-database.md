@@ -14,8 +14,28 @@
 * date, time, timestamp<br>
 <br>
 Always write 'single quotes' around text strings and date/time values
+<br>
+
+#### Database principles
+* atomicity: a transaction happens as a whole or not at all
 
 <br>
+
+<!-- TOC -->
+
+- [**Relational Databases**](#relational-databases)
+- [SQL elements](#sql-elements)
+    - [1. Select clauses](#1-select-clauses)
+    - [2. Insert statement](#2-insert-statement)
+    - [3. Update statement](#3-update-statement)
+    - [4. Create statement](#4-create-statement)
+    - [5. Delete statement](#5-delete-statement)
+- [Python DB-API](#python-db-api)
+    - [4. Write code with DB-API](#4-write-code-with-db-api)
+    - [5. PostgreSQL command line](#5-postgresql-command-line)
+
+<!-- /TOC -->
+
 
 # SQL elements
 ## 1. Select clauses
@@ -79,9 +99,98 @@ Always write 'single quotes' around text strings and date/time values
     |||
     |---|---|
     |`insert into animals` <br> `values ( 'Amy', 'opossum', ... );`||
+    <br>
 
-## 3. Create table
-* 
+## 3. Update statement
+* **3.1. update away the spam**
+    |||
+    |---|---|
+    |`update animals` <br>&nbsp;&nbsp;&nbsp;&nbsp; `set name = 'cheese'` <br>&nbsp;&nbsp;&nbsp;&nbsp; `where name like '%awful%';`||
+    <br>
+
+## 4. Create statement
+* **4.1. create a table**
     |||
     |---|---|
     |`create table animals (` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `name text,` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `species text,` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `birthdate date);`||
+    <br>
+
+## 5. Delete statement
+* **5.1. delete spam**
+    |||
+    |---|---|
+    |`delete from animals` <br>&nbsp;&nbsp;&nbsp;&nbsp; `where name = 'cheese';`||
+
+<br>
+
+# Python DB-API
+Python DB-API is a standard for python libraries that let the code to connect to the datebases. <br>
+
+## 4. Write code with DB-API
+* **4.1. basic structure** <br>
+    .connect(...) <br> &nbsp; &nbsp; &nbsp; ↓ <br>
+    **connection**.commit() <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .rollback() <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cursor() <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ↓ <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;**cursor**.execute(query) <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.fetchone() <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.fetchall()
+
+* **4.2. select with SQLite**
+    ```python
+    import sqlite3
+    conn = sqlite3.connect('Cookies')
+    cursor = conn.cursor()
+    cursor.execute(
+        'select host_key from cookies limit 10')
+    results = cursor.fetchall()
+    print(results)
+    conn.close()
+    ```
+
+* **4.3. select with PostgreSQL**
+    ```python
+    import psycopg2
+    psycopg2.connect("dbname=bears")
+    ```
+
+* **4.4. insert with SQLite**
+    ```python
+    import sqlite3
+    conn = sqlite3.connect('Cookies')
+    cursor = conn.cursor()
+    cursor.execute(
+        "insert into names values ('Jennifer Smith')")
+    conn.commit()
+    conn.close()
+    ```
+
+* **4.5. solve SQL injection attack** <br>
+    Use query parameters instead of string substitution to execute insert query
+    ```python
+    cursor.execute(
+        "insert into names values (%s)", (content, ))
+    ```
+
+* **4.6. solve script injection attack**
+    * `bleach.clean(...)` see [documentation](http://bleach.readthedocs.io/en/latest/)
+    * `update` command
+
+<br>
+
+## 5. PostgreSQL command line
+[PostgreSQL documentation](https://www.postgresql.org/docs/9.4/static/app-psql.html)
+* **5.1. connect to a database named `forum`** <br>
+    `psql forum`
+
+* **5.2. get info about the database** <br>
+    * display columns of a table named `posts` <br>
+        `\d posts`
+
+    * list all the tables in the database <br>
+        `\dt`
+
+    * list tables plus additional information <br>
+        `\dt+`
+
+    * switch between printing tables in plain text vs HTML
+        `\H`
+
+* **5.3. display the contents of a table named `posts` and refresh it every two seconds** <br>
+    `select * from posts \watch`
+
