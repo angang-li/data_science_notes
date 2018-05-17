@@ -27,16 +27,6 @@ params = {
 requests.get(url, params = params)
 ```
 
-- **Create exception**
-
-```python
-# Try to access key that doesn't exist
-try:
-    ...
-except KeyError:
-    ...
-```
-
 - **API wrappers**
 
 [`openweathermapy` documentation](http://openweathermapy.readthedocs.io/en/latest/)

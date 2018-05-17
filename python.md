@@ -26,6 +26,7 @@ Notes taken from [Northwestern University Data Science Bootcamp](https://bootcam
     - [5.1. Handling exceptions](#51-handling-exceptions)
     - [5.2. Checking the validity of code](#52-checking-the-validity-of-code)
     - [5.3. Debugging](#53-debugging)
+    - [5.4. Create exception](#54-create-exception)
 - [6. File I/O](#6-file-i-o)
     - [6.1. Reading files](#61-reading-files)
     - [6.2. Writing files](#62-writing-files)
@@ -199,6 +200,16 @@ Notes taken from [Northwestern University Data Science Bootcamp](https://bootcam
 
 ## 5.3. Debugging
         import pdb; pdb.set_trace() # code will run up to this line
+
+## 5.4. Create exception
+
+```python
+# Try to access key that doesn't exist
+try:
+    ...
+except KeyError:
+    ...
+```
 
 <br>
 
