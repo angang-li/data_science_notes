@@ -18,6 +18,7 @@ Train and test on different sets of data, otherwise overfitting. Save ~10% as te
     - [1.4. K-Nearest Neighbors](#14-k-nearest-neighbors)
     - [1.5. AdaBoost ("ensemble method")](#15-adaboost-ensemble-method)
     - [1.6. Random Forest ("ensemble method")](#16-random-forest-ensemble-method)
+    - [1.7. Linear Regression](#17-linear-regression)
 
 <!-- /TOC -->
 
@@ -39,7 +40,7 @@ Train with examples that have correct answers
     <br>
 
 * ### Scikit learn on Gaussian Naive Bayes
-    ```
+    ```python
     from sklearn.naive_bayes import GaussianNB
     clf = GaussianNB()
     clf.fit(features_train, labels_train)
@@ -48,11 +49,11 @@ Train with examples that have correct answers
 
 * ### Accuracy of prediction
     accuracy = number of points classified correctly / all points in test set
-    ```
+    ```python
     accuracy = clf.score(features_test, labels_test)
     ```
     Alternatively
-    ```
+    ```python
     from sklearn.metrics import accuracy_score
     accuracy = accuracy_score(pred, labels_test)
     ```
@@ -72,7 +73,7 @@ Train with examples that have correct answers
     * SVM uses kernel tricks to change from linear to non-linear decision surfaces.
 
 * ### Scikit learn on SVM support vector classifier
-    ```
+    ```python
     from sklearn.svm import SVC
     clf = SVC(kernel="linear")
     clf.fit(features_train, labels_train)
@@ -104,7 +105,7 @@ Train with examples that have correct answers
     * Decision trees ask multiple linear questions one after another.
 
 * ### Scikit learn on Decision Trees
-    ```
+    ```python
     from sklearn import tree
     clf = tree.DecisionTreeClassifier() # default criterion is gini instead of entropy
     clf = clf.fit(features_train, labels_train)
@@ -120,7 +121,7 @@ Train with examples that have correct answers
 
     * Decision trees make decisions by finding variables and split points along the variables that can make the subset as pure as possible
 
-    ```
+    ```python
     entropy = - Σi (pi) log2(pi) 
     pi: fraction of examples in class i
     ```
@@ -128,13 +129,13 @@ Train with examples that have correct answers
     * All examples are same class → entropy = 0
     * Examples are evenly split between classes → entropy = 1
 
-    ```
+    ```python
     import scipy.stats
     entropy = scipy.stats.entropy([2,1],base=2) # 2 fasts, 1 slow
     ```
 
 * ### Information gain
-    ```
+    ```python
     information gain = entropy(parent) - weighted average of entropy(children)
     ```
     * Decision tree algorithm maximizes information gain
@@ -157,7 +158,7 @@ Train with examples that have correct answers
         k, higher k implies smoother decision surfaces
 
 * ### Scikit learn on k-NN
-    ```
+    ```python
     from sklearn.neighbors import KNeighborsClassifier
     clf = KNeighborsClassifier(n_neighbors=3, weights='distance')
     clf.fit(features_train, labels_train)
@@ -186,7 +187,7 @@ Train with examples that have correct answers
         The maximum depth of the tree. If None, then nodes are expanded until all leaves are pure or until all leaves contain less than min_samples_split samples.
     
 * ### Scikit learn on RF
-    ```
+    ```python
     from sklearn.ensemble import RandomForestClassifier
     clf = RandomForestClassifier(min_samples_split=5)
     clf.fit(features_train, labels_train)
@@ -195,4 +196,37 @@ Train with examples that have correct answers
 * ### Strengths and weaknesses
     * Given enough trees in the forest, the classifier won’t overfit the model.
     * A large number of trees can make the algorithm to slow and ineffective for real-time predictions. Fast to train, but slow to make predictions.
+
+## 1.7. Linear Regression
+
+- ### Scikit learn on Linear Regression
+    ```python
+    from sklearn import linear_model
+    reg = linear_model.LinearRegression()
+    reg.fit (x_train, y_train)
+    y_pred = reg.predict(x_test)
+    reg.coef_ # slope
+    reg.intercept_ # intercept
+    reg.score(x_train, y_train) # r-squared score
+    ```
+
+- ### Performance metrics to evaluate linear regression
+  - Minimizing the sum of squared errors
+
+    minimize $\sum error^2$ where $error = actual - predicted$ <br>
+    algorithms:
+
+    - Ordinary Least Squares (OLS)
+    - Gradient Descent
+
+  - R squared
+
+    How much is the variation in output is explained by variations in input
+
+<br>
+
+| output type|discrete (class labels)|continuous (numbers)|
+|---|---|---|
+|objectives|decision boundary|best fit line|
+|evaluation|accuracy|sum of squared error <br> R squared|
 
