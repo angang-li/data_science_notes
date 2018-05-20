@@ -19,6 +19,10 @@ Train and test on different sets of data, otherwise overfitting. Save ~10% as te
     - [1.5. AdaBoost ("ensemble method")](#15-adaboost-ensemble-method)
     - [1.6. Random Forest ("ensemble method")](#16-random-forest-ensemble-method)
     - [1.7. Linear Regression](#17-linear-regression)
+    - [1.8. Outliers](#18-outliers)
+- [2. Unsupervised learning](#2-unsupervised-learning)
+    - [2.1. K-Means Clustering](#21-k-means-clustering)
+    - [Dimensionality reduction](#dimensionality-reduction)
 
 <!-- /TOC -->
 
@@ -225,8 +229,51 @@ Train with examples that have correct answers
 
 <br>
 
+- ### Comparison of classification and regression
+
 | output type|discrete (class labels)|continuous (numbers)|
 |---|---|---|
 |objectives|decision boundary|best fit line|
 |evaluation|accuracy|sum of squared error <br> R squared|
 
+
+## 1.8. Outliers
+
+- ### Causes
+  - sensor malfunction -> ignore
+  - data entry errors  -> ignore
+  - freak event        -> pay attention to
+
+- ### Outlier detection and removal strategy
+  - train
+  - remove points with largest residual errors (~10% data)
+  - re-train
+
+
+# 2. Unsupervised learning
+## 2.1. K-Means Clustering
+
+- ### Theory
+  - **Assign** clusters based on cluster centers
+  - **Optimize** cluster centers to minimize within-cluster sum of squares (conceptually, minimize the energy of rubber band)
+  - Initial placement of centroids is often random but very important in final clusterings
+
+- ### Scikit learn on K-Means Clustering
+    [Documentation](http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)
+    ```python
+    from sklearn.cluster import KMeans
+    kmeans = KMeans(n_clusters=2, random_state=0).fit(X)
+    kmeans.predict(X)
+    ```
+
+- ### Parameters
+
+  - `n_clusters`, number of clusters to form as well as the number of centroids to generate
+  - `max_iter`, maximum number of iterations of the k-means algorithm for a single run
+  - `n_init`, number of time the k-means algorithm will be run with different centroid seeds
+
+- ### Challenges of K-Means
+    - Run the algorithm multiple times to account for bad local minimum
+
+
+## Dimensionality reduction
