@@ -33,6 +33,7 @@ Notes taken from [Udacity](https://www.udacity.com/course/how-to-use-git-and-git
     - [Delete previous branch](#delete-previous-branch)
     - [Merge branch2 and branch3 into master branch](#merge-branch2-and-branch3-into-master-branch)
     - [Show the difference added by 1 particular commit without knowing its parent](#show-the-difference-added-by-1-particular-commit-without-knowing-its-parent)
+    - [Add .gitignore file to stop tracking specific files](#add-gitignore-file-to-stop-tracking-specific-files)
 - [Using GitHub to collaborate](#using-github-to-collaborate)
     - [Create a git repository online](#create-a-git-repository-online)
     - [Push](#push)
@@ -189,6 +190,16 @@ git merge branch2 branch3
 ```
 git show commit_id
 ```
+
+## Add .gitignore file to stop tracking specific files
+[A collection of templates](https://github.com/angang-li/gitignore) <br>
+Commonly used for python files:
+```
+config.py
+__pycache__
+.ipynb_checkpoints
+```
+
 <br>
 
 # Using GitHub to collaborate
