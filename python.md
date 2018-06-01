@@ -34,6 +34,7 @@ Notes taken from [Northwestern University Data Science Bootcamp](https://bootcam
         - [7.1. Documentation](#71-documentation)
         - [7.2. Greatest hits](#72-greatest-hits)
     - [8. Functions](#8-functions)
+    - [9. Everything about formatting](#9-everything-about-formatting)
 
 <!-- /TOC -->
 
@@ -401,6 +402,17 @@ import pdb; pdb.set_trace() # code will run up to this line
     | `today = datetime.date.today()` <br> `print(today)` <br> `print(today.day)` <br> `print(today.month)` <br> `print(today.year)` | `birthday = datetime.date(1984, 2, 25)` <br> `print(birthday)` <br> `print(birthday.day)` <br> `print(birthday.month)` <br> `print(birthday.year)` |
     |     |     |
 
+    ```python
+    raw_time = "Mon May 21 20:50:07 +0000 2018"
+    datetime.strptime(raw_time, "%a %b %d %H:%M:%S %z %Y")
+    ```
+    ```python
+    diff_seconds = (converted_timestamps0 - converted_timestamps1).seconds
+    ```
+
+    [strftime-and-strptime-behavior](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior) <br>
+    [strftime](http://strftime.org/)
+
 - #### copy
     `copy.copy(x)`, shallow copy of x <br>
     `copy.deepcopy(x)`, deep copy of x <br>
@@ -441,3 +453,6 @@ print(function_name.__doc__) # print the docstring
 <br>
 
 
+## 9. Everything about formatting
+
+[documentation](https://pyformat.info/)
