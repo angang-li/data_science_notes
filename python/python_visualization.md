@@ -115,7 +115,7 @@
     ```
     plt.savefig('quadratic_logscale_half_frame.png', bbox_inches="tight", dpi = 300)
     ```
-    ![](python/visualization/line.png)
+    ![](visualization/line.png)
 
 * ### Create a figure with pandas
     [pandas dataframe plot documentation](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.plot.html)
@@ -142,7 +142,7 @@
 
             # Display legend
             ax.legend(loc='best', frameon=False, fontsize = font_size-1)
-    ![](python/visualization/line-gg.png)
+    ![](visualization/line-gg.png)
 
 # 3. Different plot types
 * ### Documentation
@@ -158,7 +158,7 @@
         ax.set_xlabel('GPA', fontsize = font_size)
         ax.set_ylabel('Count', fontsize = font_size)
         plt.tick_params(labelsize=12)
-    ![](python/visualization/hist.png)
+    ![](visualization/hist.png)
 
 * ### Histogram as pdf
         fig = plt.figure( figsize = (6, 4.5))
@@ -168,7 +168,7 @@
         ax.set_xlabel('GPA', fontsize = font_size)
         ax.set_ylabel('pdf', fontsize = font_size)
         plt.tick_params(labelsize=12)
-    ![](python/visualization/hist-pdf.png)
+    ![](visualization/hist-pdf.png)
 
 * ### Bar charts
         locations = ['bar', 'grocery store', 'rent', 'clothing', 'solo cups']
@@ -200,7 +200,7 @@
         ax.set_xticklabels( [label.capitalize() for label in locations], rotation=90, fontsize = font_size)
         ax.set_ylabel('pdf', fontsize = font_size)
         plt.tick_params(labelsize=font_size)
-    ![](python/visualization/bar.png)
+    ![](visualization/bar.png)
 
 * ### Scatter plot
     * Show market size with marker size <br>
@@ -217,17 +217,17 @@
         ax.set_xlabel('18-24yo Spending (\$)', fontsize = font_size)
         ax.set_ylabel('25-29yo Spending (\$)', fontsize = font_size)
         plt.tick_params(labelsize=font_size-2)
-    ![](python/visualization/scatter-size.png)
+    ![](visualization/scatter-size.png)
 
     * Show market size with marker color. Mainly three types of color maps: 
         * Sequential <br>
-        ![](python/visualization/colormaps_reference_00.png)
-        ![](python/visualization/colormaps_reference_01.png)
-        ![](python/visualization/colormaps_reference_02.png)
+        ![](visualization/colormaps_reference_00.png)
+        ![](visualization/colormaps_reference_01.png)
+        ![](visualization/colormaps_reference_02.png)
         * Diverging <br>
-        ![](python/visualization/colormaps_reference_03.png)
+        ![](visualization/colormaps_reference_03.png)
         * Qualitative <br>
-        ![](python/visualization/colormaps_reference_04.png)
+        ![](visualization/colormaps_reference_04.png)
 * 
         #We get our colormap here
         cm = plt.cm.get_cmap('PuBu')
@@ -259,7 +259,7 @@
 
         #You need to add a label to the color bar too
         cbar.set_label('Market Size (\$Millions)', fontsize = font_size)
-    ![](python/visualization/scatter-color.png)
+    ![](visualization/scatter-color.png)
 
 * ### Pie chart
         plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
