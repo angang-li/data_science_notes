@@ -20,6 +20,7 @@ Train and test on different sets of data, otherwise overfitting. Save ~10% as te
     - [1.6. Random Forest ("ensemble method")](#16-random-forest-ensemble-method)
     - [1.7. Linear Regression](#17-linear-regression)
     - [1.8. Outliers](#18-outliers)
+    - [1.9. Feature scaling](#19-feature-scaling)
 - [2. Unsupervised learning](#2-unsupervised-learning)
     - [2.1. K-Means Clustering](#21-k-means-clustering)
     - [Dimensionality reduction](#dimensionality-reduction)
@@ -249,6 +250,22 @@ Train with examples that have correct answers
   - remove points with largest residual errors (~10% data)
   - re-train
 
+
+## 1.9. Feature scaling
+
+- ### Equation
+
+  $\frac{x - x_{min}}{x_{max} - x_{min}}$ <br>
+  Feature scaling affects algorithms that have trade-off between 2 dimensions
+
+- ### Scikit learn
+
+  ```python
+  from sklearn import preprocessing
+  import numpy as np
+  min_max_scaler = preprocessing.MinMaxScaler()
+  X_train_minmax = min_max_scaler.fit_transform(X_train)
+  ```
 
 # 2. Unsupervised learning
 ## 2.1. K-Means Clustering
