@@ -139,18 +139,21 @@ Always write 'single quotes' around text strings and date/time values
     [PostgreSQL create table documentation](https://www.postgresql.org/docs/9.4/static/sql-createtable.html)
 
     Basic structure
+
     |||
     |---|---|
     |`create table animals (` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `name text [constraints],` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `species text [constraints],` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `birthdate date [constraints],` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `[row constraints]);`||
     <br>
 
     Assign primary key
+
     |||
     |---|---|
     |`create table animals (` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `id serial primary key,` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `name text,` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `birthdate date);`||
     <br>
 
     Assign multiple columns as primary key
+
     |||
     |---|---|
     |`create table animals (` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `postal_code text,` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `country text,` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `name text,` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `primary key (postal_code, country));`||
@@ -158,6 +161,7 @@ Always write 'single quotes' around text strings and date/time values
 
     Declare relationships <br>
     Reference provides referential integrity - columns that are supposed to refer to each other are guaranteed to do so.
+    
     |||
     |---|---|
     |`create table sale (` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `sku text reference products (sku),` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `sale_date date,` <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `count integer);`||
