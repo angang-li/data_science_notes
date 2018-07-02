@@ -27,14 +27,18 @@ Notes taken from [Northwestern University Data Science Bootcamp](https://bootcam
         - [5.1. Handling exceptions](#51-handling-exceptions)
         - [5.2. Checking the validity of code](#52-checking-the-validity-of-code)
         - [5.3. Debugging](#53-debugging)
-    - [6. File I/O](#6-file-i-o)
+    - [6. File I/O](#6-file-io)
         - [6.1. Reading files](#61-reading-files)
         - [6.2. Writing files](#62-writing-files)
     - [7. Standard library](#7-standard-library)
         - [7.1. Documentation](#71-documentation)
         - [7.2. Greatest hits](#72-greatest-hits)
     - [8. Functions](#8-functions)
-    - [9. Everything about formatting](#9-everything-about-formatting)
+        - [8.1. Define a function](#81-define-a-function)
+        - [8.2. Call the function](#82-call-the-function)
+    - [9. Python classes, objects, and methods](#9-python-classes-objects-and-methods)
+        - [9.1. Class](#91-class)
+        - [9.2. Class with methods](#92-class-with-methods)
 
 <!-- /TOC -->
 
@@ -55,6 +59,8 @@ Notes taken from [Northwestern University Data Science Bootcamp](https://bootcam
 - tuple
 - set
 - dictionary
+
+Everything about formatting: [documentation](https://pyformat.info/)
 
 | | creation | ordered | mixed data types | elements accessed by | mutable | repeatable |
 | :---| :--: | :-----: | :--------------: | :------------------: | :-----: | :--------: |
@@ -433,6 +439,8 @@ import pdb; pdb.set_trace() # code will run up to this line
 
 ## 8. Functions
 
+### 8.1. Define a function
+
 ```python
 def function_name(input_var1, input_var2 = "Anna"): 
                 # var2 has a default and is optional
@@ -445,7 +453,11 @@ def function_name(input_var1, input_var2 = "Anna"):
     """
     statements
     return output_var1, output_var2 # a tuple of both variables are returned
+```
 
+### 8.2. Call the function
+
+```python
 output_var1, output_var2 = function_name(input_var1, input_var2) # unpacking
 print(function_name.__doc__) # print the docstring
 ```
@@ -453,6 +465,86 @@ print(function_name.__doc__) # print the docstring
 <br>
 
 
-## 9. Everything about formatting
+## 9. Python classes, objects, and methods
 
-[documentation](https://pyformat.info/)
+### 9.1. Class
+
+- #### Define a class
+
+    ```python
+    class Dog(): # always capitalize class names
+
+        # Utilize the Python constructor to initialize the object
+        def __init__(self, name, color):
+            self.name = name
+            self.color = color
+    ```
+
+- #### Create an instance of a class
+
+    ```python
+    dog = Dog('Fido', 'brown')
+    ```
+
+- #### Print the object's attributes
+
+    ```python
+    print(dog.name)
+    print(dog.color)
+    ```
+
+### 9.2. Class with methods
+
+- #### Define a class
+
+    ```python
+    # Define the Film class
+    class Film():
+
+        # A required function to initialize a film object
+        def __init__(self, name, length, release_year, language):
+            self.name = name
+            self.length = length
+            self.release_year = release_year
+            self.language = language
+    ```
+
+- #### Create an object
+
+    ```python
+    # An object belonging to the Film class
+    star_wars = Film("Star Wars", 121, 1977, "English")
+    ```
+
+- #### Define another class with method
+
+    ```python
+    # Define the Expert class
+    class Expert():
+        
+        expert_count = 0
+
+        # A required function to initialize the class object
+        def __init__(self, name):
+            self.name = name
+            Expert.expert_count += 1
+
+        # A method that takes another object as its argument
+        def boast(self, obj):
+
+            # Print out Expert object's name
+            print("Hi. My name is", self.name)
+            
+            # Print out the name of the Film class object
+            print("I know a lot about", obj.name)
+            print("It is", obj.length, "minutes long")
+            print("It was released in", obj.release_year)
+            print("It is in", obj.language)
+    ```
+
+- #### Call the method
+
+    ```python
+    expert = Expert("Elbert")
+    expert.boast(star_wars)
+    ```
