@@ -5,8 +5,10 @@ Front end web technologies:
 - HTML: Content and basic structure
 - CSS: Styling / appearance
 - Javascript: Interactivity, programming logic, responsible for web page's behavior
+- Altogether, [D3 gallery](https://github.com/d3/d3/wiki/Gallery)
 
-Altogether, [D3 gallery](https://github.com/d3/d3/wiki/Gallery)
+A sample [HTML file](html_css/index.html) <br>
+A sample [CSS file](html_css/style.css)
 
 <!-- TOC -->
 
