@@ -1,0 +1,203 @@
+<!DOCTYPE html> <!-- the type of HTML, usually html, which triggers Standards mode with all updated features -->
+<html lang="en-us"> <!-- language -->
+
+    <!--meta information goes here-->
+    <!--describes meta information about the site and provides links to scripts and stylesheets the site needs to render and behave correctly.-->
+    <head>
+        
+        <meta charset="UTF-8"> <!-- encoding -->
+        <title>My first webpage</title> <!-- page title that shows in browser tab -->
+        
+        <!-- <style>
+            h1 {
+                font-size: 60px;
+                color: yellow;
+                background-color: blue;
+                text-align: center;
+            }
+        </style> -->
+        
+        <!-- associated CSS files for styling -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+
+        <!-- associated JavaScript files to change rendering and behavior -->
+        <script src="animations.js"></script> 
+        
+        <!-- keywords, authors, and descriptions (often useful for SEO, search engine optimization) -->
+        <meta name="description" content="This is what my website is all about!">
+
+    </head>
+
+    <!--content goes here-->
+    <!--describes the actual content of the site that users will see.-->
+    <body>
+        <div class="container"> <!--div is used for grouping elements-->
+            <nav class="navbar">
+                <ul>
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Portfolio</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+
+                <select id="nav-select">
+                    <option value="home">Home</option>
+                    <option value="about">About</option>
+                    <option value="portfolio">Portfolio</option>
+                    <option value="contact">Contact</option>
+                </select>
+                <div class="clearfix"></div>
+            </nav>
+
+            <header class="header">
+                <!--headers-->
+                <h1 class="firstElement class1">Heading 1</h1>
+                <h2 id="uniqueID">Heading 2</h2>
+                <h3>Heading 3</h3>
+                <h4>Heading 4</h4>
+                <h5>Heading 5</h5>
+                <h6>Heading 6</h6>
+            </header>
+        
+            <main>
+                <!--link-->
+                <a href="http://google.com">My link to Google</a>
+                <a href="http://google.com" target="_blank"><strong>Open a new tab</strong></a>
+
+                <!--horizontal ruler-->
+                <hr>
+
+                <!--paragraph-->
+                <p>This is some <strong>text</strong> describing our <em>wonderful</em> journey.</p>
+                <p>It's been fun.</p>
+
+                <!--line break-->
+                <br>
+                
+                <!--image-->
+                <img src="001.jpeg" alt="dog" title="title of the image" />
+                <!--The alt attribute stands for "alternative description," which is important for people who use screen readers to browse the web. This is text that will show up in lieu of the actual image.-->
+
+                <!--image with link and caption-->
+                <image>
+                    <a href="001.jpeg" target="_blank">
+                        <img src="001.jpeg" alt="dog">
+                    </a>
+                    <figcaption><em>Dog</em></figcaption>
+                </image>
+
+                <!--unordered list-->
+                <h3>Ordered list</h3>
+                <ol> 
+                    <li class="firstLi">Step 1</li>
+                    <li>Step 2</li>
+                    <li>Step 3</li>
+                </ol>
+
+                <!--ordered list-->
+                <h3>Unordered list</h3>
+                <ul> 
+                    <li>Band 1</li>
+                    <li>Band 2</li>
+                    <li>Band 3</li>
+                </ul>
+
+                <hr>
+
+                <!--table-->
+                <!-- An HTML table is defined as a series of rows (<tr>) -->
+                <!-- The individual cell (<td>) contents are nested inside rows -->
+                <!-- The <tr> tag is optional and is the parent of column headers (<th>) -->
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th colspan="4">Regional sales Q1</th>
+                        </tr>
+                        <tr>
+                            <th>Day of the week</th> <!--table header-->
+                            <th>Soup served</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Monday</td> <!--table data-->
+                            <td>Chicken noodle soup</td>
+                        </tr>
+                        <tr>
+                            <td>Tuesday</td>
+                            <td>Borscht</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">And that's it</td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <hr>
+
+                <!--text box-->
+                <textarea name="textarea"
+                    rows="5" cols="30"
+                    placeholder="Enter your comment here.">
+                </textarea>
+
+                <!--embed video-->
+                <h3>A youtube video on why rivers curve</h3>
+                <iframe width="854" height="480" src="https://www.youtube.com/embed/8a3r-cG8Wic" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+                <!--positioning-->
+                <div class="box-set">
+                    <figure class="box box-1">Box 1</figure>
+                    <figure class="box box-2">Box 2</figure>
+                    <figure class="box box-3">Box 3</figure>
+                    <figure class="box box-4">Box 4</figure>
+                </div>
+
+                <!--bootstrap-->
+                <div class="container-bootstrap">
+                    <div class="row">
+                        <div class="col-md-6" style="border: 2px solid blueviolet;">
+                            <p>I'm a size 6 column. I take up half a 12 column row</p>
+                        </div>
+                        <div class="col-md-6" style="border: 2px solid blueviolet;">
+                            <p>I'm a size 6 column. I take up half a 12 column row</p>
+                        </div>
+                    </div>
+
+                    <!--These are full wide on a medium screen, half wide on a small screen, 1/4 wide on an extra small screen-->
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-6 col-md-12" style="border: 2px solid blueviolet;">
+                            <div class="box red">col-xs-3 col-sm-6 col-md-12</div>
+                        </div>
+                        <div class="col-xs-3 col-sm-6 col-md-12" style="border: 2px solid blueviolet;">
+                            <div class="box red">col-xs-3 col-sm-6 col-md-12</div>
+                        </div>
+                        <div class="col-xs-3 col-sm-6 col-md-12" style="border: 2px solid blueviolet;">
+                            <div class="box red">col-xs-3 col-sm-6 col-md-12</div>
+                        </div>
+                        <div class="col-xs-3 col-sm-6 col-md-12" style="border: 2px solid blueviolet;">
+                            <div class="box red">col-xs-3 col-sm-6 col-md-12</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- JavaScript for bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+    </body>
+</html>

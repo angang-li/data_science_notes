@@ -1,33 +1,35 @@
-# **Relational Databases**
+# **Relational Database**
+
+Virtually all relational database systems use SQL (Structured Query Language) for querying and maintaining the database.
 
 <!-- TOC -->
 
-- [**Relational Databases**](#relational-databases)
-    - [1. Intro to SQL](#1-intro-to-sql)
-        - [1.1. Advantages of relational databases](#11-advantages-of-relational-databases)
-        - [1.2. Data types](#12-data-types)
-        - [1.3. Database principles](#13-database-principles)
-        - [1.4. Normalized vs denormalized table](#14-normalized-vs-denormalized-table)
-        - [1.5. Tips](#15-tips)
-    - [2. Create a database, table, and view](#2-create-a-database-table-and-view)
-        - [2.1. Create a database](#21-create-a-database)
-        - [2.2. Create a table](#22-create-a-table)
-        - [2.3. View](#23-view)
-    - [3. Alter, insert, update, and delete table contents](#3-alter-insert-update-and-delete-table-contents)
-        - [3.1. Alter table columns](#31-alter-table-columns)
-        - [3.2. Insert entries](#32-insert-entries)
-        - [3.3. Update entries](#33-update-entries)
-        - [3.4. Delete entries](#34-delete-entries)
-    - [4. Select clauses](#4-select-clauses)
-        - [4.1. Simple select](#41-simple-select)
-        - [4.2. Join](#42-join)
-        - [4.3. Subquery](#43-subquery)
-    - [5. Write code with DB-API and command line](#5-write-code-with-db-api-and-command-line)
-        - [5.1. Basic structure of DB-API](#51-basic-structure-of-db-api)
-        - [5.2. Select and insert with SQLite](#52-select-and-insert-with-sqlite)
-        - [5.3. Select with PostgreSQL](#53-select-with-postgresql)
-        - [5.4. SQL injection attack and script injection attack](#54-sql-injection-attack-and-script-injection-attack)
-        - [5.5. PostgreSQL command line](#55-postgresql-command-line)
+- [**Relational Database**](#relational-database)
+  - [1. Intro to SQL](#1-intro-to-sql)
+    - [1.1. Advantages of relational databases](#11-advantages-of-relational-databases)
+    - [1.2. Data types](#12-data-types)
+    - [1.3. Database properties](#13-database-properties)
+    - [1.4. Normalized vs denormalized table](#14-normalized-vs-denormalized-table)
+    - [1.5. Tips](#15-tips)
+  - [2. Create a database, table, and view](#2-create-a-database-table-and-view)
+    - [2.1. Create a database](#21-create-a-database)
+    - [2.2. Create a table](#22-create-a-table)
+    - [2.3. View](#23-view)
+  - [3. Alter, insert, update, and delete table contents](#3-alter-insert-update-and-delete-table-contents)
+    - [3.1. Alter table columns](#31-alter-table-columns)
+    - [3.2. Insert entries](#32-insert-entries)
+    - [3.3. Update entries](#33-update-entries)
+    - [3.4. Delete entries](#34-delete-entries)
+  - [4. Select clauses](#4-select-clauses)
+    - [4.1. Simple select](#41-simple-select)
+    - [4.2. Join](#42-join)
+    - [4.3. Subquery](#43-subquery)
+  - [5. Write code with DB-API and command line](#5-write-code-with-db-api-and-command-line)
+    - [5.1. Basic structure of DB-API](#51-basic-structure-of-db-api)
+    - [5.2. Select and insert with SQLite](#52-select-and-insert-with-sqlite)
+    - [5.3. Select with PostgreSQL](#53-select-with-postgresql)
+    - [5.4. SQL injection attack and script injection attack](#54-sql-injection-attack-and-script-injection-attack)
+    - [5.5. PostgreSQL command line](#55-postgresql-command-line)
 
 <!-- /TOC -->
 
@@ -54,10 +56,12 @@
 
 Always write 'single quotes' around text strings and date/time values
 
-### 1.3. Database principles
+### 1.3. Database properties
 
-* atomicity: a transaction happens as a whole or not at all
-
+* **Atomicity**: a transaction happens as a whole or not at all
+* **Consistency**: a transaction must be valid according to defined rules
+* **Isolation**: read and write to multiple tables at the same time
+* **Durability**: completed transactions are recorded even in the case of a system failure (e.g., power outage or crash)
 
 ### 1.4. Normalized vs denormalized table
 

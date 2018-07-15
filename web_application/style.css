@@ -1,0 +1,183 @@
+h1 {
+    /* Put a 15-pixel margin at the bottom of the heading. */
+    margin-bottom: 15px;
+    /* Change the size of your font to 60 pixels high. */
+    font-size: 60px;
+    /* This will color the heading font white. */
+    color: white;
+    /* Align the text to the center of its enclosing element (e.g. div). */
+    text-align: center;
+    /* Underline the text. */
+    text-decoration: underline;
+    /* The background of the heading element will now be black. */
+    background-color: black;
+}
+
+p {
+    color: black;
+    font-size: 20px;
+    font-style: italic;
+    /* Bold the text. */
+    font-weight: bold;
+}
+
+img {
+    border: solid;
+    padding: 10px, 10px, 10px, 10px;
+    border-width: 20px, 10px; 
+    margin-left: 40px;
+
+    /* 
+    Center a block element in the middle of its enclosing tag.
+    When you use the "auto" rule on both left and right margins, 
+    your browser will do the math necessary to center a block element.
+    */
+    margin-left: auto;
+    margin-right: auto;
+    /* Block display (more on this later) */
+    display: block;
+    
+    /*
+    display: block;
+    margin: auto;
+    */
+
+    /*
+    Box shadow
+    */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+ul {
+    margin: auto;
+    border-style: solid;
+    /* Render the border 5 pixels thick. */
+    border-width: 5px;
+    /* Include bullets in the content flow. */
+    /* More info here: http://www.w3schools.com/cssref/pr_list-style-position.asp */
+    list-style-position: inside;
+}
+.firstLi {
+    font-weight: bold;
+}
+
+#uniqueID {
+    font-weight: bold;
+}
+
+/* Relative positioning */
+.box {
+    position: relative;
+  }
+.box-1 {
+    top: 20px;
+    background: green;
+}
+.box-2 {
+    left: 40px;
+    background: red;
+}
+.box-3 {
+    right: 20px;
+    bottom: -10px;
+    background: blue;
+}
+.box-4 {
+    background: yellow;
+}
+
+/* Absolute Position */
+.box {
+    position: absolute;
+  }
+/* Box rules: percentages define anchors (i.e. position of each box relative to enclosing box) */
+.box-1 {
+    top: 6%;
+    left: 2%;
+}
+.box-2 {
+    top: 0;
+    right: -40px;
+}
+
+/* Fixed Position */
+.box {
+    position: fixed;
+}
+/* Box rules: percentages define anchors (i.e. position of each box relative to browser window) */
+.box-1 {
+    top: 6%;
+    left: 2%;
+}
+.box-2 {
+    top: 0;
+    right: -40px;
+}
+
+/* Making our navbar li's inline-block elements this makes it so we can have multiple on the same line. Floats could have been used too */
+.navbar li {
+    display: inline-block;
+    padding: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    background: #fff;
+    border-radius: 3px;
+}
+/* Getting rid of the default link styles here */
+.navbar li a {
+    color: #000;
+    text-decoration: none;
+}
+
+/* Relative positioning */
+.box-set {
+    padding: 20px;
+    background: gainsboro;
+}
+.box {
+    position: relative;
+    height: 50px;
+  }
+.box-1 {
+    top: 20px;
+    background: green;
+}
+.box-2 {
+    top: 40px;
+    left: 40px;
+    background: red;
+}
+.box-3 {
+    right: 20px;
+    bottom: -10px;
+    background: blue;
+}
+.box-4 {
+    background: yellow;
+}
+
+/* Media queries. Here we define some styles that will ONLY be applied at screen sizes below 480 pixels */
+@media (max-width: 480px) {
+    .box-1 {
+      background: purple;
+    }
+  
+    .box-2 {
+      display: none;
+    }
+  
+    .box-3 {
+      transform: rotate(360deg);
+      transition: transform 0.5s ease-in;
+    }
+  
+    .box-4 {
+      width: 0;
+      height: 0;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 100px solid red;
+      background: none;
+      margin-left: 300px;
+    }
+}
