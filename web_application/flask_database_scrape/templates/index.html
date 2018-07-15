@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Costa Rica Weather</h1>
+            <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Get Forecast!</a></p>
+
+        </div>
+
+            {% for forecast in forecasts%}
+                <div class="col-lg-4">
+                    <div class="card" style="width: 20rem;">
+                        <div class="card-body">
+                            <h4 class="card-title">Costa Rica</h4>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ forecast.time }} - {{ forecast.name }}: {{ forecast.min_temp }} | {{forecast.max_temp}}</h6>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+    </div>
+
+</body>
+
+</html>
