@@ -1,7 +1,17 @@
-# Notes on relational database
+# Notes on database
 
 ## Table of Contents
 
-- [Relational Database](relational_database.md)
+### 1. Relational database
+
+- [Relational Database with SQL](relational_database.md)
 - [SQLAlchemy](sql_alchemy.md)
-- [Flask](flask.md)
+
+### 2. NoSQL database
+
+- [NoSQL Database with MongoDB](nosql_database_mongodb.md)
+- [PyMongo](pymongo.md)
+
+### 3. Databases with Flask
+
+- [Flask](../web_application/flask.md)

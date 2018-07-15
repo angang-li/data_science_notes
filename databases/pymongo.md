@@ -37,7 +37,7 @@
 
     ```python
     # Query all students
-    results = collection.find()
+    results = db.classroom.find()
 
     # Iterate through each student in the collection
     for student in results:
