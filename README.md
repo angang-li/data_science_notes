@@ -4,8 +4,9 @@
 
 - [Git and Github](git_and_github.md)
 - [Python](python)
-- [Relational Database](relational_database)
+- [Databases](databases)
 - [Statistics](statistics_basic.md)
+- [Web visualization and applications](web_application)
 
 ## Acknowledgement
 
