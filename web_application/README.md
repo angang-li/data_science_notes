@@ -5,8 +5,9 @@
 ### 1. Webpage basics
 
 - [HTML and CSS](html_css.md)
-- [HTML template](html_css/index.html)
-- [CSS template](html_css/style.css)
+    - [HTML template](html_css/index.html)
+    - [CSS template](html_css/style.css)
+- [JavaScript](javascript.md)
 
 ### 2. Web scraping
 
