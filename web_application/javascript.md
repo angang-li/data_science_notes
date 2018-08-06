@@ -23,13 +23,7 @@ Provides interactivity, particularly:
     - [2.3. Arrow function](#23-arrow-function)
     - [2.4. Object iteration](#24-object-iteration)
     - [2.5. Filter function](#25-filter-function)
-  - [3. D3](#3-d3)
-    - [3.1. D3 in HTML](#31-d3-in-html)
-    - [3.2. D3 methods](#32-d3-methods)
-    - [3.3. D3 table](#33-d3-table)
-    - [3.4. Event listeners](#34-event-listeners)
-    - [3.5. This](#35-this)
-    - [3.6. Forms](#36-forms)
+    - [2.6. Other useful methods](#26-other-useful-methods)
 
 <!-- /TOC -->
 
@@ -70,6 +64,10 @@ Equivalently,
   // Boolean
   var satisfied = true;
   ```
+
+  - `var` declares a variable
+  - `let` does not declare a variable, 'ReferenceError'
+  - `const` enforces a constant, cannot reassign, but can pop or push
 
 - Convert string to integer
 
@@ -144,6 +142,35 @@ Equivalently,
 
   ```js
   numbers.slice(2,4);
+  ```
+
+- Sorting
+
+  ```js
+  // Sorts descending
+  [3, 2, -120].sort(function compareFunction(firstNum, secondNum) {
+    // resulting order is (3, 2, -120)
+    return secondNum - firstNum;
+  });
+
+
+  // Sorts ascending
+  [3, 2, -120].sort(function compareFunction(firstNum, secondNum) {
+    // resulting order is (-120, 2, 3)
+    return firstNum - secondNum;
+  });
+
+  // Arrow Function
+  [3, 2, -120].sort((first, second) => first - second);
+  ```
+
+  Sort an array of objects
+
+  ```js
+  // Sort the data array using the greekSearchResults value
+  data.sort(function(a, b) {
+    return parseFloat(b.greekSearchResults) - parseFloat(a.greekSearchResults);
+  });
   ```
 
 - Split
@@ -432,275 +459,59 @@ An Arrow function (fat arrow `=>`) uses less syntax than the full `map` or `forE
   var youngSimpsons = simpsons.filter(person => person.age < 30);
   ```
 
-## 3. D3
+### 2.6. Other useful methods
 
-> D3.js is a JavaScript library for producing dynamic, interactive data visualizations in web browsers.
-
-### 3.1. D3 in HTML
-
-```html
-<head>
-  ...
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js"></script>
-</head>
-...
-<script src="static/js/index.js"></script>
-```
-
-### 3.2. D3 methods
-
-#### Select element
-
-- Select one
+- #### Define a moving average function
 
   ```js
-  d3.select(".text1") // class selector
-  d3.select("#text1") // id selector
+  // Calculate a rolling average for an array
+  function rollingAverage(arr, windowPeriod = 10) {
+    // rolling averages array to return
+    var averages = [];
+
+    // Loop through all of the data
+    for (var i = 0; i < arr.length - windowPeriod; i++) {
+      // calculate the average for a window of data
+      var sum = 0;
+      for (var j = 0; j < windowPeriod; j++) {
+        sum += arr[i + j];
+      }
+      // calculate the average and push it to the averages array
+      averages.push(sum / windowPeriod);
+    }
+    return averages;
+  }
   ```
 
-- Select all
+- #### Dynamically find today's date
 
   ```js
-  d3.selectAll("li") // tag selector
+  // Dynamically add the current date to the report header
+  var monthNames = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  var today = new Date();
+  var date = `${monthNames[today.getMonth()]} ${today.getFullYear().toString().substr(2, 2)}`;
   ```
 
-- Select an element's child element using `>`
+- #### Define a rolling correlation function
 
   ```js
-  var myLinkAnchor = d3.select(".my-link>a"); // <a href="...">...</a>
-  ```
-
-#### Element's text
-
-- Select text
-
-  ```js
-  var text1 = d3.select(".text1").text();
-  ```
-
-- Modify text
-
-  ```js
-  d3.select("#text1").text("Hey, I changed this!");
-  ```
-
-#### Element's HTML link
-
-- Capture the HTML of a selection
-
-  ```js
-  var myLink = d3.select(".my-link").html(); // myLink: "http://...."
-  ```
-
-#### Element's attribute
-
-- Select an attribute
-
-  ```js
-  var myLinkAnchorAttribute = myLinkAnchor.attr("href"); // "http://...."
-  ```
-
-- Modify an attribute
-
-  ```js
-  myLinkAnchor.attr("href", "https://python.org");
-  ```
-
-#### Chaining
-
-- Use chaining to join methods
-
-  ```js
-  d3.select(".my-link>a").attr("href", "https://nytimes.org").text("Now this is a link to the NYT!!");
-  ```
-
-#### Element's style
-
-- Modify style
-
-  ```js
-  d3.selectAll("li").style("color", "blue");
-  ```
-
-#### Add element
-
-- Append a new list element
-
-  ```js
-  var li1 = d3.select("ul").append("li");
-  li1.text("A new item has been added!");
-  ```
-
-- Define a new image element
-
-  ```js
-  d3.select(".giphy-me").html("<img src='https://gph.to/2Krfn0w' alt='giphy'>");
-  ```
-
-#### Delete element
-
-- Delete all child elements
-
-  ```js
-  d3.select("ul").html("");
-  ```
-
-### 3.3. D3 table
-
-- Add table entries dynamically
-
-  ```js
-  // Get a reference to the table body
-  var tbody = d3.select("tbody");
-
-  // for each object in an array
-  data.forEach((weatherReport) => {
-
-      // add a new row
-      var row = tbody.append("tr");
-
-      // for each key value pair in an object
-      Object.entries(weatherReport).forEach(([key, value]) => {
-
-          // add a new cell
-          var cell = row.append("td");
-          cell.text(value);
-
-      });
-  });
-  ```
-
-### 3.4. Event listeners
-
-- Trigger changes when an event happens
-
-  - `button.on("click", function_name)` triggers changes when button is clicked
-  - `inputField.on("change", function_name)` triggers changes when new text is entered
-
-  HTML:
-
-  ```html
-  ...
-  <body>
-    <div>
-      <button id="click-me">Click Me!</button>
-      <input id="input-field" type="text">
-    </div>
-    <div class="giphy-me"></div>
-  </body>
-  ...
-  ```
-
-  JS:
-  
-  ```js
-  var button = d3.select("#click-me");
-  var inputField = d3.select("#input-field");
-
-  // Event handlers are just normal functions that can do anything you want
-  button.on("click", function() {
-      d3.select(".giphy-me").html("<img src='https://gph.to/2Krfn0w' alt='giphy'>");
-      console.log("Hi, a button was clicked!");
-      console.log(d3.event.target);
-  });
-
-  // Input fields can trigger a change event when new text is entered.
-  inputField.on("change", function() {
-      var newText = d3.event.target.value;
-      console.log(newText);
-  });
-  ```
-
-### 3.5. This
-
-- A special pointer in JS.
-
-  HTML:
-
-  ```html
-  <body>
-    <button id="button">Click Me</button>
-    <button id="button">Click Me 2</button>
-    <ul>
-      <li>Item 1</li>
-      <li>Item 2</li>
-      <li>Item 3</li>
-    </ul>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="app.js"></script>
-  </body>
-  ```
-
-  JS:
-
-  ```js
-  d3.selectAll("button").on("click", function() {
-      // `this` will console log the `button` element
-      console.log(this); // d3.event.target, target of the event
-  });
-
-  d3.selectAll("li").on("click", function() {
-      // you can select the element just like any other selection
-      var listItem = d3.select(this);
-      listItem.style("color", "blue");
-
-      var listItemText = listItem.text();
-      console.log(listItemText);
-  });
-  ```
-
-### 3.6. Forms
-
-- Trigger changes when button is clicked after form entry
-
-  HTML:
-
-  ```html
-  <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <form>
-            <div class="form-group">
-              <label for="example-form">Enter some text</label>
-              <input class="form-control" id="example-form-input" name="example-form" type="text">
-            </div>
-            <button id="submit" type="submit" class="btn btn-default">Submit</button>
-          </form>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <h1>Form Data:
-            <span></span>
-          </h1>
-        </div>
-      </div>
-    </div>
-  </body>
-  <script src="index.js"></script>
-  ```
-
-  JS:
-
-  ```js
-  // Select the submit button
-  var submit = d3.select("#submit");
-
-  submit.on("click", function() {
-
-      // Prevent the page from refreshing
-      d3.event.preventDefault();
-
-      // Select the input element and get the raw HTML node
-      var inputElement = d3.select("#example-form-input");
-
-      // Get the value property of the input element
-      var inputValue = inputElement.property("value");
-
-      console.log(inputValue);
-
-      // Set the span tag in the h1 element to the text that was entered in the form
-      d3.select("h1>span").text(inputValue);
-  });
+  // Calculate a rolling correlation for two arrays
+  function rollingCorrelation(arr1, arr2, windowPeriod = 10) {
+    // correlation array to return
+    var corrs = [];
+    for (var i = 0; i < arr1.length - windowPeriod; i++) {
+      // windows of data to perform correlation on
+      var win1 = [];
+      var win2 = [];
+      for (var j = 0; j < windowPeriod; j++) {
+        win1.push(arr1[i + j]);
+        win2.push(arr2[i + j]);
+      }
+      // calculate correlation between two arrays
+      corrs.push(ss.sampleCorrelation(win1, win2));
+    }
+    return corrs;
+  }
   ```

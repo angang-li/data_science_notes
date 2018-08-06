@@ -8,6 +8,7 @@
     - [HTML template](html_css/index.html)
     - [CSS template](html_css/style.css)
 - [JavaScript](javascript.md)
+    - [Plotly.js](javascript_plotly.md)
 
 ### 2. Web scraping
 
@@ -16,3 +17,7 @@
 ### 3. Flask web framework
 
 - [Flask](flask.md) to create API and render web templates
+
+### 4. Deploy an app on Heroku
+
+- [Heroku deployment](heroku_deployment/README.md)
