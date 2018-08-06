@@ -9,6 +9,7 @@
     - [CSS template](html_css/style.css)
 - [JavaScript](javascript.md)
     - [Plotly.js](javascript_plotly.md)
+    - [D3.js](javascript_d3.md)
 
 ### 2. Web scraping
 
