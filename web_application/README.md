@@ -10,6 +10,7 @@
 - [JavaScript](javascript.md)
     - [Plotly.js](javascript_plotly.md)
     - [D3.js](javascript_d3.md)
+    - [Leaflet](leaflet.md)
 
 ### 2. Web scraping
 
