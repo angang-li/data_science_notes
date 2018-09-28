@@ -5,6 +5,7 @@
 - [Git and Github](git_and_github.md)
 - [Python](python)
 - [Databases](databases)
+- [Machine Learning](machine_learning)
 - [Statistics](statistics_basic.md)
 - [Web visualization and applications](web_application)
 
