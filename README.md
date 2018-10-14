@@ -4,6 +4,7 @@
 
 - [Git and Github](git_and_github.md)
 - [Python](python)
+- [R](r)
 - [Databases](databases)
 - [Machine Learning](machine_learning)
 - [Statistics](statistics_basic.md)
@@ -11,4 +12,4 @@
 
 ## Acknowledgement
 
-Notes were taken from Northwestern University Data Science Bootcamp, Udacity, Coursera
+Notes were taken from Northwestern University Data Science Bootcamp, Udacity, Coursera, and workshops at Northwestern University.
