@@ -9,6 +9,7 @@
 - [Machine Learning](machine_learning)
 - [Statistics](statistics_basic.md)
 - [Web visualization and applications](web_application)
+- [Big Data](big_data)
 
 ## Acknowledgement
 
