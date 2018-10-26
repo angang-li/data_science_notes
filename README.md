@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+- [About Data Science](zen_of_data.md)
 - [Git and Github](git_and_github.md)
 - [Python](python)
 - [R](r)
