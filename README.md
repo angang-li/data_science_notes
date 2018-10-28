@@ -8,7 +8,7 @@
 - [R](r)
 - [Databases](databases)
 - [Machine Learning](machine_learning)
-- [Statistics](statistics_basic.md)
+- [Statistics](statistics)
 - [Web visualization and applications](web_application)
 - [Big Data](big_data)
 
