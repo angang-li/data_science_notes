@@ -5,48 +5,49 @@ Virtually all relational database systems use SQL (Structured Query Language) fo
 <!-- TOC -->
 
 - [**Relational Database**](#relational-database)
-  - [1. Intro to SQL](#1-intro-to-sql)
-    - [1.1. Advantages of relational databases](#11-advantages-of-relational-databases)
-    - [1.2. Data types](#12-data-types)
-    - [1.3. Database properties](#13-database-properties)
-    - [1.4. Normalized vs denormalized table](#14-normalized-vs-denormalized-table)
-    - [1.5. Tips](#15-tips)
-  - [2. Create a database, table, and view](#2-create-a-database-table-and-view)
-    - [2.1. Create a database](#21-create-a-database)
-    - [2.2. Create a table](#22-create-a-table)
-    - [2.3. View](#23-view)
-  - [3. Alter, insert, update, and delete table contents](#3-alter-insert-update-and-delete-table-contents)
-    - [3.1. Alter table columns](#31-alter-table-columns)
-    - [3.2. Insert entries](#32-insert-entries)
-    - [3.3. Update entries](#33-update-entries)
-    - [3.4. Delete entries](#34-delete-entries)
-  - [4. Select clauses](#4-select-clauses)
-    - [4.1. Simple select](#41-simple-select)
-    - [4.2. Join](#42-join)
-    - [4.3. Subquery](#43-subquery)
-  - [5. Write code with DB-API and command line](#5-write-code-with-db-api-and-command-line)
-    - [5.1. Basic structure of DB-API](#51-basic-structure-of-db-api)
-    - [5.2. Select and insert with SQLite](#52-select-and-insert-with-sqlite)
-    - [5.3. Select with PostgreSQL](#53-select-with-postgresql)
-    - [5.4. SQL injection attack and script injection attack](#54-sql-injection-attack-and-script-injection-attack)
-    - [5.5. PostgreSQL command line](#55-postgresql-command-line)
+    - [1. Intro to databases](#1-intro-to-databases)
+        - [1.1. Advantages of relational databases](#11-advantages-of-relational-databases)
+        - [1.2. Data types](#12-data-types)
+        - [1.3. Database properties](#13-database-properties)
+        - [1.4. Normalized vs denormalized table](#14-normalized-vs-denormalized-table)
+        - [1.5. Tips](#15-tips)
+    - [2. Create a database, table, and view](#2-create-a-database-table-and-view)
+        - [2.1. Create a database](#21-create-a-database)
+        - [2.2. Create a table](#22-create-a-table)
+        - [2.3. View](#23-view)
+    - [3. Alter, insert, update, and delete table contents](#3-alter-insert-update-and-delete-table-contents)
+        - [3.1. Alter table columns](#31-alter-table-columns)
+        - [3.2. Insert entries](#32-insert-entries)
+        - [3.3. Update entries](#33-update-entries)
+        - [3.4. Delete entries](#34-delete-entries)
+    - [4. Select clauses](#4-select-clauses)
+        - [4.1. Simple select](#41-simple-select)
+        - [4.2. Join](#42-join)
+        - [4.3. Subquery](#43-subquery)
+    - [5. Write code with DB-API and command line](#5-write-code-with-db-api-and-command-line)
+        - [5.1. Basic structure of DB-API](#51-basic-structure-of-db-api)
+        - [5.2. Select and insert with SQLite](#52-select-and-insert-with-sqlite)
+        - [5.3. Select with PostgreSQL](#53-select-with-postgresql)
+        - [5.4. SQL injection attack and script injection attack](#54-sql-injection-attack-and-script-injection-attack)
+        - [5.5. PostgreSQL command line](#55-postgresql-command-line)
 
 <!-- /TOC -->
 
+## 1. Intro to databases
 
-## 1. Intro to SQL
+A database is a collection of tables
 
 ### 1.1. Advantages of relational databases
 
-**Databases:**
+- **Databases:**
 
-- persistent storage
-- safe concurrent access by multiple programs and users
+    - Persistent storage
+    - Safe concurrent access by multiple programs and users
 
-**Relational databases:**
+- **Relational databases:**
 
-- flexible query languages with aggregation and join operations
-- constraining rules for protecting consistency of data
+    - Flexible query languages with aggregation and join operations
+    - Constraining rules for protecting consistency of data
 
 ### 1.2. Data types
 
@@ -65,12 +66,12 @@ Always write 'single quotes' around text strings and date/time values
 
 ### 1.4. Normalized vs denormalized table
 
-**Rules for normalized tables:**
+- **Rules for normalized tables:**
 
-- Every row has the same number of columns.
-- There is a unique key, and everything in a row says something about the key.
-- Facts that don't relate to the key belong in different tables.
-- Tables shouldn't imply relationships that don't exist.
+    - Every row has the same number of columns.
+    - There is a unique key, and everything in a row says something about the key.
+    - Facts that don't relate to the key belong in different tables.
+    - Tables shouldn't imply relationships that don't exist.
 
 ### 1.5. Tips
 
@@ -98,17 +99,17 @@ Always write 'single quotes' around text strings and date/time values
 - #### Basic structure
 
   ```sql
-  create table animals (
-      name text [constraints],
-      species text [constraints],
-      birthdate date [constraints],
+  CREATE TABLE animals (
+      name TEXT [constraints],
+      species TEXT [constraints],
+      birthdate DATE [constraints],
       [row constraints]);
   ```
 
 - #### Delete a table
 
   ```sql
-  drop table animals;
+  DROP TABLE animals;
   ```
 
 - #### Assign primary key
@@ -116,30 +117,30 @@ Always write 'single quotes' around text strings and date/time values
   Primary key must be unique.
 
   ```sql
-  create table people (
-      id  integer(11) auto_increment not null,
-      first_name varchar(30) not null, 
-      has_pet boolean not null,
-      pet_name varchar(30),
-      pet_age integer(10),
+  CREATE TABLE people (
+      id  INTEGER(11) AUTO_INCREMENT NOT NULL,
+      first_name VARCHAR(30) NOT NULL,
+      has_pet BOOLEAN NOT NULL,
+      pet_name VARCHAR(30),
+      pet_age INTEGER(10),
       PRIMARY KEY (id));
   ```
 
   ```sql
-  create table animals (
-      id serial primary key,
-      name text,
-      birthdate date);
+  CREATE TABLE animals (
+      id SERIAL PRIMARY KEY,
+      name TEXT,
+      birthdate DATE);
   ```
 
 - #### Assign multiple columns as primary key
 
   ```sql
-  create table animals (
-      postal_code text,
-      country text,
-      name text,
-      primary key (postal_code, country));
+  CREATE TABLE animals (
+      postal_code TEXT,
+      country TEXT,
+      name TEXT,
+      PRIMARY KEY (postal_code, country));
   ```
 
 - #### Declare relationships
@@ -147,10 +148,10 @@ Always write 'single quotes' around text strings and date/time values
   Reference provides referential integrity - columns that are supposed to refer to each other are guaranteed to do so.
 
   ```sql
-  create table sale (
-      sku text reference products (sku),
-      sale_date date,
-      count integer);
+  CREATE TABLE sale (
+      sku TEXT reference products (sku),
+      sale_date DATE,
+      count INTEGER);
   ```
 
 - #### Assign foreign key
@@ -173,15 +174,15 @@ A view is a select query stored in the database in a way that lets you use it li
 - #### Create a view
 
   ```sql
-  create view course_size as
-      select course_id, count(*) as num
-      from enrollment
-      group by course_id;
+  CREATE view course_size AS
+      SELECT course_id, count(*) AS num
+      FROM enrollment
+      GROUP BY course_id;
   ```
 - #### Delete a view
 
   ```sql
-  drop view course_size;
+  DROP view course_size;
   ```
 
 ## 3. Alter, insert, update, and delete table contents
@@ -198,15 +199,15 @@ A view is a select query stored in the database in a way that lets you use it li
 - #### Change datatype of a column
 
   ```sql
-  alter table actor
-  modify middle_name blob;
+  alter TABLE actor
+  MODIFY middle_name blob;
   ```
 
 - #### Delete a column
 
   ```sql
-  alter table actor
-  drop column middle_name;
+  alter TABLE actor
+  DROP column middle_name;
   ```
 
 ### 3.2. Insert entries
@@ -214,22 +215,22 @@ A view is a select query stored in the database in a way that lets you use it li
 - #### Insert one entry
 
   ```sql
-  insert into people(first_name, has_pet, pet_name, pet_age)
-  values ("Dan", true, "Rocky", 400);
+  INSERT INTO people(first_name, has_pet, pet_name, pet_age)
+  VALUES ("Dan", true, "Rocky", 400);
   ```
 
 - #### Insert multiple entries
 
   ```sql
-  insert into people(first_name, has_pet, pet_name, pet_age)
-  values ("Dan", true, "Rocky", 400), ("Dan", true, "Rocky", 400), ("Dan", true, "Rocky", 400);
+  INSERT INTO people(first_name, has_pet, pet_name, pet_age)
+  VALUES ("Dan", true, "Rocky", 400), ("Dan", true, "Rocky", 400), ("Dan", true, "Rocky", 400);
   ```
 
 - #### If values have same order as columns and start from the first column
 
   ```sql
-  insert into people
-  values ("Dan", true, "Rocky", 400);
+  INSERT INTO people
+  VALUES ("Dan", true, "Rocky", 400);
   ```
 
 ### 3.3. Update entries
@@ -237,9 +238,9 @@ A view is a select query stored in the database in a way that lets you use it li
 - #### Update entries
 
   ```sql
-  update animals
-  set name = 'cheese'
-  where name like '%awful%';
+  UPDATE animals
+  SET name = 'cheese'
+  WHERE name LIKE '%awful%';
   ```
 
 ### 3.4. Delete entries
@@ -249,15 +250,15 @@ A view is a select query stored in the database in a way that lets you use it li
   ```sql
   SET SQL_SAFE_UPDATES = 0;
 
-  delete from animals
-  where name = 'cheese';
+  DELETE FROM animals
+  WHERE name = 'cheese';
   
   SET SQL_SAFE_UPDATES = 1;
   ```
 
 ## 4. Select clauses
 
-**select** *columns* **from** *tables* **where** *conditions* **;**
+**SELECT** *columns* **FROM** *tables* **WHERE** *conditions* **;**
 
 - Columns are separated by commas; use * to select all columns.
 - The condition is Boolean (`and`, `or`, `not`). [DeMorgan's Law](https://en.wikipedia.org/wiki/De_Morgan%27s_laws) 
@@ -279,57 +280,61 @@ SELECT * FROM people;
 - #### Limit, offset
 
   ```sql
-  select food from diet
-  where species = 'llama' and name = 'Max'
-  limit 10   -- 10 rows
+  SELECT food FROM diet
+  WHERE species = 'llama' AND name = 'Max'
+  LIMIT 10   -- 10 rows
   offset 20; -- skip 20 rows
   ```
 
 - #### Where
 
   ```sql
-  ... where species in ('llama', 'orangutan') ...
+  ... WHERE species IN ('llama', 'orangutan')
   ```
 
   ```sql
-  ... where latitude between 50 and 55 ...
+  ... WHERE latitude between 50 AND 55
   ```
 
   ```sql
-  ... where col_1 like 'pie' ... -- select where field contains words
+  ... WHERE col_1 LIKE 'pie' -- select where field contains words
+  ```
+
+  ```sql
+  ... WHERE NOT department = 'Sports' -- equivalent to WHERE department != 'Sports'
   ```
 
 - #### Order by
 
   ```sql
-  select * from animals
-  where species = 'orangutan'
-  order by birthdate desc; -- ascending if not specified
+  SELECT * FROM animals
+  WHERE species = 'orangutan'
+  ORDER BY birthdate DESC; -- ascending if not specified
   ```
 
 - #### Group by with aggregations
 
   ```sql
-  select species, min(birthdate) from animals
-  group by species;
+  SELECT species, min(birthdate) FROM animals
+  GROUP BY species;
   ```
 
   ```sql
-  select name, count(*) as num from animals
-  group by name
-  order by num desc
-  limit 5;
+  SELECT name, count(*) AS num FROM animals
+  GROUP BY name
+  ORDER BY num DESC
+  LIMIT 5;
   ```
 
 - #### Having
 
-  - `Where` is a restriction on the source tables
-  - `Having` is a restriction on the results, after aggregation <br>
+  - `WHERE` is a restriction on the source tables
+  - `HAVING` is a restriction on the results, after aggregation <br>
 
   ```sql
-  select species, count(*) as num from animals
-  group by species
-  having num = 1;
+  SELECT species, count(*) AS num FROM animals
+  GROUP BY species
+  HAVING num = 1;
   ```
 
 ### 4.2. Join
@@ -339,39 +344,39 @@ SELECT * FROM people;
 - #### Inner join
 
   ```sql
-  select animals.name, animals.species, diet.food 
-  from animals
-  inner join diet
-  on animals.species = diet.species
-  where diet.food = 'fish';
+  SELECT animals.name, animals.species, diet.food 
+  FROM animals
+  INNER JOIN diet
+  ON animals.species = diet.species
+  WHERE diet.food = 'fish';
   ```
 
   Equivalently, without `join`
 
   ```sql
-  select animals.name, animals.species, diet.food
-  from animals, diet
-  where animals.species = diet.species and diet.food = 'fish';
+  SELECT animals.name, animals.species, diet.food
+  FROM animals, diet
+  WHERE animals.species = diet.species AND diet.food = 'fish';
   ```
 
 - #### Join on the same column name
 
   ```sql
-  select products.name, products.sku, count(sales.sku) as num
-  from products
-  left join sales
-  using (sku) -- equivalent to `on products.sku = sales.sku`
+  SELECT products.name, products.sku, count(sales.sku) AS num
+  FROM products
+  LEFT JOIN sales
+  USING (sku) -- equivalent to `on products.sku = sales.sku`
   ```
 
 - #### Self Join
 
   ```sql
-  select a.id, b.id, a.building, a.room
-          from residences as a, residences as b
-      where a.building = b.building
-      and a.room = b.room
-      and a.id < b.id
-      order by a.building, a.room;
+  SELECT a.id, b.id, a.building, a.room
+          FROM residences AS a, residences AS b
+      WHERE a.building = b.building
+      AND a.room = b.room
+      AND a.id < b.id
+      ORDER BY a.building, a.room;
   ```
 
 ### 4.3. Subquery
@@ -379,11 +384,11 @@ SELECT * FROM people;
 - #### PostgreSQL
 
   ```sql
-  select avg(bigscore) from
-      (select max(score) as bigscore
-      from mooseball
-      group by team)
-  as maxes; -- a table alias is required in PostgreSQL
+  SELECT avg(bigscore) FROM
+      (SELECT max(score) AS bigscore
+      FROM mooseball
+      GROUP BY team)
+  AS maxes; -- a table alias is required in PostgreSQL
   ```
 
   - [Scalar Subqueries](https://www.postgresql.org/docs/9.4/static/sql-expressions.html#SQL-SYNTAX-SCALAR-SUBQUERIES)
@@ -392,7 +397,7 @@ SELECT * FROM people;
 
 - #### MySQL
 
-  Subquery after `where`
+  Subquery after `WHERE`
 
   ```sql
   SELECT *
@@ -403,7 +408,7 @@ SELECT * FROM people;
   );
   ```
   
-  Subquery after `where`, single input
+  Subquery after `WHERE`, single input
 
   ```sql
   SELECT *
