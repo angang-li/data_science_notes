@@ -22,8 +22,11 @@ Virtually all relational database systems use SQL (Structured Query Language) fo
         - [3.4. Delete entries](#34-delete-entries)
     - [4. Select clauses](#4-select-clauses)
         - [4.1. Simple select](#41-simple-select)
-        - [4.2. Join](#42-join)
-        - [4.3. Subquery](#43-subquery)
+        - [4.2. Functions](#42-functions)
+        - [4.3. Grouping data](#43-grouping-data)
+        - [4.4. Join](#44-join)
+        - [4.5. Subquery](#45-subquery)
+        - [4.6. Case clause](#46-case-clause)
     - [5. Write code with DB-API and command line](#5-write-code-with-db-api-and-command-line)
         - [5.1. Basic structure of DB-API](#51-basic-structure-of-db-api)
         - [5.2. Select and insert with SQLite](#52-select-and-insert-with-sqlite)
@@ -174,7 +177,7 @@ A view is a select query stored in the database in a way that lets you use it li
 - #### Create a view
 
   ```sql
-  CREATE view course_size AS
+  CREATE VIEW course_size AS
       SELECT course_id, count(*) AS num
       FROM enrollment
       GROUP BY course_id;
@@ -182,7 +185,7 @@ A view is a select query stored in the database in a way that lets you use it li
 - #### Delete a view
 
   ```sql
-  DROP view course_size;
+  DROP VIEW course_size;
   ```
 
 ## 3. Alter, insert, update, and delete table contents
@@ -199,15 +202,15 @@ A view is a select query stored in the database in a way that lets you use it li
 - #### Change datatype of a column
 
   ```sql
-  alter TABLE actor
+  ALTER TABLE actor
   MODIFY middle_name blob;
   ```
 
 - #### Delete a column
 
   ```sql
-  alter TABLE actor
-  DROP column middle_name;
+  ALTER TABLE actor
+  DROP COLUMN middle_name;
   ```
 
 ### 3.2. Insert entries
@@ -271,7 +274,7 @@ SELECT * FROM animals_db.people;
 is equivalent to
 
 ```sql
-Use animals_db;
+USE animals_db;
 SELECT * FROM people;
 ```
 
@@ -282,45 +285,199 @@ SELECT * FROM people;
   ```sql
   SELECT food FROM diet
   WHERE species = 'llama' AND name = 'Max'
-  LIMIT 10   -- 10 rows
-  offset 20; -- skip 20 rows
+  LIMIT 10   -- show 10 rows
+  OFFSET 20; -- skip 20 rows
+  ```
+
+  `LIMIT 10` is same as `FETCH FIRST 10 ROWS ONLY`
+
+- #### Distinct
+
+  Select unique values
+
+  ```sql
+  SELECT DISTINCT department
+  FROM employees;
+  ```
+
+- #### As
+
+  Rename columns
+
+  ```sql
+  SELECT salary AS "yearly salary"
+  FROM employees;
   ```
 
 - #### Where
 
-  ```sql
-  ... WHERE species IN ('llama', 'orangutan')
-  ```
+  - In
 
-  ```sql
-  ... WHERE latitude between 50 AND 55
-  ```
+    ```sql
+    SELECT * FROM diet
+    WHERE species IN ('llama', 'orangutan');
+    ```
 
-  ```sql
-  ... WHERE col_1 LIKE 'pie' -- select where field contains words
-  ```
+  - Between ... and ... (inclusive)
 
-  ```sql
-  ... WHERE NOT department = 'Sports' -- equivalent to WHERE department != 'Sports'
-  ```
+    ```sql
+    SELECT * FROM diet
+    WHERE latitude BETWEEN 50 AND 55;
+    ```
+
+  - Like
+
+    ```sql
+    SELECT * FROM diet
+    WHERE col_1 LIKE 'pie'; -- select where field contains words
+    ```
+
+  - Not, !=, <>
+
+    ```sql
+    SELECT * FROM employees
+    WHERE NOT department = 'Sports';
+    -- equivalent to WHERE department != 'Sports'
+    -- equivalent to WHERE department <> 'Sports
+    ```
+
+  - Is null
+
+    Cannot use equality operators to compare NULL. E.g., `WHERE NULL = NULL` or `WHERE NULL != NULL` will return nothing. Use `IS` instead.
+
+    ```sql
+    SELECT * FROM employees
+    WHERE email IS NULL;
+    -- WHERE email IS NOT NULL;
+    -- WHERE NOT email IS NULL;
+    ```
+
+  - Any, all can be applied in Where clause or Having clause
+
+    ```sql
+    SELECT * FROM employees
+    WHERE region_id > ALL (
+        SELECT region_id FROM region WHERE country = 'United States'
+    )
+    ```
 
 - #### Order by
 
   ```sql
   SELECT * FROM animals
   WHERE species = 'orangutan'
-  ORDER BY birthdate DESC; -- ascending if not specified
+  ORDER BY birthdate DESC; -- ascending (ASC) if not specified
   ```
+
+### 4.2. Functions
+
+- #### Upper, lower case
+
+  ```sql
+  SELECT UPPER(first_name), LOWER(department), LENGTH(first_name)
+  FROM employees;
+  ```
+
+- #### Length
+
+  ```sql
+  SELECT LENGTH(first_name)
+  FROM employees;
+  ```
+
+- #### Trim white space
+
+  ```sql
+  SELECT TRIM(' abc    ')
+  ```
+
+- #### || combine values of 2 columns together
+
+  ```sql
+  SELECT first_name || ' ' || last_name AS full_name
+  FROM employees;
+  ```
+
+- #### Boolean expression
+
+  ```sql
+  SELECT first_name, (salary > 140000) AS is_highly_paid
+  FROM employees;
+  ```
+
+  ```sql
+  SELECT department, ('Clothing' IN (department))
+  FROM employees;
+  ```
+
+  ```sql
+  SELECT department, (department LIKE '%oth%')
+  FROM employees;
+  ```
+
+- #### String functions
+
+  - Substring
+
+    ```sql
+    SELECT SUBSTRING('This is test data' FROM 1 FOR 4) -- 'This'
+    ```
+
+    ```sql
+    SELECT SUBSTRING('This is test data' FROM 9) -- 'test data'
+    ```
+
+  - Replace
+
+    ```sql
+    SELECT department, REPLACE(department, 'Clothing', 'Attire') AS "modified department"
+    FROM departments; -- replace 'Clothing' by 'Attire'
+    ```
+
+  - Position
+
+    ```sql
+    SELECT POSITION('@' IN email)
+    FROM employees;
+    ```
+
+    ```sql
+    SELECT email, SUBSTRING(email, POSITION('@' IN email) + 1) AS email_domain
+    FROM employees;
+    ```
+
+  - Coalesce null values
+
+    ```sql
+    SELECT email, COALESCE(email, 'NONE') as email_new
+    FROM employees;
+    ```
+
+- #### Grouping functions
+
+  - Min, max, avg, sum, count
+
+    ```sql
+    SELECT ROUND(AVG(salary))
+    FROM employees;
+    ```
+
+    'Count' does not count null.
+
+### 4.3. Grouping data
+
+Group by accounts for Null.
 
 - #### Group by with aggregations
 
   ```sql
-  SELECT species, min(birthdate) FROM animals
-  GROUP BY species;
+  SELECT species, MIN(birthdate) FROM animals
+  GROUP BY species, gender;
   ```
 
   ```sql
-  SELECT name, count(*) AS num FROM animals
+  SELECT name, COUNT(*) AS num FROM animals
+  WHERE gender = 'F'
   GROUP BY name
   ORDER BY num DESC
   LIMIT 5;
@@ -329,17 +486,20 @@ SELECT * FROM people;
 - #### Having
 
   - `WHERE` is a restriction on the source tables
-  - `HAVING` is a restriction on the results, after aggregation <br>
+  - `HAVING` is a restriction on the results, after aggregation
 
   ```sql
   SELECT species, count(*) AS num FROM animals
   GROUP BY species
-  HAVING num = 1;
+  HAVING num = 1
+  ORDER BY num DESC;
   ```
 
-### 4.2. Join
+### 4.4. Join
 
-![sql join venn diagram](resources/UI25E.jpg)
+- #### Join diagrams
+
+  <img src="resources/UI25E.jpg" width=500>
 
 - #### Inner join
 
@@ -379,7 +539,14 @@ SELECT * FROM people;
       ORDER BY a.building, a.room;
   ```
 
-### 4.3. Subquery
+### 4.5. Subquery
+
+- #### Aliasing
+
+  ```sql
+  SELECT e.department
+  FROM employees as e, department as d;
+  ```
 
 - #### PostgreSQL
 
@@ -418,6 +585,28 @@ SELECT * FROM people;
       FROM film
   );
   ```
+
+### 4.6. Case clause
+
+- #### Conditional expression
+
+  ```sql
+  SELECT first_name, salary,
+  CASE
+      WHEN salary < 100000 THEN 'Under paid'
+      WHEN salary >= 100000 THEN 'Paid well'
+      ELSE 'Unpaid'
+  END AS category
+  FROM employees
+  ORDER BY salary DESC;
+  ```
+
+  ```sql
+  SELECT SUM(CASE WHEN salary < 100000 THEN 1 ELSE 0) AS under_paid,
+         SUM(CASE WHEN salary >= 100000 THEN 1 ELSE 0) AS paid_well
+  FROM emloyees;
+  ```
+
 
 ## 5. Write code with DB-API and command line
 

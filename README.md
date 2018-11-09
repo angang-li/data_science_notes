@@ -14,4 +14,4 @@
 
 ## Acknowledgement
 
-Notes were taken from Northwestern University Data Science Bootcamp, Udacity, Coursera, and workshops at Northwestern University.
+Notes were taken from Northwestern University Data Science Bootcamp, Udacity, Coursera, Udemy, and workshops at Northwestern University.
