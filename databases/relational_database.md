@@ -27,6 +27,8 @@ Virtually all relational database systems use SQL (Structured Query Language) fo
         - [4.4. Join](#44-join)
         - [4.5. Subquery](#45-subquery)
         - [4.6. Case clause](#46-case-clause)
+        - [4.7. Stacking data from multiple tables](#47-stacking-data-from-multiple-tables)
+        - [4.8. Window functions](#48-window-functions)
     - [5. Write code with DB-API and command line](#5-write-code-with-db-api-and-command-line)
         - [5.1. Basic structure of DB-API](#51-basic-structure-of-db-api)
         - [5.2. Select and insert with SQLite](#52-select-and-insert-with-sqlite)
@@ -172,12 +174,12 @@ Always write 'single quotes' around text strings and date/time values
 
 ### 2.3. View
 
-A view is a select query stored in the database in a way that lets you use it like a table.
+A view is a select query stored in the database in a way that lets you use it like a table. It is a virtual table.
 
 - #### Create a view
 
   ```sql
-  CREATE VIEW course_size AS
+  CREATE VIEW v_course_size AS
       SELECT course_id, count(*) AS num
       FROM enrollment
       GROUP BY course_id;
@@ -185,7 +187,7 @@ A view is a select query stored in the database in a way that lets you use it li
 - #### Delete a view
 
   ```sql
-  DROP VIEW course_size;
+  DROP VIEW v_course_size;
   ```
 
 ## 3. Alter, insert, update, and delete table contents
@@ -539,6 +541,20 @@ Group by accounts for Null.
       ORDER BY a.building, a.room;
   ```
 
+- #### Cartesian product and cross join
+
+  When join is not specified, every single combination of rows between 2 tables is returned.
+
+  ```sql
+  SELECT *
+  FROM employees, departments;
+  ```
+
+  ```sql
+  SELECT *
+  FROM employees CROSS JOIN department;
+  ```
+
 ### 4.5. Subquery
 
 - #### Aliasing
@@ -548,11 +564,11 @@ Group by accounts for Null.
   FROM employees as e, department as d;
   ```
 
-- #### PostgreSQL
+- #### 'FROM' subquery, also known as inline view
 
   ```sql
-  SELECT avg(bigscore) FROM
-      (SELECT max(score) AS bigscore
+  SELECT AVG(bigscore) FROM
+      (SELECT MAX(score) AS bigscore
       FROM mooseball
       GROUP BY team)
   AS maxes; -- a table alias is required in PostgreSQL
@@ -562,9 +578,9 @@ Group by accounts for Null.
   - [Subquery Expressions](https://www.postgresql.org/docs/9.4/static/functions-subquery.html)
   - [FROM Clause](https://www.postgresql.org/docs/9.4/static/sql-select.html#SQL-FROM)
 
-- #### MySQL
+- #### 'WHERE' subquery
 
-  Subquery after `WHERE`
+  Multiple inputs
 
   ```sql
   SELECT *
@@ -575,7 +591,7 @@ Group by accounts for Null.
   );
   ```
   
-  Subquery after `WHERE`, single input
+  Single input
 
   ```sql
   SELECT *
@@ -584,6 +600,26 @@ Group by accounts for Null.
       SELECT MAX(length)
       FROM film
   );
+  ```
+
+- #### Correlated subquery
+
+  The inner query uses information returned from the outer query. Subquery is checked for every single record in the outer query. Can be very slow.
+
+  ```sql
+  SELECT first_name, salary
+  FROM employees AS e1
+  WHERE salary > (
+      SELECT AVG(salary)
+      FROM employees AS e2
+      WHERE e1.department = e2.department
+  )
+  ```
+
+  ```sql
+  SELECT department, 
+    (SELECT MAX(salary) FROM employees e WHERE e.department = d.department)
+  FROM departments as d;
   ```
 
 ### 4.6. Case clause
@@ -607,6 +643,140 @@ Group by accounts for Null.
   FROM emloyees;
   ```
 
+### 4.7. Stacking data from multiple tables
+
+- #### Union
+
+  Will eliminate duplicates
+
+  ```sql
+  SELECT department
+  FROM departments
+  UNION
+  SELECT department
+  FROM employees;
+  ```
+
+- #### Union all
+
+  Will not eliminate duplicates
+
+  ```sql
+  SELECT department
+  FROM departments
+  UNION ALL
+  SELECT department
+  FROM employees;
+  ```
+
+- #### Except in PostgresQL
+
+  Equivalent to Minus in some other databases (e.g. Oracle). Will eliminate duplicates
+
+  ```sql
+  SELECT department
+  FROM employees
+  EXCEPT
+  SELECT department
+  FROM departments;
+  ```
+
+### 4.8. Window functions
+
+More efficient than correlated subqueries.
+
+- #### Partition
+
+  ```sql
+  SELECT first_name, department,
+  COUNT(*) OVER(PARTITION BY department) dept_count
+  -- SUM(salary) OVER(PARTITION BY department)
+  FROM employees;
+  ```
+
+- #### Running total
+
+  ```sql
+  SELECT first_name, hire_date, salary,
+  SUM(salary) OVER(ORDER BY hire_date RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS running_total_of_salaries -- window frame
+  FROM employees;
+  ```
+
+- #### Adjacent sum
+
+  ```sql
+  SELECT first_name, hire_date, salary,
+  SUM(salary) OVER(ORDER BY hire_date ROWS BETWEEN 1 PRECEDING AND CURRENT ROW) AS running_total_of_salaries -- window frame
+  FROM employees;
+  ```
+
+- #### Rank
+
+  ```sql
+  SELECT first_name, email, department, salary,
+  RANK() OVER(PARTITION BY department ORDER BY salary DESC)
+  FROM employees;
+  ```
+
+- #### Ntile
+
+  ```sql
+  SELECT first_name, email, department, salary,
+  NTILE(5) OVER(PARTITION BY department ORDER BY salary DESC) salary_bracket -- split each department evenly into 5 groups
+  FROM employees;
+  ```
+
+- #### First value and n-th value
+
+  ```sql
+  SELECT first_name, email, department, salary,
+  FIRST_VALUE(salary) OVER(PARTITION BY department ORDER BY salary DESC) first_value -- use the first value for each department
+  FROM employees;
+  ```
+
+  ```sql
+  SELECT first_name, email, department, salary,
+  NTH_VALUE(salary, 5) OVER(PARTITION BY department ORDER BY salary DESC) fifth_value
+  FROM employees;
+  ```
+
+- #### Lead and lag
+
+  ```sql
+  SELECT first_name, email, department, salary,
+  LEAD(salary) OVER() next_salary -- salary of the next row
+  FROM employees;
+  ```
+
+  ```sql
+  SELECT first_name, email, department, salary,
+  LAG(salary) OVER() previous_salary -- salary of the previous row
+  FROM employees;
+  ```
+
+- #### Grouping sets, rollup, and cube
+
+  ```sql
+  SELECT continent, country, city, SUM(units_sold)
+  FROM sales
+  GROUP BY GROUPING SETS(continent, country, city, ()); -- () requests the grand total
+  ```
+
+  Equivalently, rollup groups by each individual column and maintains the hierarchy
+
+  ```sql
+  SELECT continent, country, city, SUM(units_sold)
+  FROM sales
+  GROUP BY ROLLUP(continent, country, city);
+  ```
+
+  Cube groups by each combination of columns
+
+  ```sql
+  SELECT continent, country, city, SUM(units_sold)
+  FROM sales
+  GROUP BY CUBE(continent, country, city);
+  ```
 
 ## 5. Write code with DB-API and command line
 
