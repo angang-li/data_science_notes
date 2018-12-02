@@ -1,0 +1,10 @@
+setup.py
+distributions_ald2/Binomialdistribution.py
+distributions_ald2/Gaussiandistribution.py
+distributions_ald2/Generaldistribution.py
+distributions_ald2/__init__.py
+distributions_ald2.egg-info/PKG-INFO
+distributions_ald2.egg-info/SOURCES.txt
+distributions_ald2.egg-info/dependency_links.txt
+distributions_ald2.egg-info/not-zip-safe
+distributions_ald2.egg-info/top_level.txt
