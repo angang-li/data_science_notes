@@ -30,6 +30,7 @@ Notes taken from [Northwestern University Data Science Bootcamp](https://bootcam
     - [6. File I/O](#6-file-io)
         - [6.1. Reading files](#61-reading-files)
         - [6.2. Writing files](#62-writing-files)
+        - [6.3. Encoding](#63-encoding)
     - [7. Standard library](#7-standard-library)
         - [7.1. Documentation](#71-documentation)
         - [7.2. Greatest hits](#72-greatest-hits)
@@ -370,7 +371,33 @@ import pdb; pdb.set_trace() # code will run up to this line
         json.dump(all_records, file_out)
     ```
 
-<br>
+### 6.3. Encoding
+
+- #### Detect file encoding using an encoding dicitonary
+
+    ```python
+    # Python has a file containing a dictionary of encoding names and associated aliases
+    from encodings.aliases import aliases
+    alias_values = set(aliases.values())
+    
+    for alias in alias_values:
+        try:
+            df = pd.read_csv('mystery.csv', encoding=alias)
+            print(alias)
+        except:
+            pass
+    ```
+
+- #### Detect file encoding using a library
+
+    ```python
+    import chardet
+
+    # use the detect method to find the encoding
+    # 'rb' means read in the file as binary
+    with open("mystery.csv", 'rb') as file:
+        print(chardet.detect(file.read()))
+    ```
 
 ## 7. Standard library
 
