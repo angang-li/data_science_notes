@@ -76,13 +76,32 @@ Beatiful soup is the best way to traverse the Document Object Model (DOM). DOM i
 - Find all matching elements as iterable list
 
     ```python
+    # Find by tag
     results = soup.body.find_all('p')
+    results = soup.body.select('p') # equivalent
     ```
 
 - Find matching elements with class or id selector
 
     ```python
-    results = soup.body.find_all('li', class_="result-row")
+    # Find by class
+    soup.find_all(class_="result")
+    soup.select(".result")
+
+    # Find by class
+    soup.find_all('li', class_="result")
+    soup.select('li[class^="result"]')
+    soup.select('.result')
+
+    # Find by id
+    soup.find_all('li', id="link2")
+    soup.select('li#link2')
+    soup.select('#link2')
+
+    # Find by attribute
+    soup.find_all('a', name="email")
+    soup.find_all('a', attrs={"name": "email"}) # equivalent
+    soup.select('a[name="email"]')
     ```
 
 - Access the href attribute with bracket notation
