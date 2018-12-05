@@ -10,6 +10,7 @@
 - [Machine Learning](machine_learning)
 - [Statistics](statistics)
 - [Web visualization and applications](web_application)
+- [Natural Language Processing (NLP)](nlp)
 - [Big Data](big_data)
 
 ## Acknowledgement
