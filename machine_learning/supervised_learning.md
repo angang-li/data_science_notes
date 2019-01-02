@@ -70,6 +70,20 @@
 
 ### II. Preparing the data
 
+- #### Three strategies for working with missing values include:
+
+  - Remove the rows or columns holding the missing values 
+    
+    Associated with mechanical failures <br> 
+    Acolumn that you are interested in predicting
+
+  - Impute the missing values
+
+    Diluting the power of the feature to predict well by reducing the variability of the feature. <br>
+    Impute with mean or use KNN to impute values based on features that are most similar.
+
+  - Build models that work around them, and only use the information provided.
+
 - #### Transform skewed continuous features
 
   For highly skewed features, it is common practice to apply a logarithmic transformation. Note: The logarithm of 0 is undefined.
@@ -80,7 +94,7 @@
 
 - #### Convert categorical features
 
-  One popular way to convert categorical variables is by using the **one-hot encoding** scheme. One-hot encoding creates a "*dummy*" variable for each possible category of each non-numeric feature. e.g., [`pandas.get_dummies()`](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.get_dummies.html?highlight=get_dummies#pandas.get_dummies)
+  One popular way to convert categorical variables is by using the **one-hot encoding** scheme. One-hot encoding creates a "*dummy*" variable for each possible category of each non-numeric feature. e.g., [`pandas.get_dummies()`](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.get_dummies.html?highlight=get_dummies#pandas.get_dummies). Rule of thumb: 10 rows for each column added.
 
   This [reference](https://www.kdnuggets.com/2015/12/beyond-one-hot-exploration-categorical-variables.html) provides 7 different encoding strategies. <br>
   Another article on [various ways in which we can handle categorical variable](http://pbpython.com/categorical-encoding.html)
@@ -239,7 +253,7 @@ Minimizing the mean squre error is exactly the same as the square trick; minimiz
 
 #### Mini-batch gradient descent
 
-<img src="Resources/mini_batch.png" alt="mini_batch" width="400" height="270">
+<img src="Resources/mini_batch.png" alt="mini_batch" width="400">
 
 ### 1.2. Analytic solution
 
@@ -287,7 +301,7 @@ Classification problem
 
 ### 2.2. Perceptron
 
-<img src="Resources/perceptron_and_or.png" alt="perceptron_and_or" width="550" height="150">
+<img src="Resources/perceptron_and_or.png" alt="perceptron_and_or" width="550">
 
 ### 2.3. Perceptron trick
 
@@ -372,24 +386,24 @@ Considers each feature to be independent of each other
 - multinomial Naive Bayes: classification with discrete features
 - Gaussian Naive Bayes: continuous data as it assumes that the input data has a Gaussian(normal) distribution
 
-```python
-from sklearn.feature_extraction.text import CountVectorizer
+  ```python
+  from sklearn.feature_extraction.text import CountVectorizer
 
-count_vect = CountVectorizer()
+  count_vect = CountVectorizer()
 
-# Fit the training data and then return the matrix
-training_data = count_vect.fit_transform(email_list)
+  # Fit the training data and then return the matrix
+  training_data = count_vect.fit_transform(email_list)
 
-# Transform testing data and return the matrix. Note we are not fitting the testing data into the CountVectorizer()
-testing_data = count_vect.transform(email_list_test)
-```
+  # Transform testing data and return the matrix. Note we are not fitting the testing data into the CountVectorizer()
+  testing_data = count_vect.transform(email_list_test)
+  ```
 
-```python
-from sklearn.naive_bayes import MultinomialNB
-clf = MultinomialNB()
-clf.fit(training_data, y_train)
-predictions = clf.predict(testing_data)
-```
+  ```python
+  from sklearn.naive_bayes import MultinomialNB
+  clf = MultinomialNB()
+  clf.fit(training_data, y_train)
+  predictions = clf.predict(testing_data)
+  ```
 
 ### 4.4. Naive Bayes advantages
 
@@ -425,7 +439,7 @@ Error = classification error + margin error
   Large C: focus on correctly classifying points <br>
   Small C: focus on a larger margin
 
-  <img src="Resources/svm_c.png" alt="svm_c" width="500" height="220">
+  <img src="Resources/svm_c.png" alt="svm_c" width="500">
 
 ### 5.2. Kernel trick
 
@@ -444,7 +458,7 @@ Error = classification error + margin error
   Large $\gamma$: skinny mountains, tends to overfit <br>
   Small $\gamma$: wide mountains, tends to underfit
 
-  <img src="Resources/svm_gamma.png" alt="svm_gamma" width="500" height="220">
+  <img src="Resources/svm_gamma.png" alt="svm_gamma" width="500">
 
 ### 5.3. Support vector machine in sklearn
 
@@ -475,11 +489,11 @@ weaker learners -> strong learner
 
 - **Bias**: When a model has high bias, this means that means it doesn't do a good job of bending to the data. e.g. linear regression
 
-  <img src="Resources/ensemble_bias.png" alt="ensemble_bias" width="450" height="300">
+  <img src="Resources/ensemble_bias.png" alt="ensemble_bias" width="450">
 
 - **Variance**: When a model has high variance, this means that it changes drastically to meet the needs of every point in our dataset. e.g. decision trees with no early stopping parameters
 
-  <img src="Resources/ensemble_variance.png" alt="ensemble_variance" width="450" height="300">
+  <img src="Resources/ensemble_variance.png" alt="ensemble_variance" width="450">
 
 ### 6.2. Ensemble techniques
 
@@ -489,7 +503,7 @@ Introduce randomness into high variance algorithms before they are ensembled tog
 
 1. **Bootstrap the data** - that is, sampling the data with replacement and fitting your algorithm and fitting your algorithm to the sampled data. passed through a learner (bagging).
 
-1. **Subset the features** - in each split of a decision tree or with each algorithm used an ensemble only a subset of the total possible features are used. used for a learner (combined with bagging signifies the two random components of random forests).
+2. **Subset the features** - in each split of a decision tree or with each algorithm used in an ensemble method, only a subset of the total possible features are used.
 
 #### Some ensemble methods
 
@@ -547,10 +561,24 @@ X_train, X_test, y_train, y_test = train_test_split(features, outcomes, test_siz
 
 ### 7.2. Evaluation matrix
 
-<img src="Resources/model_eval_confusion_matrix.png" alt="model_eval_confusion_matrix" width="400" height="200">
-
 - **Type 1 Error** (Error of the first kind, or False Positive): In the medical example, this is when we misdiagnose a healthy patient as sick.
 - **Type 2 Error** (Error of the second kind, or False Negative): In the medical example, this is when we misdiagnose a sick patient as healthy.
+
+  <img src="Resources/model_eval_confusion_matrix.png" alt="model_eval_confusion_matrix" width="300">
+
+  ```python
+  from sklearn.metrics import confusion_matrix
+
+  # Confusion matrix based on model prediction
+  labels = np.unique(y_pred)
+  confusion_mat = confusion_matrix(y_test, y_pred, labels=labels)
+  accuracy = (y_pred == y_test).mean()
+
+  # Display confusion matrix with labels
+  print("Labels:", labels)
+  print("Confusion Matrix:\n", confusion_mat)
+  print("Accuracy:", accuracy)
+  ```
 
 ### 7.3. Classification metrics
 
@@ -599,7 +627,7 @@ X_train, X_test, y_train, y_test = train_test_split(features, outcomes, test_siz
   Area under the curve of (true positive rate, false positive rate) points. <br>
   The more that the area -> 1, the better the model is.
 
-  <img src="Resources/model_eval_roc.png" alt="model_eval_roc" width="600" height="300">
+  <img src="Resources/model_eval_roc.png" alt="model_eval_roc" width="500">
 
 ### 7.4. Regression metrics
 
@@ -609,21 +637,21 @@ X_train, X_test, y_train, y_test = train_test_split(features, outcomes, test_siz
 
 - R2 score
 
-<img src="Resources/model_eval_r2.png" alt="model_eval_r2" width="400" height="290">
+  <img src="Resources/model_eval_r2.png" alt="model_eval_r2" width="300">
 
 
-```python
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-from sklearn.linear_model import LinearRegression
+  ```python
+  from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+  from sklearn.linear_model import LinearRegression
 
-classifier = LinearRegression()
-classifier.fit(X, y)
-y_pred = classifier.predict(X)
+  classifier = LinearRegression()
+  classifier.fit(X, y)
+  y_pred = classifier.predict(X)
 
-error1 = mean_absolute_error(y, y_pred)
-error2 = mean_squared_error(y, y_pred)
-r2 = r2_score(y, y_pred)
-```
+  error1 = mean_absolute_error(y, y_pred)
+  error2 = mean_squared_error(y, y_pred)
+  r2 = r2_score(y, y_pred)
+  ```
 
 ## 8. Training and tuning
 
@@ -636,7 +664,7 @@ r2 = r2_score(y, y_pred)
 
 - #### Learning curves
 
-  <img src="Resources/tune_learning_curve.png" alt="tune_learning_curve" width="680" height="250">
+  <img src="Resources/tune_learning_curve.png" alt="tune_learning_curve" width="600">
 
   ```python
   import numpy as np
@@ -670,13 +698,13 @@ r2 = r2_score(y, y_pred)
 
       **Model complexity graph**: error vs. model complexity
 
-      <img src="Resources/tune_cross_validation.png" alt="tune_cross_validation" width="450" height="210">
+      <img src="Resources/tune_cross_validation.png" alt="tune_cross_validation" width="450">
 
   3. Select the model with optimal performance (e.g. highest F1 score) on validation set
 
       **Grid search cross validation**
 
-      <img src="Resources/tune_grid_search.png" alt="tune_grid_search" width="450" height="370">
+      <img src="Resources/tune_grid_search.png" alt="tune_grid_search" width="450">
 
       ```python
       #1. Import GridSearchCV
@@ -721,7 +749,7 @@ r2 = r2_score(y, y_pred)
 
 - #### Model performance estimation: K-fold cross validation
 
-  <img src="Resources/tune_k_fold.png" alt="tune_k_fold" width="450" height="210">
+  <img src="Resources/tune_k_fold.png" alt="tune_k_fold" width="450">
 
   ```python
   from sklearn.model_selection import KFold
