@@ -2,41 +2,7 @@
 
 Virtually all relational database systems use SQL (Structured Query Language) for querying and maintaining the database.
 
-<!-- TOC -->
-
-- [**Relational Database**](#relational-database)
-    - [1. Intro to databases](#1-intro-to-databases)
-        - [1.1. Advantages of relational databases](#11-advantages-of-relational-databases)
-        - [1.2. Data types](#12-data-types)
-        - [1.3. Database properties](#13-database-properties)
-        - [1.4. Normalized vs denormalized table](#14-normalized-vs-denormalized-table)
-        - [1.5. Tips](#15-tips)
-    - [2. Create a database, table, and view](#2-create-a-database-table-and-view)
-        - [2.1. Create a database](#21-create-a-database)
-        - [2.2. Create a table](#22-create-a-table)
-        - [2.3. View](#23-view)
-    - [3. Alter, insert, update, and delete table contents](#3-alter-insert-update-and-delete-table-contents)
-        - [3.1. Alter table columns](#31-alter-table-columns)
-        - [3.2. Insert entries](#32-insert-entries)
-        - [3.3. Update entries](#33-update-entries)
-        - [3.4. Delete entries](#34-delete-entries)
-    - [4. Select clauses](#4-select-clauses)
-        - [4.1. Simple select](#41-simple-select)
-        - [4.2. Functions](#42-functions)
-        - [4.3. Grouping data](#43-grouping-data)
-        - [4.4. Join](#44-join)
-        - [4.5. Subquery](#45-subquery)
-        - [4.6. Case clause](#46-case-clause)
-        - [4.7. Stacking data from multiple tables](#47-stacking-data-from-multiple-tables)
-        - [4.8. Window functions](#48-window-functions)
-    - [5. Write code with DB-API and command line](#5-write-code-with-db-api-and-command-line)
-        - [5.1. Basic structure of DB-API](#51-basic-structure-of-db-api)
-        - [5.2. Select and insert with SQLite](#52-select-and-insert-with-sqlite)
-        - [5.3. Select with PostgreSQL](#53-select-with-postgresql)
-        - [5.4. SQL injection attack and script injection attack](#54-sql-injection-attack-and-script-injection-attack)
-        - [5.5. PostgreSQL command line](#55-postgresql-command-line)
-
-<!-- /TOC -->
+<!-- TOC -->autoauto- [**Relational Database**](#relational-database)auto  - [1. Intro to databases](#1-intro-to-databases)auto    - [1.1. Advantages of relational databases](#11-advantages-of-relational-databases)auto    - [1.2. Data types](#12-data-types)auto    - [1.3. Database properties](#13-database-properties)auto    - [1.4. Normalized vs denormalized table](#14-normalized-vs-denormalized-table)auto    - [1.5. Tips](#15-tips)auto  - [2. Create a database, table, and view](#2-create-a-database-table-and-view)auto    - [2.1. Create a database](#21-create-a-database)auto    - [2.2. Create a table](#22-create-a-table)auto    - [2.3. View](#23-view)auto  - [3. Alter, insert, update, and delete table contents](#3-alter-insert-update-and-delete-table-contents)auto    - [3.1. Alter table columns](#31-alter-table-columns)auto    - [3.2. Insert entries](#32-insert-entries)auto    - [3.3. Update entries](#33-update-entries)auto    - [3.4. Delete entries](#34-delete-entries)auto  - [4. Select clauses](#4-select-clauses)auto    - [4.1. Simple select](#41-simple-select)auto    - [4.2. Functions](#42-functions)auto    - [4.3. Grouping data](#43-grouping-data)auto    - [4.4. Join](#44-join)auto    - [4.5. Subquery](#45-subquery)auto    - [4.6. Case clause](#46-case-clause)auto    - [4.7. Stacking data from multiple tables](#47-stacking-data-from-multiple-tables)auto    - [4.8. Window functions](#48-window-functions)auto  - [5. Write code with DB-API and command line](#5-write-code-with-db-api-and-command-line)auto    - [5.1. Basic structure of DB-API](#51-basic-structure-of-db-api)auto    - [5.2. Select and insert with SQLite](#52-select-and-insert-with-sqlite)auto    - [5.3. Select with PostgreSQL](#53-select-with-postgresql)auto    - [5.4. SQL injection attack and script injection attack](#54-sql-injection-attack-and-script-injection-attack)auto    - [5.5. PostgreSQL command line](#55-postgresql-command-line)autoauto<!-- /TOC -->
 
 ## 1. Intro to databases
 
@@ -154,7 +120,7 @@ Always write 'single quotes' around text strings and date/time values
 
   ```sql
   CREATE TABLE sale (
-      sku TEXT reference products (sku),
+      sku TEXT REFERENCES products (sku),
       sale_date DATE,
       count INTEGER);
   ```
@@ -180,7 +146,7 @@ A view is a select query stored in the database in a way that lets you use it li
 
   ```sql
   CREATE VIEW v_course_size AS
-      SELECT course_id, count(*) AS num
+      SELECT course_id, COUNT(*) AS num
       FROM enrollment
       GROUP BY course_id;
   ```
@@ -205,7 +171,7 @@ A view is a select query stored in the database in a way that lets you use it li
 
   ```sql
   ALTER TABLE actor
-  MODIFY middle_name blob;
+  MODIFY middle_name BLOB;
   ```
 
 - #### Delete a column
@@ -373,33 +339,6 @@ SELECT * FROM people;
 
 ### 4.2. Functions
 
-- #### Upper, lower case
-
-  ```sql
-  SELECT UPPER(first_name), LOWER(department), LENGTH(first_name)
-  FROM employees;
-  ```
-
-- #### Length
-
-  ```sql
-  SELECT LENGTH(first_name)
-  FROM employees;
-  ```
-
-- #### Trim white space
-
-  ```sql
-  SELECT TRIM(' abc    ')
-  ```
-
-- #### || combine values of 2 columns together
-
-  ```sql
-  SELECT first_name || ' ' || last_name AS full_name
-  FROM employees;
-  ```
-
 - #### Boolean expression
 
   ```sql
@@ -418,6 +357,33 @@ SELECT * FROM people;
   ```
 
 - #### String functions
+
+    - Upper, lower case
+
+        ```sql
+        SELECT UPPER(first_name), LOWER(department), LENGTH(first_name)
+        FROM employees;
+        ```
+
+    - Length
+
+        ```sql
+        SELECT LENGTH(first_name)
+        FROM employees;
+        ```
+
+    - Trim white space
+
+        ```sql
+        SELECT TRIM(' abc    ')
+        ```
+
+    - || combine values of 2 columns together
+
+        ```sql
+        SELECT first_name || ' ' || last_name AS full_name
+        FROM employees;
+        ```
 
   - Substring
 
@@ -491,7 +457,7 @@ Group by accounts for Null.
   - `HAVING` is a restriction on the results, after aggregation
 
   ```sql
-  SELECT species, count(*) AS num FROM animals
+  SELECT species, COUNT(*) AS num FROM animals
   GROUP BY species
   HAVING num = 1
   ORDER BY num DESC;
@@ -524,7 +490,7 @@ Group by accounts for Null.
 - #### Join on the same column name
 
   ```sql
-  SELECT products.name, products.sku, count(sales.sku) AS num
+  SELECT products.name, products.sku, COUNT(sales.sku) AS num
   FROM products
   LEFT JOIN sales
   USING (sku) -- equivalent to `on products.sku = sales.sku`
@@ -561,7 +527,7 @@ Group by accounts for Null.
 
   ```sql
   SELECT e.department
-  FROM employees as e, department as d;
+  FROM employees AS e, department AS d;
   ```
 
 - #### 'FROM' subquery, also known as inline view
@@ -638,8 +604,8 @@ Group by accounts for Null.
   ```
 
   ```sql
-  SELECT SUM(CASE WHEN salary < 100000 THEN 1 ELSE 0) AS under_paid,
-         SUM(CASE WHEN salary >= 100000 THEN 1 ELSE 0) AS paid_well
+  SELECT SUM(CASE WHEN salary < 100000 THEN 1 ELSE 0 END) AS under_paid,
+         SUM(CASE WHEN salary >= 100000 THEN 1 ELSE 0 END) AS paid_well
   FROM emloyees;
   ```
 
