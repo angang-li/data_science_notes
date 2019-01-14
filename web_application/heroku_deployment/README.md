@@ -1,16 +1,6 @@
 # Deploy an app on Heroku
 
-<!-- TOC -->
-
-- [Deploy an app on Heroku](#deploy-an-app-on-heroku)
-  - [Part 1: Configuration Files](#part-1-configuration-files)
-    - [1.1. Create a new conda environment](#11-create-a-new-conda-environment)
-    - [1.2. Test running app locally](#12-test-running-app-locally)
-    - [1.3. Configure requirements.txt, Procfile](#13-configure-requirementstxt-procfile)
-  - [Part 2: Creating the Heroku App](#part-2-creating-the-heroku-app)
-  - [Part 3: Preparing the Database](#part-3-preparing-the-database)
-
-<!-- /TOC -->
+<!-- TOC -->autoauto- [Deploy an app on Heroku](#deploy-an-app-on-heroku)auto    - [Part 1: Configuration Files](#part-1-configuration-files)auto        - [1.1. Create a new conda environment](#11-create-a-new-conda-environment)auto        - [1.2. Test running app locally](#12-test-running-app-locally)auto        - [1.3. Configure requirements.txt, Procfile](#13-configure-requirementstxt-procfile)auto    - [Part 2: Creating the Heroku App](#part-2-creating-the-heroku-app)auto    - [Part 3: Preparing the Database](#part-3-preparing-the-database)autoauto<!-- /TOC -->
 
 #### Steps
 
@@ -95,13 +85,13 @@
 
 * On Heroku, go to the `Deploy` section of your app's homepage, and follow the steps to deploy the app.
 
-  ![resources/deploy05.png](resources/deploy05.png)
+  <img src="resources/deploy05.png">
 
 ## Part 3: Preparing the Database
 
 * After creating a new app on Heroku, navigate to `Resources`:
 
-  ![resources/deploy01.png](resources/deploy01.png)
+  <img src="resources/deploy01.png">
 
   * Under `Add-ons`, add `Heroku Postgres`. Make sure to use the free version.
 
@@ -109,7 +99,7 @@
 
 * The connection string to the database should now be available:
 
-  ![resources/database_url.png](resources/database_url.png)
+  <img src="resources/database_url.png">
 
 * Heroku will automatically assign this URI string to the `DATABASE_URL` environment variable that is used within `app.py`. The code that is already in `app.py` will be able to use that environment variable to connect to the Heroku database.
 
