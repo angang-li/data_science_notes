@@ -191,3 +191,20 @@ Note: It is important to have all data be in the same scale. E.g., if some measu
 The cold start problem is the problem that new users and new items to a platform don't have any ratings. Because these users and items don't have any ratings, it is impossible to use collaborative filtering methods to make recommendations.
 
 Therefore, other methods such as rank-based and content-based recommenders are the only way to get started with making recommendations for these individuals.
+
+## 4. Content Based Recommendation
+
+**Content based recommendation:** recommendation system based on information about the users or items. This method of making recommendations is particularly useful when we do not have a lot of user-item connections available in our dataset.
+
+- **Matrix multiplication**
+
+    One of the fastest ways to find out how similar items are to one another (when our matrix isn't totally sparse like it was in the earlier section) is by simply using matrix multiplication. An explanation is available [here by 3blue1brown](https://www.youtube.com/watch?v=LyGKycYT2v0) and another quick explanation is provided [in the post here](https://math.stackexchange.com/questions/689022/how-does-the-dot-product-determine-similarity).
+
+    We can pull out the content related variables from the dataset. Then we can obtain a matrix of how similar movies are to one another by taking the dot product of this matrix with itself.  Notice below that the dot product where our 1 values overlap gives a value of 2 indicating higher similarity.  In the second dot product, the 1 values don't match up.  This leads to a dot product of 0 indicating lower similarity.
+
+    <img src="Resources/recommender/cf_nb_sim_mat1.png" alt="Dot Product" width="380" height="200">
+
+    We can perform the dot product on a matrix of movies with content characteristics to provide a movie by movie matrix where each cell is an indication of how similar two movies are to one another.  In the below image, you can see that movies 1 and 8 are most similar, movies 2 and 8 are most similar, and movies 3 and 9 are most similar for this subset of the data.  The diagonal elements of the matrix will contain the similarity of a movie with itself, which will be the largest possible similarity (and will also be the number of 1's in the movie row within the orginal movie content matrix).
+
+    <img src="Resources/recommender/cf_nb_sim_mat2.png" alt="Dot Product" width="290">
+
