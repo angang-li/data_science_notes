@@ -10,6 +10,24 @@ Three main braches of recommenders
 
 Often blended techniques of all three types are used in practice to provide the the best recommendation for a particular circumstance.
 
+- [Recommendation Engines](#recommendation-engines)
+  - [1. Knowledge based recommendation](#1-knowledge-based-recommendation)
+  - [2. Collaborative filtering based recommendation - Neighborhood based](#2-collaborative-filtering-based-recommendation---neighborhood-based)
+    - [2.1. Similarity based methods](#21-similarity-based-methods)
+    - [2.2. Distance based methods](#22-distance-based-methods)
+    - [2.3. Making recommendations](#23-making-recommendations)
+  - [3. Collaborative filtering based recommendation - Model based](#3-collaborative-filtering-based-recommendation---model-based)
+    - [3.1. Latent factors](#31-latent-factors)
+    - [3.2. The original Singular Value Decomposition (SVD)](#32-the-original-singular-value-decomposition-svd)
+    - [3.3. FunkSVD](#33-funksvd)
+    - [3.4. The Cold Start Problem](#34-the-cold-start-problem)
+  - [4. Content Based Recommendation](#4-content-based-recommendation)
+  - [5. Applications](#5-applications)
+    - [5.1. Example recommendation applications](#51-example-recommendation-applications)
+    - [5.2. Choosing the rating scale](#52-choosing-the-rating-scale)
+    - [5.3. Business goals of recommendations](#53-business-goals-of-recommendations)
+    - [5.4. Validating recommendations](#54-validating-recommendations)
+
 ## 1. Knowledge based recommendation
 
 **Knowledge based recommendation:** recommendation system in which knowledge about the item or user preferences are used to make a recommendation. Knowledge based recommendations frequently are implemented using filters, and are extremely common amongst luxury based goods. Often a rank based algorithm is provided along with knowledge based recommendations to bring the most popular items in particular categories to the user's attention.
