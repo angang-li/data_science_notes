@@ -2,7 +2,22 @@
 
 Data pipeline is a generic term for moving data from one place to another. For example, it could be moving data from one server to another server.
 
-<!-- TOC -->autoauto- [Data pipelines](#data-pipelines)auto    - [1. ETL (Extract Transform Load) Pipelines](#1-etl-extract-transform-load-pipelines)auto        - [1.1. Extract data from different sources](#11-extract-data-from-different-sources)auto        - [1.2. Transform data](#12-transform-data)auto        - [1.3. Load data](#13-load-data)auto    - [2. Natural Language Processing (NLP) Pipelines](#2-natural-language-processing-nlp-pipelines)auto        - [2.1. Text Processing](#21-text-processing)auto        - [2.2. Feature Extraction](#22-feature-extraction)auto        - [2.3. Modeling](#23-modeling)auto    - [3. Machine Learning Pipelines](#3-machine-learning-pipelines)auto        - [3.1. Scikit-learn terminology](#31-scikit-learn-terminology)auto        - [3.2. Scikit-learn pipeline](#32-scikit-learn-pipeline)auto        - [3.3. Advantages of using pipeline](#33-advantages-of-using-pipeline)auto        - [3.4. Feature Union](#34-feature-union)auto        - [3.5. Create custom transformer](#35-create-custom-transformer)auto        - [3.6. Grid search with pipeline](#36-grid-search-with-pipeline)autoauto<!-- /TOC -->
+- [Data pipelines](#data-pipelines)
+  - [1. ETL (Extract Transform Load) Pipelines](#1-etl-extract-transform-load-pipelines)
+    - [1.1. Extract data from different sources](#11-extract-data-from-different-sources)
+    - [1.2. Transform data](#12-transform-data)
+    - [1.3. Load data](#13-load-data)
+  - [2. Natural Language Processing (NLP) Pipelines](#2-natural-language-processing-nlp-pipelines)
+    - [2.1. Text Processing](#21-text-processing)
+    - [2.2. Feature Extraction](#22-feature-extraction)
+    - [2.3. Modeling](#23-modeling)
+  - [3. Machine Learning Pipelines](#3-machine-learning-pipelines)
+    - [3.1. Scikit-learn terminology](#31-scikit-learn-terminology)
+    - [3.2. Scikit-learn pipeline](#32-scikit-learn-pipeline)
+    - [3.3. Advantages of using pipeline](#33-advantages-of-using-pipeline)
+    - [3.4. Feature Union](#34-feature-union)
+    - [3.5. Create custom transformer](#35-create-custom-transformer)
+    - [3.6. Grid search with pipeline](#36-grid-search-with-pipeline)
 
 ## 1. ETL (Extract Transform Load) Pipelines
 
