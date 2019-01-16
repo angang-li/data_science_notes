@@ -130,3 +130,64 @@ Note: It is important to have all data be in the same scale. E.g., if some measu
 - Item-based collaborative filtering
 
     In this type of recommendation, first find the items that are most related to each other item (based on similar ratings). Then you can use the ratings of an individual on those similar items to understand if a user will like the new item.
+
+## 3. Collaborative filtering based recommendation - Model based
+
+### 3.1. Latent factors
+
+- **Latent factors**
+
+    When performing SVD, we create a matrix of users by items, with user ratings for each item scattered throughout the matrix. Using SVD on this matrix, we can find **latent features** related to the users and items.
+
+    <img src="Resources/recommender/svd_matrix_real.png" width=400>
+
+    Latent factor is a feature that isn't observed in the data, but can be inferred based on the relationships that occur.
+
+- **Variability captured by latent features**
+
+    The sigma matrix can actually tell us how much of the variability in the user-item matrix is captured by each latent feature. The total amount of variability to be explained is the sum of the squared diagonal elements. The amount of variability explained by the first componenet is the square of the first value in the diagonal. The amount of variability explained by the second componenet is the square of the second value in the diagonal.
+
+### 3.2. The original Singular Value Decomposition (SVD)
+
+- **SVD algorithm**
+
+    If we let A A be our user-item matrix, we can write the decomposition of that matrix in the following way.
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=$A&space;=&space;U&space;\Sigma&space;V^T$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$A&space;=&space;U&space;\Sigma&space;V^T$" title="$A = U \Sigma V^T$" /></a>
+
+    <img src="Resources/recommender/svd_algorithm.png" width=600>
+
+    Consider reducing the number of latent features
+
+    - If we keep all k latent features it is likely that latent features with smaller values in the sigma matrix will explain variability that is probably due to noise and not signal.
+    - Furthermore, if we use these "noisey" latent features to assist in re-constructing the original user-movie matrix it will likely lead to worse ratings than if we only have latent features associated with signal.
+
+- **SVD closed form solution**
+
+    The most straightforward explanation of the closed form solution of SVD can be found at [this MIT link](http://web.mit.edu/be.400/www/SVD/Singular_Value_Decomposition.htm). As put in the paper -
+
+    > "Calculating the SVD consists of finding the eigenvalues and eigenvectors of AA' and A'A. The eigenvectors of A'A make up the columns of V, the eigenvectors of AA' make up the columns of U. Also, the singular values in Σ are square roots of eigenvalues from AA' or A'A. The singular values are the diagonal entries of the Σ matrix and are arranged in descending order. The singular values are always real numbers. If the matrix A is a real matrix, then U and V are also real."
+
+- **(-) SVD in NumPy will not work when our matrix has missing values**
+
+### 3.3. FunkSVD
+
+- Gradient descent
+
+    To deal with missing values, use gradient descent to find the SVD matrices.
+
+    <img src="Resources/recommender/svd_gd.png" width=270>
+
+    <img src="Resources/recommender/svd_gd_update.png" width=600>
+
+- Pros and cons
+
+    - (+) Predict ratings for all user-item pairs
+    - (+) Regression metrics to measure how well predictions match actual videos
+    - (-) The cold start problem - use content-based or knowledge-based recommendations
+
+### 3.4. The Cold Start Problem
+
+The cold start problem is the problem that new users and new items to a platform don't have any ratings. Because these users and items don't have any ratings, it is impossible to use collaborative filtering methods to make recommendations.
+
+Therefore, other methods such as rank-based and content-based recommenders are the only way to get started with making recommendations for these individuals.
