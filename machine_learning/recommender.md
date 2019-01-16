@@ -208,3 +208,48 @@ Therefore, other methods such as rank-based and content-based recommenders are t
 
     <img src="Resources/recommender/cf_nb_sim_mat2.png" alt="Dot Product" width="290">
 
+## 5. Applications
+
+### 5.1. Example recommendation applications
+
+- [AirBnB uses embeddings in their recommendation](https://medium.com/airbnb-engineering/listing-embeddings-for-similar-listing-recommendations-and-real-time-personalization-in-search-601172f7603e)
+- [Location-based recommemdation with collaborative filtering](https://link.springer.com/referenceworkentry/10.1007%2F978-3-319-17885-1_1580)
+- [Deep learning use cases for recommendation systems](https://ebaytech.berlin/deep-learning-for-recommender-systems-48c786a20e1as)
+
+### 5.2. Choosing the rating scale
+
+- Some ideas to keep in mind
+
+  - Do you need to ask questions of your user or can you collect data about their interactions with items?
+  - If you need to ask questions, how many do you ask?
+  - How do you word the questions?
+  - And finally, what type of scale should you use?
+
+- [An overview of types of ratings and when to use them](https://conversionxl.com/blog/survey-response-scales/)
+
+### 5.3. Business goals of recommendations
+
+In general, recommendations are important because they are often central to driving revenue for a company. There are ultimately 4 goals to keep in mind when performing recommendations:
+
+- Relevance - How relevant are the recommendations?
+- Novelty - How surprising are the recommendations in general?
+- Serendipity - How surprising are the relevant recommendations?
+- Diversity - How dissimilar are the recommendations?
+
+[In this article](https://gab41.lab41.org/recommender-systems-its-not-all-about-the-accuracy-562c7dceeaff), Lab41 shows how they worked to quantify these metrics.
+
+### 5.4. Validating recommendations
+
+- Online Testing
+
+    Deploy the recommender and just watch the metrics carefully. It is common in practice to set up online recommendations to have an "old" version of recommended items, which is compared to a new page that uses a new recommendation strategy. A/B test is critical to watching your metrics in online learning, and ultimately, choosing a recommendation strategy that works best for your products and customers.
+
+- Offline Testing
+
+    In many cases, a company might not let you simply deploy your recommendations out into the real world any time you feel like it. Testing out your recommendations in a training-testing environment prior to deploying them is called offline testing. Frequently the training-testing split is based on time, where events earlier in time are in the training data, and events later in time are in a testing dataset.
+
+    Predict how much each user would like each item using a predicted rating. Then we can compare this predicted rating to the actual rating any individual gives to an item in the future.
+
+- User Groups
+
+    Ask user groups give feedback on items you would recommend for them. Obtaining good user groups that are representative of your customers can be a challenge on its own. This is especially true when you have a lot of products and a very large consumer base.
