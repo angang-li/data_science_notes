@@ -2,5 +2,5 @@
 
 ## Table of Contents
 
-- [Big data and Hadoop](big_data_hadoop.md)
+- [Big data](big_data.md)
 
