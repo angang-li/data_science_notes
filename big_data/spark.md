@@ -1,7 +1,7 @@
 # Spark
 
 - [Spark](#spark)
-  - [1. Spark basics](#1-spark-basics)
+  - [1. What is Spark](#1-what-is-spark)
     - [1.1. Spark vs. Hadoop](#11-spark-vs-hadoop)
     - [1.2. Streaming data](#12-streaming-data)
     - [1.3. Four different modes to setup Spark](#13-four-different-modes-to-setup-spark)
@@ -9,8 +9,14 @@
     - [1.5. You don't always need Spark](#15-you-dont-always-need-spark)
     - [1.6. Spark's limitations](#16-sparks-limitations)
     - [1.7. Beyond Spark for Storing and Processing Big Data](#17-beyond-spark-for-storing-and-processing-big-data)
+  - [2. Spark and functional programming](#2-spark-and-functional-programming)
+    - [2.1. Functional programming](#21-functional-programming)
+    - [2.2. Directed Acyclic Graph (DAG)](#22-directed-acyclic-graph-dag)
+    - [2.3. Maps and lambda functions](#23-maps-and-lambda-functions)
+    - [2.4. Imperative vs declarative programming](#24-imperative-vs-declarative-programming)
+    - [2.5. Resilient distributed dataset (RDD)](#25-resilient-distributed-dataset-rdd)
 
-## 1. Spark basics
+## 1. What is Spark
 
 ### 1.1. Spark vs. Hadoop
 
@@ -72,4 +78,112 @@ Here are a few resources about different Spark use cases.
 - Sometimes it makes sense to use the power and simplicity of SQL on big data. For these cases, a new class of databases, know as NoSQL and NewSQL, have been developed.
 
 - E.g., newer database storage systems like [HBase](https://hbase.apache.org/) or [Cassandra](http://cassandra.apache.org/); distributed SQL engines like [Impala](https://impala.apache.org/) and [Presto](https://prestodb.io/). Many of these technologies use query syntax.
+
+## 2. Spark and functional programming
+
+Spark is written in Scala, which is a functional programming. There are application programming interfaces in Java, R, Python; e.g. Python API - `PySpark`
+
+### 2.1. Functional programming
+
+- **Functional programming** is the process of building software by composing **pure functions**, avoiding **shared state**, **mutable data**, and **side-effects**.
+
+    - **Pure functions:** functions that preserve inputs and avoid side effects.
+
+    - **Function composition:** the process of combining two or more functions in order to produce a new function or perform some computation.
+
+    - When you avoid **shared state**, the timing and order of function calls don’t change the result of calling the function. With pure functions, given the same input, you’ll always get the same output.
+
+    - **Mutable data:** no property can change, regardless of the level of the property in the object hierarchy
+
+    - **Side-effects:** any application state change that is observable outside the called function other than its return value.
+
+### 2.2. Directed Acyclic Graph (DAG)
+
+Spark features an advanced Directed Acyclic Graph (DAG) engine supporting cyclic data flow. Each Spark job creates a DAG of task stages to be performed on the cluster.
+
+- In lazy evaluation, data is not loaded until it is necessary.
+
+    <img src="resources/spark_dag.png" width=500>
+
+- Compared to MapReduce, which creates a DAG with two predefined stages - Map and Reduce, DAGs created by Spark can contain any number of stages.
+
+### 2.3. Maps and lambda functions
+
+In Spark, maps take data as input and then transform that data with whatever function you put in the map. They are like directions for the data telling how each input should get to the output.
+
+- Create a `SparkContext` object
+
+    With the `SparkContext`, you can input a dataset and parallelize the data across a cluster. If using Spark in local mode on a single machine, technically the dataset isn't distributed yet.
+
+    ```python
+    # The findspark Python module makes it easier to install
+    # Spark in local mode on your computer. This is convenient
+    # for practicing Spark syntax locally.
+    import findspark
+    findspark.init('spark-2.3.2-bin-hadoop2.7')
+
+    # Instantiate a SparkContext object
+    import pyspark
+    sc = pyspark.SparkContext(appName="maps_and_lazy_evaluation_example")
+
+    # Read in the log_of_songs list into Spark
+    log_of_songs = [
+        "Despacito",
+        "Nice for what",
+        "No tears left to cry",
+        "Despacito",
+        "Havana",
+        "In my feelings",
+        "Nice for what",
+        "despacito",
+        "All the stars"
+    ]
+
+    # parallelize the log_of_songs to use with Spark
+    distributed_song_log = sc.parallelize(log_of_songs)
+    ```
+
+- Convert to lowercase
+
+    ```python
+    # Define a function
+    def convert_song_to_lowercase(song):
+        return song.lower()
+
+    # Apply this function using a map step
+    distributed_song_log.map(convert_song_to_lowercase)
+    # Due to lazy evaluation, Spark does not actually
+    # execute the map step unless it needs to.
+
+    # Can also use anonymous (lambda) functions as well
+    # as built-in Python functions like string.lower().
+    distributed_song_log.map(lambda x: x.lower()).collect()
+
+    # Get Spark to actually run the map step.
+    distributed_song_log.map(convert_song_to_lowercase).collect()
+    # The collect() method takes the results from all
+    # of the clusters and "collects" them into a single
+    # list on the master node.
+    ```
+
+    Spark is not changing the original data set: Spark is merely making a copy.
+
+### 2.4. Imperative vs declarative programming
+
+- How to achieve the result vs. what result to get
+
+    <img src="resources/spark_imp_dec.png" width=500>
+
+### 2.5. Resilient distributed dataset (RDD)
+
+- **RDD** is a fundamental data structure of Spark. It is an immutable distributed collection of objects. RDDs are a low-level abstraction of the data. You can think of RDDs as long lists distributed across various machines. You can still use RDDs as part of your Spark code although data frames and SQL are easier.
+
+    <img src="resources/spark_rdd.png" width=300> <br>
+    <img src="resources/spark_rdd2.png" width=225>
+
+- Additional resources
+
+  - Explanation of the difference between RDDs and DataFrames in Databricks' [A Tale of Three Apache Spark APIs: RDDs, DataFrames, and Datasets](https://databricks.com/blog/2016/07/14/a-tale-of-three-apache-spark-apis-rdds-dataframes-and-datasets.html) blog post.
+
+  - Link to the Spark documentation's [RDD programming guide](https://spark.apache.org/docs/latest/rdd-programming-guide.html).
 
