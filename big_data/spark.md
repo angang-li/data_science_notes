@@ -220,6 +220,13 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
     spark.sparkContext.getConf().getAll()
     ```
 
+- Stop Spark session
+
+    ```python
+    # Stop at the end
+    spark.stop()
+    ```
+
 ### 3.2. Read and write data into Spark dataframe
 
 - Read json
@@ -412,12 +419,17 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
 
     ```python
     # Add a new column
-    df.withColumn('newprice', df['price']).show()
+    df = df.withColumn('newprice', df['price']).show()
     ```
 
     ```python
     # Add a new column with calculation
-    df.withColumn('doubleprice',df['price']*2).show()
+    df = df.withColumn('doubleprice',df['price']*2).show()
+    ```
+
+    ```python
+    # Add a new column with built-in function
+    df = df.withColumn("Desc", concat(col("Title"), lit(' '), col("Body")))
     ```
 
 - Update column name
@@ -480,6 +492,13 @@ Spark SQL provides built-in methods for the most common aggregations such as `co
     ```python
     # Use agg
     df.agg({"points": "avg"}).show()
+    ```
+
+    equivalently
+
+    ```python
+    # Use agg with avg
+    df.agg(avg("points")).show()
     ```
 
 ### 3.6. User defined functions (UDF)
