@@ -4,7 +4,20 @@ We often use standard hypothesis tests on means of normal distributions to desig
 
 - (+) The main benefit of non-parametric tests is that they don't rely on many assumptions of the underlying population, and so can be used in a wider range of circumstances compared to standard tests.
 
-<!-- TOC -->autoauto- [Non-Parametric Tests](#non-parametric-tests)auto  - [1. Bootstrapping](#1-bootstrapping)auto    - [1.1. Method](#11-method)auto    - [1.2. Pros and Cons](#12-pros-and-cons)auto    - [1.3. Example](#13-example)auto  - [2. Permutation tests](#2-permutation-tests)auto    - [2.1. Method](#21-method)auto    - [2.2. Example](#22-example)auto  - [3. Rank-S<!-- TOC -->autoauto- [Non-Parametric Tests](#non-parametric-tests)auto  - [1. Bootstrapping](#1-bootstrapping)auto    - [1.1. Method](#11-method)auto    - [1.2. Pros and Cons](#12-pros-and-cons)auto    - [1.3. Example](#13-example)auto  - [2. Permutation tests](#2-permutation-tests)auto    - [2.1. Method](#21-method)auto    - [2.2. Example](#22-example)auto  - [3. Rank-Sum Test (Mann-Whitney)](#3-rank-sum-test-mann-whitney)auto    - [3.1. Method](#31-method)auto    - [3.2. Example](#32-example)auto  - [4. Sign test](#4-sign-test)auto    - [4.1. Method](#41-method)auto    - [4.2. Example](#42-example)autoauto<!-- /TOC -->um Test (Mann-Whitney)](#3-rank-sum-test-mann-whitney)auto    - [3.1. Method](#31-method)auto    - [3.2. Example](#32-example)auto  - [4. Sign test](#4-sign-test)auto    - [4.1. Method](#41-method)auto    - [4.2. Example](#42-example)autoauto<!-- /TOC -->
+- [Non-Parametric Tests](#non-parametric-tests)
+  - [1. Bootstrapping](#1-bootstrapping)
+    - [1.1. Method](#11-method)
+    - [1.2. Pros and Cons](#12-pros-and-cons)
+    - [1.3. Example](#13-example)
+  - [2. Permutation tests](#2-permutation-tests)
+    - [2.1. Method](#21-method)
+    - [2.2. Example](#22-example)
+  - [3. Rank-Sum Test (Mann-Whitney)](#3-rank-sum-test-mann-whitney)
+    - [3.1. Method](#31-method)
+    - [3.2. Example](#32-example)
+  - [4. Sign test](#4-sign-test)
+    - [4.1. Method](#41-method)
+    - [4.2. Example](#42-example)
 
 ## 1. Bootstrapping
 

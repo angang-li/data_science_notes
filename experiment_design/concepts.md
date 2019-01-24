@@ -1,6 +1,15 @@
 # Concepts of Experiment Design
 
-<!-- TOC -->autoauto- [Concepts of Experiment Design](#concepts-of-experiment-design)auto  - [1. Types of study](#1-types-of-study)auto  - [2. Key features of an experiment](#2-key-features-of-an-experiment)auto  - [3. Types of experiment](#3-types-of-experiment)auto  - [4. Types of sampling](#4-types-of-sampling)auto  - [5. Measuring outcomes](#5-measuring-outcomes)auto  - [6. Creating metrics](#6-creating-metrics)auto  - [7. Potential problems of a study - Checking validity](#7-potential-problems-of-a-study---checking-validity)auto  - [8. Potential problems of a study - Checking bias](#8-potential-problems-of-a-study---checking-bias)auto  - [9. Potential problems of a study - Ethics in experimentation](#9-potential-problems-of-a-study---ethics-in-experimentation)autoauto<!-- /TOC -->
+- [Concepts of Experiment Design](#concepts-of-experiment-design)
+  - [1. Types of study](#1-types-of-study)
+  - [2. Key features of an experiment](#2-key-features-of-an-experiment)
+  - [3. Types of experiment](#3-types-of-experiment)
+  - [4. Types of sampling](#4-types-of-sampling)
+  - [5. Measuring outcomes](#5-measuring-outcomes)
+  - [6. Creating metrics](#6-creating-metrics)
+  - [7. Potential problems of a study - Checking validity](#7-potential-problems-of-a-study---checking-validity)
+  - [8. Potential problems of a study - Checking bias](#8-potential-problems-of-a-study---checking-bias)
+  - [9. Potential problems of a study - Ethics in experimentation](#9-potential-problems-of-a-study---ethics-in-experimentation)
 
 ## 1. Types of study
 

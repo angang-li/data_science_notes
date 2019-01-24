@@ -1,6 +1,13 @@
 # Statistical Considerations in Testing
 
-<!-- TOC -->autoauto- [Statistical Considerations in Testing](#statistical-considerations-in-testing)auto  - [1. Statistical significance](#1-statistical-significance)auto  - [2. Practical significance](#2-practical-significance)auto  - [3. Experiment size decision](#3-experiment-size-decision)auto  - [4. Using dummy tests](#4-using-dummy-tests)auto  - [5. Non-parametric test](#5-non-parametric-test)auto  - [6. Analyzing multiple metrics](#6-analyzing-multiple-metrics)auto  - [7. Early stopping](#7-early-stopping)autoauto<!-- /TOC -->
+- [Statistical Considerations in Testing](#statistical-considerations-in-testing)
+  - [1. Statistical significance](#1-statistical-significance)
+  - [2. Practical significance](#2-practical-significance)
+  - [3. Experiment size decision](#3-experiment-size-decision)
+  - [4. Using dummy tests](#4-using-dummy-tests)
+  - [5. Non-parametric test](#5-non-parametric-test)
+  - [6. Analyzing multiple metrics](#6-analyzing-multiple-metrics)
+  - [7. Early stopping](#7-early-stopping)
 
 ## 1. Statistical significance
 
