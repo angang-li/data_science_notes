@@ -1,59 +1,29 @@
 # Statistics
 
+* Descriptive statistics: summarize
+* Inferential statistics: generalize
+* Predictive statistics: unknown
+
 <!-- TOC -->
 
 - [Statistics](#statistics)
-    - [1. Descriptive statistics (summarize)](#1-descriptive-statistics-summarize)
-        - [1.1. Measures of central tendency](#11-measures-of-central-tendency)
-        - [1.2. Measures of variations](#12-measures-of-variations)
-    - [2. Inferential statistics (generalize)](#2-inferential-statistics-generalize)
-        - [2.1. Sample vs. population](#21-sample-vs-population)
-        - [2.2. Hypothesis testing](#22-hypothesis-testing)
-        - [2.3. Standard error of the mean - a measure of confidence](#23-standard-error-of-the-mean---a-measure-of-confidence)
-        - [2.4. The Student's t-test](#24-the-students-t-test)
-        - [2.5. One Sample T-Test](#25-one-sample-t-test)
-        - [2.6. Independent T-Test](#26-independent-t-test)
-        - [2.7. Analysis of Variance (ANOVA)](#27-analysis-of-variance-anova)
-        - [2.8. Chi-Square test of independence](#28-chi-square-test-of-independence)
-    - [3. Predictive statistics (unknown)](#3-predictive-statistics-unknown)
-        - [3.1. Regression](#31-regression)
+  - [2. Inferential statistics (generalize)](#2-inferential-statistics-generalize)
+    - [2.1. Sample vs. population](#21-sample-vs-population)
+    - [2.2. Hypothesis testing](#22-hypothesis-testing)
+    - [2.3. Standard error of the mean - a measure of confidence](#23-standard-error-of-the-mean---a-measure-of-confidence)
+    - [2.4. The Student's t-test](#24-the-students-t-test)
+    - [2.5. One Sample T-Test](#25-one-sample-t-test)
+    - [2.6. Independent T-Test](#26-independent-t-test)
+    - [2.7. Analysis of Variance (ANOVA)](#27-analysis-of-variance-anova)
+    - [2.8. Chi-Square test of independence](#28-chi-square-test-of-independence)
+    - [2.9. Pearson Correlation](#29-pearson-correlation)
+    - [2.10. Moderation](#210-moderation)
+  - [3. Predictive statistics (unknown)](#3-predictive-statistics-unknown)
+    - [3.1. Regression](#31-regression)
 
 <!-- /TOC -->
 
-## 1. Descriptive statistics (summarize)
 
-### 1.1. Measures of central tendency
-  
-* mean
-* median
-* mode
-
-| | pros | cons |
-|---|---|---|
-|mean| use all numbers, easy |susceptible to outliers|
-|median| robust to outliers | only reflects 1-2 values of the dataset|
-|mode|good for nominal or categorical data, or multiple clusters|less meaningful in small dataset| <br>
-
-`from stats import mean, median, mode, multi_mode`
-
-### 1.2. Measures of variations
-
-* variance
-* standard deviation
-* z-score:   how far one value is from the mean
-
-    These statistics are susceptible to outliers <br>
-    Okay to drop outliers when ... <br>
-    Not okay to drop outliers when ... <br>
-
-* interquartile range (IQR): 3rd quartile - 1st quartile
-
-    IQR as automatic way to identify outliers <br>
-    lower outliers: Q1 - 1.5 * IQR <br>
-    upper outliers: Q3 + 1.5 * IQR <br>
-
-    `plt.boxplot(arr, showmeans=True)` <br>
-    median, IQR, whisker shows data excluding outliers, outliers plotted as individual points
 
 ## 2. Inferential statistics (generalize)
 
@@ -338,7 +308,161 @@ Whether there is a significant difference between the expected frequencies and t
         print (cs3)
         ```
 
+### 2.9. Pearson Correlation
 
+Pearson correlation coefficient (r) measures a linear relationship between two quantitative variables.
+
+Correlation ignores any other type of relationship no matter how strong.
+
+* $r$: Pearson correlation coefficient
+* $r^2$: R Squared or Coefficient of Determination
+
+    The fraction of the variability of 1 variable that can be predicted by the other. Aka., if we know x, we can predict $r^2$ of the variability we will see in y.
+
+* Code
+
+    Pearson correlation coefficient
+
+    ```python
+    import pandas
+    import numpy
+    import seaborn
+    import scipy
+    import matplotlib.pyplot as plt
+
+    # Print r and the corresponding p-value
+    print ('association between urbanrate and internetuserate')
+    print (scipy.stats.pearsonr(data_clean['urbanrate'], data_clean['internetuserate']))
+
+    print ('association between incomeperperson and internetuserate')
+    print (scipy.stats.pearsonr(data_clean['incomeperperson'], data_clean['internetuserate']))
+    ```
+
+    Visualize
+
+    ```python
+    scat1 = seaborn.regplot(x="urbanrate", y="internetuserate", fit_reg=True, data=data)
+    plt.xlabel('Urban Rate')
+    plt.ylabel('Internet Use Rate')
+    plt.title('Scatterplot for the Association Between Urban Rate and Internet Use Rate')
+
+    scat2 = seaborn.regplot(x="incomeperperson", y="internetuserate", fit_reg=True, data=data)
+    plt.xlabel('Income per Person')
+    plt.ylabel('Internet Use Rate')
+    plt.title('Scatterplot for the Association Between Income per Person and Internet Use Rate')
+    ```
+### 2.10. Moderation
+
+Moderating variable (or moderator) is a third variable that affects the direction and or strength of the relation between the explanatory and response variable.
+
+* Testing moderation in the context of ANOVA
+
+    Is our explanatory variable associated with our response variable, for each population subgroup or each level of our third variable?
+
+    ```python
+    sub2=data[(data['Exercise']=='Cardio')]
+    sub3=data[(data['Exercise']=='Weights')]
+
+    print ('association between diet and weight loss for those using Cardio exercise')
+    model2 = smf.ols(formula='WeightLoss ~ C(Diet)', data=sub2).fit()
+    print (model2.summary())
+
+    print ('association between diet and weight loss for those using Weights exercise')
+    model3 = smf.ols(formula='WeightLoss ~ C(Diet)', data=sub3).fit()
+    print (model3.summary())
+
+    print ("means for WeightLoss by Diet A vs. B  for CARDIO")
+    m3= sub2.groupby('Diet').mean()
+    print (m3)
+    print ("Means for WeightLoss by Diet A vs. B for WEIGHTS")
+    m4 = sub3.groupby('Diet').mean()
+    print (m4)
+    ```
+
+* Testing moderation in the context of Chi Square
+
+    Is explanatory variable related to response variable, for each level of our third variable?
+
+    ```python
+    sub3=sub2[(sub2['MAJORDEPLIFE']== 0)]
+    sub4=sub2[(sub2['MAJORDEPLIFE']== 1)]
+
+    print ('association between smoking quantity and nicotine dependence for those W/O deperession')
+    # contingency table of observed counts
+    ct2=pandas.crosstab(sub3['TAB12MDX'], sub3['USQUAN'])
+    print (ct2)
+
+    # column percentages
+    colsum=ct1.sum(axis=0)
+    colpct=ct1/colsum
+    print(colpct)
+
+    # chi-square
+    print ('chi-square value, p value, expected counts')
+    cs2= scipy.stats.chi2_contingency(ct2)
+    print (cs2)
+
+    print ('association between smoking quantity and nicotine dependence for those WITH depression')
+    # contingency table of observed counts
+    ct3=pandas.crosstab(sub4['TAB12MDX'], sub4['USQUAN'])
+    print (ct3)
+
+    # column percentages
+    colsum=ct1.sum(axis=0)
+    colpct=ct1/colsum
+    print(colpct)
+
+    # chi-square
+    print ('chi-square value, p value, expected counts')
+    cs3= scipy.stats.chi2_contingency(ct3)
+    print (cs3)
+
+    # Visualize
+    seaborn.factorplot(x="USQUAN", y="TAB12MDX", data=sub4, kind="point", ci=None)
+    plt.xlabel('number of cigarettes smoked per day')
+    plt.ylabel('Proportion Nicotine Dependent')
+    plt.title('association between smoking quantity and nicotine dependence for those WITH depression')
+
+    seaborn.factorplot(x="USQUAN", y="TAB12MDX", data=sub3, kind="point", ci=None)
+    plt.xlabel('number of cigarettes smoked per day')
+    plt.ylabel('Proportion Nicotine Dependent')
+    plt.title('association between smoking quantity and nicotine dependence for those WITHOUT depression')
+    ```
+
+* Testing moderation in the context of correlation
+
+    ```python
+    sub1=data_clean[(data_clean['incomegrp']== 1)]
+    sub2=data_clean[(data_clean['incomegrp']== 2)]
+    sub3=data_clean[(data_clean['incomegrp']== 3)]
+
+    print ('association between urbanrate and internetuserate for LOW income countries')
+    print (scipy.stats.pearsonr(sub1['urbanrate'], sub1['internetuserate']))
+    print ('       ')
+    print ('association between urbanrate and internetuserate for MIDDLE income countries')
+    print (scipy.stats.pearsonr(sub2['urbanrate'], sub2['internetuserate']))
+    print ('       ')
+    print ('association between urbanrate and internetuserate for HIGH income countries')
+    print (scipy.stats.pearsonr(sub3['urbanrate'], sub3['internetuserate']))
+    #%%
+    scat1 = seaborn.regplot(x="urbanrate", y="internetuserate", data=sub1)
+    plt.xlabel('Urban Rate')
+    plt.ylabel('Internet Use Rate')
+    plt.title('Scatterplot for the Association Between Urban Rate and Internet Use Rate for LOW income countries')
+    print (scat1)
+    #%%
+    scat2 = seaborn.regplot(x="urbanrate", y="internetuserate", fit_reg=False, data=sub2)
+    plt.xlabel('Urban Rate')
+    plt.ylabel('Internet Use Rate')
+    plt.title('Scatterplot for the Association Between Urban Rate and Internet Use Rate for MIDDLE income countries')
+    print (scat2)
+    #%%
+    scat3 = seaborn.regplot(x="urbanrate", y="internetuserate", data=sub3)
+    plt.xlabel('Urban Rate')
+    plt.ylabel('Internet Use Rate')
+    plt.title('Scatterplot for the Association Between Urban Rate and Internet Use Rate for HIGH income countries')
+    print (scat3)
+    ```
 
 ## 3. Predictive statistics (unknown)
 
