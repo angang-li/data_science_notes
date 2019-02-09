@@ -4,4 +4,5 @@
 
 - [Big data](big_data.md)
 - [Hadoop](hadoop.md)
-- [Spark](spark.md)
+- [Spark data wrangling](spark.md)
+- [Spark machine learning](spark_ml.md)

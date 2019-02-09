@@ -419,12 +419,12 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
 
     ```python
     # Add a new column
-    df = df.withColumn('newprice', df['price']).show()
+    df = df.withColumn('newprice', df['price'])
     ```
 
     ```python
     # Add a new column with calculation
-    df = df.withColumn('doubleprice',df['price']*2).show()
+    df = df.withColumn('doubleprice',df['price']*2)
     ```
 
     ```python
