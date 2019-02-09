@@ -3,16 +3,16 @@
 <!-- TOC -->
 
 - [Natural language processing (NLP)](#natural-language-processing-nlp)
-    - [1. Text Processing](#1-text-processing)
-        - [1.1. Text cleaning](#11-text-cleaning)
-        - [1.2. Normalization, tokenization, and stop words removal](#12-normalization-tokenization-and-stop-words-removal)
-        - [1.3. Part of speech tagging, named entity recognition, and conference resolution](#13-part-of-speech-tagging-named-entity-recognition-and-conference-resolution)
-        - [1.4. Stemming and Lemmatization](#14-stemming-and-lemmatization)
-    - [2. Feature Extraction](#2-feature-extraction)
-        - [2.1. Bag of Words](#21-bag-of-words)
-        - [2.2. TF-IDF](#22-tf-idf)
-        - [2.3. Word Embeddings](#23-word-embeddings)
-    - [3. Modeling](#3-modeling)
+  - [1. Text Processing](#1-text-processing)
+    - [1.1. Text cleaning](#11-text-cleaning)
+    - [1.2. Normalization, tokenization, and stop words removal](#12-normalization-tokenization-and-stop-words-removal)
+    - [1.3. Part of speech tagging, named entity recognition, and conference resolution](#13-part-of-speech-tagging-named-entity-recognition-and-conference-resolution)
+    - [1.4. Stemming and Lemmatization](#14-stemming-and-lemmatization)
+  - [2. Feature Extraction](#2-feature-extraction)
+    - [2.1. Bag of Words](#21-bag-of-words)
+    - [2.2. TF-IDF](#22-tf-idf)
+    - [2.3. Word Embeddings](#23-word-embeddings)
+  - [3. Modeling](#3-modeling)
 
 <!-- /TOC -->
 
@@ -336,7 +336,7 @@ Term Frequency – Inverse Document Frequency (TF-IDF) is a measure intended to
 
 - **TF (Term Frequency)**
   
-    - Commonly used definition: The count of the term in a document *d*, divided by the total number of terms *t* in the document
+    - Commonly used definition: The count of the term *t* in a document *d*, divided by the total number of terms in the document
         
         <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{count(t,&space;d)}{|d|}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{count(t,&space;d)}{|d|}" title="\frac{count(t, d)}{|d|}" /></a>
 
