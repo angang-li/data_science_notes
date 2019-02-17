@@ -20,6 +20,8 @@
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=P(X=k)=\frac{n!}{k!(n-k)!}p^k(1-p)^{n-k}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?P(X=k)=\frac{n!}{k!(n-k)!}p^k(1-p)^{n-k}" title="P(X=k)=\frac{n!}{k!(n-k)!}p^k(1-p)^{n-k}" /></a>
 
+<img src="resources/prob_clt.png" width=400>
+
 ## 3. Conditional probability
 
 We can formulate conditional probabilities for any two events in the following way:
