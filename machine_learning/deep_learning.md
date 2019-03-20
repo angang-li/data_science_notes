@@ -35,8 +35,6 @@
 
 ## 1. Intro to Neural Networks
 
-Classification problem
-
 ### 1.1. Decision boundary
 
 - Linear equation
@@ -900,7 +898,7 @@ Torch provides a module, `autograd`, for automatically calculating the gradient 
   # If output of the network are logits, need to take softmax for probabilities
   ps = F.softmax(output, dim=1)
 
-  # If output are lo-softmax, need to take exponential for probabilities
+  # If output are log-softmax, need to take exponential for probabilities
   ps = torch.exp(output)
 
   # Plot the image and probabilities
@@ -942,7 +940,9 @@ Need to save both model architecture and network parameters (`state_dict`)
 
 Transfer learning: use a pre-trained network on images not in the training set.
 
-Pre-trained networks, e.g. networks trained on [ImageNet](http://www.image-net.org/) (available from [`torchvision.models`](http://pytorch.org/docs/0.3.0/torchvision/models.html)), can be used to solved challenging problems in computer vision. ImageNet, a massive dataset with >1 million labeled images in 1000 categories, is used to train deep neural networks using an architecture called [convolutional layers](https://www.youtube.com/watch?v=2-Ol7ZB0MmU). These trained models work astonishingly well as feature detectors for images they weren't trained on.
+Pre-trained networks, e.g. networks trained on [ImageNet](http://www.image-net.org/) (available from [`torchvision.models`](http://pytorch.org/docs/0.3.0/torchvision/models.html)), can be used to solved challenging problems in computer vision. ImageNet, a massive dataset with >1 million labeled images in 1000 categories, is used to train deep neural networks using an architecture called [convolutional layers](https://www.youtube.com/watch?v=2-Ol7ZB0MmU). These trained models work astonishingly well as feature detectors for images they weren't trained on. Learn more about convolutional neural networks [here](https://medium.freecodecamp.org/an-intuitive-guide-to-convolutional-neural-networks-260c2de0a050).
+
+<img src="Resources/deep_learning/cnn.png">
 
 - #### Initialize data
 
