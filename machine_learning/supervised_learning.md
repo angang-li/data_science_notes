@@ -70,7 +70,7 @@
 
 ### II. Preparing the data
 
-- #### Three strategies for working with missing values include:
+- #### Strategies for working with missing values
 
   - Remove the rows or columns holding the missing values 
     
@@ -111,9 +111,15 @@
 
     <img src="Resources/npp.gif">
 
-- #### Normalize numerical features
+- #### Feature scaling
 
-  e.g., [`sklearn.preprocessing.MinMaxScaler`](http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html)
+  - Reasons for feature scaling
+
+    Should do feature scaling when the scale of a feature is irrelevant or misleading. <br>
+    Many algorithms (e.g. SVM, K-nearest neighbors, logistic regression, PCA) considers Euclidean distance to be meaningful. <br>
+    Gradient descent converges much faster with feature scaling than without it.
+
+  - e.g., [`MinMaxScaler`](http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html), [`StandardScaler`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler), [`MaxAbsScaler`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MaxAbsScaler.html#sklearn.preprocessing.MaxAbsScaler)
 
 - #### Convert categorical features
 
@@ -124,7 +130,7 @@
 
 - #### Shuffle and split data
 
-  Randomize rows and split data into test vs training
+  Randomize rows and split data into test vs. training
 
 ### III. Evaluate model performance
 
