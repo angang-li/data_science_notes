@@ -64,7 +64,7 @@ Take raw input text, clean it, normalize it, and convert it into a form that is 
     response = requests.get("https://www.udacity.com/courses/all")
 
     # Use BeautifulSoup to remove HTML tags
-    soup = BeautifulSoup(r.text, 'lxml')
+    soup = BeautifulSoup(response.text, 'lxml')
 
     # Find all course summaries
     summaries = soup.find_all('div', class_="course-summary-card")
@@ -109,7 +109,7 @@ Take raw input text, clean it, normalize it, and convert it into a form that is 
     ```
 
     ```python
-    # Spacey
+    # Spacy
     !{sys.executable} -m pip install spacy
     !{sys.executable} -m pip install https://github.com/huggingface/neuralcoref-models/releases/download/en_coref_md-3.0.0/en_coref_md-3.0.0.tar.gz
     import spacy
@@ -138,7 +138,7 @@ Take raw input text, clean it, normalize it, and convert it into a form that is 
     ```
 
     ```python
-    # Spacey
+    # Spacy
     import spacy
 
     # Load the trained model of the English language
@@ -166,7 +166,7 @@ Take raw input text, clean it, normalize it, and convert it into a form that is 
     Outputs [('I', 'PRP'), ('always', 'RB'), ...]
 
     ```python
-    # Spacey
+    # Spacy
     # Keep only nouns and verbs
     noun_verbs = [token.text for token in stoplisted if token.pos_ == "NOUN" or token.pos_ == "VERB"]
     ```
@@ -190,7 +190,7 @@ Take raw input text, clean it, normalize it, and convert it into a form that is 
     Identify the original reference of pronouns (she, he, it, that, her, him, etc).
 
     ```python
-    # Spacey
+    # Spacy
     import spacy
 
     # Load the trained model of the English language
@@ -226,8 +226,8 @@ Take raw input text, clean it, normalize it, and convert it into a form that is 
     ```
 
     ```python
-    # Spacey
-    import spacey
+    # Spacy
+    import spacy
 
     # Load the trained model of the English language
     nlp = spacy.load('en_coref_md')
