@@ -75,7 +75,7 @@
   - Remove the rows or columns holding the missing values 
     
     Associated with mechanical failures <br> 
-    Acolumn that you are interested in predicting
+    columns that you are interested in predicting
 
   - Impute the missing values
 
@@ -86,7 +86,30 @@
 
 - #### Transform skewed continuous features
 
-  For highly skewed features, it is common practice to apply a logarithmic transformation. Note: The logarithm of 0 is undefined.
+  - Reasons for transformation
+
+    Reduce skewness: ideal for many statistical models<br>
+    Equal spread (**homoscedasticity**): stabilize the variance in each dataset<br>
+    Produce linear and additive relationships: easier to handle and interpret
+
+  - Box-Cox transformation
+
+    $$
+    f(x) = \left\{
+            \begin{array}{ll}
+                \frac{x^\lambda-1}{\lambda} & \quad \lambda \neq 0 \\
+                \log{x} & \quad \lambda=0
+            \end{array}
+        \right.
+    $$
+
+    For highly skewed features, it is common practice to apply a logarithmic transformation. Note: The logarithm of 0 is undefined.
+
+  - Measure of Normality
+
+    Normal probability plot: The quantiles of the data and the quantiles of the idealized normally distributed data.
+
+    <img src="Resources/npp.gif">
 
 - #### Normalize numerical features
 
