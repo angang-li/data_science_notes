@@ -123,19 +123,19 @@ To move the decision boundary closer to the point, for every misclassified point
 
   <a href="https://www.codecogs.com/eqnedit.php?latex=\delta_j^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta_j^{(l)}" title="\delta_j^{(l)}" /></a>: error of node j in layer l <br>
 
-  When <a href="https://www.codecogs.com/eqnedit.php?latex=l=L" target="_blank"><img src="https://latex.codecogs.com/gif.latex?l=L" title="l=L" /></a>: <br>
-  For each output unit j, <br> 
-  <a href="https://www.codecogs.com/eqnedit.php?latex=\delta_j^{(L)}=a_j^{(L)}-y_j=h_\Theta(x)_j-y_j" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta_j^{(L)}=a_j^{(L)}-y_j=h_\Theta(x)_j-y_j" title="\delta_j^{(L)}=a_j^{(L)}-y_j=h_\Theta(x)_j-y_j" /></a> <br>
+  - When <a href="https://www.codecogs.com/eqnedit.php?latex=l=L" target="_blank"><img src="https://latex.codecogs.com/gif.latex?l=L" title="l=L" /></a>: <br>
+    For each output unit j, <br> 
+    <a href="https://www.codecogs.com/eqnedit.php?latex=\delta_j^{(L)}=a_j^{(L)}-y_j=h_\Theta(x)_j-y_j" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta_j^{(L)}=a_j^{(L)}-y_j=h_\Theta(x)_j-y_j" title="\delta_j^{(L)}=a_j^{(L)}-y_j=h_\Theta(x)_j-y_j" /></a> <br>
 
-  When <a href="https://www.codecogs.com/eqnedit.php?latex=1<l<L" target="_blank"><img src="https://latex.codecogs.com/gif.latex?1<l<L" title="1<l<L" /></a>: <br>
-  <a href="https://www.codecogs.com/eqnedit.php?latex=\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l&plus;1)}g'(z^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l&plus;1)}g'(z^{(l)})" title="\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l+1)}g'(z^{(l)})" /></a> where <a href="https://www.codecogs.com/eqnedit.php?latex=g'(z^{(l)})=a^{(l)}(1-a^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?g'(z^{(l)})=a^{(l)}(1-a^{(l)})" title="g'(z^{(l)})=a^{(l)}(1-a^{(l)})" /></a> <br>
+  - When <a href="https://www.codecogs.com/eqnedit.php?latex=1<l<L" target="_blank"><img src="https://latex.codecogs.com/gif.latex?1<l<L" title="1<l<L" /></a>: <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l&plus;1)}g'(z^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l&plus;1)}g'(z^{(l)})" title="\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l+1)}g'(z^{(l)})" /></a> where <a href="https://www.codecogs.com/eqnedit.php?latex=g'(z^{(l)})=a^{(l)}(1-a^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?g'(z^{(l)})=a^{(l)}(1-a^{(l)})" title="g'(z^{(l)})=a^{(l)}(1-a^{(l)})" /></a> <br>
 
-  Gradient: <br>
-  <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{\partial}{\partial&space;\Theta_{ij}^{(l)}}J(\Theta)=a_j^{(l)}\delta_i^{(l&plus;1)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{\partial}{\partial&space;\Theta_{ij}^{(l)}}J(\Theta)=a_j^{(l)}\delta_i^{(l&plus;1)}" title="\frac{\partial}{\partial \Theta_{ij}^{(l)}}J(\Theta)=a_j^{(l)}\delta_i^{(l+1)}" /></a> ignoring regularization
+  Gradient ignoring regularization: <br>
+  <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{\partial}{\partial&space;\Theta_{ij}^{(l)}}J(\Theta)=a_j^{(l)}\delta_i^{(l&plus;1)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{\partial}{\partial&space;\Theta_{ij}^{(l)}}J(\Theta)=a_j^{(l)}\delta_i^{(l&plus;1)}" title="\frac{\partial}{\partial \Theta_{ij}^{(l)}}J(\Theta)=a_j^{(l)}\delta_i^{(l+1)}" /></a>
 
 - Gradient descent steps
 
-  Repeat until convergence:
+  Repeat until convergence: <br>
       <a href="https://www.codecogs.com/eqnedit.php?latex=\theta_j:=\theta_j-\alpha\frac{\partial}{\partial&space;\theta_j}J(\theta)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta_j:=\theta_j-\alpha\frac{\partial}{\partial&space;\theta_j}J(\theta)" title="\theta_j:=\theta_j-\alpha\frac{\partial}{\partial \theta_j}J(\theta)" /></a> <br>
   where <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a> is learning rate; simultaneously update <a href="https://www.codecogs.com/eqnedit.php?latex=\theta_0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta_0" title="\theta_0" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=\theta_1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta_1" title="\theta_1" /></a>
 
