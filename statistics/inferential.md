@@ -198,6 +198,10 @@ Examine differences in the mean response variable for each category of our expla
         print(res1.summary())
         ```
 
+* Example application
+
+    [Blog post](https://www.tumblr.com/blog/rfbds)
+
 ### 3.2. Chi-Square test of independence
 
 Which of the 2 categorical variables plays the role of the explanatory variable and then calculating the conditional percentages separately.
@@ -321,6 +325,10 @@ Whether there is a significant difference between the expected frequencies and t
         print (cs3)
         ```
 
+- Example application
+
+    [Blog post](https://www.tumblr.com/blog/rccma)
+
 ### 3.3. Pearson Correlation
 
 Pearson correlation coefficient (r) measures a linear relationship between two quantitative variables.
@@ -364,6 +372,10 @@ Correlation ignores any other type of relationship no matter how strong.
     plt.ylabel('Internet Use Rate')
     plt.title('Scatterplot for the Association Between Income per Person and Internet Use Rate')
     ```
+
+* Example application
+
+    [Blog post](https://www.tumblr.com/blog/scfbid)
 
 ### 3.4. Moderation
 
