@@ -5,22 +5,29 @@ Inferential Statistics is about using our collected data to draw conclusions to 
 <!-- TOC -->
 
 - [Inferential statistics](#inferential-statistics)
-  - [1. Terminology and fundamentals](#1-terminology-and-fundamentals)
+  - [1. Terminology and sampling distributions](#1-terminology-and-sampling-distributions)
     - [1.1. Terminology](#11-terminology)
-    - [1.2. Central Limit Theorem](#12-central-limit-theorem)
-  - [2. Hypothesis testing](#2-hypothesis-testing)
-    - [2.1. Standard error of the mean - a measure of confidence](#21-standard-error-of-the-mean---a-measure-of-confidence)
-    - [2.2. Analysis of Variance (ANOVA)](#22-analysis-of-variance-anova)
-    - [2.3. Chi-Square test of independence](#23-chi-square-test-of-independence)
-    - [2.4. Pearson Correlation](#24-pearson-correlation)
-    - [2.5. Moderation](#25-moderation)
-  - [3. The Student's t-test](#3-the-students-t-test)
-    - [3.1. One Sample T-Test](#31-one-sample-t-test)
-    - [3.2. Independent T-Test](#32-independent-t-test)
+    - [1.2. Law of Large Numbers](#12-law-of-large-numbers)
+    - [1.3. Central Limit Theorem](#13-central-limit-theorem)
+    - [1.4. Common methods to estimate parameters from observations](#14-common-methods-to-estimate-parameters-from-observations)
+    - [1.5. Bootstrapping](#15-bootstrapping)
+  - [2. Confidence interval and hypothesis testing](#2-confidence-interval-and-hypothesis-testing)
+    - [2.1. Confidence interval](#21-confidence-interval)
+    - [2.2. Standard error of the mean - a measure of confidence](#22-standard-error-of-the-mean---a-measure-of-confidence)
+    - [2.3. Hypothesis testing](#23-hypothesis-testing)
+    - [2.4. Statistical vs. practical significance](#24-statistical-vs-practical-significance)
+  - [3. Bivariate statistical tools](#3-bivariate-statistical-tools)
+    - [3.1. Analysis of Variance (ANOVA)](#31-analysis-of-variance-anova)
+    - [3.2. Chi-Square test of independence](#32-chi-square-test-of-independence)
+    - [3.3. Pearson Correlation](#33-pearson-correlation)
+    - [3.4. Moderation](#34-moderation)
+  - [4. The Student's t-test](#4-the-students-t-test)
+    - [4.1. One Sample T-Test](#41-one-sample-t-test)
+    - [4.2. Independent T-Test](#42-independent-t-test)
 
 <!-- /TOC -->
 
-## 1. Terminology and fundamentals
+## 1. Terminology and sampling distributions
 
 ### 1.1. Terminology
 
@@ -32,13 +39,71 @@ Inferential Statistics is about using our collected data to draw conclusions to 
 * Sample skewness + fundamental randomness
 * **Sampling distribution** is the distribution of a statistic across an infinite number of samples
 
-### 1.2. Central Limit Theorem
+<img src="resources/inf_notation.png" width=200>
 
-As long as adequately large samples and adequately large number of samples are used from a population, the distribution of the statistics of the samples will be normally distributed.
+### 1.2. Law of Large Numbers
 
-## 2. Hypothesis testing
+As our sample size increases, the sample mean gets closer to the population mean.
 
-**Hypothesis testing:** Assessing evidence provided by the data in favor of or against each hypothesis about the population.
+### 1.3. Central Limit Theorem
+
+As long as adequately large samples and adequately large number of samples are used from a population, the distribution of the sample mean will be normally distributed.
+
+- The Central Limit Theorem actually applies for these well known statistics:
+
+  - Sample means (<a href="https://www.codecogs.com/eqnedit.php?latex=\bar{x}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\bar{x}" title="\bar{x}" /></a>)
+  - Sample proportions (<a href="https://www.codecogs.com/eqnedit.php?latex=p" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p" title="p" /></a>)
+  - Difference in sample means (<a href="https://www.codecogs.com/eqnedit.php?latex=\bar{x}_1&space;-&space;\bar{x}_2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\bar{x}_1&space;-&space;\bar{x}_2" title="\bar{x}_1 - \bar{x}_2" /></a>)
+  - Difference in sample proportions (<a href="https://www.codecogs.com/eqnedit.php?latex=p_1&space;-&space;p_2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_1&space;-&space;p_2" title="p_1 - p_2" /></a>)
+- And it applies for additional statistics, but it doesn't apply for all statistics!
+
+### 1.4. Common methods to estimate parameters from observations
+
+* [Maximum Likelihood Estimation](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation)
+* [Method of Moments Estimation](https://en.wikipedia.org/wiki/Method_of_moments_(statistics))
+* [Bayesian Estimation](https://en.wikipedia.org/wiki/Bayes_estimator)
+
+### 1.5. Bootstrapping
+
+Bootstrapping is sampling with replacement. No more data needed to gain a better understanding of the parameter.
+
+## 2. Confidence interval and hypothesis testing
+
+### 2.1. Confidence interval
+
+- Interpretation
+
+    We are 95% confident that the [population mean] falls between [the bounds that you find].
+
+- Code
+
+    ```python
+    boot_means = []
+    for _ in range(10000):
+        boot_sample = coffee_red.sample(200, replace=True)
+        boot_means.append(boot_sample.loc[boot_sample['drinks_coffee']==True, 'height'].mean())
+
+    np.percentile(boot_means, 2.5), np.percentile(boot_means, 97.5) # 68.06, 68.97
+    ```
+
+    We are 95% confident that the mean height of all coffee drinkers is between 68.06 and 68.97.
+
+### 2.2. Standard error of the mean - a measure of confidence
+
+* SE = s/sqrt(n)
+* s: standard deviation of sample
+* n: sample size
+
+    ```python
+    from scipy.stats import sem
+    plt.errorbar(x_axis, means, yerr = standard_errors, fmt='o')
+    ```
+
+    comparing error bars could infer whether samples were drawn from the same population
+
+### 2.3. Hypothesis testing
+
+**Hypothesis testing:** Assessing evidence provided by the data in favor of or against each hypothesis about the population. To learn more about the traditional methods, see the documentation here on the [Stat Trek site](https://stattrek.com/hypothesis-test/hypothesis-testing.aspx) on the corresponding hypothesis tests.
 
 1. Specify the null ($H_0$) and alternative ($H_a$) hypothesis
 2. Choose a sample
@@ -52,20 +117,15 @@ As long as adequately large samples and adequately large number of samples are u
    * If p-value < $\alpha$: the data provide significant evidence against the null hypothesis, so we reject the null hypothesis and accept the alternative hypothesis.
    * If p-value > $\alpha$: the data do not provide enough evidence to reject the null hypothesis; the data do not provide enough evidence to accept the alternative hypothesis.
 
-### 2.1. Standard error of the mean - a measure of confidence
+### 2.4. Statistical vs. practical significance
 
-* SE = s/sqrt(n)
-* s: standard deviation of sample
-* n: sample size
+- Using confidence intervals and hypothesis testing, you are able to provide **statistical significance** in making decisions.
 
-    ```python
-    from scipy.stats import sem
-    plt.errorbar(x_axis, means, yerr = standard_errors, fmt='o')
-    ```
+- However, it is also important to take into consideration **practical significance** in making decisions. Practical significance takes into consideration other factors of your situation that might not be considered directly in the results of your hypothesis test or confidence interval. Constraints like **space, time, or money** are important in business decisions. However, they might not be accounted for directly in a statistical test.
 
-    comparing error bars could infer whether samples were drawn from the same population
+## 3. Bivariate statistical tools
 
-### 2.2. Analysis of Variance (ANOVA)
+### 3.1. Analysis of Variance (ANOVA)
 
 Examine differences in the mean response variable for each category of our explanatory variable. E.g. Are any of the treatments significantly different than the rest?
 
@@ -138,7 +198,7 @@ Examine differences in the mean response variable for each category of our expla
         print(res1.summary())
         ```
 
-### 2.3. Chi-Square test of independence
+### 3.2. Chi-Square test of independence
 
 Which of the 2 categorical variables plays the role of the explanatory variable and then calculating the conditional percentages separately.
 
@@ -261,7 +321,7 @@ Whether there is a significant difference between the expected frequencies and t
         print (cs3)
         ```
 
-### 2.4. Pearson Correlation
+### 3.3. Pearson Correlation
 
 Pearson correlation coefficient (r) measures a linear relationship between two quantitative variables.
 
@@ -304,7 +364,8 @@ Correlation ignores any other type of relationship no matter how strong.
     plt.ylabel('Internet Use Rate')
     plt.title('Scatterplot for the Association Between Income per Person and Internet Use Rate')
     ```
-### 2.5. Moderation
+
+### 3.4. Moderation
 
 Moderating variable (or moderator) is a third variable that affects the direction and or strength of the relation between the explanatory and response variable.
 
@@ -406,9 +467,9 @@ Moderating variable (or moderator) is a third variable that affects the directio
     print(scat2)
     ```
 
-## 3. The Student's t-test
+## 4. The Student's t-test
 
-### 3.1. One Sample T-Test
+### 4.1. One Sample T-Test
 
 Compare sample mean to the population mean
 
@@ -425,7 +486,7 @@ Compare sample mean to the population mean
     stats.ttest_1samp(sample, population.mean())
     ```
 
-### 3.2. Independent T-Test
+### 4.2. Independent T-Test
 
 Compare the means of 2 independent populations, i.e., how likely that two samples represent the same underlying population
 
