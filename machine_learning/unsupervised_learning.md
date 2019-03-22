@@ -74,10 +74,10 @@ Unsupervised learning is about understanding how to group data when we either:
     - Choose distinguishing features from a set of candidates
     - Transform data to generate novel and useful features, e.g. PCA
 2. Clustering algorithm selection and tuning
-    - Choose a proximity measure <br>
-      Most times: Euclidean distance <br>
-      Word-embedding documents: cosine distance <br>
-      Gene expression type data: Pearson correlation
+    - Choose a proximity measure
+      - Most times: Euclidean distance
+      - Word-embedding documents: cosine distance
+      - Gene expression type data: Pearson correlation
 3. Clustering validation
     - Visualizing clusters
     - Scoring (index)
@@ -456,6 +456,8 @@ Objectives
   - (+) Can be used to compare different clustering algorithm results
   - (-) Silhouette does not work well for DBSCAN because it does not have a concept of noise
   - (-) Not built to reward carving out dataset, e.g. concentric circles
+
+- Within groups sum of squares
 
 - Density-Based Clustering Validation
 

@@ -169,7 +169,7 @@ Note: It is important to have all data be in the same scale. E.g., if some measu
 
 - **SVD algorithm**
 
-    If we let A A be our user-item matrix, we can write the decomposition of that matrix in the following way.
+    If we let A be our user-item matrix, we can write the decomposition of that matrix in the following way.
 
     <a href="https://www.codecogs.com/eqnedit.php?latex=$A&space;=&space;U&space;\Sigma&space;V^T$" target="_blank"><img src="https://latex.codecogs.com/gif.latex?$A&space;=&space;U&space;\Sigma&space;V^T$" title="$A = U \Sigma V^T$" /></a>
 

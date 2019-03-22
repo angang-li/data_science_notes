@@ -253,7 +253,7 @@ Feature extraction depends on the goal
 
 - **Bag of words**
 
-    Document-term matrixs<br>
+    Document-term matrix<br>
     <img src="resources/nlp_bow_eg0.png" width=500>
 
     To compare similarity between 2 documents
@@ -436,7 +436,7 @@ To control the size of the word representation, find an embedding for each word 
 
     <img src="resources/embedding_deep_learning.png" width=300>
 
-- **t-SNE for visualing word embedding**
+- **t-SNE for visualizing word embedding**
 
     t-distributed stochastic neighbor embedding (t-SNE) is a dimensionality reduction technique to map higher dimensional vectors into lower dimensional space, while maintaining relative distances between objects.s
 
