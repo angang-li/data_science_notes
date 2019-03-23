@@ -290,6 +290,8 @@ Example: if you have 1000 training examples, and your batch size is 500, then it
 
   <img src="Resources/deep_learning/activation_relu.png" alt="activation_relu" width=400>
 
+  [Comparison of activation functions](https://stats.stackexchange.com/questions/126238/what-are-the-advantages-of-relu-over-sigmoid-function-in-deep-neural-networks)
+
 ### 2.4. Resolve humongous dataset
 
 - #### Stochastic gradient descent
