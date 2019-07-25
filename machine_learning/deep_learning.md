@@ -3,16 +3,18 @@
 <!-- TOC -->
 
 - [Deep Learning](#deep-learning)
-  - [1. Intro to Neural Networks](#1-intro-to-neural-networks)
-    - [1.1. Decision boundary](#11-decision-boundary)
-    - [1.2. Perceptron](#12-perceptron)
-    - [1.3. Perceptron trick](#13-perceptron-trick)
-    - [1.4. Activation function](#14-activation-function)
-    - [1.5. Log-loss error function](#15-log-loss-error-function)
-    - [1.6. Minimize the error function via gradient descent](#16-minimize-the-error-function-via-gradient-descent)
-    - [1.7. Neural network architechture](#17-neural-network-architechture)
-    - [1.8. Mean squared error function](#18-mean-squared-error-function)
-    - [1.9. Some useful terminology](#19-some-useful-terminology)
+  - [1. Neural networks and deep learning](#1-neural-networks-and-deep-learning)
+    - [1.1. Intro to deep learning](#11-intro-to-deep-learning)
+    - [1.2. Neural networks basics](#12-neural-networks-basics)
+      - [1.2.1. Decision boundary](#121-decision-boundary)
+      - [1.2.2. Perceptron](#122-perceptron)
+      - [1.2.3. Perceptron trick](#123-perceptron-trick)
+      - [1.2.4. Activation function](#124-activation-function)
+      - [1.2.5. Log-loss error function](#125-log-loss-error-function)
+      - [1.2.6. Minimize the error function via gradient descent](#126-minimize-the-error-function-via-gradient-descent)
+      - [1.2.7. Neural network architechture](#127-neural-network-architechture)
+      - [1.2.8. Mean squared error function](#128-mean-squared-error-function)
+      - [1.2.9. Some useful terminology](#129-some-useful-terminology)
   - [2. Training neural networks](#2-training-neural-networks)
     - [2.1. Resolve overfitting](#21-resolve-overfitting)
     - [2.2. Resolve local minimum](#22-resolve-local-minimum)
@@ -33,9 +35,34 @@
 
 <!-- /TOC -->
 
-## 1. Intro to Neural Networks
+## 1. Neural networks and deep learning
 
-### 1.1. Decision boundary
+### 1.1. Intro to deep learning
+
+- Examples of neural network application:
+
+  - real estate (standard NN)
+  - online advertising (standard NN)
+  - photo tagging (CNN)
+  - speech recognition (RNN)
+  - machine translation (RNN)
+  - autonomous driving (hybrid NN)
+
+  <img src="Resources/deep_learning/nn_examples.png">
+
+  <img src="Resources/deep_learning/nn_examples_dtype.png">
+
+- Scale drives deep learning progress
+
+  - More data
+  - Faster computation
+  - New and more efficient algorithms
+
+  <img src="Resources/deep_learning/nn_taking_off_anno.png">
+
+### 1.2. Neural networks basics
+
+#### 1.2.1. Decision boundary
 
 - Linear equation
 
@@ -49,13 +76,13 @@
   y: label 0 or 1 <br>
   <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a>: learning rate <br>
 
-### 1.2. Perceptron
+#### 1.2.2. Perceptron
 
 <img src="Resources/perceptron.png" alt="perceptron" width="550">
 
 <img src="Resources/perceptron_and_or.png" alt="perceptron_and_or" width="550">
 
-### 1.3. Perceptron trick
+#### 1.2.3. Perceptron trick
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=w_1x_1&space;&plus;&space;w_2x_2&space;&plus;&space;b&space;=&space;0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_1x_1&space;&plus;&space;w_2x_2&space;&plus;&space;b&space;=&space;0" title="w_1x_1 + w_2x_2 + b = 0" /></a> <br>
 Point <a href="https://www.codecogs.com/eqnedit.php?latex=(x_p,&space;x_q)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(x_p,&space;x_q)" title="(x_p, x_q)" /></a> classified incorrecctly <br>
@@ -74,7 +101,7 @@ To move the decision boundary closer to the point, for every misclassified point
   <a href="https://www.codecogs.com/eqnedit.php?latex=w_2&space;:=&space;w_2&space;&plus;&space;x_q\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_2&space;:=&space;w_2&space;&plus;&space;x_q\alpha" title="w_2 := w_2 + x_q\alpha" /></a> <br>
   <a href="https://www.codecogs.com/eqnedit.php?latex=b&space;:=&space;b&space;&plus;&space;\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b&space;:=&space;b&space;&plus;&space;\alpha" title="b := b + \alpha" /></a> <br>
 
-### 1.4. Activation function
+#### 1.2.4. Activation function
 
 - Sigmoid function (2 classes)
 
@@ -84,7 +111,7 @@ To move the decision boundary closer to the point, for every misclassified point
 
   <a href="https://www.codecogs.com/eqnedit.php?latex=h^i_\theta(x)=\frac{e^{Zi}}{e^{Z1}&plus;...&plus;e^{Zn}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?h^i_\theta(x)=\frac{e^{Zi}}{e^{Z1}&plus;...&plus;e^{Zn}}" title="h^i_\theta(x)=\frac{e^{Zi}}{e^{Z1}+...+e^{Zn}}" /></a> for class i = 1,...,n
 
-### 1.5. Log-loss error function
+#### 1.2.5. Log-loss error function
 
 - Maximum likelihood
 
@@ -117,7 +144,7 @@ To move the decision boundary closer to the point, for every misclassified point
 
     <a href="https://www.codecogs.com/eqnedit.php?latex=J(\Theta)=-\frac{1}{m}\sum_{i=1}^m\sum_{j=1}^ny_{(ij)}log(h_\Theta(x_{(ij)}))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(\Theta)=-\frac{1}{m}\sum_{i=1}^m\sum_{j=1}^ny_{(ij)}log(h_\Theta(x_{(ij)}))" title="J(\Theta)=-\frac{1}{m}\sum_{i=1}^m\sum_{j=1}^ny_{(ij)}log(h_\Theta(x_{(ij)}))" /></a>
 
-### 1.6. Minimize the error function via gradient descent
+#### 1.2.6. Minimize the error function via gradient descent
 
 - Gradient of the error function
 
@@ -149,7 +176,7 @@ To move the decision boundary closer to the point, for every misclassified point
   <img src="Resources/deep_learning/gradient_descent_algo.png" alt="gradient_descent_algorithm" width="400"><br><br>
   (Image credit: [The Clever Machine](https://theclevermachine.wordpress.com/tag/backpropagation/))
 
-### 1.7. Neural network architechture
+#### 1.2.7. Neural network architechture
 
 Neural Networks (Multi-Layer Perceptrons)
 
@@ -204,7 +231,7 @@ Neural Networks (Multi-Layer Perceptrons)
     - [Yes you should understand backprop](https://medium.com/@karpathy/yes-you-should-understand-backprop-e2f06eab496b)
     - [a lecture from Stanford's CS231n course](https://www.youtube.com/watch?v=59Hbtz7XgjM)
 
-### 1.8. Mean squared error function
+#### 1.2.8. Mean squared error function
 
 - #### Cost function
 
@@ -239,7 +266,7 @@ Neural Networks (Multi-Layer Perceptrons)
 
   <img src="Resources/deep_learning/multi_layer_weights.png" alt="multi_layer_weights" width="400">
 
-### 1.9. Some useful terminology
+#### 1.2.9. Some useful terminology
 
 - **One epoch** = one forward pass and one backward pass of all the training examples
 - **Batch size** = the number of training examples in one forward/backward pass. The higher the batch size, the more memory space you'll need.
