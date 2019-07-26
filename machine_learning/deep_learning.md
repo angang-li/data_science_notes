@@ -105,7 +105,7 @@ To move the decision boundary closer to the point, for every misclassified point
 
 - Sigmoid function (2 classes)
 
-  <a href="https://www.codecogs.com/eqnedit.php?latex=h_\theta(x)=\frac{1}{1&plus;e^{-\theta^Tx}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?h_\theta(x)=\frac{1}{1&plus;e^{-\theta^Tx}}" title="h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}" /></a>
+  <a href="https://www.codecogs.com/eqnedit.php?latex=h_\theta(x)=\frac{1}{1&plus;e^{-\theta^Tx}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?h_\theta(x)=\frac{1}{1&plus;e^{-\theta^Tx}}" title="h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}" /></a>, denote <a href="https://www.codecogs.com/eqnedit.php?latex=a&space;=&space;h_\theta(x)&space;=&space;g(z)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a&space;=&space;h_\theta(x)&space;=&space;g(z)" title="a = h_\theta(x) = g(z)" /></a> where <a href="https://www.codecogs.com/eqnedit.php?latex=z=\theta^Tx" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z=\theta^Tx" title="z=\theta^Tx" /></a>
 
 - Softmax function (≥3 classes)
 
@@ -115,13 +115,13 @@ To move the decision boundary closer to the point, for every misclassified point
 
 - Maximum likelihood
 
-  <a href="https://www.codecogs.com/eqnedit.php?latex=\prod" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\prod" title="\prod" /></a> of all events's probabilities under the current model
+  <a href="https://www.codecogs.com/eqnedit.php?latex=\prod" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\prod" title="\prod" /></a> of all events's probabilities under the current model, i.e., <a href="https://www.codecogs.com/eqnedit.php?latex=\prod_{i=1}^{m}p_i^{y_i}(1-p_i)^{(1-y_i)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\prod_{i=1}^{m}p_i^{y_i}(1-p_i)^{(1-y_i)}" title="\prod_{i=1}^{m}p_i^{y_i}(1-p_i)^{(1-y_i)}" /></a> for binary classification
 
 - Cross entropy
 
   - Binary
 
-    <a href="https://www.codecogs.com/eqnedit.php?latex=cross\_entropy&space;=&space;-\sum_{i=1}^m{y_iln(p_i)&plus;(1-y_i)ln(1-p_i)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?cross\_entropy&space;=&space;-\sum_{i=1}^m{y_iln(p_i)&plus;(1-y_i)ln(1-p_i)}" title="cross\_entropy = -\sum_{i=1}^n{y_iln(p_i)+(1-y_i)ln(1-p_i)}" /></a>, aka., -ln(maximum likelihood) <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=cross\_entropy&space;=&space;-\sum_{i=1}^m[{y_iln(p_i)&plus;(1-y_i)ln(1-p_i)}]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?cross\_entropy&space;=&space;-\sum_{i=1}^m[{y_iln(p_i)&plus;(1-y_i)ln(1-p_i)}]" title="cross\_entropy = -\sum_{i=1}^m[{y_iln(p_i)+(1-y_i)ln(1-p_i)}]" /></a>, aka., -ln(maximum likelihood) <br>
 
     <a href="https://www.codecogs.com/eqnedit.php?latex=m" target="_blank"><img src="https://latex.codecogs.com/gif.latex?m" title="m" /></a>: number of observations <br>
     <a href="https://www.codecogs.com/eqnedit.php?latex=n" target="_blank"><img src="https://latex.codecogs.com/gif.latex?n" title="n" /></a>: number of classes <br>
