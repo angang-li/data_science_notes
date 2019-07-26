@@ -6,15 +6,13 @@
   - [1. Neural networks and deep learning](#1-neural-networks-and-deep-learning)
     - [1.1. Intro to deep learning](#11-intro-to-deep-learning)
     - [1.2. Neural networks basics](#12-neural-networks-basics)
-      - [1.2.1. Decision boundary](#121-decision-boundary)
-      - [1.2.2. Perceptron](#122-perceptron)
-      - [1.2.3. Perceptron trick](#123-perceptron-trick)
-      - [1.2.4. Activation function](#124-activation-function)
-      - [1.2.5. Log-loss error function](#125-log-loss-error-function)
-      - [1.2.6. Minimize the error function via gradient descent](#126-minimize-the-error-function-via-gradient-descent)
-      - [1.2.7. Neural network architechture](#127-neural-network-architechture)
-      - [1.2.8. Mean squared error function](#128-mean-squared-error-function)
-      - [1.2.9. Some useful terminology](#129-some-useful-terminology)
+      - [1.2.1. Perceptron](#121-perceptron)
+      - [1.2.2. Activation function](#122-activation-function)
+      - [1.2.3. Log-loss error function](#123-log-loss-error-function)
+      - [1.2.4. Minimize the error function via gradient descent](#124-minimize-the-error-function-via-gradient-descent)
+      - [1.2.5. Neural network architechture](#125-neural-network-architechture)
+      - [1.2.6. Mean squared error function](#126-mean-squared-error-function)
+      - [1.2.7. Some useful terminology](#127-some-useful-terminology)
   - [2. Training neural networks](#2-training-neural-networks)
     - [2.1. Resolve overfitting](#21-resolve-overfitting)
     - [2.2. Resolve local minimum](#22-resolve-local-minimum)
@@ -62,77 +60,120 @@
 
 ### 1.2. Neural networks basics
 
-#### 1.2.1. Decision boundary
+#### 1.2.1. Perceptron
 
-- Linear equation
+- Decision boundary
 
-  WX + b = 0
+  - Linear equation
 
-- Notation
+    WX + b = 0
 
-  W: weight <br>
-  X: input features <br>
-  b: bias <br>
-  y: label 0 or 1 <br>
-  <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a>: learning rate <br>
+  - Notation
 
-#### 1.2.2. Perceptron
+    W: weight <br>
+    X: input features <br>
+    b: bias <br>
+    y: label 0 or 1 <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a>: learning rate <br>
 
-<img src="Resources/perceptron.png" alt="perceptron" width="550">
+- Perceptron
 
-<img src="Resources/perceptron_and_or.png" alt="perceptron_and_or" width="550">
+  <img src="Resources/perceptron.png" alt="perceptron" width="550">
 
-#### 1.2.3. Perceptron trick
+  <img src="Resources/perceptron_and_or.png" alt="perceptron_and_or" width="550">
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=w_1x_1&space;&plus;&space;w_2x_2&space;&plus;&space;b&space;=&space;0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_1x_1&space;&plus;&space;w_2x_2&space;&plus;&space;b&space;=&space;0" title="w_1x_1 + w_2x_2 + b = 0" /></a> <br>
-Point <a href="https://www.codecogs.com/eqnedit.php?latex=(x_p,&space;x_q)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(x_p,&space;x_q)" title="(x_p, x_q)" /></a> classified incorrecctly <br>
+- Perceptron trick
 
-To move the decision boundary closer to the point, for every misclassified point:
+  <a href="https://www.codecogs.com/eqnedit.php?latex=w_1x_1&space;&plus;&space;w_2x_2&space;&plus;&space;b&space;=&space;0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_1x_1&space;&plus;&space;w_2x_2&space;&plus;&space;b&space;=&space;0" title="w_1x_1 + w_2x_2 + b = 0" /></a> <br>
+  Point <a href="https://www.codecogs.com/eqnedit.php?latex=(x_p,&space;x_q)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(x_p,&space;x_q)" title="(x_p, x_q)" /></a> classified incorrecctly <br>
 
-- if the incorrect prediction = 1
-  
-  <a href="https://www.codecogs.com/eqnedit.php?latex=w_1&space;:=&space;w_1&space;-&space;x_p\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_1&space;:=&space;w_1&space;-&space;x_p\alpha" title="w_1 := w_1 - x_p\alpha" /></a> <br>
-  <a href="https://www.codecogs.com/eqnedit.php?latex=w_2&space;:=&space;w_2&space;-&space;x_q\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_2&space;:=&space;w_2&space;-&space;x_q\alpha" title="w_2 := w_2 - x_q\alpha" /></a> <br>
-  <a href="https://www.codecogs.com/eqnedit.php?latex=b&space;:=&space;b&space;-&space;\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b&space;:=&space;b&space;-&space;\alpha" title="b := b - \alpha" /></a> <br>
+  To move the decision boundary closer to the point, for every misclassified point:
 
-- if the incorrect prediction = 0
-  
-  <a href="https://www.codecogs.com/eqnedit.php?latex=w_1&space;:=&space;w_1&space;&plus;&space;x_p\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_1&space;:=&space;w_1&space;&plus;&space;x_p\alpha" title="w_1 := w_1 + x_p\alpha" /></a> <br>
-  <a href="https://www.codecogs.com/eqnedit.php?latex=w_2&space;:=&space;w_2&space;&plus;&space;x_q\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_2&space;:=&space;w_2&space;&plus;&space;x_q\alpha" title="w_2 := w_2 + x_q\alpha" /></a> <br>
-  <a href="https://www.codecogs.com/eqnedit.php?latex=b&space;:=&space;b&space;&plus;&space;\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b&space;:=&space;b&space;&plus;&space;\alpha" title="b := b + \alpha" /></a> <br>
+  - if the incorrect prediction = 1
+    
+    <a href="https://www.codecogs.com/eqnedit.php?latex=w_1&space;:=&space;w_1&space;-&space;x_p\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_1&space;:=&space;w_1&space;-&space;x_p\alpha" title="w_1 := w_1 - x_p\alpha" /></a> <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=w_2&space;:=&space;w_2&space;-&space;x_q\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_2&space;:=&space;w_2&space;-&space;x_q\alpha" title="w_2 := w_2 - x_q\alpha" /></a> <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=b&space;:=&space;b&space;-&space;\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b&space;:=&space;b&space;-&space;\alpha" title="b := b - \alpha" /></a> <br>
 
-#### 1.2.4. Activation function
+  - if the incorrect prediction = 0
+    
+    <a href="https://www.codecogs.com/eqnedit.php?latex=w_1&space;:=&space;w_1&space;&plus;&space;x_p\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_1&space;:=&space;w_1&space;&plus;&space;x_p\alpha" title="w_1 := w_1 + x_p\alpha" /></a> <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=w_2&space;:=&space;w_2&space;&plus;&space;x_q\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_2&space;:=&space;w_2&space;&plus;&space;x_q\alpha" title="w_2 := w_2 + x_q\alpha" /></a> <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=b&space;:=&space;b&space;&plus;&space;\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b&space;:=&space;b&space;&plus;&space;\alpha" title="b := b + \alpha" /></a> <br>
+
+#### 1.2.2. Activation function
 
 - Sigmoid function (2 classes)
 
   <a href="https://www.codecogs.com/eqnedit.php?latex=h_\theta(x)=\frac{1}{1&plus;e^{-\theta^Tx}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?h_\theta(x)=\frac{1}{1&plus;e^{-\theta^Tx}}" title="h_\theta(x)=\frac{1}{1+e^{-\theta^Tx}}" /></a>, denote <a href="https://www.codecogs.com/eqnedit.php?latex=a&space;=&space;h_\theta(x)&space;=&space;g(z)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a&space;=&space;h_\theta(x)&space;=&space;g(z)" title="a = h_\theta(x) = g(z)" /></a> where <a href="https://www.codecogs.com/eqnedit.php?latex=z=\theta^Tx" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z=\theta^Tx" title="z=\theta^Tx" /></a>
 
+  - (-) Often not used, except for the output layer of binary classification
+  - (-) Gradient becomes very small when z is either very large or very small
+
 - Softmax function (≥3 classes)
 
   <a href="https://www.codecogs.com/eqnedit.php?latex=h^i_\theta(x)=\frac{e^{Zi}}{e^{Z1}&plus;...&plus;e^{Zn}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?h^i_\theta(x)=\frac{e^{Zi}}{e^{Z1}&plus;...&plus;e^{Zn}}" title="h^i_\theta(x)=\frac{e^{Zi}}{e^{Z1}+...+e^{Zn}}" /></a> for class i = 1,...,n
 
-#### 1.2.5. Log-loss error function
+- Hyperbolic tangent function
 
-- Maximum likelihood
+  <a href="https://www.codecogs.com/eqnedit.php?latex=h_\theta(x)&space;=&space;tanh(z)&space;=&space;\frac{e^z&space;-&space;e^{-z}}{e^z&space;&plus;&space;e^{-z}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?h_\theta(x)&space;=&space;tanh(z)&space;=&space;\frac{e^z&space;-&space;e^{-z}}{e^z&space;&plus;&space;e^{-z}}" title="h_\theta(x) = tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}" /></a>
+  
+  <img src="Resources/deep_learning/activation_tanh.png" alt="activation_tanh" width=400>
 
-  <a href="https://www.codecogs.com/eqnedit.php?latex=\prod" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\prod" title="\prod" /></a> of all events's probabilities under the current model, i.e., <a href="https://www.codecogs.com/eqnedit.php?latex=\prod_{i=1}^{m}p_i^{y_i}(1-p_i)^{(1-y_i)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\prod_{i=1}^{m}p_i^{y_i}(1-p_i)^{(1-y_i)}" title="\prod_{i=1}^{m}p_i^{y_i}(1-p_i)^{(1-y_i)}" /></a> for binary classification
+  - (+) Often superior to sigmoid function
+  - (+) Centralizes data to have zero mean
+  - (-) Gradient becomes very small when z is either very large or very small
+
+- Rectified linear unit (ReLU)
+
+  <a href="https://www.codecogs.com/eqnedit.php?latex=h_\theta(x)&space;=&space;max(0,&space;z)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?h_\theta(x)&space;=&space;max(0,&space;z)" title="h_\theta(x) = max(0, z)" /></a>
+
+  <img src="Resources/deep_learning/activation_relu.png" alt="activation_relu" width=400>
+
+  - (+) Most commonly used
+  - (+) Learns faster due to larger gradient when z is either very large or very small
+  - (-) "Dying ReLU" always outputs 0
+
+- Leaky ReLU
+
+  <a href="https://www.codecogs.com/eqnedit.php?latex=h_\theta(x)&space;=&space;max(0.01&space;z,&space;z)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?h_\theta(x)&space;=&space;max(0.01&space;z,&space;z)" title="h_\theta(x) = max(0.01z, z)" /></a>
+
+  - (+) Resolves dying ReLU problem
+
+- Comparison of activation functions
+
+  [ReLU vs. sigmoid from stackexchange](https://stats.stackexchange.com/questions/126238/what-are-the-advantages-of-relu-over-sigmoid-function-in-deep-neural-networks) <br>
+  [Activation function comparison from medium](https://medium.com/@shrutijadon10104776/survey-on-activation-functions-for-deep-learning-9689331ba092)
+
+#### 1.2.3. Log-loss error function
+
+- Maximum likelihood estimation
+
+  <a href="https://www.codecogs.com/eqnedit.php?latex=\prod" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\prod" title="\prod" /></a> of all events's probabilities under the current model <br>
+  <a href="https://www.codecogs.com/eqnedit.php?latex=m" target="_blank"><img src="https://latex.codecogs.com/gif.latex?m" title="m" /></a>: number of observations <br>
+  <a href="https://www.codecogs.com/eqnedit.php?latex=n" target="_blank"><img src="https://latex.codecogs.com/gif.latex?n" title="n" /></a>: number of classes <br>
+  <a href="https://www.codecogs.com/eqnedit.php?latex=p_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_i" title="p_i" /></a>: probability of the event happening under the current model <br>
+  
+  - Binary
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=likelihood=\prod_{i=1}^{m}p_i^{y_i}(1-p_i)^{(1-y_i)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?likelihood=\prod_{i=1}^{m}p_i^{y_i}(1-p_i)^{(1-y_i)}" title="likelihood=\prod_{i=1}^{m}p_i^{y_i}(1-p_i)^{(1-y_i)}" /></a>
+
+  - Multi-class
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=likelihood=\prod_{i=1}^{m}\prod_{j=1}^{n}p_{ij}^{y_{ij}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?likelihood=\prod_{i=1}^{m}\prod_{j=1}^{n}p_{ij}^{y_{ij}}" title="likelihood=\prod_{i=1}^{m}\prod_{j=1}^{n}p_{ij}^{y_{ij}}" /></a>
 
 - Cross entropy
 
   - Binary
 
-    <a href="https://www.codecogs.com/eqnedit.php?latex=cross\_entropy&space;=&space;-\sum_{i=1}^m[{y_iln(p_i)&plus;(1-y_i)ln(1-p_i)}]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?cross\_entropy&space;=&space;-\sum_{i=1}^m[{y_iln(p_i)&plus;(1-y_i)ln(1-p_i)}]" title="cross\_entropy = -\sum_{i=1}^m[{y_iln(p_i)+(1-y_i)ln(1-p_i)}]" /></a>, aka., -ln(maximum likelihood) <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=cross\_entropy&space;=&space;-\sum_{i=1}^m[{y_ilog(p_i)&plus;(1-y_i)log(1-p_i)}]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?cross\_entropy&space;=&space;-\sum_{i=1}^m[{y_ilog(p_i)&plus;(1-y_i)log(1-p_i)}]" title="cross\_entropy = -\sum_{i=1}^m[{y_ilog(p_i)+(1-y_i)log(1-p_i)}]" /></a>, aka., -log(likelihood) <br>
 
-    <a href="https://www.codecogs.com/eqnedit.php?latex=m" target="_blank"><img src="https://latex.codecogs.com/gif.latex?m" title="m" /></a>: number of observations <br>
-    <a href="https://www.codecogs.com/eqnedit.php?latex=n" target="_blank"><img src="https://latex.codecogs.com/gif.latex?n" title="n" /></a>: number of classes <br>
-    <a href="https://www.codecogs.com/eqnedit.php?latex=p_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_i" title="p_i" /></a>: probability of the event happening under the current model <br>
-    
     Lower entropy means better model <br>
     Goal: minimize the cross entropy
 
   - Multi-class
 
-    <a href="https://www.codecogs.com/eqnedit.php?latex=cross\_entropy&space;=&space;-\sum_{i=1}^n\sum_{j=1}^m{y_{ij}ln(p_{ij})}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?cross\_entropy&space;=&space;-\sum_{i=1}^n\sum_{j=1}^m{y_{ij}ln(p_{ij})}" title="cross\_entropy = -\sum_{i=1}^n\sum_{j=1}^m{y_{ij}ln(p_{ij})}" /></a>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=cross\_entropy&space;=&space;-\sum_{i=1}^m\sum_{j=1}^n{y_{ij}log(p_{ij})}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?cross\_entropy&space;=&space;-\sum_{i=1}^m\sum_{j=1}^n{y_{ij}log(p_{ij})}" title="cross\_entropy = -\sum_{i=1}^m\sum_{j=1}^n{y_{ij}log(p_{ij})}" /></a>
 
 - Error function of logistic regression
 
@@ -144,7 +185,7 @@ To move the decision boundary closer to the point, for every misclassified point
 
     <a href="https://www.codecogs.com/eqnedit.php?latex=J(\Theta)=-\frac{1}{m}\sum_{i=1}^m\sum_{j=1}^ny_{(ij)}log(h_\Theta(x_{(ij)}))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(\Theta)=-\frac{1}{m}\sum_{i=1}^m\sum_{j=1}^ny_{(ij)}log(h_\Theta(x_{(ij)}))" title="J(\Theta)=-\frac{1}{m}\sum_{i=1}^m\sum_{j=1}^ny_{(ij)}log(h_\Theta(x_{(ij)}))" /></a>
 
-#### 1.2.6. Minimize the error function via gradient descent
+#### 1.2.4. Minimize the error function via gradient descent
 
 - Gradient of the error function
 
@@ -176,7 +217,7 @@ To move the decision boundary closer to the point, for every misclassified point
   <img src="Resources/deep_learning/gradient_descent_algo.png" alt="gradient_descent_algorithm" width="400"><br><br>
   (Image credit: [The Clever Machine](https://theclevermachine.wordpress.com/tag/backpropagation/))
 
-#### 1.2.7. Neural network architechture
+#### 1.2.5. Neural network architechture
 
 Neural Networks (Multi-Layer Perceptrons)
 
@@ -231,7 +272,7 @@ Neural Networks (Multi-Layer Perceptrons)
     - [Yes you should understand backprop](https://medium.com/@karpathy/yes-you-should-understand-backprop-e2f06eab496b)
     - [a lecture from Stanford's CS231n course](https://www.youtube.com/watch?v=59Hbtz7XgjM)
 
-#### 1.2.8. Mean squared error function
+#### 1.2.6. Mean squared error function
 
 - #### Cost function
 
@@ -266,7 +307,7 @@ Neural Networks (Multi-Layer Perceptrons)
 
   <img src="Resources/deep_learning/multi_layer_weights.png" alt="multi_layer_weights" width="400">
 
-#### 1.2.9. Some useful terminology
+#### 1.2.7. Some useful terminology
 
 - **One epoch** = one forward pass and one backward pass of all the training examples
 - **Batch size** = the number of training examples in one forward/backward pass. The higher the batch size, the more memory space you'll need.
