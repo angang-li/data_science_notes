@@ -9,8 +9,8 @@
       - [1.2.1. Perceptron](#121-perceptron)
       - [1.2.2. Activation function](#122-activation-function)
       - [1.2.3. Log-loss error function](#123-log-loss-error-function)
-      - [1.2.4. Gradient of the error function (sigmoid)](#124-gradient-of-the-error-function-sigmoid)
-      - [1.2.5. Gradient descent for neural networks (sigmoid)](#125-gradient-descent-for-neural-networks-sigmoid)
+      - [1.2.4. Gradient of the error function](#124-gradient-of-the-error-function)
+      - [1.2.5. Gradient descent for neural networks](#125-gradient-descent-for-neural-networks)
       - [1.2.6. Summary of gradient descent and additional resources](#126-summary-of-gradient-descent-and-additional-resources)
       - [1.2.7. Some useful terminology](#127-some-useful-terminology)
   - [2. Training neural networks](#2-training-neural-networks)
@@ -203,29 +203,33 @@
 
     <a href="https://www.codecogs.com/eqnedit.php?latex=J(\Theta)=-\frac{1}{m}\sum_{i=1}^m\sum_{j=1}^ny_{(ij)}log(h_\Theta(x_{(ij)}))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(\Theta)=-\frac{1}{m}\sum_{i=1}^m\sum_{j=1}^ny_{(ij)}log(h_\Theta(x_{(ij)}))" title="J(\Theta)=-\frac{1}{m}\sum_{i=1}^m\sum_{j=1}^ny_{(ij)}log(h_\Theta(x_{(ij)}))" /></a>
 
-#### 1.2.4. Gradient of the error function (sigmoid)
+#### 1.2.4. Gradient of the error function
 
 - Notation
 
-  - <a href="https://www.codecogs.com/eqnedit.php?latex=a_i^{(j)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a_i^{(j)}" title="a_i^{(j)}" /></a>: "activation" of unit i in layer j where <a href="https://www.codecogs.com/eqnedit.php?latex=j&space;\in&space;[1,&space;L]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?j&space;\in&space;[1,&space;L]" title="j \in [1, L]" /></a> <br>
-  - <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta^{(j)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Theta^{(j)}" title="\Theta^{(j)}" /></a>: matrix of weights controlling function mapping from layer j to layer j + 1
-  - If network has <a href="https://www.codecogs.com/eqnedit.php?latex=s_j" target="_blank"><img src="https://latex.codecogs.com/gif.latex?s_j" title="s_j" /></a> units in layer j and <a href="https://www.codecogs.com/eqnedit.php?latex=s_{j&plus;1}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?s_{j&plus;1}" title="s_{j+1}" /></a> units in layer j+1, then <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta^{(j)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Theta^{(j)}" title="\Theta^{(j)}" /></a> will be of dimension <a href="https://www.codecogs.com/eqnedit.php?latex=s_{j&plus;1}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?s_{j&plus;1}" title="s_{j+1}" /></a> × <a href="https://www.codecogs.com/eqnedit.php?latex=(s_j&plus;1)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(s_j&plus;1)" title="(s_j+1)" /></a>
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=a_i^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a_i^{(l)}" title="a_i^{(l)}" /></a>: "activation" of unit i in layer l where <a href="https://www.codecogs.com/eqnedit.php?latex=l&space;\in&space;[1,&space;L]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?l&space;\in&space;[1,&space;L]" title="l \in [1, L]" /></a>
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Theta^{(l)}" title="\Theta^{(l)}" /></a>: matrix of weights controlling function mapping from layer l to layer l + 1, where <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta_{ij}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Theta_{ij}^{(l)}" title="\Theta_{ij}^{(l)}" /></a> relates unit j in layer l to unit i in layer l+1
+  - If network has <a href="https://www.codecogs.com/eqnedit.php?latex=s_l" target="_blank"><img src="https://latex.codecogs.com/gif.latex?s_l" title="s_l" /></a> units in layer j and <a href="https://www.codecogs.com/eqnedit.php?latex=s_{l&plus;1}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?s_{l&plus;1}" title="s_{l+1}" /></a> units in layer l+1, then <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Theta^{(l)}" title="\Theta^{(l)}" /></a> will be of dimension <a href="https://www.codecogs.com/eqnedit.php?latex=s_{l&plus;1}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?s_{l&plus;1}" title="s_{l+1}" /></a> × <a href="https://www.codecogs.com/eqnedit.php?latex=(s_l&plus;1)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(s_l&plus;1)" title="(s_l+1)" /></a>
   - <a href="https://www.codecogs.com/eqnedit.php?latex=\delta_j^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta_j^{(l)}" title="\delta_j^{(l)}" /></a>: error of node j in layer l
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a>: learning rate
 
 - Forward propogation to calculate output unit and error
 
-  <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(j&plus;1)}=\Theta^{(j)}a^{(j)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(j&plus;1)}=\Theta^{(j)}a^{(j)}" title="z^{(j+1)}=\Theta^{(j)}a^{(j)}" /></a> <br>
-  <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(j&plus;1)}=g(z^{(j&plus;1)})=\frac{1}{1&plus;e^{-z^{(j&plus;1)}}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(j&plus;1)}=g(z^{(j&plus;1)})=\frac{1}{1&plus;e^{-z^{(j&plus;1)}}}" title="a^{(j+1)}=g(z^{(j+1)})=\frac{1}{1+e^{-z^{(j+1)}}}" /></a> <br>
-  <a href="https://www.codecogs.com/eqnedit.php?latex=error&space;=&space;{y}log(a^{(L)})&plus;(1-y)log(1-a^{(L)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?error&space;=&space;{y}log(a^{(L)})&plus;(1-y)log(1-a^{(L)})" title="error = {y}log(a^{(L)})+(1-y)log(1-a^{(L)})" /></a>, error function of each data point
+  <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(l&plus;1)}=\Theta^{(l)}a^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(l&plus;1)}=\Theta^{(l)}a^{(l)}" title="z^{(l+1)}=\Theta^{(l)}a^{(l)}" /></a> <br>
+  <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l&plus;1)}=g(z^{(l&plus;1)})=\frac{1}{1&plus;e^{-z^{(l&plus;1)}}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l&plus;1)}=g(z^{(l&plus;1)})=\frac{1}{1&plus;e^{-z^{(l&plus;1)}}}" title="a^{(l+1)}=g(z^{(l+1)})=\frac{1}{1+e^{-z^{(l+1)}}}" /></a>
+
+- Error function of each data point
+
+  <a href="https://www.codecogs.com/eqnedit.php?latex=error&space;=&space;{y}log(a^{(L)})&plus;(1-y)log(1-a^{(L)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?error&space;=&space;{y}log(a^{(L)})&plus;(1-y)log(1-a^{(L)})" title="error = {y}log(a^{(L)})+(1-y)log(1-a^{(L)})" /></a>
 
 - Gradient of the error function
 
   - When <a href="https://www.codecogs.com/eqnedit.php?latex=l=L" target="_blank"><img src="https://latex.codecogs.com/gif.latex?l=L" title="l=L" /></a>: <br>
     For each output unit j, <br> 
-    <a href="https://www.codecogs.com/eqnedit.php?latex=\delta_j^{(L)}=\frac{\partial&space;error}{\partial&space;z}=\frac{\partial&space;error}{\partial&space;a}\frac{\partial&space;a}{\partial&space;z}=(-\frac{y}{a}&plus;\frac{1-y}{1-a})(a(1-a))=a_j^{(L)}-y_j" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta_j^{(L)}=\frac{\partial&space;error}{\partial&space;z}=\frac{\partial&space;error}{\partial&space;a}\frac{\partial&space;a}{\partial&space;z}=(-\frac{y}{a}&plus;\frac{1-y}{1-a})(a(1-a))=a_j^{(L)}-y_j" title="\delta_j^{(L)}=\frac{\partial error}{\partial z}=\frac{\partial error}{\partial a}\frac{\partial a}{\partial z}=(-\frac{y}{a}+\frac{1-y}{1-a})(a(1-a))=a_j^{(L)}-y_j" /></a> <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=\delta_j^{(L)}=\frac{\partial&space;error}{\partial&space;z}=\frac{\partial&space;error}{\partial&space;g(z)}g'(z)=(-\frac{y}{a}&plus;\frac{1-y}{1-a})(a(1-a))=a_j^{(L)}-y_j" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta_j^{(L)}=\frac{\partial&space;error}{\partial&space;z}=\frac{\partial&space;error}{\partial&space;g(z)}g'(z)=(-\frac{y}{a}&plus;\frac{1-y}{1-a})(a(1-a))=a_j^{(L)}-y_j" title="\delta_j^{(L)}=\frac{\partial error}{\partial z}=\frac{\partial error}{\partial g(z)}g'(z)=(-\frac{y}{a}+\frac{1-y}{1-a})(a(1-a))=a_j^{(L)}-y_j" /></a> for sigmoid function
 
   - When <a href="https://www.codecogs.com/eqnedit.php?latex=1<l<L" target="_blank"><img src="https://latex.codecogs.com/gif.latex?1<l<L" title="1<l<L" /></a>: <br>
-    <a href="https://www.codecogs.com/eqnedit.php?latex=\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l&plus;1)}g'(z^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l&plus;1)}g'(z^{(l)})" title="\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l+1)}g'(z^{(l)})" /></a>, where <a href="https://www.codecogs.com/eqnedit.php?latex=g'(z^{(l)})=a^{(l)}(1-a^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?g'(z^{(l)})=a^{(l)}(1-a^{(l)})" title="g'(z^{(l)})=a^{(l)}(1-a^{(l)})" /></a> for sigmoid function <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l&plus;1)}&space;*&space;g'(z^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l&plus;1)}&space;*&space;g'(z^{(l)})" title="\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l+1)} * g'(z^{(l)})" /></a>, where <a href="https://www.codecogs.com/eqnedit.php?latex=g'(z^{(l)})=a^{(l)}(1-a^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?g'(z^{(l)})=a^{(l)}(1-a^{(l)})" title="g'(z^{(l)})=a^{(l)}(1-a^{(l)})" /></a> for sigmoid function
 
 - Gradient with respect to the weights ignoring regularization
 
@@ -233,44 +237,43 @@
 
 - Update the weights
 
-  <a href="https://www.codecogs.com/eqnedit.php?latex=\theta_j:=\theta_j-\alpha\frac{\partial&space;error}{\partial&space;\theta_j}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta_j:=\theta_j-\alpha\frac{\partial&space;error}{\partial&space;\theta_j}" title="\theta_j:=\theta_j-\alpha\frac{\partial error}{\partial \theta_j}" /></a>, where <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a> is learning rate
+  <a href="https://www.codecogs.com/eqnedit.php?latex=\theta_j:=\theta_j-\alpha\frac{\partial&space;error}{\partial&space;\theta_j}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta_j:=\theta_j-\alpha\frac{\partial&space;error}{\partial&space;\theta_j}" title="\theta_j:=\theta_j-\alpha\frac{\partial error}{\partial \theta_j}" /></a>
 
-#### 1.2.5. Gradient descent for neural networks (sigmoid)
+#### 1.2.5. Gradient descent for neural networks
 
-- Notation
+- Additional notation
 
-  - m: the number of records
-  - Training set <a href="https://www.codecogs.com/eqnedit.php?latex={(x^{(1)},&space;y^{(1)}),&space;...,&space;(x^{(m)},&space;y^{(m)})}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?{(x^{(1)},&space;y^{(1)}),&space;...,&space;(x^{(m)},&space;y^{(m)})}" title="{(x^{(1)}, y^{(1)}), ..., (x^{(m)}, y^{(m)})}" /></a>
-  - <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a>: learning rate
+  - m: the number of records, such that training set <a href="https://www.codecogs.com/eqnedit.php?latex={(x^{(1)},&space;y^{(1)}),&space;...,&space;(x^{(m)},&space;y^{(m)})}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?{(x^{(1)},&space;y^{(1)}),&space;...,&space;(x^{(m)},&space;y^{(m)})}" title="{(x^{(1)}, y^{(1)}), ..., (x^{(m)}, y^{(m)})}" /></a>
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=g'(z^{(l)})=a^{(l)}(1-a^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?g'(z^{(l)})=a^{(l)}(1-a^{(l)})" title="g'(z^{(l)})=a^{(l)}(1-a^{(l)})" /></a> for sigmoid function
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=\Delta_{ij}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta_{ij}^{(l)}" title="\Delta_{ij}^{(l)}" /></a>: error of <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta_{ij}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Theta_{ij}^{(l)}" title="\Theta_{ij}^{(l)}" /></a>, cumulative over data points
 
-- (i) Initialize weights <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta_{ij}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Theta_{ij}" title="\Theta_{ij}" /></a>
+- (i) Initialize parameters
+  
+  - Initialize weights (excluding intercepts) near 0 with different starting values. A good value for the scale is <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{1}{\sqrt{n}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{1}{\sqrt{n}}" title="\frac{1}{\sqrt{n}}" /></a> where n is the number of input units, or Gaussian around ~0.01.
+  - Initialize bias units as 0
+  - Set <a href="https://www.codecogs.com/eqnedit.php?latex=\Delta_{ij}^{(l)}=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta_{ij}^{(l)}=0" title="\Delta_{ij}^{(l)}=0" /></a> for all l, i, j
 
-  - Near 0
-  - All have different starting values
-  - A good value for the scale is <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{1}{\sqrt{n}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{1}{\sqrt{n}}" title="\frac{1}{\sqrt{n}}" /></a> where n is the number of input units, or Gaussian around ~0.01
+- (ii) Forward propogation
 
-- (ii) Set <a href="https://www.codecogs.com/eqnedit.php?latex=\Delta_{ij}^{(l)}=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta_{ij}^{(l)}=0" title="\Delta_{ij}^{(l)}=0" /></a> for all l, i, j
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(l&plus;1)}=\Theta^{(l)}a^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(l&plus;1)}=\Theta^{(l)}a^{(l)}" title="z^{(l+1)}=\Theta^{(l)}a^{(l)}" /></a> where <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(0)}=x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(0)}=x" title="a^{(0)}=x" /></a>
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l&plus;1)}=g(z^{(l&plus;1)})=\frac{1}{1&plus;e^{-z^{(l&plus;1)}}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l&plus;1)}=g(z^{(l&plus;1)})=\frac{1}{1&plus;e^{-z^{(l&plus;1)}}}" title="a^{(l+1)}=g(z^{(l+1)})=\frac{1}{1+e^{-z^{(l+1)}}}" /></a>
 
-- (iii) Forward propogation <br>
-  For each record in training data:
+- (iii) Error function
 
-  - <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(j&plus;1)}=\Theta^{(j)}a^{(j)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(j&plus;1)}=\Theta^{(j)}a^{(j)}" title="z^{(j+1)}=\Theta^{(j)}a^{(j)}" /></a> where <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(1)}=x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(1)}=x" title="a^{(1)}=x" /></a>
-  - <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(j&plus;1)}=g(z^{(j&plus;1)})=\frac{1}{1&plus;e^{-z^{(j&plus;1)}}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(j&plus;1)}=g(z^{(j&plus;1)})=\frac{1}{1&plus;e^{-z^{(j&plus;1)}}}" title="a^{(j+1)}=g(z^{(j+1)})=\frac{1}{1+e^{-z^{(j+1)}}}" /></a>
   - <a href="https://www.codecogs.com/eqnedit.php?latex=J(\Theta)=-\frac{1}{m}\sum_{i=1}^m[y_{i}log(h_\Theta(x_{i}))&plus;(1-y_{i})log(1-h_\Theta(x_{i})]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(\Theta)=-\frac{1}{m}\sum_{i=1}^m[y_{i}log(h_\Theta(x_{i}))&plus;(1-y_{i})log(1-h_\Theta(x_{i})]" title="J(\Theta)=-\frac{1}{m}\sum_{i=1}^m[y_{i}log(h_\Theta(x_{i}))+(1-y_{i})log(1-h_\Theta(x_{i})]" /></a>
 
-- (iv) Backpropogation <br>
-  For each record in training data:
+- (iv) Backpropogation
 
-  - Calculate error term for output unit <br><a href="https://www.codecogs.com/eqnedit.php?latex=\delta^{(L)}=a^{(L)}-y" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta^{(L)}=a^{(L)}-y" title="\delta^{(L)}=a^{(L)}-y" /></a>
-  - Compute <a href="https://www.codecogs.com/eqnedit.php?latex=\delta^{(L-1)},&space;\delta^{(L-2)},&space;...,&space;\delta^{(2)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta^{(L-1)},&space;\delta^{(L-2)},&space;...,&space;\delta^{(2)}" title="\delta^{(L-1)}, \delta^{(L-2)}, ..., \delta^{(2)}" /></a> <br> <a href="https://www.codecogs.com/eqnedit.php?latex=\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l&plus;1)}a^{(l)}(1-a^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l&plus;1)}a^{(l)}(1-a^{(l)})" title="\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l+1)}a^{(l)}(1-a^{(l)})" /></a>
+  - Calculate error term for output unit <br><a href="https://www.codecogs.com/eqnedit.php?latex=\delta^{(L)}=a^{(L)}-y" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta^{(L)}=a^{(L)}-y" title="\delta^{(L)}=a^{(L)}-y" /></a>, for sigmoid function in output unit
+  - Compute <a href="https://www.codecogs.com/eqnedit.php?latex=\delta^{(L-1)},&space;\delta^{(L-2)},&space;...,&space;\delta^{(2)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta^{(L-1)},&space;\delta^{(L-2)},&space;...,&space;\delta^{(2)}" title="\delta^{(L-1)}, \delta^{(L-2)}, ..., \delta^{(2)}" /></a> <br> <a href="https://www.codecogs.com/eqnedit.php?latex=\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l&plus;1)}&space;*&space;g'(z^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l&plus;1)}&space;*&space;g'(z^{(l)})" title="\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l+1)} * g'(z^{(l)})" /></a>
   
   - Update the cumulative error <br> <a href="https://www.codecogs.com/eqnedit.php?latex=\Delta_{ij}^{(l)}:=\Delta_{ij}^{(l)}&plus;a_j^{(l)}\delta_i^{(l&plus;1)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta_{ij}^{(l)}:=\Delta_{ij}^{(l)}&plus;a_j^{(l)}\delta_i^{(l&plus;1)}" title="\Delta_{ij}^{(l)}:=\Delta_{ij}^{(l)}+a_j^{(l)}\delta_i^{(l+1)}" /></a>, aka., <a href="https://www.codecogs.com/eqnedit.php?latex=\Delta^{(l)}:=\Delta^{(l)}&plus;\delta^{(l&plus;1)}(a^{(l)})^T" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta^{(l)}:=\Delta^{(l)}&plus;\delta^{(l&plus;1)}(a^{(l)})^T" title="\Delta^{(l)}:=\Delta^{(l)}+\delta^{(l+1)}(a^{(l)})^T" /></a>
 
 - (v) Cumulative error with regularization <br>
-  <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{\partial}{\partial&space;\Theta_{ij}^{(l)}}J(\Theta)=D_{ij}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{\partial}{\partial&space;\Theta_{ij}^{(l)}}J(\Theta)=D_{ij}^{(l)}" title="\frac{\partial}{\partial \Theta_{ij}^{(l)}}J(\Theta)=D_{ij}^{(l)}" /></a> <br>By convention, regularization does not include bias units.
+  <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{\partial}{\partial&space;\Theta_{ij}^{(l)}}J(\Theta)=D_{ij}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{\partial}{\partial&space;\Theta_{ij}^{(l)}}J(\Theta)=D_{ij}^{(l)}" title="\frac{\partial}{\partial \Theta_{ij}^{(l)}}J(\Theta)=D_{ij}^{(l)}" /></a>, where
 
   - <a href="https://www.codecogs.com/eqnedit.php?latex=D_{ij}^{(l)}:=\frac{1}{m}\Delta_{ij}^{(l)}&plus;\lambda\Theta_{ij}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?D_{ij}^{(l)}:=\frac{1}{m}\Delta_{ij}^{(l)}&plus;\lambda\Theta_{ij}^{(l)}" title="D_{ij}^{(l)}:=\frac{1}{m}\Delta_{ij}^{(l)}+\lambda\Theta_{ij}^{(l)}" /></a> if j≠0.
-  - <a href="https://www.codecogs.com/eqnedit.php?latex=D_{ij}^{(l)}:=\frac{1}{m}\Delta_{ij}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?D_{ij}^{(l)}:=\frac{1}{m}\Delta_{ij}^{(l)}" title="D_{ij}^{(l)}:=\frac{1}{m}\Delta_{ij}^{(l)}" /></a> if j=0
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=D_{ij}^{(l)}:=\frac{1}{m}\Delta_{ij}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?D_{ij}^{(l)}:=\frac{1}{m}\Delta_{ij}^{(l)}" title="D_{ij}^{(l)}:=\frac{1}{m}\Delta_{ij}^{(l)}" /></a> if j=0. By convention, regularization does not include bias units.
 
 - (vi) Repeat until convergence:
   
