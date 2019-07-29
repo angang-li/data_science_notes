@@ -290,10 +290,27 @@ $W=(X^TX)^{-1}X^Ty$
 
 ### 1.3. Regularization
 
-Punish too many features to avoid overfitting
+Penalize large coefficients to prevent overfitting
 
-- L1 Regularization
-- L2 Regularization
+- <a href="https://www.codecogs.com/eqnedit.php?latex=\lambda" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\lambda" title="\lambda" /></a>: regularization parameter
+
+- L1
+
+  - Error function with L1 regularization
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=J=-\frac{1}{m}\sum_{i=1}^m&space;E(\hat{y}_i,&space;y_i)&plus;\lambda\left&space;\|&space;\Theta&space;\right&space;\|_1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J=-\frac{1}{m}\sum_{i=1}^m&space;E(\hat{y}_i,&space;y_i)&plus;\lambda\left&space;\|&space;\Theta&space;\right&space;\|_1" title="J=-\frac{1}{m}\sum_{i=1}^m E(\hat{y}_i, y_i)+\lambda\left \| \Theta \right \|_1" /></a>, where <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Theta" title="\Theta" /></a> are the coefficients excluding the bias, and <a href="https://www.codecogs.com/eqnedit.php?latex=\left&space;\|&space;\Theta&space;\right&space;\|_1=\sum_{j=1}^n|\Theta_j|" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\left&space;\|&space;\Theta&space;\right&space;\|_1=\sum_{j=1}^n|\Theta_j|" title="\left \| \Theta \right \|_1=\sum_{j=1}^n|\Theta_j|" /></a>
+
+  - Small weights tend to go to 0, such that <a href="https://www.codecogs.com/eqnedit.php?latex=w" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w" title="w" /></a> will be sparse
+  - (+) Good for feature selection
+
+- L2
+
+  - Error function with L2 regularization
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=J=-\frac{1}{m}\sum_{i=1}^m&space;E(\hat{y}_i,&space;y_i)&plus;\lambda\left&space;\|&space;\Theta&space;\right&space;\|_2^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J=-\frac{1}{m}\sum_{i=1}^m&space;E(\hat{y}_i,&space;y_i)&plus;\lambda\left&space;\|&space;\Theta&space;\right&space;\|_2^2" title="J=-\frac{1}{m}\sum_{i=1}^m E(\hat{y}_i, y_i)+\lambda\left \| \Theta \right \|_2^2" /></a>, where <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Theta" title="\Theta" /></a> are the coefficients excluding the bias, and <a href="https://www.codecogs.com/eqnedit.php?latex=\left&space;\|&space;\Theta&space;\right&space;\|_2^2=\sum_{j=1}^n\Theta_j^2=\Theta^T&space;\Theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\left&space;\|&space;\Theta&space;\right&space;\|_2^2=\sum_{j=1}^n\Theta_j^2=\Theta^T&space;\Theta" title="\left \| \Theta \right \|_2^2=\sum_{j=1}^n\Theta_j^2=\Theta^T \Theta" /></a>
+
+  - L2 maintains all weights small
+  - (+) Better for training models than L1
 
 ### 1.4. Linear Regression in sklearn
 
