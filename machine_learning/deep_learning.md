@@ -3,16 +3,14 @@
 <!-- TOC -->
 
 - [Deep Learning](#deep-learning)
-  - [1. Neural networks and deep learning](#1-neural-networks-and-deep-learning)
+  - [1. Deep learning and neural network basics](#1-deep-learning-and-neural-network-basics)
     - [1.1. Intro to deep learning](#11-intro-to-deep-learning)
-    - [1.2. Neural networks basics](#12-neural-networks-basics)
-      - [1.2.1. Perceptron](#121-perceptron)
-      - [1.2.2. Activation function](#122-activation-function)
-      - [1.2.3. Log-loss error function](#123-log-loss-error-function)
-      - [1.2.4. Gradient of the error function](#124-gradient-of-the-error-function)
-      - [1.2.5. Gradient descent for neural networks](#125-gradient-descent-for-neural-networks)
-      - [1.2.6. Summary of gradient descent and additional resources](#126-summary-of-gradient-descent-and-additional-resources)
-      - [1.2.7. Some useful terminology](#127-some-useful-terminology)
+    - [1.2. Perceptron of neural networks](#12-perceptron-of-neural-networks)
+    - [1.3. Activation function of neural networks](#13-activation-function-of-neural-networks)
+    - [1.4. Log-loss error function](#14-log-loss-error-function)
+    - [1.5. Gradient of the error function](#15-gradient-of-the-error-function)
+    - [1.6. Gradient descent for neural networks](#16-gradient-descent-for-neural-networks)
+    - [1.7. Some useful terminology](#17-some-useful-terminology)
   - [2. Training neural networks](#2-training-neural-networks)
     - [2.1. Resolve overfitting](#21-resolve-overfitting)
     - [2.2. Resolve local minimum](#22-resolve-local-minimum)
@@ -33,7 +31,7 @@
 
 <!-- /TOC -->
 
-## 1. Neural networks and deep learning
+## 1. Deep learning and neural network basics
 
 ### 1.1. Intro to deep learning
 
@@ -46,9 +44,9 @@
   - machine translation (RNN)
   - autonomous driving (hybrid NN)
 
-  <img src="Resources/deep_learning/nn_examples.png">
+  <img src="Resources/deep_learning/nn_examples.png" width="600">
 
-  <img src="Resources/deep_learning/nn_examples_dtype.png">
+  <img src="Resources/deep_learning/nn_examples_dtype.png" width="600">
 
 - Scale drives deep learning progress
 
@@ -56,11 +54,13 @@
   - Faster computation
   - New and more efficient algorithms
 
-  <img src="Resources/deep_learning/nn_taking_off_anno.png">
+  <img src="Resources/deep_learning/nn_taking_off_anno.png" width="600">
 
-### 1.2. Neural networks basics
+- Applied deep learning is a highly iterative and very empirical process
 
-#### 1.2.1. Perceptron
+  <img src="Resources/deep_learning/deep_learning_empirical.png" width="300">
+
+### 1.2. Perceptron of neural networks
 
 - Decision boundary
 
@@ -109,7 +109,7 @@
 
   <img src="Resources/deep_learning/neural_networks_mult.png" alt="neural_networks_mult" width="500">
 
-#### 1.2.2. Activation function
+### 1.3. Activation function of neural networks
 
 - Sigmoid function (2 classes)
 
@@ -153,9 +153,9 @@
   [ReLU vs. sigmoid from stackexchange](https://stats.stackexchange.com/questions/126238/what-are-the-advantages-of-relu-over-sigmoid-function-in-deep-neural-networks) <br>
   [Activation function comparison from medium](https://medium.com/@shrutijadon10104776/survey-on-activation-functions-for-deep-learning-9689331ba092)
 
-#### 1.2.3. Log-loss error function
+### 1.4. Log-loss error function
 
-- Mean squared error function is not convex
+- Mean squared error of sigmoid function is not convex
 
   - Cost function
 
@@ -203,7 +203,7 @@
 
     <a href="https://www.codecogs.com/eqnedit.php?latex=J(\Theta)=-\frac{1}{m}\sum_{i=1}^m\sum_{j=1}^ny_{(ij)}log(h_\Theta(x_{(ij)}))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(\Theta)=-\frac{1}{m}\sum_{i=1}^m\sum_{j=1}^ny_{(ij)}log(h_\Theta(x_{(ij)}))" title="J(\Theta)=-\frac{1}{m}\sum_{i=1}^m\sum_{j=1}^ny_{(ij)}log(h_\Theta(x_{(ij)}))" /></a>
 
-#### 1.2.4. Gradient of the error function
+### 1.5. Gradient of the error function
 
 - Notation
 
@@ -236,7 +236,7 @@
 
   <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{\partial&space;E}{\partial&space;\theta_{ij}^{(l)}}=a_j^{(l)}\delta_i^{(l&plus;1)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{\partial&space;E}{\partial&space;\theta_{ij}^{(l)}}=a_j^{(l)}\delta_i^{(l&plus;1)}" title="\frac{\partial E}{\partial \theta_{ij}^{(l)}}=a_j^{(l)}\delta_i^{(l+1)}" /></a>
 
-#### 1.2.5. Gradient descent for neural networks
+### 1.6. Gradient descent for neural networks
 
 - Additional notation
 
@@ -275,23 +275,17 @@
     <a href="https://www.codecogs.com/eqnedit.php?latex=D_{ij}^{(l)}=\frac{\partial&space;J}{\partial&space;\theta_{ij}^{(l)}}&plus;\lambda&space;\theta_{ij}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?D_{ij}^{(l)}=\frac{\partial&space;J}{\partial&space;\theta_{ij}^{(l)}}&plus;\lambda&space;\theta_{ij}^{(l)}" title="D_{ij}^{(l)}=\frac{\partial J}{\partial \theta_{ij}^{(l)}}+\lambda \theta_{ij}^{(l)}" /></a> if j≠0. <br>
     <a href="https://www.codecogs.com/eqnedit.php?latex=D_{ij}^{(l)}=\frac{\partial&space;J}{\partial&space;\theta_{ij}^{(l)}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?D_{ij}^{(l)}=\frac{\partial&space;J}{\partial&space;\theta_{ij}^{(l)}}" title="D_{ij}^{(l)}=\frac{\partial J}{\partial \theta_{ij}^{(l)}}" /></a> if j=0. By convention, regularization does not include bias units.
 
-- (vi) Repeat until convergence:
+- (vi) Update parameters
   
-  <a href="https://www.codecogs.com/eqnedit.php?latex=\theta_{ij}^{(l)}:=\theta_{ij}^{(l)}-\alpha&space;D_{ij}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta_{ij}^{(l)}:=\theta_{ij}^{(l)}-\alpha&space;D_{ij}^{(l)}" title="\theta_{ij}^{(l)}:=\theta_{ij}^{(l)}-\alpha D_{ij}^{(l)}" /></a>
-
-#### 1.2.6. Summary of gradient descent and additional resources
-
-- Summary of gradient descent steps
-
-  <img src="Resources/deep_learning/gradient_descent_algo.png" alt="gradient_descent_algorithm" width="400"><br><br>
-  (Image credit: [The Clever Machine](https://theclevermachine.wordpress.com/tag/backpropagation/))
+  <a href="https://www.codecogs.com/eqnedit.php?latex=\theta_{ij}^{(l)}:=\theta_{ij}^{(l)}-\alpha&space;D_{ij}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta_{ij}^{(l)}:=\theta_{ij}^{(l)}-\alpha&space;D_{ij}^{(l)}" title="\theta_{ij}^{(l)}:=\theta_{ij}^{(l)}-\alpha D_{ij}^{(l)}" /></a> Repeat until convergence
 
 - Further readings on backpropagation
 
+  - [A gentle introduction to artificial neural networks](https://theclevermachine.wordpress.com/tag/backpropagation/)
   - [Yes you should understand backprop](https://medium.com/@karpathy/yes-you-should-understand-backprop-e2f06eab496b)
   - [a lecture from Stanford's CS231n course](https://www.youtube.com/watch?v=59Hbtz7XgjM)
 
-#### 1.2.7. Some useful terminology
+### 1.7. Some useful terminology
 
 - **One epoch** = one forward pass and one backward pass of all the training examples
 - **Batch size** = the number of training examples in one forward/backward pass. The higher the batch size, the more memory space you'll need.
