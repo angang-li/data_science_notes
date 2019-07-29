@@ -11,11 +11,13 @@
     - [1.5. Gradient of the error function](#15-gradient-of-the-error-function)
     - [1.6. Gradient descent for neural networks](#16-gradient-descent-for-neural-networks)
     - [1.7. Some useful terminology](#17-some-useful-terminology)
-  - [2. Training neural networks](#2-training-neural-networks)
-    - [2.1. Resolve overfitting](#21-resolve-overfitting)
-    - [2.2. Resolve local minimum](#22-resolve-local-minimum)
-    - [2.3. Resolve too small gradient from sigmoid](#23-resolve-too-small-gradient-from-sigmoid)
-    - [2.4. Resolve humongous dataset](#24-resolve-humongous-dataset)
+  - [2. Improving deep neural networks](#2-improving-deep-neural-networks)
+    - [2.1. Train / Dev / Test sets](#21-train--dev--test-sets)
+    - [2.2. Bias and variance](#22-bias-and-variance)
+    - [2.3. Reduce overfitting](#23-reduce-overfitting)
+    - [2.4. Resolve local minimum](#24-resolve-local-minimum)
+    - [2.5. Resolve too small gradient from sigmoid](#25-resolve-too-small-gradient-from-sigmoid)
+    - [2.6. Resolve humongous dataset](#26-resolve-humongous-dataset)
   - [3. Building a neural network with keras](#3-building-a-neural-network-with-keras)
     - [3.1. Optimizers in Keras](#31-optimizers-in-keras)
     - [3.2. Keras script](#32-keras-script)
@@ -292,26 +294,71 @@
 
   Example: if you have 1000 training examples, and your batch size is 500, then it will take 2 iterations to complete 1 epoch.
 
-## 2. Training neural networks
+## 2. Improving deep neural networks
 
-### 2.1. Resolve overfitting
+Orthogonalization
+
+- Optimize cost function J, e.g. via gradient descent
+- Reduce overfitting, e.g., via regularization
+
+### 2.1. Train / Dev / Test sets
+
+- For relatively small dataset, 70/30 or 60/20/20 train-dev-test split works well. But for much larger datasets, 98/1/1 or 99.5/0.25/0.25 is more reasonable sometimes.
+  - Dev set is also known as "development set" or "hold-out cross validation set".
+- Make sure that Dev and Test sets come from the same distribution as Train set. In real applications Training set and Test/Dev sets might be mismatched.
+- Not having a Test set might be okay sometimes. Only Dev set.
+
+### 2.2. Bias and variance
+
+- High bias (based on training set performance)
+  - Bigger networks
+  - Train longer
+  - Use more advanced algorithms
+  - (NN architecture search)
+
+- High Variance (based on dev vs. training set performance)
+  - More data
+  - Regularization
+  - (NN architecture search)
+
+- In deep learning, there isn't necessarily a "bias-variance tradeoff", e.g. when using more data, or when using a bigger network (with regularization).
+
+### 2.3. Reduce overfitting
+
+- #### Getting more data
+
+- #### Data augmentation
+
+  Flipping, rotation, cropping, and sometimes random distortion of image data
 
 - #### Early stopping
 
-  Increase model complexity, use gradient descent to train the model until testing error start to increase.
+  Increase model complexity or the number of epochs, use gradient descent to train the model until cross validation error starts to increase.
+
+  <img src="Resources/deep_learning/early_stopping.png" width=400>
+
+  - (-) Breaks orthogonalization, and simultaneously tries to optimize cost while reducing overfitting.
+  - (+) Running the gradient descent process just once, you get to try out values of small <a href="https://www.codecogs.com/eqnedit.php?latex=\theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta" title="\theta" /></a>, mid-size <a href="https://www.codecogs.com/eqnedit.php?latex=\theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta" title="\theta" /></a>, and large <a href="https://www.codecogs.com/eqnedit.php?latex=\theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta" title="\theta" /></a>, without needing to try a lot of values of the L2 regularization hyperparameter <a href="https://www.codecogs.com/eqnedit.php?latex=\lambda" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\lambda" title="\lambda" /></a>.
 
 - #### Regularization
 
-  Penalize large coefficients to resolve overfitting
+  Penalize large coefficients to resolve overfitting. L2 regularization is most commonly used, and is also known as "weight decay".
 
-  - L1: <a href="https://www.codecogs.com/eqnedit.php?latex=\lambda\sum_{j=1}^n|\Theta_j|" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\lambda\sum_{j=1}^n|\Theta_j|" title="\lambda\sum_{j=1}^n|\Theta_j|" /></a>, small weights tend to go to 0, good for feature selection
-  - L2: <a href="https://www.codecogs.com/eqnedit.php?latex=\lambda\sum_{j=1}^n\Theta_j^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\lambda\sum_{j=1}^n\Theta_j^2" title="\lambda\sum_{j=1}^n\Theta_j^2" /></a>, maintains all weights small, better for training models
+  Error function with L2 regularization <br>
+  <a href="https://www.codecogs.com/eqnedit.php?latex=J=-\frac{1}{m}\sum_{i=1}^m&space;E(\hat{y}_i,&space;y_i)&plus;\frac{\lambda}{2m}\sum_{l=1}^L\left&space;\|&space;\Theta^{(l)}&space;\right&space;\|_F^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J=-\frac{1}{m}\sum_{i=1}^m&space;E(\hat{y}_i,&space;y_i)&plus;\frac{\lambda}{2m}\sum_{l=1}^L\left&space;\|&space;\Theta^{(l)}&space;\right&space;\|_F^2" title="J=-\frac{1}{m}\sum_{i=1}^m E(\hat{y}_i, y_i)+\frac{\lambda}{2m}\sum_{l=1}^L\left \| \Theta^{(l)} \right \|_F^2" /></a>, where <a href="https://www.codecogs.com/eqnedit.php?latex=\left&space;\|&space;\Theta^{(l)}&space;\right&space;\|_F^2=\sum_{n=1}^{n^{(l-1)}}\sum_{j=1}^{n^{(l)}}(\theta_{ij}^{(l)})^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\left&space;\|&space;\Theta^{(l)}&space;\right&space;\|_F^2=\sum_{n=1}^{n^{(l-1)}}\sum_{j=1}^{n^{(l)}}(\theta_{ij}^{(l)})^2" title="\left \| \Theta^{(l)} \right \|_F^2=\sum_{n=1}^{n^{(l-1)}}\sum_{j=1}^{n^{(l)}}(\theta_{ij}^{(l)})^2" /></a> is the "Frobenius norm", and <a href="https://www.codecogs.com/eqnedit.php?latex=\Theta^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Theta^{(l)}" title="\Theta^{(l)}" /></a> are the linear coefficients excluding the bias units.
+
+  - (+) L2 regularization maintains all weights to be small.
 
 - #### Dropout
 
-  Randomly turn off some of the nodes to train all the nodes in neural networks
+  Randomly turn off some of the nodes to train all the nodes in neural networks. Learn more about "inverted dropout" [here](https://www.quora.com/What-is-inverted-dropout) when implementing dropout.
 
-### 2.2. Resolve local minimum
+  - (+) As if working with a smaller neural network on every iteration, and so using a smaller neural network seems like it should have a regularizing effect.
+  - (+) Can't rely on any one feature, so have to spread out weights and hence shrinking the weights. Has similar effects to L2 regularization.
+  - (+) Very frequently used by computer vision, given the big input size.
+  - (-) Error function J is less well defined under dropout.
+
+### 2.4. Resolve local minimum
 
 - #### Random restart
 
@@ -323,7 +370,7 @@
   step: gradient descent step <br>
   <a href="https://www.codecogs.com/eqnedit.php?latex=step(n)&space;=&space;step(n)&space;&plus;&space;\beta&space;step(n-1)&space;&plus;&space;\beta^2step(n-2)&space;&plus;&space;..." target="_blank"><img src="https://latex.codecogs.com/gif.latex?step(n)&space;=&space;step(n)&space;&plus;&space;\beta&space;step(n-1)&space;&plus;&space;\beta^2step(n-2)&space;&plus;&space;..." title="step(n) = step(n) + \beta step(n-1) + \beta^2step(n-2) + ..." /></a>
 
-### 2.3. Resolve too small gradient from sigmoid
+### 2.5. Resolve too small gradient from sigmoid
 
 - #### Use other activation functions
 
@@ -337,7 +384,7 @@
 
   [Comparison of activation functions](https://stats.stackexchange.com/questions/126238/what-are-the-advantages-of-relu-over-sigmoid-function-in-deep-neural-networks)
 
-### 2.4. Resolve humongous dataset
+### 2.6. Resolve humongous dataset
 
 - #### Stochastic gradient descent
 
