@@ -12,12 +12,11 @@
     - [1.6. Gradient descent for neural networks](#16-gradient-descent-for-neural-networks)
     - [1.7. Some useful terminology](#17-some-useful-terminology)
   - [2. Improving deep neural networks](#2-improving-deep-neural-networks)
-    - [2.1. Train / Dev / Test sets](#21-train--dev--test-sets)
-    - [2.2. Bias and variance](#22-bias-and-variance)
-    - [2.3. Reduce overfitting](#23-reduce-overfitting)
+    - [2.1. Setting up deep neural network applications](#21-setting-up-deep-neural-network-applications)
+    - [2.2. Reduce overfitting](#22-reduce-overfitting)
+    - [2.3. Setting up optimization problem](#23-setting-up-optimization-problem)
     - [2.4. Resolve local minimum](#24-resolve-local-minimum)
-    - [2.5. Resolve too small gradient from sigmoid](#25-resolve-too-small-gradient-from-sigmoid)
-    - [2.6. Resolve humongous dataset](#26-resolve-humongous-dataset)
+    - [2.5. Resolve humongous dataset](#25-resolve-humongous-dataset)
   - [3. Building a neural network with keras](#3-building-a-neural-network-with-keras)
     - [3.1. Optimizers in Keras](#31-optimizers-in-keras)
     - [3.2. Keras script](#32-keras-script)
@@ -248,7 +247,7 @@
 
 - (i) Initialize parameters
   
-  - Initialize weights (excluding intercepts) near 0 with different starting values. A good value for the scale is <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{1}{\sqrt{n}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{1}{\sqrt{n}}" title="\frac{1}{\sqrt{n}}" /></a> where n is the number of input units, or Gaussian around ~0.01.
+  - Initialize weights (excluding intercepts) near 0 with different starting values. A good value for the scale is <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{1}{\sqrt{n}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{1}{\sqrt{n}}" title="\frac{1}{\sqrt{n}}" /></a> where n is the number of input units, or <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{\sqrt{2}}{\sqrt{n}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{\sqrt{2}}{\sqrt{n}}" title="\frac{\sqrt{2}}{\sqrt{n}}" /></a> for ReLU.
   - Initialize bias units as 0
   - Set <a href="https://www.codecogs.com/eqnedit.php?latex=\Delta_{ij}^{(l)}=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\Delta_{ij}^{(l)}=0" title="\Delta_{ij}^{(l)}=0" /></a> for all l, i, j
 
@@ -301,29 +300,31 @@ Orthogonalization
 - Optimize cost function J, e.g. via gradient descent
 - Reduce overfitting, e.g., via regularization
 
-### 2.1. Train / Dev / Test sets
+### 2.1. Setting up deep neural network applications
 
-- For relatively small dataset, 70/30 or 60/20/20 train-dev-test split works well. But for much larger datasets, 98/1/1 or 99.5/0.25/0.25 is more reasonable sometimes.
-  - Dev set is also known as "development set" or "hold-out cross validation set".
-- Make sure that Dev and Test sets come from the same distribution as Train set. In real applications Training set and Test/Dev sets might be mismatched.
-- Not having a Test set might be okay sometimes. Only Dev set.
+- #### Train / Dev / Test sets
 
-### 2.2. Bias and variance
+  - For relatively small dataset, 70/30 or 60/20/20 train-dev-test split works well. But for much larger datasets, 98/1/1 or 99.5/0.25/0.25 is more reasonable sometimes.
+    - Dev set is also known as "development set" or "hold-out cross validation set".
+  - Make sure that Dev and Test sets come from the same distribution as Train set. In real applications Training set and Test/Dev sets might be mismatched.
+  - Not having a Test set might be okay sometimes. Only Dev set.
 
-- High bias (based on training set performance)
-  - Bigger networks
-  - Train longer
-  - Use more advanced algorithms
-  - (NN architecture search)
+- #### Bias and variance
 
-- High Variance (based on dev vs. training set performance)
-  - More data
-  - Regularization
-  - (NN architecture search)
+  - High bias (based on training set performance)
+    - Bigger networks
+    - Train longer
+    - Use more advanced algorithms
+    - (NN architecture search)
 
-- In deep learning, there isn't necessarily a "bias-variance tradeoff", e.g. when using more data, or when using a bigger network (with regularization).
+  - High Variance (based on dev vs. training set performance)
+    - More data
+    - Regularization
+    - (NN architecture search)
 
-### 2.3. Reduce overfitting
+  - In deep learning, there isn't necessarily a "bias-variance tradeoff", e.g. when using more data, or when using a bigger network (with regularization).
+
+### 2.2. Reduce overfitting
 
 - #### Getting more data
 
@@ -358,6 +359,46 @@ Orthogonalization
   - (+) Very frequently used by computer vision, given the big input size.
   - (-) Error function J is less well defined under dropout.
 
+### 2.3. Setting up optimization problem
+
+- #### Feature scaling
+
+  Calculate mean and variance using the training set, then subtract by the same mean and normalize by the same variance for both training and testing sets.
+
+  <img src="Resources/deep_learning/normalized_feature.png" width=600>
+
+  - (+) Gradient descent converges much faster with feature scaling.
+
+- #### Random weight initialization partially solves vanishing / exploding gradients
+
+  Vanishing / exploding gradients: Weights (and gradients) can increase or decrease exponentially with the number of layers, causing exploding or vanishing gradients respectively, which makes training difficult.
+
+  - (+) Careful choice of random weight initialization partially solves vanishing / exploding gradients.
+
+  Initialize weights (excluding intercepts) near 0 with different starting values. In order to try stabilizing the gradients near 1, a good value for the scale is <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{1}{\sqrt{n}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{1}{\sqrt{n}}" title="\frac{1}{\sqrt{n}}" /></a>, where n is the number of input units.
+
+  - ReLU: <a href="https://www.codecogs.com/eqnedit.php?latex=\xi&space;*&space;\sqrt{\frac{2}{n^{(l-1)}}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\xi&space;*&space;\sqrt{\frac{2}{n^{(l-1)}}}" title="\xi * \sqrt{\frac{2}{n^{(l-1)}}}" /></a>, where <a href="https://www.codecogs.com/eqnedit.php?latex=\xi" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\xi" title="\xi" /></a> follows standard normal distribution
+  - tanh: <a href="https://www.codecogs.com/eqnedit.php?latex=\xi&space;*&space;\sqrt{\frac{1}{n^{(l-1)}}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\xi&space;*&space;\sqrt{\frac{1}{n^{(l-1)}}}" title="\xi * \sqrt{\frac{1}{n^{(l-1)}}}" /></a> (Xavier initiation) or <a href="https://www.codecogs.com/eqnedit.php?latex=\xi&space;*&space;\sqrt{\frac{{2}}{{n^{(l-1)}}&plus;n^{(l)}}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\xi&space;*&space;\sqrt{\frac{{2}}{{n^{(l-1)}}&plus;n^{(l)}}}" title="\xi * \sqrt{\frac{{2}}{{n^{(l-1)}}+n^{(l)}}}" /></a>
+
+- #### Gradient checking
+
+  Use numerical approximation of gradients to check that the implementation of backpropogation is correct.
+
+  - (i) Contatenate <a href="https://www.codecogs.com/eqnedit.php?latex=\theta^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta^{(l)}" title="\theta^{(l)}" /></a>'s into a giant vector; concatenate <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{\partial&space;J}{\partial&space;\theta^{(l)}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{\partial&space;J}{\partial&space;\theta^{(l)}}" title="\frac{\partial J}{\partial \theta^{(l)}}" /></a>'s into a giant vector
+
+  - (ii) For each component of <a href="https://www.codecogs.com/eqnedit.php?latex=\theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta" title="\theta" /></a>:
+
+    Compute numerical approximation <br> <a href="https://www.codecogs.com/eqnedit.php?latex=(\frac{\partial&space;J}{\partial&space;\theta_i})_{approx}&space;:=&space;\frac{J(\theta_1,&space;\theta_2,&space;...,&space;\theta_i&plus;\epsilon,&space;...)-J(\theta_1,&space;\theta_2,&space;...,&space;\theta_i-\epsilon,&space;...)}{2\epsilon}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(\frac{\partial&space;J}{\partial&space;\theta_i})_{approx}&space;:=&space;\frac{J(\theta_1,&space;\theta_2,&space;...,&space;\theta_i&plus;\epsilon,&space;...)-J(\theta_1,&space;\theta_2,&space;...,&space;\theta_i-\epsilon,&space;...)}{2\epsilon}" title="(\frac{\partial J}{\partial \theta_i})_{approx} := \frac{J(\theta_1, \theta_2, ..., \theta_i+\epsilon, ...)-J(\theta_1, \theta_2, ..., \theta_i-\epsilon, ...)}{2\epsilon}" /></a>
+
+    Check Euclidean distance <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{\left&space;\|&space;(\frac{\partial&space;J}{\partial&space;\theta})_{approx}&space;-&space;\frac{\partial&space;J}{\partial&space;\theta}&space;\right&space;\|_2}{\left&space;\|&space;(\frac{\partial&space;J}{\partial&space;\theta})_{approx}&space;\right&space;\|_2&space;&plus;&space;\left&space;\|&space;\frac{\partial&space;J}{\partial&space;\theta}&space;\right&space;\|_2}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{\left&space;\|&space;(\frac{\partial&space;J}{\partial&space;\theta})_{approx}&space;-&space;\frac{\partial&space;J}{\partial&space;\theta}&space;\right&space;\|_2}{\left&space;\|&space;(\frac{\partial&space;J}{\partial&space;\theta})_{approx}&space;\right&space;\|_2&space;&plus;&space;\left&space;\|&space;\frac{\partial&space;J}{\partial&space;\theta}&space;\right&space;\|_2}" title="\frac{\left \| (\frac{\partial J}{\partial \theta})_{approx} - \frac{\partial J}{\partial \theta} \right \|_2}{\left \| (\frac{\partial J}{\partial \theta})_{approx} \right \|_2 + \left \| \frac{\partial J}{\partial \theta} \right \|_2}" /></a>. Good if e.g. <a href="https://www.codecogs.com/eqnedit.php?latex=\epsilon" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\epsilon" title="\epsilon" /></a> = 1E-7, euclidean distance ≤ 1E-7
+
+  - Tips for implementing gradient checking
+    - Don't use in training, only to debug
+    - If algorithm fails grad check, look at components to try to identify bug
+    - Remember regularization
+    - Doesn't work with dropout
+    - Run at random initialization; perhaps again after some training when coefficients wander away from initial values.
+
 ### 2.4. Resolve local minimum
 
 - #### Random restart
@@ -370,21 +411,7 @@ Orthogonalization
   step: gradient descent step <br>
   <a href="https://www.codecogs.com/eqnedit.php?latex=step(n)&space;=&space;step(n)&space;&plus;&space;\beta&space;step(n-1)&space;&plus;&space;\beta^2step(n-2)&space;&plus;&space;..." target="_blank"><img src="https://latex.codecogs.com/gif.latex?step(n)&space;=&space;step(n)&space;&plus;&space;\beta&space;step(n-1)&space;&plus;&space;\beta^2step(n-2)&space;&plus;&space;..." title="step(n) = step(n) + \beta step(n-1) + \beta^2step(n-2) + ..." /></a>
 
-### 2.5. Resolve too small gradient from sigmoid
-
-- #### Use other activation functions
-
-  Hyperbolic tangent function
-
-  <img src="Resources/deep_learning/activation_tanh.png" alt="activation_tanh" width=400>
-
-  Rectified linear unit (ReLU)
-
-  <img src="Resources/deep_learning/activation_relu.png" alt="activation_relu" width=400>
-
-  [Comparison of activation functions](https://stats.stackexchange.com/questions/126238/what-are-the-advantages-of-relu-over-sigmoid-function-in-deep-neural-networks)
-
-### 2.6. Resolve humongous dataset
+### 2.5. Resolve humongous dataset
 
 - #### Stochastic gradient descent
 
