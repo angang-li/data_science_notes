@@ -15,8 +15,7 @@
     - [2.1. Setting up deep neural network applications](#21-setting-up-deep-neural-network-applications)
     - [2.2. Reduce overfitting](#22-reduce-overfitting)
     - [2.3. Setting up optimization problem](#23-setting-up-optimization-problem)
-    - [2.4. Resolve local minimum](#24-resolve-local-minimum)
-    - [2.5. Resolve humongous dataset](#25-resolve-humongous-dataset)
+    - [2.4. Optimization algorithms](#24-optimization-algorithms)
   - [3. Building a neural network with keras](#3-building-a-neural-network-with-keras)
     - [3.1. Optimizers in Keras](#31-optimizers-in-keras)
     - [3.2. Keras script](#32-keras-script)
@@ -352,7 +351,9 @@ Orthogonalization
 
 - #### Dropout
 
-  Randomly turn off some of the nodes to train all the nodes in neural networks. Learn more about "inverted dropout" [here](https://www.quora.com/What-is-inverted-dropout) when implementing dropout.
+  Randomly turn off some of the nodes to train all the nodes in neural networks. Dropout is a regularization technique. Learn more about "inverted dropout" [here](https://www.quora.com/What-is-inverted-dropout) when implementing dropout.
+
+  <img src="Resources/deep_learning/dropout2_kiank.mp4" width=600>
 
   - (+) As if working with a smaller neural network on every iteration, and so using a smaller neural network seems like it should have a regularizing effect.
   - (+) Can't rely on any one feature, so have to spread out weights and hence shrinking the weights. Has similar effects to L2 regularization.
@@ -375,10 +376,10 @@ Orthogonalization
 
   - (+) Careful choice of random weight initialization partially solves vanishing / exploding gradients.
 
-  Initialize weights (excluding intercepts) near 0 with different starting values. In order to try stabilizing the gradients near 1, a good value for the scale is <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{1}{\sqrt{n}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{1}{\sqrt{n}}" title="\frac{1}{\sqrt{n}}" /></a>, where n is the number of input units.
+  Initialize weights (excluding biases) near 0 with different starting values to break symmetry. In order to try stabilizing the gradients near 1, a good value for the scale is <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{1}{\sqrt{n}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{1}{\sqrt{n}}" title="\frac{1}{\sqrt{n}}" /></a>, where n is the number of input units.
 
-  - ReLU: <a href="https://www.codecogs.com/eqnedit.php?latex=\xi&space;*&space;\sqrt{\frac{2}{n^{(l-1)}}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\xi&space;*&space;\sqrt{\frac{2}{n^{(l-1)}}}" title="\xi * \sqrt{\frac{2}{n^{(l-1)}}}" /></a>, where <a href="https://www.codecogs.com/eqnedit.php?latex=\xi" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\xi" title="\xi" /></a> follows standard normal distribution
-  - tanh: <a href="https://www.codecogs.com/eqnedit.php?latex=\xi&space;*&space;\sqrt{\frac{1}{n^{(l-1)}}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\xi&space;*&space;\sqrt{\frac{1}{n^{(l-1)}}}" title="\xi * \sqrt{\frac{1}{n^{(l-1)}}}" /></a> (Xavier initiation) or <a href="https://www.codecogs.com/eqnedit.php?latex=\xi&space;*&space;\sqrt{\frac{{2}}{{n^{(l-1)}}&plus;n^{(l)}}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\xi&space;*&space;\sqrt{\frac{{2}}{{n^{(l-1)}}&plus;n^{(l)}}}" title="\xi * \sqrt{\frac{{2}}{{n^{(l-1)}}+n^{(l)}}}" /></a>
+  - ReLU: <a href="https://www.codecogs.com/eqnedit.php?latex=\xi&space;*&space;\sqrt{\frac{2}{n^{(l-1)}}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\xi&space;*&space;\sqrt{\frac{2}{n^{(l-1)}}}" title="\xi * \sqrt{\frac{2}{n^{(l-1)}}}" /></a> (He initialization), where <a href="https://www.codecogs.com/eqnedit.php?latex=\xi" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\xi" title="\xi" /></a> follows standard normal distribution
+  - tanh: <a href="https://www.codecogs.com/eqnedit.php?latex=\xi&space;*&space;\sqrt{\frac{1}{n^{(l-1)}}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\xi&space;*&space;\sqrt{\frac{1}{n^{(l-1)}}}" title="\xi * \sqrt{\frac{1}{n^{(l-1)}}}" /></a> (Xavier initialization) or <a href="https://www.codecogs.com/eqnedit.php?latex=\xi&space;*&space;\sqrt{\frac{{2}}{{n^{(l-1)}}&plus;n^{(l)}}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\xi&space;*&space;\sqrt{\frac{{2}}{{n^{(l-1)}}&plus;n^{(l)}}}" title="\xi * \sqrt{\frac{{2}}{{n^{(l-1)}}+n^{(l)}}}" /></a>
 
 - #### Gradient checking
 
@@ -399,23 +400,108 @@ Orthogonalization
     - Doesn't work with dropout
     - Run at random initialization; perhaps again after some training when coefficients wander away from initial values.
 
-### 2.4. Resolve local minimum
+### 2.4. Optimization algorithms
 
-- #### Random restart
+- #### Batch gradient descent
 
-  Start from different multiple positions to get the best minimum
+  Process entire training data all at the same time. <br> Batch Size = Size of Training Set
 
-- #### Momentum
-
-  <a href="https://www.codecogs.com/eqnedit.php?latex=\beta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta" title="\beta" /></a>: momentum <br>
-  step: gradient descent step <br>
-  <a href="https://www.codecogs.com/eqnedit.php?latex=step(n)&space;=&space;step(n)&space;&plus;&space;\beta&space;step(n-1)&space;&plus;&space;\beta^2step(n-2)&space;&plus;&space;..." target="_blank"><img src="https://latex.codecogs.com/gif.latex?step(n)&space;=&space;step(n)&space;&plus;&space;\beta&space;step(n-1)&space;&plus;&space;\beta^2step(n-2)&space;&plus;&space;..." title="step(n) = step(n) + \beta step(n-1) + \beta^2step(n-2) + ..." /></a>
-
-### 2.5. Resolve humongous dataset
+  - (+) Good for small training set (m≤~2000)
+  - (-) Slow training with large dataset
 
 - #### Stochastic gradient descent
 
-  Split the data into several batches, run gradient descent on each batch consecutively.
+  Split the data into several batches, run gradient descent on each batch consecutively. <br> Batch Size = 1
+
+  - (-) Lose speedup from vectorization
+  - (-) Won't converge, always oscillate around the region of minimum. Can reduce learning rate slowly to address it.
+
+- #### Mini-batch gradient descent
+
+  Split the data into several mini-batches, run gradient descent on each batch consecutively. Commonly-used batch sizes: 64, 128, 256, 512 given the way computer memory is layed out and accessed. <br> 1 < Batch Size < Size of Training Set
+
+  <img src="Resources/deep_learning/batch_vs_minibatch.png" width=500>
+
+  <img src="Resources/deep_learning/batch_vs_stochastic.png" width=400>
+
+  - (+) Fast training with large dataset (m>~2000)
+    - Vectorization
+    - Make progress without needing to wait until processing the entire training set
+  - (-) Doesn't always converge, sometimes oscillate around a very small region of minimum. Can reduce learning rate slowly to address it.
+
+- #### Exponentially weighted moving averages
+
+  <a href="https://www.codecogs.com/eqnedit.php?latex=\overline{\theta_t}=\beta&space;\&space;\overline{\theta_{t-1}}&space;&plus;&space;(1-\beta)&space;\theta_t" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overline{\theta_t}=\beta&space;\&space;\overline{\theta_{t-1}}&space;&plus;&space;(1-\beta)&space;\theta_t" title="\overline{\theta_t}=\beta \ \overline{\theta_{t-1}} + (1-\beta) \theta_t" /></a>, where <a href="https://www.codecogs.com/eqnedit.php?latex=\overline{\theta_t}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overline{\theta_t}" title="\overline{\theta_t}" /></a> is the moving average of <a href="https://www.codecogs.com/eqnedit.php?latex=\theta_t" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta_t" title="\theta_t" /></a> that approximately averages over <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{1}{1-\beta}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{1}{1-\beta}" title="\frac{1}{1-\beta}" /></a> time steps. Note that <a href="https://www.codecogs.com/eqnedit.php?latex=\beta^{\frac{1}{1-\beta}}&space;=&space;\frac{1}{e}&space;\approx&space;0.368" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta^{\frac{1}{1-\beta}}&space;=&space;\frac{1}{e}&space;\approx&space;0.368" title="\beta^{\frac{1}{1-\beta}} = \frac{1}{e} \approx 0.368" /></a>. 
+  
+  - (-) Initial phase of the moving average tend to be underestimated. To correct for the bias and make it more accurate, use <a href="https://www.codecogs.com/eqnedit.php?latex=\overline{\theta_t}^{\&space;corrected}&space;=&space;\frac{\overline{\theta_t}}{1-\beta^t}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overline{\theta_t}^{\&space;corrected}&space;=&space;\frac{\overline{\theta_t}}{1-\beta^t}" title="\overline{\theta_t}^{\ corrected} = \frac{\overline{\theta_t}}{1-\beta^t}" /></a>
+  - (+) Takes very little memory and is computationally efficient
+
+- #### Gradient descent with momentum
+
+  Compute an exponentially weighted moving average of the gradients, and then use that gradient to update weights. Commonly used <a href="https://www.codecogs.com/eqnedit.php?latex=\beta=0.9" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta=0.9" title="\beta=0.9" /></a>. No need to use the bias correction because the moving average will have warmed up and is no longer a biased estimate after just 10 iterations.
+
+  - On iteration t:
+
+    - Compute gradients <a href="https://www.codecogs.com/eqnedit.php?latex=J'(\theta)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J'(\theta)" title="J'(\theta)" /></a> on the current mini-batch
+    - Compute exponentially weighted moving averages of gradients <a href="https://www.codecogs.com/eqnedit.php?latex=\overline{J'(\theta)}=\beta_1\&space;\overline{J'(\theta)}&space;&plus;&space;(1-\beta_1)&space;(J'(\theta))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overline{J'(\theta)}=\beta_1\&space;\overline{J'(\theta)}&space;&plus;&space;(1-\beta_1)&space;(J'(\theta))" title="\overline{J'(\theta)}=\beta_1\ \overline{J'(\theta)} + (1-\beta_1) (J'(\theta))" /></a>
+    - Update parameters <a href="https://www.codecogs.com/eqnedit.php?latex=\theta&space;:=&space;\theta&space;-&space;\alpha&space;\&space;\overline{J'(\theta)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta&space;:=&space;\theta&space;-&space;\alpha&space;\&space;\overline{J'(\theta)}" title="\theta := \theta - \alpha \ \overline{J'(\theta)}" /></a>
+
+  - (+) Speeds up learning
+    - (+) Smooths out the steps of gradient descent and prevents the oscillations during gradient descent from getting too big
+    - (+) Remediates local minimum problem
+  - (+) Almost always works better than gradient descent without momentum
+
+- #### RMSprop
+
+  Root mean square prop (RMSprop) computes an exponentially weighted average of the squares of the gradients, and then use both the original gradients and the averaged gradients to update weights.
+
+  - On iteration t:
+
+    - Compute gradients <a href="https://www.codecogs.com/eqnedit.php?latex=J'(\theta)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J'(\theta)" title="J'(\theta)" /></a> on the current mini-batch
+    - Compute exponentially weighted moving averages of the squares of the gradients <a href="https://www.codecogs.com/eqnedit.php?latex=\widetilde{J'(\theta)}=\beta_2\&space;\widetilde{J'(\theta)}&space;&plus;&space;(1-\beta_2)&space;(J'(\theta))^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\widetilde{J'(\theta)}=\beta_2\&space;\widetilde{J'(\theta)}&space;&plus;&space;(1-\beta_2)&space;(J'(\theta))^2" title="\widetilde{J'(\theta)}=\beta_2\ \widetilde{J'(\theta)} + (1-\beta_2) (J'(\theta))^2" /></a>, which is large when oscillation is large
+    - Update parameters <a href="https://www.codecogs.com/eqnedit.php?latex=\theta&space;:=&space;\theta&space;-&space;\alpha&space;\&space;\frac{J'(\theta)}{\sqrt{\widetilde{J'(\theta)}}&plus;\epsilon}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta&space;:=&space;\theta&space;-&space;\alpha&space;\&space;\frac{J'(\theta)}{\sqrt{\widetilde{J'(\theta)}}&plus;\epsilon}" title="\theta := \theta - \alpha \ \frac{J'(\theta)}{\sqrt{\widetilde{J'(\theta)}}+\epsilon}" /></a>, where <a href="https://www.codecogs.com/eqnedit.php?latex=\epsilon&space;\sim&space;10^{-8}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\epsilon&space;\sim&space;10^{-8}" title="\epsilon \sim 10^{-8}" /></a> is used to make sure the algorithm does not divide by 0
+
+  - (+) Speeds up learning
+
+- #### Adam (Adaptive moment estimation)
+
+  Adam = Momentum + RMSprop
+
+  <img src="Resources/deep_learning/momentum.png" width=600>
+
+  - On iteration t:
+
+    - Compute gradients <a href="https://www.codecogs.com/eqnedit.php?latex=J'(\theta)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J'(\theta)" title="J'(\theta)" /></a> on the current mini-batch
+    - Compute exponentially weighted moving averages of gradients <a href="https://www.codecogs.com/eqnedit.php?latex=\overline{J'(\theta)}=\beta_1\&space;\overline{J'(\theta)}&space;&plus;&space;(1-\beta_1)&space;(J'(\theta))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overline{J'(\theta)}=\beta_1\&space;\overline{J'(\theta)}&space;&plus;&space;(1-\beta_1)&space;(J'(\theta))" title="\overline{J'(\theta)}=\beta_1\ \overline{J'(\theta)} + (1-\beta_1) (J'(\theta))" /></a>
+    - Compute exponentially weighted moving averages of the squares of the gradients <a href="https://www.codecogs.com/eqnedit.php?latex=\widetilde{J'(\theta)}=\beta_2\&space;\widetilde{J'(\theta)}&space;&plus;&space;(1-\beta_2)&space;(J'(\theta))^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\widetilde{J'(\theta)}=\beta_2\&space;\widetilde{J'(\theta)}&space;&plus;&space;(1-\beta_2)&space;(J'(\theta))^2" title="\widetilde{J'(\theta)}=\beta_2\ \widetilde{J'(\theta)} + (1-\beta_2) (J'(\theta))^2" /></a>
+    - Bias correction <a href="https://www.codecogs.com/eqnedit.php?latex=\overline{J'(\theta)}^{\&space;corrected}&space;=&space;\frac{\overline{J'(\theta)}}{1-\beta_1^t}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overline{J'(\theta)}^{\&space;corrected}&space;=&space;\frac{\overline{J'(\theta)}}{1-\beta_1^t}" title="\overline{J'(\theta)}^{\ corrected} = \frac{\overline{J'(\theta)}}{1-\beta_1^t}" /></a>
+    - Bias correction <a href="https://www.codecogs.com/eqnedit.php?latex=\widetilde{J'(\theta)}^{\&space;corrected}&space;=&space;\frac{\widetilde{J'(\theta)}}{1-\beta_1^t}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\widetilde{J'(\theta)}^{\&space;corrected}&space;=&space;\frac{\widetilde{J'(\theta)}}{1-\beta_1^t}" title="\widetilde{J'(\theta)}^{\ corrected} = \frac{\widetilde{J'(\theta)}}{1-\beta_1^t}" /></a>
+    - Update parameters <a href="https://www.codecogs.com/eqnedit.php?latex=\theta&space;:=&space;\theta&space;-&space;\alpha&space;\&space;\frac{\overline{J'(\theta)}^{\&space;corrected}}{\sqrt{\widetilde{J'(\theta)}^{\&space;corrected}}&plus;\epsilon}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta&space;:=&space;\theta&space;-&space;\alpha&space;\&space;\frac{\overline{J'(\theta)}^{\&space;corrected}}{\sqrt{\widetilde{J'(\theta)}^{\&space;corrected}}&plus;\epsilon}" title="\theta := \theta - \alpha \ \frac{\overline{J'(\theta)}^{\ corrected}}{\sqrt{\widetilde{J'(\theta)}^{\ corrected}}+\epsilon}" /></a>
+
+  - Hyperparameters
+
+    learning rate <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a> : needs to be tuned <br>
+    first moment <a href="https://www.codecogs.com/eqnedit.php?latex=\beta_1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta_1" title="\beta_1" /></a> : 0.9 (commonly-used value) <br>
+    second moment <a href="https://www.codecogs.com/eqnedit.php?latex=\beta_2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta_2" title="\beta_2" /></a> : 0.999 (commonly-used value) <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=\epsilon" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\epsilon" title="\epsilon" /></a> : 1e-8 (from Adam paper)
+
+  - (+) Speeds up learning
+
+- #### Learning rate decay
+
+  Slowly reducing the learning rate. Take bigger steps during the initial steps of learning, and take smaller steps as learning approaches to converge. There are many learning rate decay methods:
+
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha&space;=&space;\frac{1}{1&plus;{decay\_rate}*{epoch\_number}}\&space;\alpha_0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha&space;=&space;\frac{1}{1&plus;{decay\_rate}*{epoch\_number}}\&space;\alpha_0" title="\alpha = \frac{1}{1+{decay\_rate}*{epoch\_number}}\ \alpha_0" /></a>
+  - Exponential decay <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha&space;=&space;0.95^{epoch\_number}&space;\alpha_0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha&space;=&space;0.95^{epoch\_number}&space;\alpha_0" title="\alpha = 0.95^{epoch\_number} \alpha_0" /></a>
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha&space;=&space;\frac{k}{\sqrt{{epoch\_number}}}\&space;\alpha_0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha&space;=&space;\frac{k}{\sqrt{{epoch\_number}}}\&space;\alpha_0" title="\alpha = \frac{k}{\sqrt{{epoch\_number}}}\ \alpha_0" /></a>, or <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha&space;=&space;\frac{k}{\sqrt{t}}\&space;\alpha_0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha&space;=&space;\frac{k}{\sqrt{t}}\&space;\alpha_0" title="\alpha = \frac{k}{\sqrt{t}}\ \alpha_0" /></a>
+  - Discrete staircase
+  - Manual decay
+
+- #### The problem of local optima
+
+  In high dimensional space, local minimum very rare to find. It is unlikely to get stuck in a bad local optima, but plateaus (saddle points) can make learning slow. Advanced algorithms like Momentum, RMSprop, and Adam can speed up moving down the plateau and then getting off the plateau.
+
+  <img src="Resources/deep_learning/local_optima.png" width=600>
 
 ## 3. Building a neural network with keras
 
