@@ -329,7 +329,7 @@ Orthogonalization
 
 - #### Data augmentation
 
-  Flipping, rotation, cropping, and sometimes random distortion of image data
+  Rotate, resize, crop, flip, and sometimes random distortion of image data
 
 - #### Early stopping
 
@@ -418,7 +418,7 @@ Orthogonalization
 
 - #### Mini-batch gradient descent
 
-  Split the data into several mini-batches, run gradient descent on each batch consecutively. Commonly-used batch sizes: 64, 128, 256, 512 given the way computer memory is layed out and accessed. <br> 1 < Batch Size < Size of Training Set
+  Shuffle the training data to ensure random split, partition the shuffled data into several mini-batches, and run gradient descent on each batch consecutively. Commonly-used batch sizes: 64, 128, 256, 512 given the way computer memory is layed out and accessed. <br> 1 < Batch Size < Size of Training Set
 
   <img src="Resources/deep_learning/batch_vs_minibatch.png" width=500>
 
@@ -483,9 +483,11 @@ Orthogonalization
     learning rate <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a> : needs to be tuned <br>
     first moment <a href="https://www.codecogs.com/eqnedit.php?latex=\beta_1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta_1" title="\beta_1" /></a> : 0.9 (commonly-used value) <br>
     second moment <a href="https://www.codecogs.com/eqnedit.php?latex=\beta_2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta_2" title="\beta_2" /></a> : 0.999 (commonly-used value) <br>
-    <a href="https://www.codecogs.com/eqnedit.php?latex=\epsilon" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\epsilon" title="\epsilon" /></a> : 1e-8 (from Adam paper)
+    <a href="https://www.codecogs.com/eqnedit.php?latex=\epsilon" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\epsilon" title="\epsilon" /></a> : 1e-8 (from the [Adam paper](https://arxiv.org/pdf/1412.6980.pdf))
 
   - (+) Speeds up learning
+  - (+) Relatively low memory requirements (though higher than gradient descent with momentum)
+  - (+) Usually works well even with little tuning of hyperparameters (except <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a>)
 
 - #### Learning rate decay
 
