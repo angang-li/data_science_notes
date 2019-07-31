@@ -16,6 +16,8 @@
     - [2.2. Reduce overfitting](#22-reduce-overfitting)
     - [2.3. Setting up optimization problem](#23-setting-up-optimization-problem)
     - [2.4. Optimization algorithms](#24-optimization-algorithms)
+    - [2.5. Hyperparameter tuning](#25-hyperparameter-tuning)
+    - [2.6. Batch normalization](#26-batch-normalization)
   - [3. Building a neural network with keras](#3-building-a-neural-network-with-keras)
     - [3.1. Optimizers in Keras](#31-optimizers-in-keras)
     - [3.2. Keras script](#32-keras-script)
@@ -226,10 +228,13 @@
 
   <a href="https://www.codecogs.com/eqnedit.php?latex=\delta_j^{(l)}=\frac{\partial&space;E}{\partial&space;z}=\frac{\partial&space;E}{\partial&space;a}\frac{\partial&space;a}{\partial&space;z}=\frac{\partial&space;E}{\partial&space;a}g'(z)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta_j^{(l)}=\frac{\partial&space;E}{\partial&space;z}=\frac{\partial&space;E}{\partial&space;a}\frac{\partial&space;a}{\partial&space;z}=\frac{\partial&space;E}{\partial&space;a}g'(z)" title="\delta_j^{(l)}=\frac{\partial E}{\partial z}=\frac{\partial E}{\partial a}\frac{\partial a}{\partial z}=\frac{\partial E}{\partial a}g'(z)" /></a>, where <a href="https://www.codecogs.com/eqnedit.php?latex=g'(z^{(l)})=a^{(l)}(1-a^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?g'(z^{(l)})=a^{(l)}(1-a^{(l)})" title="g'(z^{(l)})=a^{(l)}(1-a^{(l)})" /></a> for sigmoid function
 
-  - When <a href="https://www.codecogs.com/eqnedit.php?latex=l=L" target="_blank"><img src="https://latex.codecogs.com/gif.latex?l=L" title="l=L" /></a>: <br>
-    <a href="https://www.codecogs.com/eqnedit.php?latex=\delta_j^{(L)}=(-\frac{y}{a}&plus;\frac{1-y}{1-a})(a(1-a))=a_j^{(L)}-y_j" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta_j^{(L)}=(-\frac{y}{a}&plus;\frac{1-y}{1-a})(a(1-a))=a_j^{(L)}-y_j" title="\delta_j^{(L)}=(-\frac{y}{a}+\frac{1-y}{1-a})(a(1-a))=a_j^{(L)}-y_j" /></a> for sigmoid function
+  - When <a href="https://www.codecogs.com/eqnedit.php?latex=l=L" target="_blank"><img src="https://latex.codecogs.com/gif.latex?l=L" title="l=L" /></a>:
 
-  - When <a href="https://www.codecogs.com/eqnedit.php?latex=l<L" target="_blank"><img src="https://latex.codecogs.com/gif.latex?l<L" title="l<L" /></a>: <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=\delta_j^{(L)}=(-\frac{y}{a}&plus;\frac{1-y}{1-a})(a(1-a))=a_j^{(L)}-y_j" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta_j^{(L)}=(-\frac{y}{a}&plus;\frac{1-y}{1-a})(a(1-a))=a_j^{(L)}-y_j" title="\delta_j^{(L)}=(-\frac{y}{a}+\frac{1-y}{1-a})(a(1-a))=a_j^{(L)}-y_j" /></a> for sigmoid function <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=\delta_j^{(L)}=a_j^{(L)}-y_j" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta_j^{(L)}=a_j^{(L)}-y_j" title="\delta_j^{(L)}=a_j^{(L)}-y_j" /></a> for softmax function
+
+  - When <a href="https://www.codecogs.com/eqnedit.php?latex=l<L" target="_blank"><img src="https://latex.codecogs.com/gif.latex?l<L" title="l<L" /></a>:
+
     <a href="https://www.codecogs.com/eqnedit.php?latex=\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l&plus;1)}&space;*&space;g'(z^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l&plus;1)}&space;*&space;g'(z^{(l)})" title="\delta^{(l)}=(\Theta^{(l)})^T\delta^{(l+1)} * g'(z^{(l)})" /></a>
 
 - Gradient with respect to the weights ignoring regularization
@@ -504,6 +509,67 @@ Orthogonalization
   In high dimensional space, local minimum very rare to find. It is unlikely to get stuck in a bad local optima, but plateaus (saddle points) can make learning slow. Advanced algorithms like Momentum, RMSprop, and Adam can speed up moving down the plateau and then getting off the plateau.
 
   <img src="Resources/deep_learning/local_optima.png" width=600>
+
+### 2.5. Hyperparameter tuning
+
+- Tuning process
+
+  - Hyperparameters
+
+    Learning rate, <br>
+    number of hidden units, mini-batch size, momentum coefficient, <br>
+    number of layers, learning rate decay
+  - Use random sampling instead of a grid search to search over the space of hyperparameters more efficiently
+  - Coarse to fine search
+
+- Using an appropriate scale to pick hyperparameters
+
+  - Linear scale
+  - Logarithmic scale
+
+    ```python
+    # Sample on the log scale
+    r = -4 * np.random.rand()
+    alpha = 10 ** r
+    ```
+
+    Log scale can be used to sample hyperparameters for exponentially weighted moving averages
+
+- Hyperparameters in practice: Pandas vs. Caviar
+
+  - Re-evaluate hyperparameters occasionally
+  - Babysitting one model when not having enough CPUs and GPUs (like a panda) vs. training many models in parallel when having enough resources (like caviar)
+
+### 2.6. Batch normalization
+
+Batch normalization normalizes activations in a network to make training faster.
+
+- (+) Makes hyperparameter search problem much easier, makes neural network much more robust over broader ranges of hyperparameters
+
+- Implementing batch norm
+
+  - Given some intermediate values z in a layer of neural network, normalize z by the mean and variance of z across all data points in the currently mini-batch in that layer
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=z_{norm}&space;=&space;\frac{z-\mu}{\sqrt{\sigma^2&plus;\epsilon}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z_{norm}&space;=&space;\frac{z-\mu}{\sqrt{\sigma^2&plus;\epsilon}}" title="z_{norm} = \frac{z-\mu}{\sqrt{\sigma^2+\epsilon}}" /></a>, where <a href="https://www.codecogs.com/eqnedit.php?latex=\epsilon" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\epsilon" title="\epsilon" /></a> is added for numerical stability
+
+  - New z of that layer become
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=\widetilde{z}&space;=&space;\gamma&space;z_{norm}&space;&plus;&space;\beta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\widetilde{z}&space;=&space;\gamma&space;z_{norm}&space;&plus;&space;\beta" title="\widetilde{z} = \gamma z_{norm} + \beta" /></a>, where <a href="https://www.codecogs.com/eqnedit.php?latex=\gamma" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\gamma" title="\gamma" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=\beta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta" title="\beta" /></a> are learnable parameters that normalize the mean and variance of these hidden unit z values
+
+  - During training, mean and variance are computed on the mini-batch, whereas during testing, mean and variance are estimated using exponentially weighted moving average across mini-batches during the training process
+
+- Why batch norm works
+
+  - (+) Speeds up learning by normalizing all the input features to take on a similar range of values
+  - (+) Makes the weights in later layer of the network more robust to changes to weights in earlier layers of the network
+
+    Batch norm limits the amount to which updating the parameters in the earlier layers can affect the distribution of values that the later layer sees and therefore has to learn on, i.e. less shift-around in the distribution (Covariate Shift). Therefore, batch norm allows each layer of the network to learn more independently of other layers, which has the effect of speeding up of learning in the whole network.
+
+    <img src="Resources/deep_learning/covariate_shift.png" width=500>
+
+  - (+) Batch norm has a very slight regularization effect
+  
+    Each mini-batch is scaled by the mean/variance computed on just that mini-batch, which adds some noise to the values z within that minibatch. So similar to dropout, it adds some noise to each hidden layer’s activations, therefore having slight regularization effect.
 
 ## 3. Building a neural network with keras
 
