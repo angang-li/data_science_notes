@@ -591,32 +591,107 @@ Batch normalization normalizes activations in a network to make training faster.
   - Running speed
   - Truly open (open source with good governance)
 
-- TensorFlow code example
+- TensorFlow and code example
+
+  Tensorflow is a programming framework used in deep learning. The two main object classes in tensorflow are Tensors and Operators. The backpropagation and optimization is automatically done when running the session on the "optimizer" object.
+
+  <img src="Resources/deep_learning/tensorflow.png" width=200>
 
   ```python
   # Dependencies
-  import numpy as np 
+  import numpy as np
   import tensorflow as tf
-
-  # Minimize cost
-  coefficients = np.array([[1], [-20], [25]])
-  w = tf.Variable([0],dtype=tf.float32) # initialize weights
-  x = tf.placeholder(tf.float32, [3,1]) # provide values for later
-  cost = x[0][0]*w**2 + x[1][0]*w + x[2][0] # (w-5)**2
-  train = tf.train.GradientDescentOptimizer(0.01).minimize(cost)
-  init = tf.global_variables_initializer()
-  session = tf.Session() # equivalent as syntax below
-  session.run(init)
-  print(session.run(w))
-  # with tf.Session() as session:
-  #     session.run(init)
-  #     print(session.run(w))
-
-  # 1000 iterations of gradient descent
-  for i in range(1000):
-      session.run(train, feed_dict={x:coefficients})
-  print(session.run(w))
   ```
+
+  1. Create Tensors (variables) that are not yet executed/evaluated
+
+      ```python
+      # Create Tensors that are not yet evaluated
+      coefficients = np.array([[1], [-20], [25]])
+      w = tf.Variable([0], dtype=tf.float32, name="w")
+      x = tf.placeholder(dtype=tf.float32, shape=[3,1], name="x") # specify values for later
+      ```
+
+      ```python
+      # Create constants
+      epsilon = tf.constant(np.random.randn(3,1), name = "epsilon")
+      epsilon = tf.constant(10)
+      ```
+
+      ```python
+      # Create Xavier initialization for weights
+      W1 = tf.get_variable(name="W1", shape=[25,12288], initializer = tf.contrib.layers.xavier_initializer(seed = 1))
+
+      # Create zero initialization for biases
+      b1 = tf.get_variable("b1", [25,1], initializer = tf.zeros_initializer())
+      ```
+
+      ```python
+      # Create array of ones and zeros
+      tf.ones(shape)
+      tf.zeros(shape)
+      ```
+
+  2. Specify operations between those Tensors
+
+      ```python
+      # Equivalent syntax to specify operations
+      cost = (w-5)**2
+      cost = tf.add(tf.add(w**2, tf.multiply(-10, w)), 25)
+      cost = x[0][0]*w**2 + x[1][0]*w + x[2][0]
+      ```
+
+      ```python
+      # Specify cost averaged across samples
+      cost1 = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = logits, labels = labels))
+      ```
+
+      ```python
+      # Specify optimizer
+      optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01).minimize(cost)
+      ```
+
+      Examples of operation:
+
+      `tf.matmul(..., ...)` matrix multiplication <br>
+      `tf.multiply(..., ...)` element-wise multiplication <br>
+      `tf.add(..., ...)` addition <br>
+      `tf.sigmoid(...)`, `tf.softmax(...)`, `tf.nn.relu(...)` activations <br>
+      `tf.nn.sigmoid_cross_entropy_with_logits(logits = ...,  labels = ...)` compute cost <br>
+      `tf.one_hot(labels, depth, axis)` one-hot encoding
+
+  3. Initialize Tensors
+
+      ```python
+      # Initialize all the Tensors
+      init = tf.global_variables_initializer()
+      ```
+
+  4. Create a session to run operations
+
+      ```python
+      # Create a session to run operations
+      session = tf.Session()
+
+      # Run the initialization
+      session.run(init)
+      print(session.run(w))
+
+      # Run the session to execute the "optimizer"
+      for i in range(1000):
+          session.run(optimizer, feed_dict={x:coefficients})
+      print(session.run(w))
+
+      # Close the session
+      session.close()
+      ```
+
+      ```python
+      # Alternative syntax
+      with tf.Session() as session:
+          session.run(init)
+          print(session.run(w))
+      ```
 
 ## 3. Building a neural network with keras
 
