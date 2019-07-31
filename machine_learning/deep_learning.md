@@ -18,6 +18,7 @@
     - [2.4. Optimization algorithms](#24-optimization-algorithms)
     - [2.5. Hyperparameter tuning](#25-hyperparameter-tuning)
     - [2.6. Batch normalization](#26-batch-normalization)
+    - [2.7. Deep learning frameworks](#27-deep-learning-frameworks)
   - [3. Building a neural network with keras](#3-building-a-neural-network-with-keras)
     - [3.1. Optimizers in Keras](#31-optimizers-in-keras)
     - [3.2. Keras script](#32-keras-script)
@@ -544,8 +545,6 @@ Orthogonalization
 
 Batch normalization normalizes activations in a network to make training faster.
 
-- (+) Makes hyperparameter search problem much easier, makes neural network much more robust over broader ranges of hyperparameters
-
 - Implementing batch norm
 
   - Given some intermediate values z in a layer of neural network, normalize z by the mean and variance of z across all data points in the currently mini-batch in that layer
@@ -570,6 +569,54 @@ Batch normalization normalizes activations in a network to make training faster.
   - (+) Batch norm has a very slight regularization effect
   
     Each mini-batch is scaled by the mean/variance computed on just that mini-batch, which adds some noise to the values z within that minibatch. So similar to dropout, it adds some noise to each hidden layer’s activations, therefore having slight regularization effect.
+
+### 2.7. Deep learning frameworks
+
+- Popular frameworks
+
+  - Caffe/Caffe2
+  - CNTK
+  - DL4J
+  - Keras
+  - Lasagne
+  - mxnet
+  - PaddlePaddle
+  - TensorFlow
+  - Theano
+  - Torch
+
+- Choosing deep learning frameworks
+
+  - Ease of programming (development and deployment)
+  - Running speed
+  - Truly open (open source with good governance)
+
+- TensorFlow code example
+
+  ```python
+  # Dependencies
+  import numpy as np 
+  import tensorflow as tf
+
+  # Minimize cost
+  coefficients = np.array([[1], [-20], [25]])
+  w = tf.Variable([0],dtype=tf.float32) # initialize weights
+  x = tf.placeholder(tf.float32, [3,1]) # provide values for later
+  cost = x[0][0]*w**2 + x[1][0]*w + x[2][0] # (w-5)**2
+  train = tf.train.GradientDescentOptimizer(0.01).minimize(cost)
+  init = tf.global_variables_initializer()
+  session = tf.Session() # equivalent as syntax below
+  session.run(init)
+  print(session.run(w))
+  # with tf.Session() as session:
+  #     session.run(init)
+  #     print(session.run(w))
+
+  # 1000 iterations of gradient descent
+  for i in range(1000):
+      session.run(train, feed_dict={x:coefficients})
+  print(session.run(w))
+  ```
 
 ## 3. Building a neural network with keras
 
