@@ -19,18 +19,22 @@
     - [2.5. Hyperparameter tuning](#25-hyperparameter-tuning)
     - [2.6. Batch normalization](#26-batch-normalization)
     - [2.7. Deep learning frameworks](#27-deep-learning-frameworks)
-  - [3. Building a neural network with keras](#3-building-a-neural-network-with-keras)
-    - [3.1. Optimizers in Keras](#31-optimizers-in-keras)
-    - [3.2. Keras script](#32-keras-script)
-  - [4. Deep learning with PyTorch](#4-deep-learning-with-pytorch)
-    - [4.1. Pytorch syntax](#41-pytorch-syntax)
-    - [4.2. Initialize data](#42-initialize-data)
-    - [4.3. Define layers and operations](#43-define-layers-and-operations)
-    - [4.4. Define criterion, optimizer, and validation](#44-define-criterion-optimizer-and-validation)
-    - [4.5. Train a neural network](#45-train-a-neural-network)
-    - [4.6. Inference](#46-inference)
-    - [4.7. Save and load trained networks](#47-save-and-load-trained-networks)
-    - [4.8. Transfer learning with CUDA](#48-transfer-learning-with-cuda)
+  - [3. Structuring machine learning projects](#3-structuring-machine-learning-projects)
+    - [3.1. Orthogonalization](#31-orthogonalization)
+    - [3.2. Setting up your goal](#32-setting-up-your-goal)
+    - [3.3. Comparing to human-level performance](#33-comparing-to-human-level-performance)
+  - [4. Building a neural network with keras](#4-building-a-neural-network-with-keras)
+    - [4.1. Optimizers in Keras](#41-optimizers-in-keras)
+    - [4.2. Keras script](#42-keras-script)
+  - [5. Deep learning with PyTorch](#5-deep-learning-with-pytorch)
+    - [5.1. Pytorch syntax](#51-pytorch-syntax)
+    - [5.2. Initialize data](#52-initialize-data)
+    - [5.3. Define layers and operations](#53-define-layers-and-operations)
+    - [5.4. Define criterion, optimizer, and validation](#54-define-criterion-optimizer-and-validation)
+    - [5.5. Train a neural network](#55-train-a-neural-network)
+    - [5.6. Inference](#56-inference)
+    - [5.7. Save and load trained networks](#57-save-and-load-trained-networks)
+    - [5.8. Transfer learning with CUDA](#58-transfer-learning-with-cuda)
 
 <!-- /TOC -->
 
@@ -693,9 +697,92 @@ Batch normalization normalizes activations in a network to make training faster.
           print(session.run(w))
       ```
 
-## 3. Building a neural network with keras
+## 3. Structuring machine learning projects
 
-### 3.1. Optimizers in Keras
+### 3.1. Orthogonalization
+
+Modifying a component of an algorithm will not create or propagate side effects to other components of the system.
+
+- Analogy in tuning old tv
+
+  <img src="Resources/deep_learning/old_tv.jpg" width=300>
+
+- Chain of objectives in machine learning
+
+  - Fit training set well on cost function
+
+      → Use bigger neural network, or switch to better optimization algorithm
+
+  - Fit dev set well on cost function
+
+      → Implement harder regularization, or gather more training examples. Note that early stopping will reduce dev set error but will increase training set error, thus violate orthoganalization
+
+  - Fit test set well on cost function
+
+      → Use bigger dev set
+
+  - performs well in real world
+
+      → Change dev set or the cost function
+
+### 3.2. Setting up your goal
+
+- #### Single number evaluation metric
+  
+  Use a single number evaluation metric speeds up the iterative process of improving machine learning model. Sometimes requires averaging e.g. among different metrics, or among geographical locations.
+
+- #### Satisficing and optimizing metric
+
+  Set 1 optimizing metric and others as satisficing metrics
+
+  - **Optimizing metric:** e.g. maximizing accuracy
+  - **Satisficing metric(s):** e.g. subject to running time ≤ 100 ms
+
+- #### Train/dev/test distributions
+
+  Randomly shuffle data before splitting train/dev/test sets to make sure dev/test sets have the same distribution. Choose dev/test sets to reflect data you expect to get in the future and that you consider important to do well on.
+
+- #### Size of dev/test sets
+
+  Set the dev/test set sizes to be big enough to give high confidence in the overall performance of the model. For relatively small dataset, 70/30 or 60/20/20 train-dev-test split works well. But for much larger datasets, 98/1/1 or 99.5/0.25/0.25 is more reasonable sometimes.
+
+- #### When to change dev/test sets and metrics
+
+  - Change evaluation metric when it is no longer giving correct rank-order preferences between algorithms. E.g. weight the importance of different classes in the error metric
+  - Change dev/test sets and/or metric when model does well on dev/test sets but does no do well on real application.
+
+    <img src="Resources/deep_learning/test_vs_app.png" width=500>
+
+### 3.3. Comparing to human-level performance
+
+- Bayes optimal error
+
+  Bayes optimal error is the very best theoretical function for mapping from x to y.
+
+  <img src="Resources/deep_learning/bayes_error.png" width=500>
+
+- Humans are quite good at a lot of tasks, especially natural perception tasks. When model worse than humans:
+
+  - Get labeled data from humans
+  - Gain insight from manual error analysis: why did a person get this right?
+  - Better analysis of bias/variance
+
+- Problems where machine learning significantly surpasses human-level performance
+
+  - Online advertising
+  - Product recommendations
+  - Logistics (predicting transit time)
+  - Loan approvals
+
+- Use human-level error as a proxy for Bayes error. Use human-level error as an anchor to focus on either **avoidable bias** or **variance**.
+
+  <img src="Resources/deep_learning/avoidable_bias_variance.png" width=400>
+
+  <img src="Resources/deep_learning/avoidable_bias_variance_sum.png" width=500>
+
+## 4. Building a neural network with keras
+
+### 4.1. Optimizers in Keras
 
 Blog post on algorithms [here](http://ruder.io/optimizing-gradient-descent/index.html#gradientdescentoptimizationalgorithms)
 
@@ -715,7 +802,7 @@ Blog post on algorithms [here](http://ruder.io/optimizing-gradient-descent/index
 
   RMS stands for Root Mean Squared Error decreases the learning rate by dividing it by an exponentially decaying average of squared gradients.
 
-### 3.2. Keras script
+### 4.2. Keras script
 
 - #### Sequential model
 
@@ -824,7 +911,7 @@ Blog post on algorithms [here](http://ruder.io/optimizing-gradient-descent/index
   voice_model = load_model("voice_model_trained.h5")
   ```
 
-## 4. Deep learning with PyTorch
+## 5. Deep learning with PyTorch
 
 [PyTorch](https://pytorch.org/) is a framework for building and training neural networks
 
@@ -832,7 +919,7 @@ Blog post on algorithms [here](http://ruder.io/optimizing-gradient-descent/index
 - Moves tensors (a generalization of matrices) to GPUs for faster processing
 - Automatically calculates gradients (for backpropagation) and another module specifically for building neural networks
 
-### 4.1. Pytorch syntax
+### 5.1. Pytorch syntax
 
 - Dependencies
 
@@ -885,7 +972,7 @@ Blog post on algorithms [here](http://ruder.io/optimizing-gradient-descent/index
   a
   ```
 
-### 4.2. Initialize data
+### 5.2. Initialize data
 
 - #### Dependencies
 
@@ -990,7 +1077,7 @@ Blog post on algorithms [here](http://ruder.io/optimizing-gradient-descent/index
   plt.imshow(images[0].numpy().squeeze(), cmap='Greys_r');
   ```
 
-### 4.3. Define layers and operations
+### 5.3. Define layers and operations
 
 <img src="resources/deep_learning/pytorch_image_nn.png" alt="pytorch_image_nn" width=550>
 
@@ -1109,7 +1196,7 @@ Due to [inaccuracies with representing numbers as floating points](https://docs.
   model
   ```
 
-### 4.4. Define criterion, optimizer, and validation
+### 5.4. Define criterion, optimizer, and validation
 
 - #### Define loss function criterion and optimizer
 
@@ -1152,7 +1239,7 @@ Due to [inaccuracies with representing numbers as floating points](https://docs.
       return test_loss, accuracy
   ```
 
-### 4.5. Train a neural network
+### 5.5. Train a neural network
 
 Torch provides a module, `autograd`, for automatically calculating the gradient of tensors. It does this by keeping track of operations performed on tensors. Set `requires_grad` on a tensor. You can do this at creation with the `requires_grad` keyword, or at any time with `x.requires_grad_(True)`.
 
@@ -1276,7 +1363,7 @@ Torch provides a module, `autograd`, for automatically calculating the gradient 
               model.train()
   ```
 
-### 4.6. Inference
+### 5.6. Inference
 
 - #### Check predictions
 
@@ -1302,7 +1389,7 @@ Torch provides a module, `autograd`, for automatically calculating the gradient 
   helper.view_classify(img.view(1, 28, 28), ps)
   ```
 
-### 4.7. Save and load trained networks
+### 5.7. Save and load trained networks
 
 Need to save both model architecture and network parameters (`state_dict`)
 
@@ -1333,7 +1420,7 @@ Need to save both model architecture and network parameters (`state_dict`)
   print(model)
   ```
 
-### 4.8. Transfer learning with CUDA
+### 5.8. Transfer learning with CUDA
 
 Transfer learning: use a pre-trained network on images not in the training set.
 
