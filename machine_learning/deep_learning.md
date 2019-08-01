@@ -22,7 +22,11 @@
   - [3. Structuring machine learning projects](#3-structuring-machine-learning-projects)
     - [3.1. Orthogonalization](#31-orthogonalization)
     - [3.2. Setting up your goal](#32-setting-up-your-goal)
-    - [3.3. Comparing to human-level performance](#33-comparing-to-human-level-performance)
+    - [3.3. Comparing to human-level performance for bias/variance analysis](#33-comparing-to-human-level-performance-for-biasvariance-analysis)
+    - [3.4. Error analysis](#34-error-analysis)
+    - [3.5. Mismatched training and dev/test sets](#35-mismatched-training-and-devtest-sets)
+    - [3.6. Learning from multiple tasks](#36-learning-from-multiple-tasks)
+    - [3.7. End-to-end deep learning](#37-end-to-end-deep-learning)
   - [4. Building a neural network with keras](#4-building-a-neural-network-with-keras)
     - [4.1. Optimizers in Keras](#41-optimizers-in-keras)
     - [4.2. Keras script](#42-keras-script)
@@ -753,7 +757,7 @@ Modifying a component of an algorithm will not create or propagate side effects 
 
     <img src="Resources/deep_learning/test_vs_app.png" width=500>
 
-### 3.3. Comparing to human-level performance
+### 3.3. Comparing to human-level performance for bias/variance analysis
 
 - Bayes optimal error
 
@@ -779,6 +783,119 @@ Modifying a component of an algorithm will not create or propagate side effects 
   <img src="Resources/deep_learning/avoidable_bias_variance.png" width=400>
 
   <img src="Resources/deep_learning/avoidable_bias_variance_sum.png" width=500>
+
+### 3.4. Error analysis
+
+- Carrying out error analysis
+
+  - Get ~100 mislabled dev set examples
+  - Count up the number of errors that fall into various different categories
+  - The fraction of examples that are mislabeled in different ways often this helps prioritize improving performance
+
+  <br>
+
+  |data point|error category 1|error category 2|...|comments|
+  |---|---|---|---|---|
+  |1| | | | |
+  |2| | | | |
+  |...| | | | |
+  |% of total| | | | |
+
+- Cleaning up incorrectly labeled data
+
+  - Training set: Deep learning algorithms are quite robust to random errors in the training set, less so to systematic errors in the training set.
+
+  - Dev set: Use error analysis to compute % error due to incorrect label.
+
+    - Overall dev set error
+    - Error due to incorrect label: if this accounts for relatively high fraction, fix incorrect labels
+    - Error due to other causes
+
+  - Correcting incorrect dev/test set examples
+
+    - Apply same process to your dev and test sets to make sure they continue to come from the same distribution
+    - Consider examining examples your algorithm got right in addition to ones it got wrong
+    - Train and dev/test data may now come from slightly different distributions, which is okay
+
+- Build the first system quickly, then iterate
+
+  - Set up dev/test set and metric
+  - Build initial system quickly
+  - Use Bias/Variance analysis & Error analysis to prioritize next steps
+
+### 3.5. Mismatched training and dev/test sets
+
+- Training and testing on different distributions
+
+  - Data of the targeted distribution often scarce
+  - Make sure dev/test sets have the targeted distribution
+  - Okay to have training set distribution different from dev/test sets
+
+- Bias and variance with mismatched data distributions
+
+  - When training and dev/test sets have mismatched distributions, hard to analyze bias/variance directly
+  - **Training-dev set:** Same distribution as training set, but not used for training
+
+  <img src="Resources/deep_learning/avoidable_bias_variance_mismatch.png" width=600>
+
+- Addressing data mismatch
+
+  - Carry out manual error analysis to try to understand difference between training and dev/test sets
+  - Make training data more similar; or collect more data similar to dev/test sets
+    - E.g. Artificial data synthesis to add car noise, although risks overfitting
+
+### 3.6. Learning from multiple tasks
+
+- Transfer learning
+
+  Take knowledge the neural network has learned from one task (task A) and apply that knowledge to a separate task (task B).
+
+  - If you have a small dataset, just retrain the last couple of layers.
+  - If you have a lot of data, can retrain all the parameters in the network.
+    - "Pre-training", followed by "fine-tuning"
+
+  Transfer learning makes sense when:
+  
+  - Task A and B have the same input x.
+  - There are a lot more data for Task A than Task B.
+  - Low level features from A could be helpful for learning B.
+
+- Multi-task learning
+
+  Train one neural network to do many tasks, which can give you better performance than if you were to do the tasks in isolation.
+
+  - Each data point can have multiple positive labels.
+  - If some of the earlier features in neural network can be shared between different types of learning objects, training one neural network to do multiple tasks results in better performance than training completely separate neural networks.
+  - Works when some images have only a subset of the labels and others are missing.
+
+  Multi-task learning makes sense when:
+
+  - Training on a set of tasks that could benefit from having shared lower-level features.
+  - Usually: Amount of data you have for each task is quite similar, so task 1 can benefit from having a lot more shared data from other tasks.
+  - Can train a big enough neural network to do well on all the tasks.
+
+### 3.7. End-to-end deep learning
+
+- End-to-end deep learning
+
+  Take all the multiple stages of data processing, and replace it usually with just a single neural network. The end-to end-approach starts to work really well when data size becomes very large.
+
+  <img src="Resources/deep_learning/end_to_end_learning.png" width=600>
+
+  <img src="Resources/deep_learning/end_to_end_learning2.png" width=600> <br>
+
+  <br>
+
+  - Note that with small to medium amount of data, traditional and intermediate approaches might work better than end-to-end deep learning.
+
+- Whether to use end-to-end deep learning
+
+  - (+) End-to-end deep learning lets the data speak, without being forced to reflect human preconceptions
+  - (+) Less hand-designing of components needed
+  - (-) May need large amount of data
+  - (-) Excludes potentially useful hand-designed components
+
+  **Key question to ask:** Do you have sufficient data to learn a function of the complexity needed to map x to y?
 
 ## 4. Building a neural network with keras
 
