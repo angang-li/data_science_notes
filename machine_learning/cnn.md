@@ -4,13 +4,12 @@
   - [1. Foundations of convolutional neural networks](#1-foundations-of-convolutional-neural-networks)
     - [1.1. Computer vision](#11-computer-vision)
     - [1.2. Convolution operation](#12-convolution-operation)
-    - [1.3. Edge detection](#13-edge-detection)
-    - [1.4. Padding](#14-padding)
-    - [1.5. Strided convolution](#15-strided-convolution)
-    - [1.6. Convolution layer](#16-convolution-layer)
-    - [1.7. Pooling layer](#17-pooling-layer)
-    - [1.8. CNN schematics](#18-cnn-schematics)
-    - [1.9. Why convolutions](#19-why-convolutions)
+    - [1.3. Padding](#13-padding)
+    - [1.4. Strided convolution](#14-strided-convolution)
+    - [1.5. Convolution layer](#15-convolution-layer)
+    - [1.6. Pooling layer](#16-pooling-layer)
+    - [1.7. CNN schematics](#17-cnn-schematics)
+    - [1.8. Why convolutions](#18-why-convolutions)
 
 ## 1. Foundations of convolutional neural networks
 
@@ -45,34 +44,34 @@
   - TensorFlow: `tf.nn.conv2d`
   - Keras: `Conv2D`
 
-### 1.3. Edge detection
+- Edge detection, an example application of convolution
 
-- Edge example
+  - Edge example
 
-  <img src="Resources/deep_learning/cnn/edge_example.png" width=400>
+    <img src="Resources/deep_learning/cnn/edge_example.png" width=400>
 
-- Vertical edge detection
+  - Vertical edge detection
 
-  <img src="Resources/deep_learning/cnn/vertical_edge_detection.png" width=400>
+    <img src="Resources/deep_learning/cnn/vertical_edge_detection.png" width=400>
 
-- Hand-coded edge detection filters
+  - Hand-coded edge detection filters
 
-  <img src="Resources/deep_learning/cnn/edge_detection_filters.png" width=400>
+    <img src="Resources/deep_learning/cnn/edge_detection_filters.png" width=400>
 
-  Dimension: <a href="https://www.codecogs.com/eqnedit.php?latex=f&space;\times&space;f" target="_blank"><img src="https://latex.codecogs.com/gif.latex?f&space;\times&space;f" title="f \times f" /></a>, where f is usually odd
+    Dimension: <a href="https://www.codecogs.com/eqnedit.php?latex=f&space;\times&space;f" target="_blank"><img src="https://latex.codecogs.com/gif.latex?f&space;\times&space;f" title="f \times f" /></a>, where f is usually odd
 
-- Learn the filter parameters from neural network
+  - Learn the filter parameters from neural network
 
-  <img src="Resources/deep_learning/cnn/edge_detection_parameterize.png" width=150>
+    <img src="Resources/deep_learning/cnn/edge_detection_parameterize.png" width=150>
 
-### 1.4. Padding
+### 1.3. Padding
 
 - Downside of convolution operation
 
   - (-) Shrinking output
   - (-) throwing away information from edges
 
-- Padding
+- Padding on the input matrix
 
   Common to zero-pad the border. In the example below, the padding p = 1.
 
@@ -80,11 +79,11 @@
 
 - Valid and same convolutions
 
-  - Valid convolution: no padding
+  - **Valid convolution:** no padding
 
     <a href="https://www.codecogs.com/eqnedit.php?latex=n\times&space;n&space;\&space;image&space;\&space;\&space;\ast&space;\&space;\&space;f&space;\times&space;f&space;\&space;filter&space;\&space;\&space;\rightarrow&space;\&space;\&space;(n-f&plus;1)&space;\times&space;(n-f&plus;1)&space;\&space;output" target="_blank"><img src="https://latex.codecogs.com/gif.latex?n\times&space;n&space;\&space;image&space;\&space;\&space;\ast&space;\&space;\&space;f&space;\times&space;f&space;\&space;filter&space;\&space;\&space;\rightarrow&space;\&space;\&space;(n-f&plus;1)&space;\times&space;(n-f&plus;1)&space;\&space;output" title="n\times n \ image \ \ \ast \ \ f \times f \ filter \ \ \rightarrow \ \ (n-f+1) \times (n-f+1) \ output" /></a>
 
-  - Same convolution: pad so that output size is the same as the input sizes
+  - **Same convolution:** pad so that output size is the same as the input sizes
 
     <a href="https://www.codecogs.com/eqnedit.php?latex=p=\frac{f-1}{2}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p=\frac{f-1}{2}" title="p=\frac{f-1}{2}" /></a>
 
@@ -93,7 +92,7 @@
   - (+) Allows you to use a CONV layer without necessarily shrinking the height and width of the volumes. This is important for building deeper networks, since otherwise the height/width would shrink as you go to deeper layers.
   - (+) Helps us keep more of the information at the border of an image. Without padding, very few values at the next layer would be affected by pixels as the edges of an image.
 
-### 1.5. Strided convolution
+### 1.4. Strided convolution
 
 - Stride example
 
@@ -104,7 +103,7 @@
   Output dimension: <a href="https://www.codecogs.com/eqnedit.php?latex=\left&space;\lfloor&space;\frac{n&plus;2p-f}{s}&plus;1&space;\right&space;\rfloor&space;\&space;\&space;\times&space;\&space;\&space;\left&space;\lfloor&space;\frac{n&plus;2p-f}{s}&plus;1&space;\right&space;\rfloor" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\left&space;\lfloor&space;\frac{n&plus;2p-f}{s}&plus;1&space;\right&space;\rfloor&space;\&space;\&space;\times&space;\&space;\&space;\left&space;\lfloor&space;\frac{n&plus;2p-f}{s}&plus;1&space;\right&space;\rfloor" title="\left \lfloor \frac{n+2p-f}{s}+1 \right \rfloor \ \ \times \ \ \left \lfloor \frac{n+2p-f}{s}+1 \right \rfloor" /></a> <br>
   By convention, the filter must be fully contained in the input image to do convolution.
 
-### 1.6. Convolution layer
+### 1.5. Convolution layer
 
 - Convolutions over volume
 
@@ -138,7 +137,7 @@
 
     <br><img src="Resources/deep_learning/cnn/convolution_layer.png" width=700>
 
-### 1.7. Pooling layer
+### 1.6. Pooling layer
 
 - Hyperparameters
 
@@ -159,13 +158,13 @@
   - Applies to each channels independently
   - No parameters for backpropagation to learn
 
-- Pdvantages of pooling in ConvNet
+- Advantages of pooling in ConvNet
 
   - (+) Reduces the size of the input
   - (+) Speeds up the computation
   - (+) Makes feature detectors more invariant to its position in the input
 
-### 1.8. CNN schematics
+### 1.7. CNN schematics
 
 - Types of layer in a convolutional network
 
@@ -173,7 +172,7 @@
   - Pooling (POOL)
   - Fully-connected (FC)
 
-- Schematics
+- Workflow
 
   <img src="Resources/deep_learning/cnn/cnn_example.png" width=700>
 
@@ -183,7 +182,7 @@
 
   From left to right, the height and width often decrease, and the number of channels often increase.
 
-### 1.9. Why convolutions
+### 1.8. Why convolutions
 
 - Advantages of convolutional layers over fully connected layers
 
