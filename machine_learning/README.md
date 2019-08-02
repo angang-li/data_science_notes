@@ -5,4 +5,5 @@
 - [Supervised Learning](supervised_learning.md)
 - [Unsupervised Learning](unsupervised_learning.md)
 - [Deep Learning](deep_learning.md)
+  - [Convolutional Neural Networks](cnn.md)
 - [Recommender](recommender.md)
