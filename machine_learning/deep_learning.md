@@ -829,7 +829,7 @@ Modifying a component of an algorithm will not create or propagate side effects 
 
   - Data of the targeted distribution often scarce
   - Make sure dev/test sets have the targeted distribution
-  - Okay to have training set distribution different from dev/test sets
+  - Okay to have training set distribution slightly different from dev/test sets because deep learning algorithms are quite robust
 
 - Bias and variance with mismatched data distributions
 
