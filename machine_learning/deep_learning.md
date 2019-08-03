@@ -343,7 +343,8 @@ Orthogonalization
 
 - #### Data augmentation
 
-  Rotate, resize, crop, flip, and sometimes random distortion of image data
+  - Rotation, resizing, random cropping, flipping, shearing, local warping, etc.
+  - Color shifting, color distortion (e.g. "PCA color augmentation")
 
 - #### Early stopping
 
@@ -850,7 +851,7 @@ Modifying a component of an algorithm will not create or propagate side effects 
 
   Take knowledge the neural network has learned from one task (task A) and apply that knowledge to a separate task (task B).
 
-  - If you have a small dataset, just retrain the last couple of layers.
+  - If you have a small dataset, add additional layers to train (and sometimes also retrain the last couple of pre-existing layers).
   - If you have a lot of data, can retrain all the parameters in the network.
     - "Pre-training", followed by "fine-tuning"
 
