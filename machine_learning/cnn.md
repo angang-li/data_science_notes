@@ -14,6 +14,10 @@
     - [2.1. Classic networks](#21-classic-networks)
     - [2.2. ResNet](#22-resnet)
     - [2.3. Inception neural networks](#23-inception-neural-networks)
+  - [3. Practical advices for using CNN](#3-practical-advices-for-using-cnn)
+    - [3.1. General tips](#31-general-tips)
+    - [3.2. Data vs. hand-engineering](#32-data-vs-hand-engineering)
+    - [3.3. Tips for doing well on benchmarks/winning competitions](#33-tips-for-doing-well-on-benchmarkswinning-competitions)
 
 ## 1. Foundations of convolutional neural networks (CNN)
 
@@ -300,5 +304,33 @@
 
     - (+) The additional outputs from the hidden layers help to ensure that the features computed even in the hidden layers not too bad for predicting the output class of a image, which appears to have a regularizing effect on the inception network and helps prevent this network from overfitting.
 
+## 3. Practical advices for using CNN
 
+### 3.1. General tips
+
+- Use open source implementation instead of re-inventing the wheels
+
+  - Use architectures of networks published in the literature
+  - Use open source implementations if possible
+
+- Transfer learning
+
+  - Use pretrained models and fine tune on your dataset
+
+- Data augmentation to improve the performance of computer vision systems
+
+### 3.2. Data vs. hand-engineering
+
+- 2 sources of knowledge
+
+    - Labeled data
+    - Hand-engineered features/network architecture/other components
+
+    <img src="Resources/deep_learning/cnn/data_hand_engineering.png" width=600>
+
+### 3.3. Tips for doing well on benchmarks/winning competitions
+
+- Warning: not necessarily practical and rarely used when building production systems
+- Ensembling: train several networks independently and average their outputs
+- Multi-crop at test time: run classifier on multiple versions of test images and average results
 
