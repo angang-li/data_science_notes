@@ -1,7 +1,7 @@
 # Convolutional Neural Networks
 
 - [Convolutional Neural Networks](#convolutional-neural-networks)
-  - [1. Foundations of convolutional neural networks](#1-foundations-of-convolutional-neural-networks)
+  - [1. Foundations of convolutional neural networks (CNN)](#1-foundations-of-convolutional-neural-networks-cnn)
     - [1.1. Computer vision](#11-computer-vision)
     - [1.2. Convolution operation](#12-convolution-operation)
     - [1.3. Padding](#13-padding)
@@ -10,8 +10,12 @@
     - [1.6. Pooling layer](#16-pooling-layer)
     - [1.7. CNN schematics](#17-cnn-schematics)
     - [1.8. Why convolutions](#18-why-convolutions)
+  - [2. CNN case studies](#2-cnn-case-studies)
+    - [2.1. Classic networks](#21-classic-networks)
+    - [2.2. ResNet](#22-resnet)
+    - [2.3. Inception neural networks](#23-inception-neural-networks)
 
-## 1. Foundations of convolutional neural networks
+## 1. Foundations of convolutional neural networks (CNN)
 
 ### 1.1. Computer vision
 
@@ -201,3 +205,100 @@
 
   - [An intro to ConvNet and Image Recognition on YouTube](https://www.youtube.com/watch?v=2-Ol7ZB0MmU)
   - [An intuitive guide to ConvNet on Medium](https://medium.freecodecamp.org/an-intuitive-guide-to-convolutional-neural-networks-260c2de0a050)
+
+## 2. CNN case studies
+
+### 2.1. Classic networks
+
+- #### LeNet-5
+
+    <img src="Resources/deep_learning/cnn/lenet5.png" width=700> <br>
+    [LeCun et al., 1998. Gradient-based learning applied to document recognition]
+
+    - The goal of LeNet-5 was to recognize handwritten digits on grayscale images of 32 by 32 by 1.
+    - From left to right, the height and width decrease, and the number of channels increases.
+    - ~60K parameters
+
+- #### AlexNet
+
+    <img src="Resources/deep_learning/cnn/alexnet.png" width=700> <br>
+    [Krizhevsky et al., 2012. ImageNet classification with deep convolutional neural networks]
+
+    - Similar to LeNet-5 but much bigger
+    - Uses ReLu activation rather than sigmoid/tanh
+    - ~60M parameters
+
+- #### VGG
+
+    <img src="Resources/deep_learning/cnn/vgg.png" width=700> <br>
+    [Simonyan & Zisserman 2015. Very deep convolutional networks for large-scale image recognition]
+
+    - Relatively deep CNN, 16 layers that have weights
+    - Simplified architecture, with same hyperparameters among CONV layers, and same hyperparameters among POOL layers, except for the number of channels that roughly doubles for every step.
+    - ~138M parameters
+
+### 2.2. ResNet
+
+- #### Residual block
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;a^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;a^{(l)})" title="a^{(l+2)} = g(z^{(l+2)}+a^{(l)})" /></a>
+
+    <img src="Resources/deep_learning/cnn/residual_block.png" width=350> <br>
+    [He et al., 2015. Deep residual networks for image recognition]
+
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(l&plus;2)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(l&plus;2)}" title="z^{(l+2)}" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}" title="a^{(l)}" /></a> usually have the same dimension by using "same" convolution. When they don't have the same dimension, implement an additional matrix to convert <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}" title="a^{(l)}" /></a>'s dimension to <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(l&plus;2)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(l&plus;2)}" title="z^{(l+2)}" /></a>'s. <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;w_sa^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;w_sa^{(l)})" title="a^{(l+2)} = g(z^{(l+2)}+w_sa^{(l)})" /></a>
+
+- #### Residual network
+
+    <img src="Resources/deep_learning/cnn/residual_network.png" width=600>
+
+    <img src="Resources/deep_learning/cnn/resnet_vs_plain.png" width=500>
+
+    - (+) Helps with the vanishing and exploding gradient problems
+    - (+) Allows to train much deeper neural networks without really appreciable loss in performance
+
+- #### Why ResNets work
+
+    - (+) Never hurt performance: Adding two layers in the neural network doesn't hurt the network's ability to do as well as this simpler network without these two extra layers, because identity function is easy for residual block to learn, which is not so easy in plain network.
+
+### 2.3. Inception neural networks
+
+- #### Networks in networks and 1 x 1 convolutions
+
+    <img src="Resources/deep_learning/cnn/networks_in_networks.png" width=500> <br>
+    [Lin et al., 2013. Network in network]
+
+    - (+) Allows to shrink the number of channels and therefore, saves computation in some networks
+    - (+) Adds non-linearity by allowings to learn the more complex function
+
+- #### Inception network motivation
+
+    <img src="Resources/deep_learning/cnn/inception_network_motivation.png" width=500> <br>
+    [Szegedy et al. 2014. Going deeper with convolutions]
+
+- #### Use 1 x 1 convolutions to solve the computational cost problem
+
+    - Convolution can be very costly
+
+        <img src="Resources/deep_learning/cnn/inception_computation_cost.png" width=350>
+
+    - Use 1 x 1 convolution to reduce cost by a factor of ~10
+
+        <img src="Resources/deep_learning/cnn/inception_computation_cost2.png" width=500>
+
+- #### Inception module
+
+    <img src="Resources/deep_learning/cnn/inception_module.png" width=400> <br>
+    Building block of the inception network <br>
+    [Szegedy et al., 2014, Going Deeper with Convolutions]
+
+- #### Inception network
+
+    <img src="Resources/deep_learning/cnn/inception_network.png" width=700> <br>
+    This particular network inception network is also known as "GoogleNet". <br>
+    [Szegedy et al., 2014, Going Deeper with Convolutions]
+
+    - (+) The additional outputs from the hidden layers help to ensure that the features computed even in the hidden layers not too bad for predicting the output class of a image, which appears to have a regularizing effect on the inception network and helps prevent this network from overfitting.
+
+
+
