@@ -29,7 +29,9 @@
     - [3.7. End-to-end deep learning](#37-end-to-end-deep-learning)
   - [4. Building a neural network with keras](#4-building-a-neural-network-with-keras)
     - [4.1. Optimizers in Keras](#41-optimizers-in-keras)
-    - [4.2. Keras script](#42-keras-script)
+    - [4.2. Models in Keras](#42-models-in-keras)
+    - [4.3. Keras code example with sequential model](#43-keras-code-example-with-sequential-model)
+    - [4.4. Keras code example with functional model](#44-keras-code-example-with-functional-model)
   - [5. Deep learning with PyTorch](#5-deep-learning-with-pytorch)
     - [5.1. Pytorch syntax](#51-pytorch-syntax)
     - [5.2. Initialize data](#52-initialize-data)
@@ -900,6 +902,8 @@ Modifying a component of an algorithm will not create or propagate side effects 
 
 ## 4. Building a neural network with keras
 
+Keras is a high-level neural networks API (programming framework), written in Python and capable of running on top of several lower-level frameworks including TensorFlow and CNTK. Good for rapid prototyping.
+
 ### 4.1. Optimizers in Keras
 
 Blog post on algorithms [here](http://ruder.io/optimizing-gradient-descent/index.html#gradientdescentoptimizationalgorithms)
@@ -920,7 +924,21 @@ Blog post on algorithms [here](http://ruder.io/optimizing-gradient-descent/index
 
   RMS stands for Root Mean Squared Error decreases the learning rate by dividing it by an exponentially decaying average of squared gradients.
 
-### 4.2. Keras script
+### 4.2. Models in Keras
+
+There are two ways to build Keras models: *sequential* and *functional*.
+
+- **Sequential** API
+
+  - Creates models layer-by-layer.
+  - Cannot create models that share layers or have multiple inputs or outputs.
+
+- **Functional** API
+  
+  - Creates models that have a lot more flexibility, e.g. can connect layers to (literally) any other layer.
+  - Possible to create complex networks such as siamese networks and residual networks.
+
+### 4.3. Keras code example with sequential model
 
 - #### Sequential model
 
@@ -1028,6 +1046,141 @@ Blog post on algorithms [here](http://ruder.io/optimizing-gradient-descent/index
   from keras.models import load_model
   voice_model = load_model("voice_model_trained.h5")
   ```
+
+### 4.4. Keras code example with functional model
+
+- **Dependencies**
+
+  ```python
+  import numpy as np
+  from keras import layers
+  from keras.layers import Input, Dense, Activation, ZeroPadding2D, BatchNormalization, Flatten, Conv2D
+  from keras.layers import AveragePooling2D, MaxPooling2D, Dropout, GlobalMaxPooling2D, GlobalAveragePooling2D
+  from keras.models import Model
+  from keras.preprocessing import image
+  from keras.utils import layer_utils
+  from keras.utils.data_utils import get_file
+  from keras.applications.imagenet_utils import preprocess_input
+  import pydot
+  from IPython.display import SVG
+  from keras.utils.vis_utils import model_to_dot
+  from keras.utils import plot_model
+  from kt_utils import *
+
+  import keras.backend as K
+  K.set_image_data_format('channels_last')
+  import matplotlib.pyplot as plt
+  from matplotlib.pyplot import imshow
+
+  %matplotlib inline
+  ```
+
+- **Normalize the dataset and learn about its shapes**
+
+  ```python
+  X_train_orig, Y_train_orig, X_test_orig, Y_test_orig, classes = load_dataset()
+
+  # Normalize image vectors
+  X_train = X_train_orig/255.
+  X_test = X_test_orig/255.
+
+  # Reshape
+  Y_train = Y_train_orig.T
+  Y_test = Y_test_orig.T
+
+  print ("number of training examples = " + str(X_train.shape[0]))
+  print ("number of test examples = " + str(X_test.shape[0]))
+  print ("X_train shape: " + str(X_train.shape))
+  print ("Y_train shape: " + str(Y_train.shape))
+  print ("X_test shape: " + str(X_test.shape))
+  print ("Y_test shape: " + str(Y_test.shape))
+  ```
+
+- **Build a function to describe the model**
+
+  ```python
+  def HappyModel(input_shape):
+      """
+      Implementation of the HappyModel.
+
+      Arguments:
+      input_shape -- shape of the images of the dataset
+
+      Returns:
+      model -- a Model() instance in Keras
+      """
+
+      # Define the input placeholder as a tensor with shape of an input image
+      X_input = Input(input_shape)
+
+      # Zero-Padding: pads the border of X_input with zeroes
+      X = ZeroPadding2D((3, 3))(X_input)
+
+      # CONV -> BN -> RELU Block applied to X
+      X = Conv2D(32, (7, 7), strides = (1, 1), name = 'conv0')(X)
+      X = BatchNormalization(axis = 3, name = 'bn0')(X)
+      X = Activation('relu')(X)
+
+      # MAXPOOL
+      X = MaxPooling2D((2, 2), name='max_pool')(X)
+
+      # FLATTEN X (means convert it to a vector) + FULLYCONNECTED
+      X = Flatten()(X)
+      X = Dense(1, activation='sigmoid', name='fc')(X)
+
+      # Create Keras model instance, which will be used to train/test the model
+      model = Model(inputs = X_input, outputs = X, name='HappyModel')
+
+      return model
+  ```
+
+- **Compile, train, and test the model**
+
+  ```python
+  # Create the model
+  happyModel = HappyModel(X_train[0].shape)
+
+  # Compile the model
+  happyModel.compile(optimizer = "adam", loss = "binary_crossentropy", metrics = ["accuracy"])
+
+  # Train the model
+  happyModel.fit(x = X_train, y = Y_train, epochs = 50, batch_size = 20)
+
+  # Test the model
+  preds = happyModel.evaluate(x = X_test, y = Y_test)
+  print ("Loss = " + str(preds[0]))
+  print ("Test Accuracy = " + str(preds[1]))
+  ```
+
+- **Model prediction**
+
+  ```python
+  # Predict new image
+  img_path = 'images/my_image.jpg'
+  img = image.load_img(img_path, target_size=(64, 64))
+  imshow(img)
+  x = image.img_to_array(img)
+  x = np.expand_dims(x, axis=0)
+  x = preprocess_input(x)
+  print(happyModel.predict(x))
+  ```
+
+- **Other useful functions**
+
+  - `model.summary()`: prints the details of the layers in a table with the sizes of its inputs/outputs.
+
+    ```python
+    happyModel.summary()
+    ```
+
+  - `plot_model()`: plots computation graph in a nice layout. Can save it as ".png" using SVG().
+
+    ```python
+    plot_model(happyModel, to_file='HappyModel.png')
+    SVG(model_to_dot(happyModel).create(prog='dot', format='svg'))
+    ```
+
+
 
 ## 5. Deep learning with PyTorch
 
