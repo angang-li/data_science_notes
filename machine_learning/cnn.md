@@ -95,6 +95,14 @@
 
     <a href="https://www.codecogs.com/eqnedit.php?latex=p=\frac{f-1}{2}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p=\frac{f-1}{2}" title="p=\frac{f-1}{2}" /></a>
 
+- Padding conventions
+
+  The most commonly used padding mode in CNN is "same" padding.
+
+  - Same padding preserves the height and width of the input images or tensors, which make designing a network architecture more convenient.
+  - For valid padding, the volume of the tensors would decrease substantially in neural networks with many layers, which can be dangerous to the network performance.
+  - In practice,it is recommended that you preserve the spatial size using same padding for the convolutional layers and decrease the spatial size via pooling layers instead.
+
 - Advantages of padding
 
   - (+) Allows you to use a CONV layer without necessarily shrinking the height and width of the volumes. This is important for building deeper networks, since otherwise the height/width would shrink as you go to deeper layers.
@@ -188,7 +196,8 @@
 
   <br>
 
-  From left to right, the height and width often decrease, and the number of channels often increase.
+  - From left to right, the height and width often decrease, and the number of channels often increase.
+  - In order to be able to build very deep networks, we usually only use pooling layers to downsize the height/width of the activation volumes while convolutions are used with “same” padding. Otherwise, we would downsize the input of the model too quickly.
 
 ### 1.8. Why convolutions
 
@@ -243,27 +252,47 @@
 
 ### 2.2. ResNet
 
-- #### Residual block
+- #### The problem of very deep neural networks
 
-    <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;a^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;a^{(l)})" title="a^{(l+2)} = g(z^{(l+2)}+a^{(l)})" /></a>
+    The main benefit of a very deep network is that it can represent very complex functions. It can also learn features at many different levels of abstraction, from edges (at the lower layers) to very complex features (at the deeper layers). However, **very deep "plain" networks don't work in practice because they are hard to train due to vanishing gradients.**
+
+    - Vanishing gradient is a huge barrier to training: very deep networks often have a gradient signal that goes to zero quickly, thus making gradient descent unbearably slow. More specifically, during gradient descent, as you backprop from the final layer back to the first layer, you are multiplying by the weight matrix on each step, and thus the gradient can decrease exponentially quickly to zero (or, in rare cases, grow exponentially quickly and "explode" to take very large values).
+    - During training, you might therefore see the magnitude (or norm) of the gradient for the earlier layers descrease to zero very rapidly as training proceeds:
+
+        <img src="Resources/deep_learning/cnn/vanishing_grad_kiank.png" width=500>
+
+- #### Residual block
 
     <img src="Resources/deep_learning/cnn/residual_block.png" width=350> <br>
     [He et al., 2015. Deep residual networks for image recognition]
 
-    - <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(l&plus;2)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(l&plus;2)}" title="z^{(l+2)}" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}" title="a^{(l)}" /></a> usually have the same dimension by using "same" convolution. When they don't have the same dimension, implement an additional matrix to convert <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}" title="a^{(l)}" /></a>'s dimension to <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(l&plus;2)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(l&plus;2)}" title="z^{(l+2)}" /></a>'s. <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;w_sa^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;w_sa^{(l)})" title="a^{(l+2)} = g(z^{(l+2)}+w_sa^{(l)})" /></a>
+    - **The identity block**
+
+        The input activation <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}" title="a^{(l)}" /></a> usually has the same dimension as the output activation <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(l&plus;2)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(l&plus;2)}" title="z^{(l+2)}" /></a> by using "same" padding. <br>
+        <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;a^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;a^{(l)})" title="a^{(l+2)} = g(z^{(l+2)}+a^{(l)})" /></a>
+
+        <img src="Resources/deep_learning/cnn/idblock3_kiank.png" width=600>
+
+    - **The convolution block**
+
+        When <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(l&plus;2)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(l&plus;2)}" title="z^{(l+2)}" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}" title="a^{(l)}" /></a> don't have the same dimension, implement an additional matrix to convert <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}" title="a^{(l)}" /></a>'s dimension to <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(l&plus;2)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(l&plus;2)}" title="z^{(l+2)}" /></a>'s. <br> <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;w_sa^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;w_sa^{(l)})" title="a^{(l+2)} = g(z^{(l+2)}+w_sa^{(l)})" /></a>
+
+        <img src="Resources/deep_learning/cnn/convblock_kiank.png" width=600>
 
 - #### Residual network
 
-    <img src="Resources/deep_learning/cnn/residual_network.png" width=600>
+    <img src="Resources/deep_learning/cnn/residual_network.png" width=600> <br>
 
-    <img src="Resources/deep_learning/cnn/resnet_vs_plain.png" width=500>
+    - (+) The skip connection helps to address vanishing gradient problem.
+    - (+) The skip-connection makes it easy for a ResNet block to learn an identity mapping between the input and the output of the ResNet block.
 
-    - (+) Helps with the vanishing and exploding gradient problems
-    - (+) Allows to train much deeper neural networks without really appreciable loss in performance
+        <img src="Resources/deep_learning/cnn/resnet_vs_plain.png" width=500>
 
 - #### Why ResNets work
 
-    - (+) Never hurt performance: Adding two layers in the neural network doesn't hurt the network's ability to do as well as this simpler network without these two extra layers, because identity function is easy for residual block to learn, which is not so easy in plain network.
+    - (+) Allows to train much deeper neural networks without hurting the performance. Adding two layers in the neural network doesn't hurt the network's ability to do as well as this simpler network without these two extra layers, because identity function is easy for residual block to learn (not so easy in plain network).
+
+    - (+) Helps with the vanishing and exploding gradient problems. Using a skip-connection helps the gradient to be directly backpropagated to earlier layers, and thus helps you to train deeper networks. May lead to a simpler architecture.
 
 ### 2.3. Inception neural networks
 
