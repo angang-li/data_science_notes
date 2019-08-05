@@ -25,6 +25,8 @@
     - [4.4. Convolutional implementation of sliding windows](#44-convolutional-implementation-of-sliding-windows)
     - [4.5. Bounding box predictions with YOLO](#45-bounding-box-predictions-with-yolo)
     - [4.6. Region proposals](#46-region-proposals)
+  - [5. Special applications: face recognition & neural style transfer](#5-special-applications-face-recognition--neural-style-transfer)
+    - [5.1. Face recognition](#51-face-recognition)
 
 ## 1. Foundations of convolutional neural networks (CNN)
 
@@ -540,8 +542,81 @@ YOLO ("you only look once") is a popular algoritm because it achieves high accur
 
     R-CNN algorithms are usually slower than YOLO algorithm.
 
+## 5. Special applications: face recognition & neural style transfer
 
+### 5.1. Face recognition
 
+- #### Face verification vs. face recognition
 
+    - Verification
+
+        - Input image, name/ID
+        - Output whether the input image is that of the claimed person
+
+    - Recognition
+
+        - Has a database of K persons
+        - Get an input image
+        - Output ID if the image is any of the K persons (or “not recognized”)
+
+    Face recognition requires much higher accuracy compared to face verification.
+
+- #### One shot learning
+
+    Learning from one example to recognize the person again. Historically, deep learning algorithms don't work well if there is only one training example.
+
+    - Learning a "similarity" function
+
+        d(img1,img2) = degree of difference between 2 images
+
+        - If d(img1,img2) ≤ τ, "same"
+        - If d(img1,img2) > τ, "different"
+
+- #### Siamese network
+
+    Run two identical CNNs on two different inputs and then compare the ouputs.
+
+    <img src="Resources/deep_learning/cnn/siamese_goal.png" width=550> <br>
+    [Taigman et. al., 2014. DeepFace closing the gap to human level performance]
+
+- #### Triplet loss function for face verification
+
+    Define an applied gradient descent to learn the parameters of the neural network so that it outputs a good encoding for the pictures of faces. [Schroff et al.,2015, FaceNet: A unified embedding for face recognition and clustering]
+
+    <img src="Resources/deep_learning/cnn/siamese_anchor.png" width=550>
+
+    - Goal
+
+        Want <a href="https://www.codecogs.com/eqnedit.php?latex=d(A,P)&space;-&space;d(A,N)&space;&plus;&space;\alpha&space;\leq&space;0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?d(A,P)&space;-&space;d(A,N)&space;&plus;&space;\alpha&space;\leq&space;0" title="d(A,P) - d(A,N) + \alpha \leq 0" /></a>, where <br>
+        <a href="https://www.codecogs.com/eqnedit.php?latex=d(A,P)=\left&space;\|&space;f(A)-f(P)&space;\right&space;\|^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?d(A,P)=\left&space;\|&space;f(A)-f(P)&space;\right&space;\|^2" title="d(A,P)=\left \| f(A)-f(P) \right \|^2" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=d(A,N)=\left&space;\|&space;f(A)-f(N)&space;\right&space;\|^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?d(A,N)=\left&space;\|&space;f(A)-f(N)&space;\right&space;\|^2" title="d(A,N)=\left \| f(A)-f(N) \right \|^2" /></a>, and <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a> is margin
+
+    - Loss function
+
+        - Given 3 images A, P, N
+
+            <a href="https://www.codecogs.com/eqnedit.php?latex=E(A,P,N)&space;=&space;max(\left&space;\|&space;f(A)-f(P)&space;\right&space;\|^2&space;-&space;\left&space;\|&space;f(A)-f(N)&space;\right&space;\|^2&space;&plus;&space;\alpha,\&space;0)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?E(A,P,N)&space;=&space;max(\left&space;\|&space;f(A)-f(P)&space;\right&space;\|^2&space;-&space;\left&space;\|&space;f(A)-f(N)&space;\right&space;\|^2&space;&plus;&space;\alpha,\&space;0)" title="E(A,P,N) = max(\left \| f(A)-f(P) \right \|^2 - \left \| f(A)-f(N) \right \|^2 + \alpha,\ 0)" /></a>
+
+        - Overall loss
+
+            <a href="https://www.codecogs.com/eqnedit.php?latex=J=\sum_{i=1}^m&space;E(A_i,P_i,N_i)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J=\sum_{i=1}^m&space;E(A_i,P_i,N_i)" title="J=\sum_{i=1}^m E(A_i,P_i,N_i)" /></a>
+
+        Needs multiple pictures of the same person to train the model. After training, can apply the model to one shot learning problem.
+
+    - Choosing the triplets A, P, N
+
+        - During training, if A,P,N are chosen randomly, <a href="https://www.codecogs.com/eqnedit.php?latex=d(A,P)&plus;\alpha&space;\leq&space;d(A,N)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?d(A,P)&plus;\alpha&space;\leq&space;d(A,N)" title="d(A,P)+\alpha \leq d(A,N)" /></a> is easily satisfied.
+        - Choose triplets that are “hard” to train on. Choosing triplets carefully increases the computational efficiency of your learning algorithm.
+
+- #### Binary classification for face verification
+
+    Alternative method to the triplet loss. [Taigman et. al., 2014. DeepFace closing the gap to human level performance]
+
+    - Learning the similarity function
+
+        <img src="Resources/deep_learning/cnn/siamese_binary.png" width=550>
+
+        <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}&space;=&space;\sigma\left&space;(&space;\sum_k&space;w_k&space;\left&space;|&space;f(x_i)_k-f(x_j)_k&space;\right&space;|&space;&plus;b&space;\right&space;)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}&space;=&space;\sigma\left&space;(&space;\sum_k&space;w_k&space;\left&space;|&space;f(x_i)_k-f(x_j)_k&space;\right&space;|&space;&plus;b&space;\right&space;)" title="\hat{y} = \sigma\left ( \sum_k w_k \left | f(x_i)_k-f(x_j)_k \right | +b \right )" /></a>, where k represents a unit of the encoding layer.
+
+        Can also use Chi-square similarity <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}&space;=&space;\sigma\left&space;(&space;\sum_k&space;w_k&space;\frac{(f(x_i)_k-f(x_j)_k)^2}{f(x_i)_k&plus;f(x_j)_k}&space;&plus;b&space;\right&space;)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}&space;=&space;\sigma\left&space;(&space;\sum_k&space;w_k&space;\frac{(f(x_i)_k-f(x_j)_k)^2}{f(x_i)_k&plus;f(x_j)_k}&space;&plus;b&space;\right&space;)" title="\hat{y} = \sigma\left ( \sum_k w_k \frac{(f(x_i)_k-f(x_j)_k)^2}{f(x_i)_k+f(x_j)_k} +b \right )" /></a>
 
 
