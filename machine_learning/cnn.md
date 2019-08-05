@@ -384,10 +384,13 @@
 
 - Defining the target lable y
 
-    <a href="https://www.codecogs.com/eqnedit.php?latex=y=\begin{bmatrix}&space;p_c&space;\\&space;b_x&space;\\&space;b_y&space;\\&space;b_h&space;\\&space;b_w&space;\\&space;c_1&space;\\&space;c_2&space;\\&space;c_3&space;\end{bmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y=\begin{bmatrix}&space;p_c&space;\\&space;b_x&space;\\&space;b_y&space;\\&space;b_h&space;\\&space;b_w&space;\\&space;c_1&space;\\&space;c_2&space;\\&space;c_3&space;\end{bmatrix}" title="y=\begin{bmatrix} p_c \\ b_x \\ b_y \\ b_h \\ b_w \\ c_1 \\ c_2 \\ c_3 \end{bmatrix}" /></a>, where <br>
-    <a href="https://www.codecogs.com/eqnedit.php?latex=p_c" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_c" title="p_c" /></a> represents whether there is any object in the image (0 or 1); <br>
-    <a href="https://www.codecogs.com/eqnedit.php?latex=b_x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_x" title="b_x" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=b_y" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_y" title="b_y" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=b_h" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_h" title="b_h" /></a>, and <a href="https://www.codecogs.com/eqnedit.php?latex=b_w" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_w" title="b_w" /></a> define the bounding box; <br>
-    <a href="https://www.codecogs.com/eqnedit.php?latex=c_1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c_1" title="c_1" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=c_2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c_2" title="c_2" /></a>, and <a href="https://www.codecogs.com/eqnedit.php?latex=c_3" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c_3" title="c_3" /></a> are the dummy estimates of class 1, 2, and 3.
+    <a href="https://www.codecogs.com/eqnedit.php?latex=y=\begin{bmatrix}&space;p_c&space;\\&space;b_x&space;\\&space;b_y&space;\\&space;b_h&space;\\&space;b_w&space;\\&space;c_1&space;\\&space;c_2&space;\\&space;c_3&space;\end{bmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y=\begin{bmatrix}&space;p_c&space;\\&space;b_x&space;\\&space;b_y&space;\\&space;b_h&space;\\&space;b_w&space;\\&space;c_1&space;\\&space;c_2&space;\\&space;c_3&space;\end{bmatrix}" title="y=\begin{bmatrix} p_c \\ b_x \\ b_y \\ b_h \\ b_w \\ c_1 \\ c_2 \\ c_3 \end{bmatrix}" /></a>, where
+
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=p_c" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_c" title="p_c" /></a> represents whether there is any object in the image (0 or 1).
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=b_x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_x" title="b_x" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=b_y" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_y" title="b_y" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=b_h" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_h" title="b_h" /></a>, and <a href="https://www.codecogs.com/eqnedit.php?latex=b_w" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_w" title="b_w" /></a> are the object's midpoint coordinates, the object's height, and the object's width that define the bounding box.
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=c_1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c_1" title="c_1" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=c_2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c_2" title="c_2" /></a>, and <a href="https://www.codecogs.com/eqnedit.php?latex=c_3" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c_3" title="c_3" /></a> are the dummy estimates of class 1, 2, and 3.
+
+    <img src="Resources/deep_learning/cnn/box_label.png" width=500> <br>
 
 - Defining the loss function
 
@@ -437,6 +440,8 @@
 
 ### 4.5. Bounding box predictions with YOLO
 
+YOLO ("you only look once") is a popular algoritm because it achieves high accuracy while also being able to run in real-time. This algorithm "only looks once" at the image in the sense that it requires only one forward propagation pass through the network to make predictions. After non-max suppression, it then outputs recognized objects together with the bounding boxes.
+
 - #### Output accurate bounding box with YOLO algorithm
 
     - Algorithm
@@ -445,7 +450,7 @@
         2. Assign each object to the grid cell that contains the **midpoint** of that object.
         3. Each grid cell has an output that specifies whether there is any object, the bounding box of the object (fractions relative to the height and width of the grid cell), and the class of the object.
 
-        [Redmon et al., 2015, You Only Look Once: Unified real-time object detection]
+        Note that if the midpoint of an object falls into a grid cell, that grid cell is responsible for detecting that object. [Redmon et al., 2015, You Only Look Once: Unified real-time object detection]
 
     - Pros and cons
 
