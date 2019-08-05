@@ -18,6 +18,13 @@
     - [3.1. General tips](#31-general-tips)
     - [3.2. Data vs. hand-engineering](#32-data-vs-hand-engineering)
     - [3.3. Tips for doing well on benchmarks/winning competitions](#33-tips-for-doing-well-on-benchmarkswinning-competitions)
+  - [4. Object detection](#4-object-detection)
+    - [4.1. Object localization](#41-object-localization)
+    - [4.2. Landmark detection](#42-landmark-detection)
+    - [4.3. Object detection with sliding windows](#43-object-detection-with-sliding-windows)
+    - [4.4. Convolutional implementation of sliding windows](#44-convolutional-implementation-of-sliding-windows)
+    - [4.5. Bounding box predictions with YOLO](#45-bounding-box-predictions-with-yolo)
+    - [4.6. Region proposals](#46-region-proposals)
 
 ## 1. Foundations of convolutional neural networks (CNN)
 
@@ -362,4 +369,174 @@
 - Warning: not necessarily practical and rarely used when building production systems
 - Ensembling: train several networks independently and average their outputs
 - Multi-crop at test time: run classifier on multiple versions of test images and average results
+
+## 4. Object detection
+
+### 4.1. Object localization
+
+- Classification, localization, and detection
+
+    <img src="Resources/deep_learning/cnn/localization_detection.png" width=500>
+
+    - **Classification:** Label as a car
+    - **Localization:** Label as a car AND specify a bounding box around the position of the car in the image. Records midpoint (bx, by), height bh, and width bw.
+    - **Detection:** There can be multiple objects and/or of different categories to localize.
+
+- Defining the target lable y
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=y=\begin{bmatrix}&space;p_c&space;\\&space;b_x&space;\\&space;b_y&space;\\&space;b_h&space;\\&space;b_w&space;\\&space;c_1&space;\\&space;c_2&space;\\&space;c_3&space;\end{bmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y=\begin{bmatrix}&space;p_c&space;\\&space;b_x&space;\\&space;b_y&space;\\&space;b_h&space;\\&space;b_w&space;\\&space;c_1&space;\\&space;c_2&space;\\&space;c_3&space;\end{bmatrix}" title="y=\begin{bmatrix} p_c \\ b_x \\ b_y \\ b_h \\ b_w \\ c_1 \\ c_2 \\ c_3 \end{bmatrix}" /></a>, where <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=p_c" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_c" title="p_c" /></a> represents whether there is any object in the image (0 or 1); <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=b_x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_x" title="b_x" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=b_y" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_y" title="b_y" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=b_h" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_h" title="b_h" /></a>, and <a href="https://www.codecogs.com/eqnedit.php?latex=b_w" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_w" title="b_w" /></a> define the bounding box; <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=c_1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c_1" title="c_1" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=c_2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c_2" title="c_2" /></a>, and <a href="https://www.codecogs.com/eqnedit.php?latex=c_3" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c_3" title="c_3" /></a> are the dummy estimates of class 1, 2, and 3.
+
+- Defining the loss function
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=E(\hat{y},&space;y)=\left\{\begin{matrix}&space;\sum_{elements\&space;in\&space;y}&space;(\hat{y}-y)^2&space;&&space;if\&space;y_1=1&space;\\&space;(\hat{y}_1-y_1)^2&space;&&space;if\&space;y_1=0&space;\end{matrix}\right." target="_blank"><img src="https://latex.codecogs.com/gif.latex?E(\hat{y},&space;y)=\left\{\begin{matrix}&space;\sum_{elements\&space;in\&space;y}&space;(\hat{y}-y)^2&space;&&space;if\&space;y_1=1&space;\\&space;(\hat{y}_1-y_1)^2&space;&&space;if\&space;y_1=0&space;\end{matrix}\right." title="E(\hat{y}, y)=\left\{\begin{matrix} \sum_{elements\ in\ y} (\hat{y}-y)^2 & if\ y_1=1 \\ (\hat{y}_1-y_1)^2 & if\ y_1=0 \end{matrix}\right." /></a> <br>
+    Alternatively, use log loss or logistic regression loss
+
+### 4.2. Landmark detection
+
+- Landmark detection
+
+    Outputs the X,Y coordinates of different landmarks you want to recognize in an image. The identity of each landmark must be consistent across different images.
+
+    E.g. face recognition
+
+- Target label y
+
+    E.g. (xi, yi) of all landmarks i
+
+### 4.3. Object detection with sliding windows
+
+- Sliding windows detection
+
+    - Step 1: Slide a rectangular region across the entire image, and pass each of the cropped image into the object localization ConvNet to classify zero or one for each position as some stride.
+
+    - Step 2: Resize the region and repeat Step 1.
+
+    <img src="Resources/deep_learning/cnn/sliding_window.png" width=200>
+
+- Disadvantage of sliding windows detection with ConvNets
+
+    - (-) Huge computation cost due to running so many different sliding windows with ConvNets independently/sequentially.
+
+### 4.4. Convolutional implementation of sliding windows
+
+- Turning FC layer into convolutional layers
+
+    <img src="Resources/deep_learning/cnn/fc_to_conv.png" width=600>
+
+- Implementing sliding windows convolutionally
+
+    <img src="Resources/deep_learning/cnn/sliding_windows_conv.png" width=600> <br>
+    [Sermanet et al., 2014, OverFeat: Integrated recognition, localization and detection using convolutional networks]
+
+    - (+) Allows different ConvNets that have highly duplicated tasks to share a lot of computation.
+
+        Instead of running ConvNets on different subsets of the input image independently, the convolutional implementation combines all into one computation and shares a lot of the computation in the common regions.
+
+### 4.5. Bounding box predictions with YOLO
+
+- #### Output accurate bounding box with YOLO algorithm
+
+    - Algorithm
+
+        1. Place a grid (e.g. a 3x3 grid, or a 19x19 grid) on the image.
+        2. Assign each object to the grid cell that contains the **midpoint** of that object.
+        3. Each grid cell has an output that specifies whether there is any object, the bounding box of the object (fractions relative to the height and width of the grid cell), and the class of the object.
+
+        [Redmon et al., 2015, You Only Look Once: Unified real-time object detection]
+
+    - Pros and cons
+
+        - (+/-) YOLO works well so long as there aren't more than one object in each grid cell. For each object, even if the object spans multiple grid cells, that object is assigned only to one of the grid cells.
+        - (+) Allows the network to output bounding boxes of any aspect ratio, and output much more precise coordinates that aren't just dictated by the stripe size of the sliding windows classifier.
+        - (+) Efficient algorithm because it is a convolutional implantation, where you use one ConvNet with a lot of shared computation between all of the grid cells.
+
+- #### Intersection over union (IoU) to evaluate object detection algorithm
+
+    <img src="Resources/deep_learning/cnn/iou_equation.png" width=300> <br>
+    IoU is a measure of the overlap between 2 bounding boxes. By convention, "correct" if IoU ≥ 0.5
+
+- #### Non-max suppression to clean up bounding boxes
+
+    - Problem to address
+
+        Because you're running the image classification and localization algorithm on every grid cell, it's possible that more than one of the grid cells think they have detected an object. So the object detection algorithm might end up with multiple detections of each object.
+
+    - Algorithm
+
+        Non-max suppression keeps the bounding box that has the maximum probability of detection (pc) of the object, and suppress the overlapping ones that are non-maximal.
+
+        1. Discard all boxes with pc ≤ 0.5
+        2. While there are any remaining boxes:
+
+            - Pick the box with the largest pc, output that as a prediction.
+            - Discard any remaining box with IoU ≥ 0.5 with the box output in the previous step.
+
+        <img src="Resources/deep_learning/cnn/non_max_suppression.png" width=300>
+
+- #### Anchor boxes
+
+    - Problem to address
+
+        One of the problems with object detection is that each of the grid cells can detect only one object. What if a grid cell wants to detect multiple objects?
+
+    - Algorithm
+
+        <img src="Resources/deep_learning/cnn/anchor_box.png" width=400> <br>
+        Each object in training image is assigned to grid cell that contains object’s midpoint and anchor box for the grid cell with highest IoU.
+
+    - How to choose anchor boxes
+
+        - By hand: Typically choose 5-10 anchor boxes that spans a variety of shapes to cover the types of objects.
+        - Automatically: Use a K-means algorithm to group together the types of objects shapes you tend to get. And then select a set of anchor boxes that are most stereotypically representative of the objects.
+
+    - Pros and cons
+
+        - (-) Does not handle well when there are two anchor boxes but three objects in the same grid cell; or two objects associated with the same grid cell, but both of them have the same anchor box shape.
+
+        - (+) Allows learning algorithm to specialize so that some of the outputs can specialize in detecting white, fat objects like cars, and some of the output units can specialize in detecting tall, skinny objects like pedestrians.
+
+- #### Putting everything together: YOLO algorithm
+
+    - Training and predicting
+
+        <img src="Resources/deep_learning/cnn/yolo_train.png" width=500>
+
+    - Outputting the non-max suppressed outputs
+
+        - For each grid call, get 2 predicted bounding boxes.
+        - Get rid of low probability predictions.
+        - For each class (pedestrian, car, motorcycle) use non-max suppression to generate final predictions.
+
+        <img src="Resources/deep_learning/cnn/yolo_non_max.png" width=220>
+
+### 4.6. Region proposals
+
+- #### Region proposal: R-CNN (Regions with CNN)
+
+    <img src="Resources/deep_learning/cnn/r_cnn.png" width=400> <br>
+    [Girshik et. al, 2013, Rich feature hierarchies for accurate object detection and semantic segmentation]
+
+    Rather than running sliding windows on every single window, select just a few windows and run ConvNet classifier on these windows. Use segmentation algorithm to find blobs, and run classifier only on those blobs.
+
+    - (-) R-CNN very slow
+
+- #### Faster algorithms
+
+    - Original **R-CNN:** Propose regions. Classify proposed regions one at a time. Output label + bounding box. [Girshik et. al, 2013. Rich feature hierarchies for accurate object detection and semantic segmentation]
+
+    - **Fast R-CNN:** Propose regions. Use convolution implementation of sliding windows to classify all the proposed regions. [Girshik, 2015. Fast R-CNN]
+
+        - (-) The clustering step to propose the regions is still quite slow.
+
+    - **Faster R-CNN:** Use convolutional network to propose regions. [Ren et. al, 2016. Faster R-CNN: Towards real-time object detection with region proposal networks]
+
+    R-CNN algorithms are usually slower than YOLO algorithm.
+
+
+
+
+
 
