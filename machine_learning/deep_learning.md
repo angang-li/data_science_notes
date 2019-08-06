@@ -87,7 +87,7 @@
     X: input features <br>
     b: bias <br>
     y: label 0 or 1 <br>
-    <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a>: learning rate <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a>: learning rate
 
 - Perceptron
 
@@ -98,18 +98,18 @@
 - Perceptron trick
 
   <a href="https://www.codecogs.com/eqnedit.php?latex=w_1x_1&space;&plus;&space;w_2x_2&space;&plus;&space;b&space;=&space;0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_1x_1&space;&plus;&space;w_2x_2&space;&plus;&space;b&space;=&space;0" title="w_1x_1 + w_2x_2 + b = 0" /></a> <br>
-  Point <a href="https://www.codecogs.com/eqnedit.php?latex=(x_p,&space;x_q)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(x_p,&space;x_q)" title="(x_p, x_q)" /></a> classified incorrecctly <br>
+  Point <a href="https://www.codecogs.com/eqnedit.php?latex=(x_p,&space;x_q)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(x_p,&space;x_q)" title="(x_p, x_q)" /></a> classified incorrecctly
 
   To move the decision boundary closer to the point, for every misclassified point:
 
   - if the incorrect prediction = 1
-    
+
     <a href="https://www.codecogs.com/eqnedit.php?latex=w_1&space;:=&space;w_1&space;-&space;x_p\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_1&space;:=&space;w_1&space;-&space;x_p\alpha" title="w_1 := w_1 - x_p\alpha" /></a> <br>
     <a href="https://www.codecogs.com/eqnedit.php?latex=w_2&space;:=&space;w_2&space;-&space;x_q\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_2&space;:=&space;w_2&space;-&space;x_q\alpha" title="w_2 := w_2 - x_q\alpha" /></a> <br>
     <a href="https://www.codecogs.com/eqnedit.php?latex=b&space;:=&space;b&space;-&space;\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b&space;:=&space;b&space;-&space;\alpha" title="b := b - \alpha" /></a> <br>
 
   - if the incorrect prediction = 0
-    
+
     <a href="https://www.codecogs.com/eqnedit.php?latex=w_1&space;:=&space;w_1&space;&plus;&space;x_p\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_1&space;:=&space;w_1&space;&plus;&space;x_p\alpha" title="w_1 := w_1 + x_p\alpha" /></a> <br>
     <a href="https://www.codecogs.com/eqnedit.php?latex=w_2&space;:=&space;w_2&space;&plus;&space;x_q\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_2&space;:=&space;w_2&space;&plus;&space;x_q\alpha" title="w_2 := w_2 + x_q\alpha" /></a> <br>
     <a href="https://www.codecogs.com/eqnedit.php?latex=b&space;:=&space;b&space;&plus;&space;\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b&space;:=&space;b&space;&plus;&space;\alpha" title="b := b + \alpha" /></a> <br>
@@ -183,7 +183,7 @@
   <a href="https://www.codecogs.com/eqnedit.php?latex=\prod" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\prod" title="\prod" /></a> of all events's probabilities under the current model <br>
   <a href="https://www.codecogs.com/eqnedit.php?latex=m" target="_blank"><img src="https://latex.codecogs.com/gif.latex?m" title="m" /></a>: number of observations <br>
   <a href="https://www.codecogs.com/eqnedit.php?latex=n" target="_blank"><img src="https://latex.codecogs.com/gif.latex?n" title="n" /></a>: number of classes <br>
-  <a href="https://www.codecogs.com/eqnedit.php?latex=p_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_i" title="p_i" /></a>: probability of the event happening under the current model <br>
+  <a href="https://www.codecogs.com/eqnedit.php?latex=p_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_i" title="p_i" /></a>: probability of the event happening under the current model
   
   - Binary
 
@@ -197,7 +197,7 @@
 
   - Binary
 
-    <a href="https://www.codecogs.com/eqnedit.php?latex=cross\_entropy&space;=&space;-\sum_{i=1}^m[{y_ilog(p_i)&plus;(1-y_i)log(1-p_i)}]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?cross\_entropy&space;=&space;-\sum_{i=1}^m[{y_ilog(p_i)&plus;(1-y_i)log(1-p_i)}]" title="cross\_entropy = -\sum_{i=1}^m[{y_ilog(p_i)+(1-y_i)log(1-p_i)}]" /></a>, aka., -log(likelihood) <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=cross\_entropy&space;=&space;-\sum_{i=1}^m[{y_ilog(p_i)&plus;(1-y_i)log(1-p_i)}]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?cross\_entropy&space;=&space;-\sum_{i=1}^m[{y_ilog(p_i)&plus;(1-y_i)log(1-p_i)}]" title="cross\_entropy = -\sum_{i=1}^m[{y_ilog(p_i)+(1-y_i)log(1-p_i)}]" /></a>, aka., -log(likelihood)
 
     Lower entropy means better model <br>
     Goal: minimize the cross entropy
@@ -448,7 +448,7 @@ Orthogonalization
 
 - #### Exponentially weighted moving averages
 
-  <a href="https://www.codecogs.com/eqnedit.php?latex=\overline{\theta_t}=\beta&space;\&space;\overline{\theta_{t-1}}&space;&plus;&space;(1-\beta)&space;\theta_t" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overline{\theta_t}=\beta&space;\&space;\overline{\theta_{t-1}}&space;&plus;&space;(1-\beta)&space;\theta_t" title="\overline{\theta_t}=\beta \ \overline{\theta_{t-1}} + (1-\beta) \theta_t" /></a>, where <a href="https://www.codecogs.com/eqnedit.php?latex=\overline{\theta_t}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overline{\theta_t}" title="\overline{\theta_t}" /></a> is the moving average of <a href="https://www.codecogs.com/eqnedit.php?latex=\theta_t" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta_t" title="\theta_t" /></a> that approximately averages over <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{1}{1-\beta}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{1}{1-\beta}" title="\frac{1}{1-\beta}" /></a> time steps. Note that <a href="https://www.codecogs.com/eqnedit.php?latex=\beta^{\frac{1}{1-\beta}}&space;=&space;\frac{1}{e}&space;\approx&space;0.368" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta^{\frac{1}{1-\beta}}&space;=&space;\frac{1}{e}&space;\approx&space;0.368" title="\beta^{\frac{1}{1-\beta}} = \frac{1}{e} \approx 0.368" /></a>. 
+  <a href="https://www.codecogs.com/eqnedit.php?latex=\overline{\theta_t}=\beta&space;\&space;\overline{\theta_{t-1}}&space;&plus;&space;(1-\beta)&space;\theta_t" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overline{\theta_t}=\beta&space;\&space;\overline{\theta_{t-1}}&space;&plus;&space;(1-\beta)&space;\theta_t" title="\overline{\theta_t}=\beta \ \overline{\theta_{t-1}} + (1-\beta) \theta_t" /></a>, where <a href="https://www.codecogs.com/eqnedit.php?latex=\overline{\theta_t}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overline{\theta_t}" title="\overline{\theta_t}" /></a> is the moving average of <a href="https://www.codecogs.com/eqnedit.php?latex=\theta_t" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta_t" title="\theta_t" /></a> that approximately averages over <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{1}{1-\beta}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{1}{1-\beta}" title="\frac{1}{1-\beta}" /></a> time steps. Note that <a href="https://www.codecogs.com/eqnedit.php?latex=\beta^{\frac{1}{1-\beta}}&space;=&space;\frac{1}{e}&space;\approx&space;0.368" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta^{\frac{1}{1-\beta}}&space;=&space;\frac{1}{e}&space;\approx&space;0.368" title="\beta^{\frac{1}{1-\beta}} = \frac{1}{e} \approx 0.368" /></a>.
   
   - (-) Initial phase of the moving average tend to be underestimated. To correct for the bias and make it more accurate, use <a href="https://www.codecogs.com/eqnedit.php?latex=\overline{\theta_t}^{\&space;corrected}&space;=&space;\frac{\overline{\theta_t}}{1-\beta^t}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overline{\theta_t}^{\&space;corrected}&space;=&space;\frac{\overline{\theta_t}}{1-\beta^t}" title="\overline{\theta_t}^{\ corrected} = \frac{\overline{\theta_t}}{1-\beta^t}" /></a>
   - (+) Takes very little memory and is computationally efficient
@@ -1180,8 +1180,6 @@ There are two ways to build Keras models: *sequential* and *functional*.
     SVG(model_to_dot(happyModel).create(prog='dot', format='svg'))
     ```
 
-
-
 ## 5. Deep learning with PyTorch
 
 [PyTorch](https://pytorch.org/) is a framework for building and training neural networks
@@ -1311,7 +1309,7 @@ There are two ways to build Keras models: *sequential* and *functional*.
 - #### Make iterator of data
 
   ```python
-  # Looping through it, get a batch on each loop 
+  # Looping through it, get a batch on each loop
   for images, labels in trainloader:
       pass
 
@@ -1365,17 +1363,17 @@ Due to [inaccuracies with representing numbers as floating points](https://docs.
           self.fc2 = nn.Linear(128, 64)
           # Output layer, 10 units - one for each digit
           self.fc3 = nn.Linear(64, 10)
-          
+
       def forward(self, x):
           ''' Forward pass through the network, returns the output logits '''
-          
+
           x = self.fc1(x)
           x = F.relu(x)
           x = self.fc2(x)
           x = F.relu(x)
           x = self.fc3(x)
           # x = F.softmax(x, dim=1)
-          
+
           return x
 
   model = Network()
@@ -1390,7 +1388,7 @@ Due to [inaccuracies with representing numbers as floating points](https://docs.
   class Network(nn.Module):
       def __init__(self, input_size, output_size, hidden_layers, drop_p=0.5):
           ''' Builds a feedforward network with arbitrary hidden layers.
-          
+
               Arguments
               ---------
               input_size: integer, size of the input
@@ -1399,30 +1397,30 @@ Due to [inaccuracies with representing numbers as floating points](https://docs.
               drop_p: float between 0 and 1, dropout probability
           '''
           super().__init__()
-          
+
           # Add the first layer, input to a hidden layer
           self.hidden_layers = nn.ModuleList([nn.Linear(input_size, hidden_layers[0])])
-          
+
           # Add a variable number of more hidden layers
           layer_sizes = zip(hidden_layers[:-1], hidden_layers[1:])
           self.hidden_layers.extend([nn.Linear(h1, h2) for h1, h2 in layer_sizes])
-          
+
           # Add the output layer
           self.output = nn.Linear(hidden_layers[-1], output_size)
-          
+
           # Include dropout
           self.dropout = nn.Dropout(p=drop_p) # Has to be turned off during inference
-          
+
       def forward(self, x):
           ''' Forward pass through the network, returns the output logits '''
-          
+
           # Forward through each layer in `hidden_layers`, with ReLU activation and dropout
           for linear in self.hidden_layers:
               x = F.relu(linear(x))
               x = self.dropout(x)
-          
+
           x = self.output(x)
-          
+
           return F.log_softmax(x, dim=1)
   ```
 
@@ -1506,7 +1504,7 @@ Due to [inaccuracies with representing numbers as floating points](https://docs.
           ps = torch.exp(output) # get the class probabilities from log-softmax
           equality = (labels.data == ps.max(dim=1)[1])
           accuracy += equality.type(torch.FloatTensor).mean()
-      
+
       return test_loss, accuracy
   ```
 
@@ -1536,11 +1534,11 @@ Torch provides a module, `autograd`, for automatically calculating the gradient 
 - #### An example forward pass
 
   ```python
-  # Grab some data 
+  # Grab some data
   dataiter = iter(trainloader)
   images, labels = dataiter.next()
 
-  # Resize images into a 1D vector, new shape is (batch size, color channels, image pixels) 
+  # Resize images into a 1D vector, new shape is (batch size, color channels, image pixels)
   images.resize_(64, 1, 784)
   # or images.resize_(images.shape[0], 1, 784) to automatically get batch size
 
@@ -1566,10 +1564,10 @@ Torch provides a module, `autograd`, for automatically calculating the gradient 
 
           # Flatten MNIST images into a 784 long vector
           images.resize_(images.size()[0], 784)
-          
+
           # Clear the gradients, do this because gradients are accumulated
           optimizer.zero_grad()
-          
+
           # Forward pass to get the output
           output = model.forward(images)
 
@@ -1578,17 +1576,17 @@ Torch provides a module, `autograd`, for automatically calculating the gradient 
 
           # Backward pass to calculate the gradients
           loss.backward()
-          
+
           # Update weights
           optimizer.step()
-          
+
           running_loss += loss.item()
-          
+
           if steps % print_every == 0:
               print("Epoch: {}/{}... ".format(e+1, epochs),
                     "Loss: {:.4f}".format(running_loss/print_every))
               # print('Updated weights - ', model.fc1.weight)
-              
+
               running_loss = 0
   ```
 
@@ -1604,7 +1602,7 @@ Torch provides a module, `autograd`, for automatically calculating the gradient 
 
       # Dropout is turned on for training
       model.train()
-      
+
       for images, labels in trainloader:
           steps += 1
           images.resize_(images.size()[0], 784)
@@ -1614,22 +1612,22 @@ Torch provides a module, `autograd`, for automatically calculating the gradient 
           loss.backward()
           optimizer.step()
           running_loss += loss.item()
-          
+
           if steps % print_every == 0:
               # Make sure network is in eval mode for inference
               model.eval()
-              
+
               # Turn off gradients for validation, saves memory and computations
               with torch.no_grad():
                   test_loss, accuracy = validation(model, testloader, criterion)
-                  
+
               print("Epoch: {}/{}.. ".format(e+1, epochs),
                     "Training Loss: {:.3f}.. ".format(running_loss/print_every),
                     "Test Loss: {:.3f}.. ".format(test_loss/len(testloader)),
                     "Test Accuracy: {:.3f}".format(accuracy/len(testloader)))
-              
+
               running_loss = 0
-              
+
               # Make sure training is back on
               model.train()
   ```
@@ -1684,7 +1682,7 @@ Need to save both model architecture and network parameters (`state_dict`)
                               checkpoint['output_size'],
                               checkpoint['hidden_layers'])
       model.load_state_dict(checkpoint['state_dict'])
-      
+
       return model
 
   model = load_checkpoint('checkpoint.pth')
@@ -1695,13 +1693,13 @@ Need to save both model architecture and network parameters (`state_dict`)
 
 Transfer learning: use a pre-trained network on images not in the training set.
 
-Pre-trained networks, e.g. networks trained on [ImageNet](http://www.image-net.org/) (available from [`torchvision.models`](http://pytorch.org/docs/0.3.0/torchvision/models.html)), can be used to solved challenging problems in computer vision. ImageNet, a massive dataset with >1 million labeled images in 1000 categories, is used to train deep neural networks using an architecture called [convolutional layers](https://www.youtube.com/watch?v=2-Ol7ZB0MmU). These trained models work astonishingly well as feature detectors for images they weren't trained on. Learn more about convolutional neural networks [here](https://medium.freecodecamp.org/an-intuitive-guide-to-convolutional-neural-networks-260c2de0a050).
+Pre-trained networks, e.g. networks trained on [ImageNet](http://www.image-net.org/) (available from [`torchvision.models`](http://pytorch.org/docs/0.3.0/torchvision/models.html)), can be used to solved challenging problems in computer vision. ImageNet, a massive dataset with >1 million labeled images in 1000 categories, is used to train deep neural networks using an architecture called convolutional layers. These trained models work astonishingly well as feature detectors for images they weren't trained on. Learn more about convolutional neural networks [here](cnn.md).
 
 <img src="Resources/deep_learning/cnn.png">
 
 - #### Initialize data
 
-  - Most of the pretrained models require the input to be 224x224 images. 
+  - Most of the pretrained models require the input to be 224x224 images.
   - Match the normalization used when the models were trained: for the color channels, the means are [0.485, 0.456, 0.406] and the standard deviations are [0.229, 0.224, 0.225]
 
   ```python
@@ -1712,12 +1710,12 @@ Pre-trained networks, e.g. networks trained on [ImageNet](http://www.image-net.o
                                          transforms.RandomResizedCrop(224),
                                          transforms.RandomHorizontalFlip(),
                                          transforms.ToTensor(),
-                                         transforms.Normalize([0.485, 0.456, 0.406], 
+                                         transforms.Normalize([0.485, 0.456, 0.406],
                                                               [0.229, 0.224, 0.225])])
   test_transforms = transforms.Compose([transforms.Resize(256),
                                         transforms.CenterCrop(224),
                                         transforms.ToTensor(),
-                                        transforms.Normalize([0.485, 0.456, 0.406], 
+                                        transforms.Normalize([0.485, 0.456, 0.406],
                                                              [0.229, 0.224, 0.225])])
 
   # Pass transforms in here, then run the next cell to see how the transforms look
@@ -1750,7 +1748,7 @@ Pre-trained networks, e.g. networks trained on [ImageNet](http://www.image-net.o
                             ('fc2', nn.Linear(500, 2)),
                             ('output', nn.LogSoftmax(dim=1))
                             ]))
-      
+
   model.classifier = classifier
   ```
 
@@ -1778,9 +1776,9 @@ Pre-trained networks, e.g. networks trained on [ImageNet](http://www.image-net.o
 
   for e in range(epochs):
       for images, labels in iter(trainloader):
-          
+
           images, labels = images.to(device), labels.to(device) # Move input and label tensors to the GPU
-          
+
           steps += 1
           optimizer.zero_grad()
           output = model.forward(images)
@@ -1788,14 +1786,14 @@ Pre-trained networks, e.g. networks trained on [ImageNet](http://www.image-net.o
           loss.backward()
           optimizer.step()
           running_loss += loss.item()
-          
+
           # get the class probabilities from log-softmax
-          ps = torch.exp(output) 
+          ps = torch.exp(output)
           equality = (labels.data == ps.max(dim=1)[1])
           train_accuracy += equality.type(torch.FloatTensor).mean()
-          
+
           if steps % print_every == 0:
-              
+
               print("Epoch: {}/{}.. ".format(e+1, epochs),
                 "Training Loss: {:.3f}.. ".format(running_loss/print_every))
               running_loss = 0
