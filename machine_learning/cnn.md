@@ -548,12 +548,12 @@ YOLO ("you only look once") is a popular algoritm because it achieves high accur
 
 - #### Face verification vs. face recognition
 
-  - Verification
+  - Verification (1:1 matching problem)
 
     - Input image, name/ID
     - Output whether the input image is that of the claimed person
 
-  - Recognition
+  - Recognition (1:K matching problem)
 
     - Has a database of K persons
     - Get an input image
@@ -581,7 +581,7 @@ YOLO ("you only look once") is a popular algoritm because it achieves high accur
 
 - #### Triplet loss function for face verification
 
-  Define an applied gradient descent to learn the parameters of the neural network so that it outputs a good encoding for the pictures of faces. [Schroff et al.,2015, FaceNet: A unified embedding for face recognition and clustering]
+  Define an applied gradient descent to learn the parameters of the neural network so that it outputs a good encoding for the pictures of faces. <br> [Schroff et al.,2015, FaceNet: A unified embedding for face recognition and clustering]
 
   <img src="Resources/deep_learning/cnn/siamese_anchor.png" width=550>
 
@@ -609,7 +609,7 @@ YOLO ("you only look once") is a popular algoritm because it achieves high accur
 
 - #### Binary classification for face verification
 
-  Alternative method to the triplet loss. [Taigman et. al., 2014. DeepFace closing the gap to human level performance]
+  Alternative method to the triplet loss. <br> [Taigman et. al., 2014. DeepFace closing the gap to human level performance]
 
   - Learning the similarity function
 
@@ -635,7 +635,7 @@ YOLO ("you only look once") is a popular algoritm because it achieves high accur
       <img src="Resources/deep_learning/cnn/cnn_visual.png" width=700>
 
       <img src="Resources/deep_learning/cnn/cnn_visual2.png" width=700> <br>
-      Deeper layers detect more complex objects. [Zeiler and Fergus., 2013, Visualizing and understanding convolutional networks]
+      Deeper layers detect more complex objects. <br> [Zeiler and Fergus., 2013, Visualizing and understanding convolutional networks]
 
 - #### Cost function of the generated image
 
@@ -702,11 +702,4 @@ YOLO ("you only look once") is a popular algoritm because it achieves high accur
     - Overall style cost function
 
       <a href="https://www.codecogs.com/eqnedit.php?latex=J_{style}(S,G)&space;=&space;\sum_{\lambda}&space;\lambda^{(l)}&space;J_{style}^{(l)}(S,G)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J_{style}(S,G)&space;=&space;\sum_{\lambda}&space;\lambda^{(l)}&space;J_{style}^{(l)}(S,G)" title="J_{style}(S,G) = \sum_{\lambda} \lambda^{(l)} J_{style}^{(l)}(S,G)" /></a>
-
-
-
-
-
-
-
 
