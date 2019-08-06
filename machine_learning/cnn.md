@@ -27,6 +27,7 @@
     - [4.6. Region proposals](#46-region-proposals)
   - [5. Special applications: face recognition & neural style transfer](#5-special-applications-face-recognition--neural-style-transfer)
     - [5.1. Face recognition](#51-face-recognition)
+    - [5.2. Neural style transfer](#52-neural-style-transfer)
 
 ## 1. Foundations of convolutional neural networks (CNN)
 
@@ -618,5 +619,93 @@ YOLO ("you only look once") is a popular algoritm because it achieves high accur
         <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}&space;=&space;\sigma\left&space;(&space;\sum_k&space;w_k&space;\left&space;|&space;f(x_i)_k-f(x_j)_k&space;\right&space;|&space;&plus;b&space;\right&space;)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}&space;=&space;\sigma\left&space;(&space;\sum_k&space;w_k&space;\left&space;|&space;f(x_i)_k-f(x_j)_k&space;\right&space;|&space;&plus;b&space;\right&space;)" title="\hat{y} = \sigma\left ( \sum_k w_k \left | f(x_i)_k-f(x_j)_k \right | +b \right )" /></a>, where k represents a unit of the encoding layer.
 
         Can also use Chi-square similarity <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}&space;=&space;\sigma\left&space;(&space;\sum_k&space;w_k&space;\frac{(f(x_i)_k-f(x_j)_k)^2}{f(x_i)_k&plus;f(x_j)_k}&space;&plus;b&space;\right&space;)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}&space;=&space;\sigma\left&space;(&space;\sum_k&space;w_k&space;\frac{(f(x_i)_k-f(x_j)_k)^2}{f(x_i)_k&plus;f(x_j)_k}&space;&plus;b&space;\right&space;)" title="\hat{y} = \sigma\left ( \sum_k w_k \frac{(f(x_i)_k-f(x_j)_k)^2}{f(x_i)_k+f(x_j)_k} +b \right )" /></a>
+
+### 5.2. Neural style transfer
+
+- #### Example of neural style transfer
+
+    <img src="Resources/deep_learning/cnn/neural_style_transfer.png" width=300> [Image credit: Justin Johnson]
+
+- #### Visualizing what a deep network is learning
+
+  1. Pick a unit in layer 1. Find the nine image patches that maximize the unit’s activation.
+  2. Repeat for other units.
+
+        <br>
+
+        <img src="Resources/deep_learning/cnn/cnn_visual.png" width=700>
+
+        <img src="Resources/deep_learning/cnn/cnn_visual2.png" width=700> <br>
+        Deeper layers detect more complex objects. [Zeiler and Fergus., 2013, Visualizing and understanding convolutional networks]
+
+- #### Cost function of the generated image
+
+  - Neural style transfer cost function
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=J(G)=\alpha\&space;J_{content}(C,G)&plus;\beta\&space;J_{style}(S,G)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J(G)=\alpha\&space;J_{content}(C,G)&plus;\beta\&space;J_{style}(S,G)" title="J(G)=\alpha\ J_{content}(C,G)+\beta\ J_{style}(S,G)" /></a>, where
+
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=J_{content}(C,G)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J_{content}(C,G)" title="J_{content}(C,G)" /></a> measures how similar is the content of the generated image (G) to the content of the content image (C).
+
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=J_{style}(S,G)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J_{style}(S,G)" title="J_{style}(S,G)" /></a> measures how similar is the style of the generated image (G) to the style of the style image (S).
+
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=\beta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\beta" title="\beta" /></a> are the hyperparameters that specify the relative weighting between the content cost and the style cost.
+
+    [Gatys et al., 2015. A neural algorithm of artistic style.]
+
+  - Find the generated image G
+
+    1. Initiate G randomly
+
+        G: 100×100×3
+
+    2. Use gradient descent to minimize J(G)
+
+        Updating the pixle values of G <br>
+        <a href="https://www.codecogs.com/eqnedit.php?latex=G:=G-\frac{\partial}{\partial&space;G}&space;J(G)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?G:=G-\frac{\partial}{\partial&space;G}&space;J(G)" title="G:=G-\frac{\partial}{\partial G} J(G)" /></a>
+
+        <img src="Resources/deep_learning/cnn/neural_style_transfer_eg1_CS.png" width=300> <br>
+        <img src="Resources/deep_learning/cnn/neural_style_transfer_eg1_steps.png" width=150> <br>
+        [Gatys et al., 2015. A neural algorithm of artistic style.]
+
+- #### Content cost function
+
+  - Use hidden layer l (not too shallow or deep) to compute content cost. Use pre-trained ConvNet. (E.g., VGG network). Let <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}_C" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}_C" title="a^{(l)}_C" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}_G" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}_G" title="a^{(l)}_G" /></a> be the activation of layer l on the images.
+
+  - If <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}_C" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}_C" title="a^{(l)}_C" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}_G" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}_G" title="a^{(l)}_G" /></a> are similar, both images have similar content.
+
+      <a href="https://www.codecogs.com/eqnedit.php?latex=J_{content}(C,G)&space;=&space;\frac{1}{2}\left&space;\|&space;a^{(l)}_C&space;-&space;a^{(l)}_G&space;\right&space;\|^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J_{content}(C,G)&space;=&space;\frac{1}{2}\left&space;\|&space;a^{(l)}_C&space;-&space;a^{(l)}_G&space;\right&space;\|^2" title="J_{content}(C,G) = \frac{1}{2}\left \| a^{(l)}_C - a^{(l)}_G \right \|^2" /></a>, which is element-wise sum of squares of activation differences between C and G.
+
+- #### Style cost function
+
+  - Meaning of the “style” of an image
+
+      Use layer l’s activation to measure “style.” Define style as correlation (unnormalized cross-covariance) between activations across channels. The correlation measures how often the textures occur together and don't occur together in different parts of an image.
+
+      <img src="Resources/deep_learning/cnn/style.png" width=300>
+
+  - Style matrix
+
+      Let <a href="https://www.codecogs.com/eqnedit.php?latex=a_{i,j,k}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a_{i,j,k}^{(l)}" title="a_{i,j,k}^{(l)}" /></a> = activation at (i, j, k). The style matrix <a href="https://www.codecogs.com/eqnedit.php?latex=G^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?G^{(l)}" title="G^{(l)}" /></a> is <a href="https://www.codecogs.com/eqnedit.php?latex=n_C^{(l)}\times&space;n_C^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?n_C^{(l)}\times&space;n_C^{(l)}" title="n_C^{(l)}\times n_C^{(l)}" /></a>.
+
+      <a href="https://www.codecogs.com/eqnedit.php?latex=G_{kk'}^{(l)}&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;a_{ijk}^{(l)}&space;\&space;a_{ijk'}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?G_{kk'}^{(l)}&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;a_{ijk}^{(l)}&space;\&space;a_{ijk'}^{(l)}" title="G_{kk'}^{(l)} = \sum_{i=1}^{n_H^{(l)}} \sum_{j=1}^{n_W^{(l)}} a_{ijk}^{(l)} \ a_{ijk'}^{(l)}" /></a>, which is also known as the "gram matrix" in linear algebra.
+
+  - Cost function
+
+    - Style cost function of each layer
+
+        <a href="https://www.codecogs.com/eqnedit.php?latex=J_{style}^{(l)}(S,G)&space;=&space;\frac{1}{C}&space;\left&space;\|&space;G_S^{(l)}&space;-&space;G_G^{(l)}&space;\right&space;\|_F^2&space;=&space;\frac{1}{(2&space;n_H^{(l)}&space;n_W^{(l)}&space;n_C^{(l)})^2}&space;\sum_k&space;\sum_{k'}&space;\left&space;(&space;(G_{kk'}^{(l)})_S&space;-&space;(G_{kk'}^{(l)})_G&space;\right&space;)^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J_{style}^{(l)}(S,G)&space;=&space;\frac{1}{C}&space;\left&space;\|&space;G_S^{(l)}&space;-&space;G_G^{(l)}&space;\right&space;\|_F^2&space;=&space;\frac{1}{(2&space;n_H^{(l)}&space;n_W^{(l)}&space;n_C^{(l)})^2}&space;\sum_k&space;\sum_{k'}&space;\left&space;(&space;(G_{kk'}^{(l)})_S&space;-&space;(G_{kk'}^{(l)})_G&space;\right&space;)^2" title="J_{style}^{(l)}(S,G) = \frac{1}{C} \left \| G_S^{(l)} - G_G^{(l)} \right \|_F^2 = \frac{1}{(2 n_H^{(l)} n_W^{(l)} n_C^{(l)})^2} \sum_k \sum_{k'} \left ( (G_{kk'}^{(l)})_S - (G_{kk'}^{(l)})_G \right )^2" /></a>, where
+
+        <a href="https://www.codecogs.com/eqnedit.php?latex=(G_{kk'}^{(l)})_S&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;(a_{ijk}^{(l)})_S&space;\&space;(a_{ijk'}^{(l)})_S" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(G_{kk'}^{(l)})_S&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;(a_{ijk}^{(l)})_S&space;\&space;(a_{ijk'}^{(l)})_S" title="(G_{kk'}^{(l)})_S = \sum_{i=1}^{n_H^{(l)}} \sum_{j=1}^{n_W^{(l)}} (a_{ijk}^{(l)})_S \ (a_{ijk'}^{(l)})_S" /></a> for style image <br>
+        <a href="https://www.codecogs.com/eqnedit.php?latex=(G_{kk'}^{(l)})_G&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;(a_{ijk}^{(l)})_G&space;\&space;(a_{ijk'}^{(l)})_G" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(G_{kk'}^{(l)})_G&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;(a_{ijk}^{(l)})_G&space;\&space;(a_{ijk'}^{(l)})_G" title="(G_{kk'}^{(l)})_G = \sum_{i=1}^{n_H^{(l)}} \sum_{j=1}^{n_W^{(l)}} (a_{ijk}^{(l)})_G \ (a_{ijk'}^{(l)})_G" /></a> for generated image
+
+    - Overall style cost function
+
+        <a href="https://www.codecogs.com/eqnedit.php?latex=J_{style}(S,G)&space;=&space;\sum_{\lambda}&space;\lambda^{(l)}&space;J_{style}^{(l)}(S,G)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J_{style}(S,G)&space;=&space;\sum_{\lambda}&space;\lambda^{(l)}&space;J_{style}^{(l)}(S,G)" title="J_{style}(S,G) = \sum_{\lambda} \lambda^{(l)} J_{style}^{(l)}(S,G)" /></a>
+
+
+
+
+
+
 
 
