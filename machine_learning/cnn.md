@@ -149,17 +149,17 @@
 
   - Output: <a href="https://www.codecogs.com/eqnedit.php?latex=n_H^{(l)}&space;\times&space;n_W^{(l)}&space;\times&space;n_C^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?n_H^{(l)}&space;\times&space;n_W^{(l)}&space;\times&space;n_C^{(l)}" title="n_H^{(l)} \times n_W^{(l)} \times n_C^{(l)}" /></a>, where
 
-      <a href="https://www.codecogs.com/eqnedit.php?latex=n_H^{(l)}&space;=&space;\left&space;\lfloor&space;\frac{n_H^{(l-1)}&space;&plus;&space;2p^{(l)}&space;-&space;f^{(l)}}{s^{(l)}}&plus;1&space;\right&space;\rfloor" target="_blank"><img src="https://latex.codecogs.com/gif.latex?n_H^{(l)}&space;=&space;\left&space;\lfloor&space;\frac{n_H^{(l-1)}&space;&plus;&space;2p^{(l)}&space;-&space;f^{(l)}}{s^{(l)}}&plus;1&space;\right&space;\rfloor" title="n_H^{(l)} = \left \lfloor \frac{n_H^{(l-1)} + 2p^{(l)} - f^{(l)}}{s^{(l)}}+1 \right \rfloor" /></a> <br>
-      <a href="https://www.codecogs.com/eqnedit.php?latex=n_W^{(l)}&space;=&space;\left&space;\lfloor&space;\frac{n_W^{(l-1)}&space;&plus;&space;2p^{(l)}&space;-&space;f^{(l)}}{s^{(l)}}&plus;1&space;\right&space;\rfloor" target="_blank"><img src="https://latex.codecogs.com/gif.latex?n_W^{(l)}&space;=&space;\left&space;\lfloor&space;\frac{n_W^{(l-1)}&space;&plus;&space;2p^{(l)}&space;-&space;f^{(l)}}{s^{(l)}}&plus;1&space;\right&space;\rfloor" title="n_W^{(l)} = \left \lfloor \frac{n_W^{(l-1)} + 2p^{(l)} - f^{(l)}}{s^{(l)}}+1 \right \rfloor" /></a>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=n_H^{(l)}&space;=&space;\left&space;\lfloor&space;\frac{n_H^{(l-1)}&space;&plus;&space;2p^{(l)}&space;-&space;f^{(l)}}{s^{(l)}}&plus;1&space;\right&space;\rfloor" target="_blank"><img src="https://latex.codecogs.com/gif.latex?n_H^{(l)}&space;=&space;\left&space;\lfloor&space;\frac{n_H^{(l-1)}&space;&plus;&space;2p^{(l)}&space;-&space;f^{(l)}}{s^{(l)}}&plus;1&space;\right&space;\rfloor" title="n_H^{(l)} = \left \lfloor \frac{n_H^{(l-1)} + 2p^{(l)} - f^{(l)}}{s^{(l)}}+1 \right \rfloor" /></a> <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=n_W^{(l)}&space;=&space;\left&space;\lfloor&space;\frac{n_W^{(l-1)}&space;&plus;&space;2p^{(l)}&space;-&space;f^{(l)}}{s^{(l)}}&plus;1&space;\right&space;\rfloor" target="_blank"><img src="https://latex.codecogs.com/gif.latex?n_W^{(l)}&space;=&space;\left&space;\lfloor&space;\frac{n_W^{(l-1)}&space;&plus;&space;2p^{(l)}&space;-&space;f^{(l)}}{s^{(l)}}&plus;1&space;\right&space;\rfloor" title="n_W^{(l)} = \left \lfloor \frac{n_W^{(l-1)} + 2p^{(l)} - f^{(l)}}{s^{(l)}}+1 \right \rfloor" /></a>
 
   - Each filter: <a href="https://www.codecogs.com/eqnedit.php?latex=f^{(l)}&space;\times&space;f^{(l)}&space;\times&space;n_C^{(l-1)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?f^{(l)}&space;\times&space;f^{(l)}&space;\times&space;n_C^{(l-1)}" title="f^{(l)} \times f^{(l)} \times n_C^{(l-1)}" /></a>
 
-      Weights: <a href="https://www.codecogs.com/eqnedit.php?latex=f^{(l)}&space;\times&space;f^{(l)}&space;\times&space;n_C^{(l-1)}&space;\times&space;n_C^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?f^{(l)}&space;\times&space;f^{(l)}&space;\times&space;n_C^{(l-1)}&space;\times&space;n_C^{(l)}" title="f^{(l)} \times f^{(l)} \times n_C^{(l-1)} \times n_C^{(l)}" /></a> <br>
-      Bias: <a href="https://www.codecogs.com/eqnedit.php?latex=1&space;\times&space;1&space;\times&space;1&space;\times&space;n_C^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?1&space;\times&space;1&space;\times&space;1&space;\times&space;n_C^{(l)}" title="1 \times 1 \times 1 \times n_C^{(l)}" /></a>
+    Weights: <a href="https://www.codecogs.com/eqnedit.php?latex=f^{(l)}&space;\times&space;f^{(l)}&space;\times&space;n_C^{(l-1)}&space;\times&space;n_C^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?f^{(l)}&space;\times&space;f^{(l)}&space;\times&space;n_C^{(l-1)}&space;\times&space;n_C^{(l)}" title="f^{(l)} \times f^{(l)} \times n_C^{(l-1)} \times n_C^{(l)}" /></a> <br>
+    Bias: <a href="https://www.codecogs.com/eqnedit.php?latex=1&space;\times&space;1&space;\times&space;1&space;\times&space;n_C^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?1&space;\times&space;1&space;\times&space;1&space;\times&space;n_C^{(l)}" title="1 \times 1 \times 1 \times n_C^{(l)}" /></a>
 
   - Activation: <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}&space;\rightarrow&space;n_H^{(l)}&space;\times&space;n_W^{(l)}&space;\times&space;n_C^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}&space;\rightarrow&space;n_H^{(l)}&space;\times&space;n_W^{(l)}&space;\times&space;n_C^{(l)}" title="a^{(l)} \rightarrow n_H^{(l)} \times n_W^{(l)} \times n_C^{(l)}" /></a>
 
-      Activation vectorized: <a href="https://www.codecogs.com/eqnedit.php?latex=A^{(l)}&space;\rightarrow&space;m&space;\times&space;n_H^{(l)}&space;\times&space;n_W^{(l)}&space;\times&space;n_C^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?A^{(l)}&space;\rightarrow&space;m&space;\times&space;n_H^{(l)}&space;\times&space;n_W^{(l)}&space;\times&space;n_C^{(l)}" title="A^{(l)} \rightarrow m \times n_H^{(l)} \times n_W^{(l)} \times n_C^{(l)}" /></a>
+    Activation vectorized: <a href="https://www.codecogs.com/eqnedit.php?latex=A^{(l)}&space;\rightarrow&space;m&space;\times&space;n_H^{(l)}&space;\times&space;n_W^{(l)}&space;\times&space;n_C^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?A^{(l)}&space;\rightarrow&space;m&space;\times&space;n_H^{(l)}&space;\times&space;n_W^{(l)}&space;\times&space;n_C^{(l)}" title="A^{(l)} \rightarrow m \times n_H^{(l)} \times n_W^{(l)} \times n_C^{(l)}" /></a>
 
     <br><img src="Resources/deep_learning/cnn/convolution_layer.png" width=700>
 
@@ -235,113 +235,113 @@
 
 - #### LeNet-5
 
-    <img src="Resources/deep_learning/cnn/lenet5.png" width=700> <br>
-    [LeCun et al., 1998. Gradient-based learning applied to document recognition]
+  <img src="Resources/deep_learning/cnn/lenet5.png" width=700> <br>
+  [LeCun et al., 1998. Gradient-based learning applied to document recognition]
 
-    - The goal of LeNet-5 was to recognize handwritten digits on grayscale images of 32 by 32 by 1.
-    - From left to right, the height and width decrease, and the number of channels increases.
-    - ~60K parameters
+  - The goal of LeNet-5 was to recognize handwritten digits on grayscale images of 32 by 32 by 1.
+  - From left to right, the height and width decrease, and the number of channels increases.
+  - ~60K parameters
 
 - #### AlexNet
 
-    <img src="Resources/deep_learning/cnn/alexnet.png" width=700> <br>
-    [Krizhevsky et al., 2012. ImageNet classification with deep convolutional neural networks]
+  <img src="Resources/deep_learning/cnn/alexnet.png" width=700> <br>
+  [Krizhevsky et al., 2012. ImageNet classification with deep convolutional neural networks]
 
-    - Similar to LeNet-5 but much bigger
-    - Uses ReLu activation rather than sigmoid/tanh
-    - ~60M parameters
+  - Similar to LeNet-5 but much bigger
+  - Uses ReLu activation rather than sigmoid/tanh
+  - ~60M parameters
 
 - #### VGG
 
-    <img src="Resources/deep_learning/cnn/vgg.png" width=700> <br>
-    [Simonyan & Zisserman 2015. Very deep convolutional networks for large-scale image recognition]
+  <img src="Resources/deep_learning/cnn/vgg.png" width=700> <br>
+  [Simonyan & Zisserman 2015. Very deep convolutional networks for large-scale image recognition]
 
-    - Relatively deep CNN, 16 layers that have weights
-    - Simplified architecture, with same hyperparameters among CONV layers, and same hyperparameters among POOL layers, except for the number of channels that roughly doubles for every step.
-    - ~138M parameters
+  - Relatively deep CNN, 16 layers that have weights
+  - Simplified architecture, with same hyperparameters among CONV layers, and same hyperparameters among POOL layers, except for the number of channels that roughly doubles for every step.
+  - ~138M parameters
 
 ### 2.2. ResNet
 
 - #### The problem of very deep neural networks
 
-    The main benefit of a very deep network is that it can represent very complex functions. It can also learn features at many different levels of abstraction, from edges (at the lower layers) to very complex features (at the deeper layers). However, **very deep "plain" networks don't work in practice because they are hard to train due to vanishing gradients.**
+  The main benefit of a very deep network is that it can represent very complex functions. It can also learn features at many different levels of abstraction, from edges (at the lower layers) to very complex features (at the deeper layers). However, **very deep "plain" networks don't work in practice because they are hard to train due to vanishing gradients.**
 
-    - Vanishing gradient is a huge barrier to training: very deep networks often have a gradient signal that goes to zero quickly, thus making gradient descent unbearably slow. More specifically, during gradient descent, as you backprop from the final layer back to the first layer, you are multiplying by the weight matrix on each step, and thus the gradient can decrease exponentially quickly to zero (or, in rare cases, grow exponentially quickly and "explode" to take very large values).
-    - During training, you might therefore see the magnitude (or norm) of the gradient for the earlier layers descrease to zero very rapidly as training proceeds:
+  - Vanishing gradient is a huge barrier to training: very deep networks often have a gradient signal that goes to zero quickly, thus making gradient descent unbearably slow. More specifically, during gradient descent, as you backprop from the final layer back to the first layer, you are multiplying by the weight matrix on each step, and thus the gradient can decrease exponentially quickly to zero (or, in rare cases, grow exponentially quickly and "explode" to take very large values).
+  - During training, you might therefore see the magnitude (or norm) of the gradient for the earlier layers descrease to zero very rapidly as training proceeds:
 
-        <img src="Resources/deep_learning/cnn/vanishing_grad_kiank.png" width=500>
+    <img src="Resources/deep_learning/cnn/vanishing_grad_kiank.png" width=500>
 
 - #### Residual block
 
-    <img src="Resources/deep_learning/cnn/residual_block.png" width=350> <br>
-    [He et al., 2015. Deep residual networks for image recognition]
+  <img src="Resources/deep_learning/cnn/residual_block.png" width=350> <br>
+  [He et al., 2015. Deep residual networks for image recognition]
 
-    - **The identity block**
+  - **The identity block**
 
-        The input activation <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}" title="a^{(l)}" /></a> usually has the same dimension as the output activation <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(l&plus;2)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(l&plus;2)}" title="z^{(l+2)}" /></a> by using "same" padding. <br>
-        <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;a^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;a^{(l)})" title="a^{(l+2)} = g(z^{(l+2)}+a^{(l)})" /></a>
+    The input activation <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}" title="a^{(l)}" /></a> usually has the same dimension as the output activation <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(l&plus;2)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(l&plus;2)}" title="z^{(l+2)}" /></a> by using "same" padding. <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;a^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;a^{(l)})" title="a^{(l+2)} = g(z^{(l+2)}+a^{(l)})" /></a>
 
-        <img src="Resources/deep_learning/cnn/idblock3_kiank.png" width=600>
+    <img src="Resources/deep_learning/cnn/idblock3_kiank.png" width=600>
 
-    - **The convolution block**
+  - **The convolution block**
 
-        When <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(l&plus;2)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(l&plus;2)}" title="z^{(l+2)}" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}" title="a^{(l)}" /></a> don't have the same dimension, implement an additional matrix to convert <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}" title="a^{(l)}" /></a>'s dimension to <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(l&plus;2)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(l&plus;2)}" title="z^{(l+2)}" /></a>'s. <br> <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;w_sa^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;w_sa^{(l)})" title="a^{(l+2)} = g(z^{(l+2)}+w_sa^{(l)})" /></a>
+    When <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(l&plus;2)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(l&plus;2)}" title="z^{(l+2)}" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}" title="a^{(l)}" /></a> don't have the same dimension, implement an additional matrix to convert <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}" title="a^{(l)}" /></a>'s dimension to <a href="https://www.codecogs.com/eqnedit.php?latex=z^{(l&plus;2)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?z^{(l&plus;2)}" title="z^{(l+2)}" /></a>'s. <br> <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;w_sa^{(l)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l&plus;2)}&space;=&space;g(z^{(l&plus;2)}&plus;w_sa^{(l)})" title="a^{(l+2)} = g(z^{(l+2)}+w_sa^{(l)})" /></a>
 
-        <img src="Resources/deep_learning/cnn/convblock_kiank.png" width=600>
+    <img src="Resources/deep_learning/cnn/convblock_kiank.png" width=600>
 
 - #### Residual network
 
-    <img src="Resources/deep_learning/cnn/residual_network.png" width=600> <br>
+  <img src="Resources/deep_learning/cnn/residual_network.png" width=600> <br>
 
-    - (+) The skip connection helps to address vanishing gradient problem.
-    - (+) The skip-connection makes it easy for a ResNet block to learn an identity mapping between the input and the output of the ResNet block.
+  - (+) The skip connection helps to address vanishing gradient problem.
+  - (+) The skip-connection makes it easy for a ResNet block to learn an identity mapping between the input and the output of the ResNet block.
 
-        <img src="Resources/deep_learning/cnn/resnet_vs_plain.png" width=500>
+    <img src="Resources/deep_learning/cnn/resnet_vs_plain.png" width=500>
 
 - #### Why ResNets work
 
-    - (+) Allows to train much deeper neural networks without hurting the performance. Adding two layers in the neural network doesn't hurt the network's ability to do as well as this simpler network without these two extra layers, because identity function is easy for residual block to learn (not so easy in plain network).
+  - (+) Allows to train much deeper neural networks without hurting the performance. Adding two layers in the neural network doesn't hurt the network's ability to do as well as this simpler network without these two extra layers, because identity function is easy for residual block to learn (not so easy in plain network).
 
-    - (+) Helps with the vanishing and exploding gradient problems. Using a skip-connection helps the gradient to be directly backpropagated to earlier layers, and thus helps you to train deeper networks. May lead to a simpler architecture.
+  - (+) Helps with the vanishing and exploding gradient problems. Using a skip-connection helps the gradient to be directly backpropagated to earlier layers, and thus helps you to train deeper networks. May lead to a simpler architecture.
 
 ### 2.3. Inception neural networks
 
 - #### Networks in networks and 1 x 1 convolutions
 
-    <img src="Resources/deep_learning/cnn/networks_in_networks.png" width=500> <br>
-    [Lin et al., 2013. Network in network]
+  <img src="Resources/deep_learning/cnn/networks_in_networks.png" width=500> <br>
+  [Lin et al., 2013. Network in network]
 
-    - (+) Allows to shrink the number of channels and therefore, saves computation in some networks
-    - (+) Adds non-linearity by allowings to learn the more complex function
+  - (+) Allows to shrink the number of channels and therefore, saves computation in some networks
+  - (+) Adds non-linearity by allowings to learn the more complex function
 
 - #### Inception network motivation
 
-    <img src="Resources/deep_learning/cnn/inception_network_motivation.png" width=500> <br>
-    [Szegedy et al. 2014. Going deeper with convolutions]
+  <img src="Resources/deep_learning/cnn/inception_network_motivation.png" width=500> <br>
+  [Szegedy et al. 2014. Going deeper with convolutions]
 
 - #### Use 1 x 1 convolutions to solve the computational cost problem
 
-    - Convolution can be very costly
+  - Convolution can be very costly
 
-        <img src="Resources/deep_learning/cnn/inception_computation_cost.png" width=350>
+    <img src="Resources/deep_learning/cnn/inception_computation_cost.png" width=350>
 
-    - Use 1 x 1 convolution to reduce cost by a factor of ~10
+  - Use 1 x 1 convolution to reduce cost by a factor of ~10
 
-        <img src="Resources/deep_learning/cnn/inception_computation_cost2.png" width=500>
+    <img src="Resources/deep_learning/cnn/inception_computation_cost2.png" width=500>
 
 - #### Inception module
 
-    <img src="Resources/deep_learning/cnn/inception_module.png" width=400> <br>
-    Building block of the inception network <br>
-    [Szegedy et al., 2014, Going Deeper with Convolutions]
+  <img src="Resources/deep_learning/cnn/inception_module.png" width=400> <br>
+  Building block of the inception network <br>
+  [Szegedy et al., 2014, Going Deeper with Convolutions]
 
 - #### Inception network
 
-    <img src="Resources/deep_learning/cnn/inception_network.png" width=700> <br>
-    This particular network inception network is also known as "GoogleNet". <br>
-    [Szegedy et al., 2014, Going Deeper with Convolutions]
+  <img src="Resources/deep_learning/cnn/inception_network.png" width=700> <br>
+  This particular network inception network is also known as "GoogleNet". <br>
+  [Szegedy et al., 2014, Going Deeper with Convolutions]
 
-    - (+) The additional outputs from the hidden layers help to ensure that the features computed even in the hidden layers not too bad for predicting the output class of a image, which appears to have a regularizing effect on the inception network and helps prevent this network from overfitting.
+  - (+) The additional outputs from the hidden layers help to ensure that the features computed even in the hidden layers not too bad for predicting the output class of a image, which appears to have a regularizing effect on the inception network and helps prevent this network from overfitting.
 
 ## 3. Practical advices for using CNN
 
@@ -362,10 +362,10 @@
 
 - 2 sources of knowledge
 
-    - Labeled data
-    - Hand-engineered features/network architecture/other components
+  - Labeled data
+  - Hand-engineered features/network architecture/other components
 
-    <img src="Resources/deep_learning/cnn/data_hand_engineering.png" width=600>
+  <img src="Resources/deep_learning/cnn/data_hand_engineering.png" width=600>
 
 ### 3.3. Tips for doing well on benchmarks/winning competitions
 
@@ -379,67 +379,66 @@
 
 - Classification, localization, and detection
 
-    <img src="Resources/deep_learning/cnn/localization_detection.png" width=500>
+  <img src="Resources/deep_learning/cnn/localization_detection.png" width=500>
 
-    - **Classification:** Label as a car
-    - **Localization:** Label as a car AND specify a bounding box around the position of the car in the image. Records midpoint (bx, by), height bh, and width bw.
-    - **Detection:** There can be multiple objects and/or of different categories to localize.
+  - **Classification:** Label as a car
+  - **Localization:** Label as a car AND specify a bounding box around the position of the car in the image. Records midpoint (bx, by), height bh, and width bw.
+  - **Detection:** There can be multiple objects and/or of different categories to localize.
 
 - Defining the target lable y
 
-    <a href="https://www.codecogs.com/eqnedit.php?latex=y=\begin{bmatrix}&space;p_c&space;\\&space;b_x&space;\\&space;b_y&space;\\&space;b_h&space;\\&space;b_w&space;\\&space;c_1&space;\\&space;c_2&space;\\&space;c_3&space;\end{bmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y=\begin{bmatrix}&space;p_c&space;\\&space;b_x&space;\\&space;b_y&space;\\&space;b_h&space;\\&space;b_w&space;\\&space;c_1&space;\\&space;c_2&space;\\&space;c_3&space;\end{bmatrix}" title="y=\begin{bmatrix} p_c \\ b_x \\ b_y \\ b_h \\ b_w \\ c_1 \\ c_2 \\ c_3 \end{bmatrix}" /></a>, where
+  <a href="https://www.codecogs.com/eqnedit.php?latex=y=\begin{bmatrix}&space;p_c&space;\\&space;b_x&space;\\&space;b_y&space;\\&space;b_h&space;\\&space;b_w&space;\\&space;c_1&space;\\&space;c_2&space;\\&space;c_3&space;\end{bmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y=\begin{bmatrix}&space;p_c&space;\\&space;b_x&space;\\&space;b_y&space;\\&space;b_h&space;\\&space;b_w&space;\\&space;c_1&space;\\&space;c_2&space;\\&space;c_3&space;\end{bmatrix}" title="y=\begin{bmatrix} p_c \\ b_x \\ b_y \\ b_h \\ b_w \\ c_1 \\ c_2 \\ c_3 \end{bmatrix}" /></a>, where
 
-    - <a href="https://www.codecogs.com/eqnedit.php?latex=p_c" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_c" title="p_c" /></a> represents whether there is any object in the image (0 or 1).
-    - <a href="https://www.codecogs.com/eqnedit.php?latex=b_x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_x" title="b_x" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=b_y" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_y" title="b_y" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=b_h" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_h" title="b_h" /></a>, and <a href="https://www.codecogs.com/eqnedit.php?latex=b_w" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_w" title="b_w" /></a> are the object's midpoint coordinates, the object's height, and the object's width that define the bounding box.
-    - <a href="https://www.codecogs.com/eqnedit.php?latex=c_1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c_1" title="c_1" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=c_2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c_2" title="c_2" /></a>, and <a href="https://www.codecogs.com/eqnedit.php?latex=c_3" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c_3" title="c_3" /></a> are the dummy estimates of class 1, 2, and 3.
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=p_c" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_c" title="p_c" /></a> represents whether there is any object in the image (0 or 1).
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=b_x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_x" title="b_x" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=b_y" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_y" title="b_y" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=b_h" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_h" title="b_h" /></a>, and <a href="https://www.codecogs.com/eqnedit.php?latex=b_w" target="_blank"><img src="https://latex.codecogs.com/gif.latex?b_w" title="b_w" /></a> are the object's midpoint coordinates, the object's height, and the object's width that define the bounding box.
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=c_1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c_1" title="c_1" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=c_2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c_2" title="c_2" /></a>, and <a href="https://www.codecogs.com/eqnedit.php?latex=c_3" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c_3" title="c_3" /></a> are the dummy estimates of class 1, 2, and 3.
 
-    <img src="Resources/deep_learning/cnn/box_label.png" width=500> <br>
+  <img src="Resources/deep_learning/cnn/box_label.png" width=500> <br>
 
 - Defining the loss function
 
-    <a href="https://www.codecogs.com/eqnedit.php?latex=E(\hat{y},&space;y)=\left\{\begin{matrix}&space;\sum_{elements\&space;in\&space;y}&space;(\hat{y}-y)^2&space;&&space;if\&space;y_1=1&space;\\&space;(\hat{y}_1-y_1)^2&space;&&space;if\&space;y_1=0&space;\end{matrix}\right." target="_blank"><img src="https://latex.codecogs.com/gif.latex?E(\hat{y},&space;y)=\left\{\begin{matrix}&space;\sum_{elements\&space;in\&space;y}&space;(\hat{y}-y)^2&space;&&space;if\&space;y_1=1&space;\\&space;(\hat{y}_1-y_1)^2&space;&&space;if\&space;y_1=0&space;\end{matrix}\right." title="E(\hat{y}, y)=\left\{\begin{matrix} \sum_{elements\ in\ y} (\hat{y}-y)^2 & if\ y_1=1 \\ (\hat{y}_1-y_1)^2 & if\ y_1=0 \end{matrix}\right." /></a> <br>
-    Alternatively, use log loss or logistic regression loss
+  <a href="https://www.codecogs.com/eqnedit.php?latex=E(\hat{y},&space;y)=\left\{\begin{matrix}&space;\sum_{elements\&space;in\&space;y}&space;(\hat{y}-y)^2&space;&&space;if\&space;y_1=1&space;\\&space;(\hat{y}_1-y_1)^2&space;&&space;if\&space;y_1=0&space;\end{matrix}\right." target="_blank"><img src="https://latex.codecogs.com/gif.latex?E(\hat{y},&space;y)=\left\{\begin{matrix}&space;\sum_{elements\&space;in\&space;y}&space;(\hat{y}-y)^2&space;&&space;if\&space;y_1=1&space;\\&space;(\hat{y}_1-y_1)^2&space;&&space;if\&space;y_1=0&space;\end{matrix}\right." title="E(\hat{y}, y)=\left\{\begin{matrix} \sum_{elements\ in\ y} (\hat{y}-y)^2 & if\ y_1=1 \\ (\hat{y}_1-y_1)^2 & if\ y_1=0 \end{matrix}\right." /></a> <br>
+  Alternatively, use log loss or logistic regression loss
 
 ### 4.2. Landmark detection
 
 - Landmark detection
 
-    Outputs the X,Y coordinates of different landmarks you want to recognize in an image. The identity of each landmark must be consistent across different images.
+  Outputs the X,Y coordinates of different landmarks you want to recognize in an image. The identity of each landmark must be consistent across different images.
 
-    E.g. face recognition
+  E.g. face recognition
 
 - Target label y
 
-    E.g. (xi, yi) of all landmarks i
+  E.g. (xi, yi) of all landmarks i
 
 ### 4.3. Object detection with sliding windows
 
 - Sliding windows detection
 
-    - Step 1: Slide a rectangular region across the entire image, and pass each of the cropped image into the object localization ConvNet to classify zero or one for each position as some stride.
+  - Step 1: Slide a rectangular region across the entire image, and pass each of the cropped image into the object localization ConvNet to classify zero or one for each position as some stride.
 
-    - Step 2: Resize the region and repeat Step 1.
+  - Step 2: Resize the region and repeat Step 1.
 
-    <img src="Resources/deep_learning/cnn/sliding_window.png" width=200>
+  <img src="Resources/deep_learning/cnn/sliding_window.png" width=200>
 
 - Disadvantage of sliding windows detection with ConvNets
 
-    - (-) Huge computation cost due to running so many different sliding windows with ConvNets independently/sequentially.
+  - (-) Huge computation cost due to running so many different sliding windows with ConvNets independently/sequentially.
 
 ### 4.4. Convolutional implementation of sliding windows
 
 - Turning FC layer into convolutional layers
 
-    <img src="Resources/deep_learning/cnn/fc_to_conv.png" width=600>
+  <img src="Resources/deep_learning/cnn/fc_to_conv.png" width=600>
 
 - Implementing sliding windows convolutionally
 
-    <img src="Resources/deep_learning/cnn/sliding_windows_conv.png" width=600> <br>
-    [Sermanet et al., 2014, OverFeat: Integrated recognition, localization and detection using convolutional networks]
+  <img src="Resources/deep_learning/cnn/sliding_windows_conv.png" width=600> <br> [Sermanet et al., 2014, OverFeat: Integrated recognition, localization and detection using convolutional networks]
 
-    - (+) Allows different ConvNets that have highly duplicated tasks to share a lot of computation.
+  - (+) Allows different ConvNets that have highly duplicated tasks to share a lot of computation.
 
-        Instead of running ConvNets on different subsets of the input image independently, the convolutional implementation combines all into one computation and shares a lot of the computation in the common regions.
+    Instead of running ConvNets on different subsets of the input image independently, the convolutional implementation combines all into one computation and shares a lot of the computation in the common regions.
 
 ### 4.5. Bounding box predictions with YOLO
 
@@ -447,101 +446,101 @@ YOLO ("you only look once") is a popular algoritm because it achieves high accur
 
 - #### Output accurate bounding box with YOLO algorithm
 
-    - Algorithm
+  - Algorithm
 
-        1. Place a grid (e.g. a 3x3 grid, or a 19x19 grid) on the image.
-        2. Assign each object to the grid cell that contains the **midpoint** of that object.
-        3. Each grid cell has an output that specifies whether there is any object, the bounding box of the object (fractions relative to the height and width of the grid cell), and the class of the object.
+    1. Place a grid (e.g. a 3x3 grid, or a 19x19 grid) on the image.
+    2. Assign each object to the grid cell that contains the **midpoint** of that object.
+    3. Each grid cell has an output that specifies whether there is any object, the bounding box of the object (fractions relative to the height and width of the grid cell), and the class of the object.
 
-        Note that if the midpoint of an object falls into a grid cell, that grid cell is responsible for detecting that object. [Redmon et al., 2015, You Only Look Once: Unified real-time object detection]
+    Note that if the midpoint of an object falls into a grid cell, that grid cell is responsible for detecting that object. [Redmon et al., 2015, You Only Look Once: Unified real-time object detection]
 
-    - Pros and cons
+  - Pros and cons
 
-        - (+/-) YOLO works well so long as there aren't more than one object in each grid cell. For each object, even if the object spans multiple grid cells, that object is assigned only to one of the grid cells.
-        - (+) Allows the network to output bounding boxes of any aspect ratio, and output much more precise coordinates that aren't just dictated by the stripe size of the sliding windows classifier.
-        - (+) Efficient algorithm because it is a convolutional implantation, where you use one ConvNet with a lot of shared computation between all of the grid cells.
+    - (+/-) YOLO works well so long as there aren't more than one object in each grid cell. For each object, even if the object spans multiple grid cells, that object is assigned only to one of the grid cells.
+    - (+) Allows the network to output bounding boxes of any aspect ratio, and output much more precise coordinates that aren't just dictated by the stripe size of the sliding windows classifier.
+    - (+) Efficient algorithm because it is a convolutional implantation, where you use one ConvNet with a lot of shared computation between all of the grid cells.
 
 - #### Intersection over union (IoU) to evaluate object detection algorithm
 
-    <img src="Resources/deep_learning/cnn/iou_equation.png" width=300> <br>
-    IoU is a measure of the overlap between 2 bounding boxes. By convention, "correct" if IoU ≥ 0.5
+  <img src="Resources/deep_learning/cnn/iou_equation.png" width=300> <br>
+  IoU is a measure of the overlap between 2 bounding boxes. By convention, "correct" if IoU ≥ 0.5
 
 - #### Non-max suppression to clean up bounding boxes
 
-    - Problem to address
+  - Problem to address
 
-        Because you're running the image classification and localization algorithm on every grid cell, it's possible that more than one of the grid cells think they have detected an object. So the object detection algorithm might end up with multiple detections of each object.
+    Because you're running the image classification and localization algorithm on every grid cell, it's possible that more than one of the grid cells think they have detected an object. So the object detection algorithm might end up with multiple detections of each object.
 
-    - Algorithm
+  - Algorithm
 
-        Non-max suppression keeps the bounding box that has the maximum probability of detection (pc) of the object, and suppress the overlapping ones that are non-maximal.
+    Non-max suppression keeps the bounding box that has the maximum probability of detection (pc) of the object, and suppress the overlapping ones that are non-maximal.
 
-        1. Discard all boxes with pc ≤ 0.5
-        2. While there are any remaining boxes:
+    1. Discard all boxes with pc ≤ 0.5
+    2. While there are any remaining boxes:
 
-            - Pick the box with the largest pc, output that as a prediction.
-            - Discard any remaining box with IoU ≥ 0.5 with the box output in the previous step.
+        - Pick the box with the largest pc, output that as a prediction.
+        - Discard any remaining box with IoU ≥ 0.5 with the box output in the previous step.
 
-        <img src="Resources/deep_learning/cnn/non_max_suppression.png" width=300>
+    <img src="Resources/deep_learning/cnn/non_max_suppression.png" width=300>
 
 - #### Anchor boxes
 
-    - Problem to address
+  - Problem to address
 
-        One of the problems with object detection is that each of the grid cells can detect only one object. What if a grid cell wants to detect multiple objects?
+    One of the problems with object detection is that each of the grid cells can detect only one object. What if a grid cell wants to detect multiple objects?
 
-    - Algorithm
+  - Algorithm
 
-        <img src="Resources/deep_learning/cnn/anchor_box.png" width=400> <br>
-        Each object in training image is assigned to grid cell that contains object’s midpoint and anchor box for the grid cell with highest IoU.
+    <img src="Resources/deep_learning/cnn/anchor_box.png" width=400> <br>
+    Each object in training image is assigned to grid cell that contains object’s midpoint and anchor box for the grid cell with highest IoU.
 
-    - How to choose anchor boxes
+  - How to choose anchor boxes
 
-        - By hand: Typically choose 5-10 anchor boxes that spans a variety of shapes to cover the types of objects.
-        - Automatically: Use a K-means algorithm to group together the types of objects shapes you tend to get. And then select a set of anchor boxes that are most stereotypically representative of the objects.
+    - By hand: Typically choose 5-10 anchor boxes that spans a variety of shapes to cover the types of objects.
+    - Automatically: Use a K-means algorithm to group together the types of objects shapes you tend to get. And then select a set of anchor boxes that are most stereotypically representative of the objects.
 
-    - Pros and cons
+  - Pros and cons
 
-        - (-) Does not handle well when there are two anchor boxes but three objects in the same grid cell; or two objects associated with the same grid cell, but both of them have the same anchor box shape.
+    - (-) Does not handle well when there are two anchor boxes but three objects in the same grid cell; or two objects associated with the same grid cell, but both of them have the same anchor box shape.
 
-        - (+) Allows learning algorithm to specialize so that some of the outputs can specialize in detecting white, fat objects like cars, and some of the output units can specialize in detecting tall, skinny objects like pedestrians.
+    - (+) Allows learning algorithm to specialize so that some of the outputs can specialize in detecting white, fat objects like cars, and some of the output units can specialize in detecting tall, skinny objects like pedestrians.
 
 - #### Putting everything together: YOLO algorithm
 
-    - Training and predicting
+  - Training and predicting
 
-        <img src="Resources/deep_learning/cnn/yolo_train.png" width=500>
+    <img src="Resources/deep_learning/cnn/yolo_train.png" width=500>
 
-    - Outputting the non-max suppressed outputs
+  - Outputting the non-max suppressed outputs
 
-        - For each grid call, get 2 predicted bounding boxes.
-        - Get rid of low probability predictions.
-        - For each class (pedestrian, car, motorcycle) use non-max suppression to generate final predictions.
+    - For each grid call, get 2 predicted bounding boxes.
+    - Get rid of low probability predictions.
+    - For each class (pedestrian, car, motorcycle) use non-max suppression to generate final predictions.
 
-        <img src="Resources/deep_learning/cnn/yolo_non_max.png" width=220>
+    <img src="Resources/deep_learning/cnn/yolo_non_max.png" width=220>
 
 ### 4.6. Region proposals
 
 - #### Region proposal: R-CNN (Regions with CNN)
 
-    <img src="Resources/deep_learning/cnn/r_cnn.png" width=400> <br>
-    [Girshik et. al, 2013, Rich feature hierarchies for accurate object detection and semantic segmentation]
+  <img src="Resources/deep_learning/cnn/r_cnn.png" width=400> <br>
+  [Girshik et. al, 2013, Rich feature hierarchies for accurate object detection and semantic segmentation]
 
-    Rather than running sliding windows on every single window, select just a few windows and run ConvNet classifier on these windows. Use segmentation algorithm to find blobs, and run classifier only on those blobs.
+  Rather than running sliding windows on every single window, select just a few windows and run ConvNet classifier on these windows. Use segmentation algorithm to find blobs, and run classifier only on those blobs.
 
-    - (-) R-CNN very slow
+  - (-) R-CNN very slow
 
 - #### Faster algorithms
 
-    - Original **R-CNN:** Propose regions. Classify proposed regions one at a time. Output label + bounding box. [Girshik et. al, 2013. Rich feature hierarchies for accurate object detection and semantic segmentation]
+  - Original **R-CNN:** Propose regions. Classify proposed regions one at a time. Output label + bounding box. [Girshik et. al, 2013. Rich feature hierarchies for accurate object detection and semantic segmentation]
 
-    - **Fast R-CNN:** Propose regions. Use convolution implementation of sliding windows to classify all the proposed regions. [Girshik, 2015. Fast R-CNN]
+  - **Fast R-CNN:** Propose regions. Use convolution implementation of sliding windows to classify all the proposed regions. [Girshik, 2015. Fast R-CNN]
 
-        - (-) The clustering step to propose the regions is still quite slow.
+    - (-) The clustering step to propose the regions is still quite slow.
 
-    - **Faster R-CNN:** Use convolutional network to propose regions. [Ren et. al, 2016. Faster R-CNN: Towards real-time object detection with region proposal networks]
+  - **Faster R-CNN:** Use convolutional network to propose regions. [Ren et. al, 2016. Faster R-CNN: Towards real-time object detection with region proposal networks]
 
-    R-CNN algorithms are usually slower than YOLO algorithm.
+  R-CNN algorithms are usually slower than YOLO algorithm.
 
 ## 5. Special applications: face recognition & neural style transfer
 
@@ -549,94 +548,94 @@ YOLO ("you only look once") is a popular algoritm because it achieves high accur
 
 - #### Face verification vs. face recognition
 
-    - Verification
+  - Verification
 
-        - Input image, name/ID
-        - Output whether the input image is that of the claimed person
+    - Input image, name/ID
+    - Output whether the input image is that of the claimed person
 
-    - Recognition
+  - Recognition
 
-        - Has a database of K persons
-        - Get an input image
-        - Output ID if the image is any of the K persons (or “not recognized”)
+    - Has a database of K persons
+    - Get an input image
+    - Output ID if the image is any of the K persons (or “not recognized”)
 
     Face recognition requires much higher accuracy compared to face verification.
 
 - #### One shot learning
 
-    Learning from one example to recognize the person again. Historically, deep learning algorithms don't work well if there is only one training example.
+  Learning from one example to recognize the person again. Historically, deep learning algorithms don't work well if there is only one training example.
 
-    - Learning a "similarity" function
+  - Learning a "similarity" function
 
-        d(img1,img2) = degree of difference between 2 images
+    d(img1,img2) = degree of difference between 2 images
 
-        - If d(img1,img2) ≤ τ, "same"
-        - If d(img1,img2) > τ, "different"
+    - If d(img1,img2) ≤ τ, "same"
+    - If d(img1,img2) > τ, "different"
 
 - #### Siamese network
 
-    Run two identical CNNs on two different inputs and then compare the ouputs.
+  Run two identical CNNs on two different inputs and then compare the ouputs.
 
-    <img src="Resources/deep_learning/cnn/siamese_goal.png" width=550> <br>
-    [Taigman et. al., 2014. DeepFace closing the gap to human level performance]
+  <img src="Resources/deep_learning/cnn/siamese_goal.png" width=550> <br>
+  [Taigman et. al., 2014. DeepFace closing the gap to human level performance]
 
 - #### Triplet loss function for face verification
 
-    Define an applied gradient descent to learn the parameters of the neural network so that it outputs a good encoding for the pictures of faces. [Schroff et al.,2015, FaceNet: A unified embedding for face recognition and clustering]
+  Define an applied gradient descent to learn the parameters of the neural network so that it outputs a good encoding for the pictures of faces. [Schroff et al.,2015, FaceNet: A unified embedding for face recognition and clustering]
 
-    <img src="Resources/deep_learning/cnn/siamese_anchor.png" width=550>
+  <img src="Resources/deep_learning/cnn/siamese_anchor.png" width=550>
 
-    - Goal
+  - Goal
 
-        Want <a href="https://www.codecogs.com/eqnedit.php?latex=d(A,P)&space;-&space;d(A,N)&space;&plus;&space;\alpha&space;\leq&space;0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?d(A,P)&space;-&space;d(A,N)&space;&plus;&space;\alpha&space;\leq&space;0" title="d(A,P) - d(A,N) + \alpha \leq 0" /></a>, where <br>
-        <a href="https://www.codecogs.com/eqnedit.php?latex=d(A,P)=\left&space;\|&space;f(A)-f(P)&space;\right&space;\|^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?d(A,P)=\left&space;\|&space;f(A)-f(P)&space;\right&space;\|^2" title="d(A,P)=\left \| f(A)-f(P) \right \|^2" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=d(A,N)=\left&space;\|&space;f(A)-f(N)&space;\right&space;\|^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?d(A,N)=\left&space;\|&space;f(A)-f(N)&space;\right&space;\|^2" title="d(A,N)=\left \| f(A)-f(N) \right \|^2" /></a>, and <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a> is margin
+    Want <a href="https://www.codecogs.com/eqnedit.php?latex=d(A,P)&space;-&space;d(A,N)&space;&plus;&space;\alpha&space;\leq&space;0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?d(A,P)&space;-&space;d(A,N)&space;&plus;&space;\alpha&space;\leq&space;0" title="d(A,P) - d(A,N) + \alpha \leq 0" /></a>, where <br>
+    <a href="https://www.codecogs.com/eqnedit.php?latex=d(A,P)=\left&space;\|&space;f(A)-f(P)&space;\right&space;\|^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?d(A,P)=\left&space;\|&space;f(A)-f(P)&space;\right&space;\|^2" title="d(A,P)=\left \| f(A)-f(P) \right \|^2" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=d(A,N)=\left&space;\|&space;f(A)-f(N)&space;\right&space;\|^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?d(A,N)=\left&space;\|&space;f(A)-f(N)&space;\right&space;\|^2" title="d(A,N)=\left \| f(A)-f(N) \right \|^2" /></a>, and <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a> is margin
 
-    - Loss function
+  - Loss function
 
-        - Given 3 images A, P, N
+    - Given 3 images A, P, N
 
-            <a href="https://www.codecogs.com/eqnedit.php?latex=E(A,P,N)&space;=&space;max(\left&space;\|&space;f(A)-f(P)&space;\right&space;\|^2&space;-&space;\left&space;\|&space;f(A)-f(N)&space;\right&space;\|^2&space;&plus;&space;\alpha,\&space;0)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?E(A,P,N)&space;=&space;max(\left&space;\|&space;f(A)-f(P)&space;\right&space;\|^2&space;-&space;\left&space;\|&space;f(A)-f(N)&space;\right&space;\|^2&space;&plus;&space;\alpha,\&space;0)" title="E(A,P,N) = max(\left \| f(A)-f(P) \right \|^2 - \left \| f(A)-f(N) \right \|^2 + \alpha,\ 0)" /></a>
+      <a href="https://www.codecogs.com/eqnedit.php?latex=E(A,P,N)&space;=&space;max(\left&space;\|&space;f(A)-f(P)&space;\right&space;\|^2&space;-&space;\left&space;\|&space;f(A)-f(N)&space;\right&space;\|^2&space;&plus;&space;\alpha,\&space;0)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?E(A,P,N)&space;=&space;max(\left&space;\|&space;f(A)-f(P)&space;\right&space;\|^2&space;-&space;\left&space;\|&space;f(A)-f(N)&space;\right&space;\|^2&space;&plus;&space;\alpha,\&space;0)" title="E(A,P,N) = max(\left \| f(A)-f(P) \right \|^2 - \left \| f(A)-f(N) \right \|^2 + \alpha,\ 0)" /></a>
 
-        - Overall loss
+    - Overall loss
 
-            <a href="https://www.codecogs.com/eqnedit.php?latex=J=\sum_{i=1}^m&space;E(A_i,P_i,N_i)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J=\sum_{i=1}^m&space;E(A_i,P_i,N_i)" title="J=\sum_{i=1}^m E(A_i,P_i,N_i)" /></a>
+      <a href="https://www.codecogs.com/eqnedit.php?latex=J=\sum_{i=1}^m&space;E(A_i,P_i,N_i)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J=\sum_{i=1}^m&space;E(A_i,P_i,N_i)" title="J=\sum_{i=1}^m E(A_i,P_i,N_i)" /></a>
 
-        Needs multiple pictures of the same person to train the model. After training, can apply the model to one shot learning problem.
+    Needs multiple pictures of the same person to train the model. After training, can apply the model to one shot learning problem.
 
-    - Choosing the triplets A, P, N
+  - Choosing the triplets A, P, N
 
-        - During training, if A,P,N are chosen randomly, <a href="https://www.codecogs.com/eqnedit.php?latex=d(A,P)&plus;\alpha&space;\leq&space;d(A,N)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?d(A,P)&plus;\alpha&space;\leq&space;d(A,N)" title="d(A,P)+\alpha \leq d(A,N)" /></a> is easily satisfied.
-        - Choose triplets that are “hard” to train on. Choosing triplets carefully increases the computational efficiency of your learning algorithm.
+    - During training, if A,P,N are chosen randomly, <a href="https://www.codecogs.com/eqnedit.php?latex=d(A,P)&plus;\alpha&space;\leq&space;d(A,N)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?d(A,P)&plus;\alpha&space;\leq&space;d(A,N)" title="d(A,P)+\alpha \leq d(A,N)" /></a> is easily satisfied.
+    - Choose triplets that are “hard” to train on. Choosing triplets carefully increases the computational efficiency of your learning algorithm.
 
 - #### Binary classification for face verification
 
-    Alternative method to the triplet loss. [Taigman et. al., 2014. DeepFace closing the gap to human level performance]
+  Alternative method to the triplet loss. [Taigman et. al., 2014. DeepFace closing the gap to human level performance]
 
-    - Learning the similarity function
+  - Learning the similarity function
 
-        <img src="Resources/deep_learning/cnn/siamese_binary.png" width=550>
+    <img src="Resources/deep_learning/cnn/siamese_binary.png" width=550>
 
-        <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}&space;=&space;\sigma\left&space;(&space;\sum_k&space;w_k&space;\left&space;|&space;f(x_i)_k-f(x_j)_k&space;\right&space;|&space;&plus;b&space;\right&space;)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}&space;=&space;\sigma\left&space;(&space;\sum_k&space;w_k&space;\left&space;|&space;f(x_i)_k-f(x_j)_k&space;\right&space;|&space;&plus;b&space;\right&space;)" title="\hat{y} = \sigma\left ( \sum_k w_k \left | f(x_i)_k-f(x_j)_k \right | +b \right )" /></a>, where k represents a unit of the encoding layer.
+    <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}&space;=&space;\sigma\left&space;(&space;\sum_k&space;w_k&space;\left&space;|&space;f(x_i)_k-f(x_j)_k&space;\right&space;|&space;&plus;b&space;\right&space;)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}&space;=&space;\sigma\left&space;(&space;\sum_k&space;w_k&space;\left&space;|&space;f(x_i)_k-f(x_j)_k&space;\right&space;|&space;&plus;b&space;\right&space;)" title="\hat{y} = \sigma\left ( \sum_k w_k \left | f(x_i)_k-f(x_j)_k \right | +b \right )" /></a>, where k represents a unit of the encoding layer.
 
-        Can also use Chi-square similarity <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}&space;=&space;\sigma\left&space;(&space;\sum_k&space;w_k&space;\frac{(f(x_i)_k-f(x_j)_k)^2}{f(x_i)_k&plus;f(x_j)_k}&space;&plus;b&space;\right&space;)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}&space;=&space;\sigma\left&space;(&space;\sum_k&space;w_k&space;\frac{(f(x_i)_k-f(x_j)_k)^2}{f(x_i)_k&plus;f(x_j)_k}&space;&plus;b&space;\right&space;)" title="\hat{y} = \sigma\left ( \sum_k w_k \frac{(f(x_i)_k-f(x_j)_k)^2}{f(x_i)_k+f(x_j)_k} +b \right )" /></a>
+    Can also use Chi-square similarity <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}&space;=&space;\sigma\left&space;(&space;\sum_k&space;w_k&space;\frac{(f(x_i)_k-f(x_j)_k)^2}{f(x_i)_k&plus;f(x_j)_k}&space;&plus;b&space;\right&space;)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}&space;=&space;\sigma\left&space;(&space;\sum_k&space;w_k&space;\frac{(f(x_i)_k-f(x_j)_k)^2}{f(x_i)_k&plus;f(x_j)_k}&space;&plus;b&space;\right&space;)" title="\hat{y} = \sigma\left ( \sum_k w_k \frac{(f(x_i)_k-f(x_j)_k)^2}{f(x_i)_k+f(x_j)_k} +b \right )" /></a>
 
 ### 5.2. Neural style transfer
 
 - #### Example of neural style transfer
 
-    <img src="Resources/deep_learning/cnn/neural_style_transfer.png" width=300> [Image credit: Justin Johnson]
+  <img src="Resources/deep_learning/cnn/neural_style_transfer.png" width=300> [Image credit: Justin Johnson]
 
 - #### Visualizing what a deep network is learning
 
   1. Pick a unit in layer 1. Find the nine image patches that maximize the unit’s activation.
   2. Repeat for other units.
 
-        <br>
+      <br>
 
-        <img src="Resources/deep_learning/cnn/cnn_visual.png" width=700>
+      <img src="Resources/deep_learning/cnn/cnn_visual.png" width=700>
 
-        <img src="Resources/deep_learning/cnn/cnn_visual2.png" width=700> <br>
-        Deeper layers detect more complex objects. [Zeiler and Fergus., 2013, Visualizing and understanding convolutional networks]
+      <img src="Resources/deep_learning/cnn/cnn_visual2.png" width=700> <br>
+      Deeper layers detect more complex objects. [Zeiler and Fergus., 2013, Visualizing and understanding convolutional networks]
 
 - #### Cost function of the generated image
 
@@ -669,38 +668,40 @@ YOLO ("you only look once") is a popular algoritm because it achieves high accur
 
 - #### Content cost function
 
-  - Use hidden layer l (not too shallow or deep) to compute content cost. Use pre-trained ConvNet. (E.g., VGG network). Let <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}_C" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}_C" title="a^{(l)}_C" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}_G" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}_G" title="a^{(l)}_G" /></a> be the activation of layer l on the images.
+  - The content cost function is computed using one hidden layer's activations. The hidden layer l should be not too shallow, not too deep. Use pre-trained ConvNet (E.g., VGG network). Let <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}_C" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}_C" title="a^{(l)}_C" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}_G" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}_G" title="a^{(l)}_G" /></a> be the activation of layer l on the images.
 
   - If <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}_C" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}_C" title="a^{(l)}_C" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=a^{(l)}_G" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{(l)}_G" title="a^{(l)}_G" /></a> are similar, both images have similar content.
 
-      <a href="https://www.codecogs.com/eqnedit.php?latex=J_{content}(C,G)&space;=&space;\frac{1}{2}\left&space;\|&space;a^{(l)}_C&space;-&space;a^{(l)}_G&space;\right&space;\|^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J_{content}(C,G)&space;=&space;\frac{1}{2}\left&space;\|&space;a^{(l)}_C&space;-&space;a^{(l)}_G&space;\right&space;\|^2" title="J_{content}(C,G) = \frac{1}{2}\left \| a^{(l)}_C - a^{(l)}_G \right \|^2" /></a>, which is element-wise sum of squares of activation differences between C and G.
+    <a href="https://www.codecogs.com/eqnedit.php?latex=J_{content}(C,G)&space;=&space;\frac{1}{2}\left&space;\|&space;a^{(l)}_C&space;-&space;a^{(l)}_G&space;\right&space;\|^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J_{content}(C,G)&space;=&space;\frac{1}{2}\left&space;\|&space;a^{(l)}_C&space;-&space;a^{(l)}_G&space;\right&space;\|^2" title="J_{content}(C,G) = \frac{1}{2}\left \| a^{(l)}_C - a^{(l)}_G \right \|^2" /></a>, which is element-wise sum of squares of activation differences between C and G.
 
 - #### Style cost function
 
   - Meaning of the “style” of an image
 
-      Use layer l’s activation to measure “style.” Define style as correlation (unnormalized cross-covariance) between activations across channels. The correlation measures how often the textures occur together and don't occur together in different parts of an image.
+    - The style cost function for one layer is computed using the "Gram matrix" of that layer's activations. The overall style cost function is obtained using several hidden layers.
+
+    - In each layer, define style as correlation (unnormalized cross-covariance) between activations across channels. The correlation measures how often the textures occur together and don't occur together in different parts of an image.
 
       <img src="Resources/deep_learning/cnn/style.png" width=300>
 
   - Style matrix
 
-      Let <a href="https://www.codecogs.com/eqnedit.php?latex=a_{i,j,k}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a_{i,j,k}^{(l)}" title="a_{i,j,k}^{(l)}" /></a> = activation at (i, j, k). The style matrix <a href="https://www.codecogs.com/eqnedit.php?latex=G^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?G^{(l)}" title="G^{(l)}" /></a> is <a href="https://www.codecogs.com/eqnedit.php?latex=n_C^{(l)}\times&space;n_C^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?n_C^{(l)}\times&space;n_C^{(l)}" title="n_C^{(l)}\times n_C^{(l)}" /></a>.
+    Let <a href="https://www.codecogs.com/eqnedit.php?latex=a_{i,j,k}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a_{i,j,k}^{(l)}" title="a_{i,j,k}^{(l)}" /></a> = activation at (i, j, k). The style matrix <a href="https://www.codecogs.com/eqnedit.php?latex=G^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?G^{(l)}" title="G^{(l)}" /></a> is <a href="https://www.codecogs.com/eqnedit.php?latex=n_C^{(l)}\times&space;n_C^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?n_C^{(l)}\times&space;n_C^{(l)}" title="n_C^{(l)}\times n_C^{(l)}" /></a>.
 
-      <a href="https://www.codecogs.com/eqnedit.php?latex=G_{kk'}^{(l)}&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;a_{ijk}^{(l)}&space;\&space;a_{ijk'}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?G_{kk'}^{(l)}&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;a_{ijk}^{(l)}&space;\&space;a_{ijk'}^{(l)}" title="G_{kk'}^{(l)} = \sum_{i=1}^{n_H^{(l)}} \sum_{j=1}^{n_W^{(l)}} a_{ijk}^{(l)} \ a_{ijk'}^{(l)}" /></a>, which is also known as the "gram matrix" in linear algebra.
+    <a href="https://www.codecogs.com/eqnedit.php?latex=G_{kk'}^{(l)}&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;a_{ijk}^{(l)}&space;\&space;a_{ijk'}^{(l)}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?G_{kk'}^{(l)}&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;a_{ijk}^{(l)}&space;\&space;a_{ijk'}^{(l)}" title="G_{kk'}^{(l)} = \sum_{i=1}^{n_H^{(l)}} \sum_{j=1}^{n_W^{(l)}} a_{ijk}^{(l)} \ a_{ijk'}^{(l)}" /></a>, which is also known as the "Gram matrix" in linear algebra.
 
   - Cost function
 
     - Style cost function of each layer
 
-        <a href="https://www.codecogs.com/eqnedit.php?latex=J_{style}^{(l)}(S,G)&space;=&space;\frac{1}{C}&space;\left&space;\|&space;G_S^{(l)}&space;-&space;G_G^{(l)}&space;\right&space;\|_F^2&space;=&space;\frac{1}{(2&space;n_H^{(l)}&space;n_W^{(l)}&space;n_C^{(l)})^2}&space;\sum_k&space;\sum_{k'}&space;\left&space;(&space;(G_{kk'}^{(l)})_S&space;-&space;(G_{kk'}^{(l)})_G&space;\right&space;)^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J_{style}^{(l)}(S,G)&space;=&space;\frac{1}{C}&space;\left&space;\|&space;G_S^{(l)}&space;-&space;G_G^{(l)}&space;\right&space;\|_F^2&space;=&space;\frac{1}{(2&space;n_H^{(l)}&space;n_W^{(l)}&space;n_C^{(l)})^2}&space;\sum_k&space;\sum_{k'}&space;\left&space;(&space;(G_{kk'}^{(l)})_S&space;-&space;(G_{kk'}^{(l)})_G&space;\right&space;)^2" title="J_{style}^{(l)}(S,G) = \frac{1}{C} \left \| G_S^{(l)} - G_G^{(l)} \right \|_F^2 = \frac{1}{(2 n_H^{(l)} n_W^{(l)} n_C^{(l)})^2} \sum_k \sum_{k'} \left ( (G_{kk'}^{(l)})_S - (G_{kk'}^{(l)})_G \right )^2" /></a>, where
+      <a href="https://www.codecogs.com/eqnedit.php?latex=J_{style}^{(l)}(S,G)&space;=&space;\frac{1}{C}&space;\left&space;\|&space;G_S^{(l)}&space;-&space;G_G^{(l)}&space;\right&space;\|_F^2&space;=&space;\frac{1}{(2&space;n_H^{(l)}&space;n_W^{(l)}&space;n_C^{(l)})^2}&space;\sum_k&space;\sum_{k'}&space;\left&space;(&space;(G_{kk'}^{(l)})_S&space;-&space;(G_{kk'}^{(l)})_G&space;\right&space;)^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J_{style}^{(l)}(S,G)&space;=&space;\frac{1}{C}&space;\left&space;\|&space;G_S^{(l)}&space;-&space;G_G^{(l)}&space;\right&space;\|_F^2&space;=&space;\frac{1}{(2&space;n_H^{(l)}&space;n_W^{(l)}&space;n_C^{(l)})^2}&space;\sum_k&space;\sum_{k'}&space;\left&space;(&space;(G_{kk'}^{(l)})_S&space;-&space;(G_{kk'}^{(l)})_G&space;\right&space;)^2" title="J_{style}^{(l)}(S,G) = \frac{1}{C} \left \| G_S^{(l)} - G_G^{(l)} \right \|_F^2 = \frac{1}{(2 n_H^{(l)} n_W^{(l)} n_C^{(l)})^2} \sum_k \sum_{k'} \left ( (G_{kk'}^{(l)})_S - (G_{kk'}^{(l)})_G \right )^2" /></a>, where
 
-        <a href="https://www.codecogs.com/eqnedit.php?latex=(G_{kk'}^{(l)})_S&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;(a_{ijk}^{(l)})_S&space;\&space;(a_{ijk'}^{(l)})_S" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(G_{kk'}^{(l)})_S&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;(a_{ijk}^{(l)})_S&space;\&space;(a_{ijk'}^{(l)})_S" title="(G_{kk'}^{(l)})_S = \sum_{i=1}^{n_H^{(l)}} \sum_{j=1}^{n_W^{(l)}} (a_{ijk}^{(l)})_S \ (a_{ijk'}^{(l)})_S" /></a> for style image <br>
-        <a href="https://www.codecogs.com/eqnedit.php?latex=(G_{kk'}^{(l)})_G&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;(a_{ijk}^{(l)})_G&space;\&space;(a_{ijk'}^{(l)})_G" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(G_{kk'}^{(l)})_G&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;(a_{ijk}^{(l)})_G&space;\&space;(a_{ijk'}^{(l)})_G" title="(G_{kk'}^{(l)})_G = \sum_{i=1}^{n_H^{(l)}} \sum_{j=1}^{n_W^{(l)}} (a_{ijk}^{(l)})_G \ (a_{ijk'}^{(l)})_G" /></a> for generated image
+      <a href="https://www.codecogs.com/eqnedit.php?latex=(G_{kk'}^{(l)})_S&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;(a_{ijk}^{(l)})_S&space;\&space;(a_{ijk'}^{(l)})_S" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(G_{kk'}^{(l)})_S&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;(a_{ijk}^{(l)})_S&space;\&space;(a_{ijk'}^{(l)})_S" title="(G_{kk'}^{(l)})_S = \sum_{i=1}^{n_H^{(l)}} \sum_{j=1}^{n_W^{(l)}} (a_{ijk}^{(l)})_S \ (a_{ijk'}^{(l)})_S" /></a> for style image <br>
+      <a href="https://www.codecogs.com/eqnedit.php?latex=(G_{kk'}^{(l)})_G&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;(a_{ijk}^{(l)})_G&space;\&space;(a_{ijk'}^{(l)})_G" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(G_{kk'}^{(l)})_G&space;=&space;\sum_{i=1}^{n_H^{(l)}}&space;\sum_{j=1}^{n_W^{(l)}}&space;(a_{ijk}^{(l)})_G&space;\&space;(a_{ijk'}^{(l)})_G" title="(G_{kk'}^{(l)})_G = \sum_{i=1}^{n_H^{(l)}} \sum_{j=1}^{n_W^{(l)}} (a_{ijk}^{(l)})_G \ (a_{ijk'}^{(l)})_G" /></a> for generated image
 
     - Overall style cost function
 
-        <a href="https://www.codecogs.com/eqnedit.php?latex=J_{style}(S,G)&space;=&space;\sum_{\lambda}&space;\lambda^{(l)}&space;J_{style}^{(l)}(S,G)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J_{style}(S,G)&space;=&space;\sum_{\lambda}&space;\lambda^{(l)}&space;J_{style}^{(l)}(S,G)" title="J_{style}(S,G) = \sum_{\lambda} \lambda^{(l)} J_{style}^{(l)}(S,G)" /></a>
+      <a href="https://www.codecogs.com/eqnedit.php?latex=J_{style}(S,G)&space;=&space;\sum_{\lambda}&space;\lambda^{(l)}&space;J_{style}^{(l)}(S,G)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?J_{style}(S,G)&space;=&space;\sum_{\lambda}&space;\lambda^{(l)}&space;J_{style}^{(l)}(S,G)" title="J_{style}(S,G) = \sum_{\lambda} \lambda^{(l)} J_{style}^{(l)}(S,G)" /></a>
 
 
 
