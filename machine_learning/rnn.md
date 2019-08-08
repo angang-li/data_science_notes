@@ -8,6 +8,10 @@
     - [1.4. Language model and sequence generation](#14-language-model-and-sequence-generation)
     - [1.5. GRU and LSTM to resolve vanishing gradients of RNN](#15-gru-and-lstm-to-resolve-vanishing-gradients-of-rnn)
     - [1.6. BRNN and deep RNN to build more powerful models](#16-brnn-and-deep-rnn-to-build-more-powerful-models)
+  - [2. Natural language processing & word embeddings](#2-natural-language-processing--word-embeddings)
+    - [2.1. Intro to word embeddings](#21-intro-to-word-embeddings)
+    - [2.2. Learning word embeddings: Word2vec and GloVe](#22-learning-word-embeddings-word2vec-and-glove)
+    - [2.3. Applications using word embeddings](#23-applications-using-word-embeddings)
 
 ## 1. Recurrent neural networks (RNN)
 
@@ -272,3 +276,246 @@
     <img src="Resources/deep_learning/rnn/deep_rnn.png" width=550>
 
     RNNs generally don’t have a lot of hidden layers (3 is a lot), because of the temporal dimensions.
+
+## 2. Natural language processing & word embeddings
+
+### 2.1. Intro to word embeddings
+
+- #### Word representation
+
+  - One-hot representation
+
+    E.g. V = [a, aaron, ..., zulu, \<UNK>]
+
+    Use <a href="https://www.codecogs.com/eqnedit.php?latex=O_{5391}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?O_{5391}" title="O_{5391}" /></a> to represent the one-hot vector of the 5391st word in the vocabulary.
+
+    - (-) Treats each word as a thing by itself, and does not allow an algorithm to easily generalize across words
+
+  - Featurized representation: word embedding
+
+    Each word can be represented by a high-dimensional vector of features (e.g. gender, royal, age, food, cost, alive, verb, etc.). Use <a href="https://www.codecogs.com/eqnedit.php?latex=e_{5391}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?e_{5391}" title="e_{5391}" /></a> to represent the featurized vector of the 5391st word in the vocabulary.
+
+    Featurization from an embedding algorithm is not necessarily interpretable.
+
+  - Visualizing word embeddings
+
+    t-SNE maps high dimensional data (e.g. 300D) into a 2D space. The mapping is highly non-linear.
+
+    <img src="Resources/deep_learning/rnn/t_sne.png" width=350>
+
+    [van der Maaten and Hinton., 2008. Visualizing data using t-SNE]
+
+- #### Using word embeddings with tranfer learning
+
+  1. Learn word embeddings from large text corpus. (1-100B words). (Or download pre-trained embedding online.)  
+
+  2. Transfer embedding to new task with smaller training set. (say, 100k words)
+
+      - (+) Can now use relatively lower dimensional feature vectors compared to one-hot vector
+
+  3. Optional: Continue to fine tune the word embeddings with new data, if training set is relatively large.
+
+- #### Relations to face encoding
+
+  - Word embedding learns a fixed encoding (vector e) for each of the words in the vocabulary, whereas face recognition can encode unseen images.
+  - "Encoding" and "embedding" are used somewhat interchangeably.
+
+- #### Properties of word embeddings
+
+  - Analogies using word vectors
+
+    (+) Word embedding can help with analogy reasoning. Research reported 30% to 75% accuracy on analogy.
+
+    <img src="Resources/deep_learning/rnn/t_sne_analogy.png" width=450>
+
+    [Mikolov et. al., 2013, Linguistic regularities in continuous space word representations]
+
+  - Cosine similarity
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=sim(u,&space;v)&space;=&space;\frac{u^T&space;v}{\left&space;\|&space;u&space;\right&space;\|_2&space;\left&space;\|&space;v&space;\right&space;\|_2}=cos(\theta)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?sim(u,&space;v)&space;=&space;\frac{u^T&space;v}{\left&space;\|&space;u&space;\right&space;\|_2&space;\left&space;\|&space;v&space;\right&space;\|_2}=cos(\theta)" title="sim(u, v) = \frac{u^T v}{\left \| u \right \|_2 \left \| v \right \|_2}=cos(\theta)" /></a>
+
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=u^T&space;v" target="_blank"><img src="https://latex.codecogs.com/gif.latex?u^T&space;v" title="u^T v" /></a> is the dot product (or inner product) of two vectors
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=\left&space;\|&space;u&space;\right&space;\|_2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\left&space;\|&space;u&space;\right&space;\|_2" title="\left \| u \right \|_2" /></a> is the norm (or length) of the vector
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=\theta" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta" title="\theta" /></a> is the angle between the two vectors
+
+    <img src="Resources/deep_learning/rnn/cosine_sim.png" width=700>
+
+- #### Embedding matrix
+
+  - Notation
+
+    - E = embedding matrix
+
+      <img src="Resources/deep_learning/rnn/embedding_matrix.png" width=300>
+
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=o_j" target="_blank"><img src="https://latex.codecogs.com/gif.latex?o_j" title="o_j" /></a> = one-hot vector of word j
+
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=e_j" target="_blank"><img src="https://latex.codecogs.com/gif.latex?e_j" title="e_j" /></a> = embedding vector of word j
+
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=E\&space;o_j&space;=&space;e_j" target="_blank"><img src="https://latex.codecogs.com/gif.latex?E\&space;o_j&space;=&space;e_j" title="E\ o_j = e_j" /></a>
+
+  - Goal: learn the embedding matrix
+
+  - Embedding lookup
+
+    In practice, use specialized function to look up an embedding, rather than using matrix-vector multiplication.
+
+### 2.2. Learning word embeddings: Word2vec and GloVe
+
+- #### Learning word embeddings
+
+  - Neural language model
+
+    <img src="Resources/deep_learning/rnn/embedding_neural.png" width=400>
+
+    [Bengio et. al., 2003, A neural probabilistic language model]
+
+  - Other context/target pairs
+
+    <img src="Resources/deep_learning/rnn/embedding_context.png" width=400>
+
+    Context:
+
+    - Last 4 words
+    - 4 words on left & right
+    - Last 1 word
+    - Nearby 1 word
+
+- #### Word2Vec
+
+  - Notation
+
+    - c = context
+    - t = targe
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}" title="\hat{y}" /></a> = one-hot vector of softmax output
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=\theta_t" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta_t" title="\theta_t" /></a> = parameter associated with output t
+    - Vocab size = 10000 for example
+
+  - Skip-grams model
+
+    Come up with a few context-target pairs to create supervised learning problem. Takes as input one context word, tries to predict some word skipping a few words before or after the context word.
+
+    <img src="Resources/deep_learning/rnn/embedding_c2t.png" width=400>
+
+    [Mikolov et. al., 2013. Efficient estimation of word representations in vector space]
+
+    - Softmax: <a href="https://www.codecogs.com/eqnedit.php?latex=p(t|c)=\frac{e^{\theta_t^T&space;e_c&space;}}{\sum_{j=1}^{10000}&space;e^{\theta_j^T&space;e_c}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(t|c)=\frac{e^{\theta_t^T&space;e_c&space;}}{\sum_{j=1}^{10000}&space;e^{\theta_j^T&space;e_c}}" title="p(t|c)=\frac{e^{\theta_t^T e_c }}{\sum_{j=1}^{10000} e^{\theta_j^T e_c}}" /></a>
+    - Cost: <a href="https://www.codecogs.com/eqnedit.php?latex=E(\hat{y},&space;y)&space;=&space;\sum_{i=1}^{10000}y_i\&space;log&space;\hat{y}_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?E(\hat{y},&space;y)&space;=&space;\sum_{i=1}^{10000}y_i\&space;log&space;\hat{y}_i" title="E(\hat{y}, y) = \sum_{i=1}^{10000}y_i\ log \hat{y}_i" /></a>
+
+  - Problems with softmax classification
+
+    (-) Softmax step in the skip-grams model is very expensive to calculate because needing to sum over the entire vocabulary size into the denominator.
+
+    Solutions:
+
+    - Hierarchical softmax classifier (tree)
+    - Negative sampling that modifies the training objective to make it run more efficiently
+
+  - Sampling the context c
+
+    There are different heuristics to use in order to balance out the common words (e.g. the, of, and) vs. the less common words.
+
+  - CBow vs. skip-grams
+
+    CBow, the continuous backwards model, takes the surrounding contexts from the middle word, and uses the surrounding words to try to predict the middle word.
+
+- #### Negative sampling
+
+  - Generating training set
+
+    - Pick a context word and a target word, give that a label of 1 or 0. This is one record of the training data.
+    - Create a supervised learning problem where the learning algorithm inputs the pair of words (x), and predicts the target label (y) as output.
+    - The number of training pairs (k) for each context word is 5 to 20 for smaller data sets, or 2 to 5 for larger data sets.
+
+  - Model
+
+    Turns 10000-way softmax in the skip into 10000 binary classification problem. On every iteration, we're only going to train k + 1 of the binary classifiers (k negative examples and 1 positive examples).
+
+    <img src="Resources/deep_learning/rnn/embedding_c2t_negative.png" width=400>
+
+    [Mikolov et. al., 2013. Distributed representation of words and phrases and their compositionality]
+
+    - Sigmoid: <a href="https://www.codecogs.com/eqnedit.php?latex=p(y=1|c,t)&space;=&space;\sigma(\theta_t^T&space;e_c)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(y=1|c,t)&space;=&space;\sigma(\theta_t^T&space;e_c)" title="p(y=1|c,t) = \sigma(\theta_t^T e_c)" /></a>
+
+  - Negative sampling advantages
+
+    (+) The computation cost is much lower, because updating k + 1 binary classifiers on every iteration is cheaper than updating a 10000-way softmax classifier.
+
+  - Choosing negative examples
+
+    Between sampling according to the empirical frequencies and according to a uniform distribution.
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=p(w_i)=\frac{f(w_i)^{3/4}}{\sum_{j=1}^{10000}f(w_j)^{3/4}}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(w_i)=\frac{f(w_i)^{3/4}}{\sum_{j=1}^{10000}f(w_j)^{3/4}}" title="p(w_i)=\frac{f(w_i)^{3/4}}{\sum_{j=1}^{10000}f(w_j)^{3/4}}" /></a>, where f is empirical frequencies observed in English text
+
+- #### GloVe word vectors
+
+  - GloVe (global vectors for word representation)
+
+    Define context and target as whether or not the two words appear in close proximity (e.g. within ±10 words to each other). <a href="https://www.codecogs.com/eqnedit.php?latex=X_{ij}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?X_{ij}" title="X_{ij}" /></a> is a count that captures how often word i (target t) appears in context of j (context c), i.e. how often they occur close to each other.
+
+    [Pennington et. al., 2014. GloVe: Global vectors for word representation]
+
+  - Model
+
+    Minimize <a href="https://www.codecogs.com/eqnedit.php?latex=\sum_{i=1}^{10000}\sum_{j=1}^{10000}f(X_{ij})(\theta_i^T&space;e_j&plus;b_i&plus;b_j'-logX_{ij})^2" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\sum_{i=1}^{10000}\sum_{j=1}^{10000}f(X_{ij})(\theta_i^T&space;e_j&plus;b_i&plus;b_j'-logX_{ij})^2" title="\sum_{i=1}^{10000}\sum_{j=1}^{10000}f(X_{ij})(\theta_i^T e_j+b_i+b_j'-logX_{ij})^2" /></a>, where
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=f(X_{ij})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?f(X_{ij})" title="f(X_{ij})" /></a> = weighting function that assigns
+
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=f(X_{ij})=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?f(X_{ij})=0" title="f(X_{ij})=0" /></a> if <a href="https://www.codecogs.com/eqnedit.php?latex=X_{ij}=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?X_{ij}=0" title="X_{ij}=0" /></a>
+    - Heuristic choice of weighting that neither gives commonly-occuring words too much weight nor gives the infrequent words too little weight
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=\theta_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta_i" title="\theta_i" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=e_j" target="_blank"><img src="https://latex.codecogs.com/gif.latex?e_j" title="e_j" /></a> in this particular formulation play symmetric roles
+
+    - Initialize <a href="https://www.codecogs.com/eqnedit.php?latex=\theta_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\theta_i" title="\theta_i" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=e_j" target="_blank"><img src="https://latex.codecogs.com/gif.latex?e_j" title="e_j" /></a> both uniformly, use gradient descent to minimize the objective, and finally take the average for every word
+
+      <a href="https://www.codecogs.com/eqnedit.php?latex=e_w^{(final)}&space;=&space;\frac{e_w&plus;\theta_w}{2}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?e_w^{(final)}&space;=&space;\frac{e_w&plus;\theta_w}{2}" title="e_w^{(final)} = \frac{e_w+\theta_w}{2}" /></a>
+
+### 2.3. Applications using word embeddings
+
+- #### Sentiment classification
+
+  Challenge: there might not be a huge labeled training set.
+
+  Solution: word embeddings enables to build good sentiment classifiers even with only modest-size label training sets.
+
+  - Sentiment classification problem
+
+    <img src="Resources/deep_learning/rnn/sentiment_ps.png" width=500>
+
+  - Simple sentiment classification model
+
+    <img src="Resources/deep_learning/rnn/sentiment_simple.png" width=560>
+
+    - (+) By using the average operation, this particular algorithm works for reviews that are either short or long.
+    - (-) Ignores word order. E.g. by averaging words meaning, incorrectly classifies "Completely lacking in good taste, good service, and good ambience."
+
+  - RNN for sentiment classification
+
+    <img src="Resources/deep_learning/rnn/sentiment_rnn.png" width=560>
+
+    - (+) Takes word sequence into account
+    - (+) Word embeddings can be trained from a much larger data set, so the model will do a better job generalizing to new words not seens in the training set
+
+- #### Debiasing word embeddings
+
+  Word embeddings can reflect gender, ethnicity, age, sexual orientation, and other biases of the text used to train the model. Because AI algorithms are increasingly trusted to make extremely important decisions, we want to eliminate undesirable forms of bias.
+
+  [Bolukbasi et. al., 2016. Man is to computer programmer as woman is to homemaker? Debiasing word embeddings]
+
+  1. Identify bias direction.
+
+      Take average of <a href="https://www.codecogs.com/eqnedit.php?latex=e_{he}&space;-&space;e_{she}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?e_{he}&space;-&space;e_{she}" title="e_{he} - e_{she}" /></a>, <a href="https://www.codecogs.com/eqnedit.php?latex=e_{male}&space;-&space;e_{female}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?e_{male}&space;-&space;e_{female}" title="e_{male} - e_{female}" /></a>, ..., to calculate the direction of bias
+
+      <img src="Resources/deep_learning/rnn/embedding_bias.png" width=400>
+
+  2. Neutralize: For every word that is not definitional, project to get rid of bias.
+
+      <img src="Resources/deep_learning/rnn/embedding_bias_neutralize.png" width=400>
+
+  3. Equalize pairs: Equalize pairs of words that you might want to have differ only through the e.g. gender property
+
+      <img src="Resources/deep_learning/rnn/embedding_bias_equalize.png" width=800>
+
+
+
+
