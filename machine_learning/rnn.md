@@ -12,6 +12,12 @@
     - [2.1. Intro to word embeddings](#21-intro-to-word-embeddings)
     - [2.2. Learning word embeddings: Word2vec and GloVe](#22-learning-word-embeddings-word2vec-and-glove)
     - [2.3. Applications using word embeddings](#23-applications-using-word-embeddings)
+  - [3. Sequence models & attention mechanism](#3-sequence-models--attention-mechanism)
+    - [3.1. Various sequence to sequence architectures](#31-various-sequence-to-sequence-architectures)
+    - [3.2. Beam search algorithm](#32-beam-search-algorithm)
+    - [3.3. Bleu score](#33-bleu-score)
+    - [3.4. Attention model](#34-attention-model)
+    - [3.5. Speech recognition - audio data](#35-speech-recognition---audio-data)
 
 ## 1. Recurrent neural networks (RNN)
 
@@ -516,6 +522,238 @@
 
       <img src="Resources/deep_learning/rnn/embedding_bias_equalize.png" width=800>
 
+## 3. Sequence models & attention mechanism
 
+### 3.1. Various sequence to sequence architectures
 
+- #### Basic models
 
+  - Machine translation
+
+    <img src="Resources/deep_learning/rnn/s2s_translation.png" width=450>
+
+    [Sutskever et al., 2014. Sequence to sequence learning with neural networks] <br>
+    [Cho et al., 2014. Learning phrase representations using RNN encoder-decoder for statistical machine translation]
+
+  - Image captioning
+
+    <img src="Resources/deep_learning/rnn/s2s_captioning.png" width=700>
+
+    [Mao et. al., 2014. Deep captioning with multimodal recurrent neural networks] <br>
+    [Vinyals et. al., 2014. Show and tell: Neural image caption generator] <br>
+    [Karpathy and Li, 2015. Deep visual-semantic alignments for generating image descriptions]
+
+- #### Picking the most likely sentence
+
+  - Machine translation as building a **conditional language model**
+
+    - Language model
+
+      <img src="Resources/deep_learning/rnn/language_model.png" width=270>
+
+      Outputs <a href="https://www.codecogs.com/eqnedit.php?latex=p(y^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;...,&space;y^{\left&space;\langle&space;T_y&space;\right&space;\rangle})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(y^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;...,&space;y^{\left&space;\langle&space;T_y&space;\right&space;\rangle})" title="p(y^{\left \langle 1 \right \rangle}, ..., y^{\left \langle T_y \right \rangle})" /></a>
+
+    - Machine translation
+
+      <img src="Resources/deep_learning/rnn/machine_translation.png" width=400>
+
+      Outputs <a href="https://www.codecogs.com/eqnedit.php?latex=p(y^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;...,&space;y^{\left&space;\langle&space;T_y&space;\right&space;\rangle}&space;|&space;x^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;...,&space;x^{\left&space;\langle&space;T_x&space;\right&space;\rangle})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(y^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;...,&space;y^{\left&space;\langle&space;T_y&space;\right&space;\rangle}&space;|&space;x^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;...,&space;x^{\left&space;\langle&space;T_x&space;\right&space;\rangle})" title="p(y^{\left \langle 1 \right \rangle}, ..., y^{\left \langle T_y \right \rangle} | x^{\left \langle 1 \right \rangle}, ..., x^{\left \langle T_x \right \rangle})" /></a>
+
+  - Finding the most likely translation
+
+    Should not sample output sentence at random. Instead, find the output sentence that maximize the conditional probability:
+
+    <img src="Resources/deep_learning/rnn/s2s_obj.png" width=300>
+
+  - Greedy search vs. approximate search
+
+    Greedy search not a good way to find the most likely translation
+
+    - (-) Not always optimal to compare the conditional probability of one word at a time
+    - (-) Possible combination of words is exponentially large
+
+    Approximate search algorithm
+
+    - (-) Not always able to pick the output sentence that maximizes the conditional probability
+    - (+) Does a good enough job
+
+### 3.2. Beam search algorithm
+
+- #### Beam search
+
+  Beam search can consider multiple alternatives rather than just one possibility. It runs faster than exact search algorithms, but is not guaranteed to find exact maximum for <a href="https://www.codecogs.com/eqnedit.php?latex=\arg&space;\max_y&space;p(y|x)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\arg&space;\max_y&space;p(y|x)" title="\arg \max_y p(y|x)" /></a>.
+
+  - Notation
+
+    - B = beam width, e.g. B = 3 considers 3 most likely possible choices at each step during decoding. When B = 1, beam search becomes greedy search.
+
+  - Step 1
+
+    Find B = 3 most likely possible choices of <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle}" title="\hat{y}^{\left \langle 1 \right \rangle}" /></a> that maximize <a href="https://www.codecogs.com/eqnedit.php?latex=p(\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle}|x)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle}|x)" title="p(\hat{y}^{\left \langle 1 \right \rangle}|x)" /></a>
+
+    <img src="Resources/deep_learning/rnn/beam_s1.png" width=400>
+
+  - Step 2
+
+    Find B = 3 most likely possible choices of <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle}" title="\hat{y}^{\left \langle 2 \right \rangle}" /></a> that maximize <a href="https://www.codecogs.com/eqnedit.php?latex=p(\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle}|x,&space;\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle}|x,&space;\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle})" title="p(\hat{y}^{\left \langle 2 \right \rangle}|x, \hat{y}^{\left \langle 1 \right \rangle})" /></a>. Then, find B = 3 most likely possible choices of <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle}" title="\hat{y}^{\left \langle 1 \right \rangle}, \hat{y}^{\left \langle 2 \right \rangle}" /></a> that maximize <a href="https://www.codecogs.com/eqnedit.php?latex=p(\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle}|x)=p(\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle}|x)\&space;p(\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle}|x,&space;\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle}|x)=p(\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle}|x)\&space;p(\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle}|x,&space;\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle})" title="p(\hat{y}^{\left \langle 1 \right \rangle}, \hat{y}^{\left \langle 2 \right \rangle}|x)=p(\hat{y}^{\left \langle 1 \right \rangle}|x)\ p(\hat{y}^{\left \langle 2 \right \rangle}|x, \hat{y}^{\left \langle 1 \right \rangle})" /></a>
+
+    <img src="Resources/deep_learning/rnn/beam_s2.png" width=400>
+
+  - Step 3
+
+    Find B = 3 most likely possible choices of <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}^{\left&space;\langle&space;3&space;\right&space;\rangle}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}^{\left&space;\langle&space;3&space;\right&space;\rangle}" title="\hat{y}^{\left \langle 3 \right \rangle}" /></a> that maximize <a href="https://www.codecogs.com/eqnedit.php?latex=p(\hat{y}^{\left&space;\langle&space;3&space;\right&space;\rangle}|x,&space;\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(\hat{y}^{\left&space;\langle&space;3&space;\right&space;\rangle}|x,&space;\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle})" title="p(\hat{y}^{\left \langle 3 \right \rangle}|x, \hat{y}^{\left \langle 1 \right \rangle}, \hat{y}^{\left \langle 2 \right \rangle})" /></a>. Then, find B = 3 most likely possible choices of <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;3&space;\right&space;\rangle}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;3&space;\right&space;\rangle}" title="\hat{y}^{\left \langle 1 \right \rangle}, \hat{y}^{\left \langle 2 \right \rangle}, \hat{y}^{\left \langle 3 \right \rangle}" /></a> that maximize <a href="https://www.codecogs.com/eqnedit.php?latex=p(\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;3&space;\right&space;\rangle}|x)=p(\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle}|x)\&space;p(\hat{y}^{\left&space;\langle&space;3&space;\right&space;\rangle}|x,&space;\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;3&space;\right&space;\rangle}|x)=p(\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle}|x)\&space;p(\hat{y}^{\left&space;\langle&space;3&space;\right&space;\rangle}|x,&space;\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;\hat{y}^{\left&space;\langle&space;2&space;\right&space;\rangle})" title="p(\hat{y}^{\left \langle 1 \right \rangle}, \hat{y}^{\left \langle 2 \right \rangle}, \hat{y}^{\left \langle 3 \right \rangle}|x)=p(\hat{y}^{\left \langle 1 \right \rangle}, \hat{y}^{\left \langle 2 \right \rangle}|x)\ p(\hat{y}^{\left \langle 3 \right \rangle}|x, \hat{y}^{\left \langle 1 \right \rangle}, \hat{y}^{\left \langle 2 \right \rangle})" /></a>
+
+    <img src="Resources/deep_learning/rnn/beam_s3.png" width=455>
+
+- #### Refinements to beam search
+
+  - Problem with bean search
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=\arg&space;\max_y&space;\prod_{t=1}^{T_y}p(\hat{y}^{\left&space;\langle&space;t&space;\right&space;\rangle}|x,&space;\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;...,&space;\hat{y}^{\left&space;\langle&space;t-1&space;\right&space;\rangle})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\arg&space;\max_y&space;\prod_{t=1}^{T_y}p(\hat{y}^{\left&space;\langle&space;t&space;\right&space;\rangle}|x,&space;\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;...,&space;\hat{y}^{\left&space;\langle&space;t-1&space;\right&space;\rangle})" title="\arg \max_y \prod_{t=1}^{T_y}p(\hat{y}^{\left \langle t \right \rangle}|x, \hat{y}^{\left \langle 1 \right \rangle}, ..., \hat{y}^{\left \langle t-1 \right \rangle})" /></a>
+
+    A product of many small numbers can result in numerical underflow, meaning that it's too small for the floating part representation in the computer to store accurately.
+
+  - Length normalization
+
+    In practice, instead of maximizing the product, maximize the logs of the product:
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=\arg&space;\max_y\&space;\frac{1}{T_y^{\alpha}}\sum_{t=1}^{T_y}\log&space;p(\hat{y}^{\left&space;\langle&space;t&space;\right&space;\rangle}|x,&space;\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;...,&space;\hat{y}^{\left&space;\langle&space;t-1&space;\right&space;\rangle})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\arg&space;\max_y\&space;\frac{1}{T_y^{\alpha}}\sum_{t=1}^{T_y}\log&space;p(\hat{y}^{\left&space;\langle&space;t&space;\right&space;\rangle}|x,&space;\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;...,&space;\hat{y}^{\left&space;\langle&space;t-1&space;\right&space;\rangle})" title="\arg \max_y\ \frac{1}{T_y^{\alpha}}\sum_{t=1}^{T_y}\log p(\hat{y}^{\left \langle t \right \rangle}|x, \hat{y}^{\left \langle 1 \right \rangle}, ..., \hat{y}^{\left \langle t-1 \right \rangle})" /></a>
+
+    - (+) More numerically stable algorithm that is less prone to numerical underflow.
+    - (+) Normalizing it by the number of words in the translation reduces the penalty for outputting longer translations. <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha" title="\alpha" /></a> is a hyperparameter that ranges between 0 (no normalization) and 1 (full normalization).
+
+  - Beam width B
+
+    Commonly-used B ranges from 10 to 100.
+
+    - (+) Larger B: more possibilities to consider leads to better results.
+    - (-) Larger B: slower and more computationally expensive, because of storing a lot more possibilities around.
+
+- #### Error analysis in beam search
+
+  - Compare <a href="https://www.codecogs.com/eqnedit.php?latex=p(y^*|x)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(y^*|x)" title="p(y^*|x)" /></a> vs. <a href="https://www.codecogs.com/eqnedit.php?latex=p(\hat{y}|x)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(\hat{y}|x)" title="p(\hat{y}|x)" /></a>, where <a href="https://www.codecogs.com/eqnedit.php?latex=y^*" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y^*" title="y^*" /></a> is the desired result, and <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}" title="\hat{y}" /></a> is the model result that is less desirable.
+
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=p(y^*|x)&space;>&space;p(\hat{y}|x)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(y^*|x)&space;>&space;p(\hat{y}|x)" title="p(y^*|x) > p(\hat{y}|x)" /></a>
+
+      Beam search chose <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}" title="\hat{y}" /></a>, but <a href="https://www.codecogs.com/eqnedit.php?latex=y^*" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y^*" title="y^*" /></a> attains higher <a href="https://www.codecogs.com/eqnedit.php?latex=p(y|x)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(y|x)" title="p(y|x)" /></a>.
+
+      Conclusion: beam search is at fault.
+
+    - <a href="https://www.codecogs.com/eqnedit.php?latex=p(y^*|x)&space;\leq&space;p(\hat{y}|x)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(y^*|x)&space;\leq&space;p(\hat{y}|x)" title="p(y^*|x) \leq p(\hat{y}|x)" /></a>
+
+      <a href="https://www.codecogs.com/eqnedit.php?latex=y^*" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y^*" title="y^*" /></a> is a better translation than <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}" title="\hat{y}" /></a>, but RNN predicted <a href="https://www.codecogs.com/eqnedit.php?latex=p(y^*|x)&space;\leq&space;p(\hat{y}|x)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p(y^*|x)&space;\leq&space;p(\hat{y}|x)" title="p(y^*|x) \leq p(\hat{y}|x)" /></a>.
+
+      Conclusion: RNN model is at fault.
+
+  - Use error analysis to figure out what fraction of errors are due to beam search vs. RNN model
+
+    <img src="Resources/deep_learning/rnn/beam_error_analysis.png" width=455>
+
+### 3.3. Bleu score
+
+- Problem in evaluating machine translation
+
+  Evaluate a machine translation system if there are multiple equally good answers
+
+- Evaluating machine translation
+
+  Given a machine generated translation, Bleu (Bilingual evaluation understudy) score automatically computes a score that measures how good the machine translation is.
+
+  [Papineni et. al., 2002. Bleu: A method for automatic evaluation of machine translation]
+
+- Notation
+
+  - Clip = give the algorithm credit only up to the maximum number of times that that the n-gram appears in either Reference 1 or Reference 2.
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{y}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{y}" title="\hat{y}" /></a> = machine translation output
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=p_n" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_n" title="p_n" /></a> = Bleu score on n-gram only
+  - BP = brevity penalty, penalizes translation systems that output translations that are too short
+
+- Bleu score on n-grams
+
+  <img src="Resources/deep_learning/rnn/bleu.png" width=500>
+
+- Combined Bleu score
+
+  <a href="https://www.codecogs.com/eqnedit.php?latex={BP}\&space;exp(\frac{1}{4}\sum_{i=1}^4&space;p_n)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?{BP}\&space;exp(\frac{1}{4}\sum_{i=1}^4&space;p_n)" title="{BP}\ exp(\frac{1}{4}\sum_{i=1}^4 p_n)" /></a>, where
+  
+  <img src="Resources/deep_learning/rnn/bleu_bp.png" width=500>
+
+- Advantage of Bleu score
+
+  - (+) BLEU score gives a pretty good single real number evaluation metric, so it accelerated the progress of the entire field of machine translation.
+
+### 3.4. Attention model
+
+- #### The problem with long sequences
+
+  In machine translation, difficult for the network to memorize a super long sentence.
+
+  <img src="Resources/deep_learning/rnn/attention_problem.png" width=700>
+
+- #### Attention model
+
+  - t' = time step in the input sentence
+
+  - t = time step in the generated translation
+
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha^{\left&space;\langle&space;t,t'&space;\right&space;\rangle}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha^{\left&space;\langle&space;t,t'&space;\right&space;\rangle}" title="\alpha^{\left \langle t,t' \right \rangle}" /></a> = attention weight, i.e. amount of attention <a href="https://www.codecogs.com/eqnedit.php?latex=y^{\left&space;\langle&space;t&space;\right&space;\rangle}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?y^{\left&space;\langle&space;t&space;\right&space;\rangle}" title="y^{\left \langle t \right \rangle}" /></a> should pay to <a href="https://www.codecogs.com/eqnedit.php?latex=a^{\left&space;\langle&space;t'&space;\right&space;\rangle}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{\left&space;\langle&space;t'&space;\right&space;\rangle}" title="a^{\left \langle t' \right \rangle}" /></a>
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=\sum_{t'}\alpha^{\left&space;\langle&space;t,&space;t'&space;\right&space;\rangle}&space;=&space;1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\sum_{t'}\alpha^{\left&space;\langle&space;t,&space;t'&space;\right&space;\rangle}&space;=&space;1" title="\sum_{t'}\alpha^{\left \langle t, t' \right \rangle} = 1" /></a>
+
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=a^{\left&space;\langle&space;t'&space;\right&space;\rangle}&space;=&space;(\overrightarrow{a}^{\left&space;\langle&space;t'&space;\right&space;\rangle},&space;\overleftarrow{a}^{\left&space;\langle&space;t'&space;\right&space;\rangle})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{\left&space;\langle&space;t'&space;\right&space;\rangle}&space;=&space;(\overrightarrow{a}^{\left&space;\langle&space;t'&space;\right&space;\rangle},&space;\overleftarrow{a}^{\left&space;\langle&space;t'&space;\right&space;\rangle})" title="a^{\left \langle t' \right \rangle} = (\overrightarrow{a}^{\left \langle t' \right \rangle}, \overleftarrow{a}^{\left \langle t' \right \rangle})" /></a> concatenated feature vectors from the original sentence
+
+  - c = context that the decoding model pays attention to
+
+    <a href="https://www.codecogs.com/eqnedit.php?latex=c^{\left&space;\langle&space;t&space;\right&space;\rangle}=\sum_{t'}\alpha^{\left&space;\langle&space;t,t'&space;\right&space;\rangle}a^{\left&space;\langle&space;t'&space;\right&space;\rangle}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c^{\left&space;\langle&space;t&space;\right&space;\rangle}=\sum_{t'}\alpha^{\left&space;\langle&space;t,t'&space;\right&space;\rangle}a^{\left&space;\langle&space;t'&space;\right&space;\rangle}" title="c^{\left \langle t \right \rangle}=\sum_{t'}\alpha^{\left \langle t,t' \right \rangle}a^{\left \langle t' \right \rangle}" /></a>
+
+  <img src="Resources/deep_learning/rnn/attention_intuition.png" width=500>
+
+  [Bahdanau et. al., 2014. Neural machine translation by jointly learning to align and translate] <br>
+  [Xu et. al., 2015. Show, attend and tell: Neural image caption generation with visual attention]
+
+- #### Computing attention
+
+  <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha^{\left&space;\langle&space;t,t'&space;\right&space;\rangle}=\frac{\exp(e^{\left&space;\langle&space;t,t'&space;\right&space;\rangle})}{\sum_{t'=1}^{T_x}\exp(e^{\left&space;\langle&space;t,t'&space;\right&space;\rangle})}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha^{\left&space;\langle&space;t,t'&space;\right&space;\rangle}=\frac{\exp(e^{\left&space;\langle&space;t,t'&space;\right&space;\rangle})}{\sum_{t'=1}^{T_x}\exp(e^{\left&space;\langle&space;t,t'&space;\right&space;\rangle})}" title="\alpha^{\left \langle t,t' \right \rangle}=\frac{\exp(e^{\left \langle t,t' \right \rangle})}{\sum_{t'=1}^{T_x}\exp(e^{\left \langle t,t' \right \rangle})}" /></a>
+  
+  - <a href="https://www.codecogs.com/eqnedit.php?latex=e^{\left&space;\langle&space;t,t'&space;\right&space;\rangle}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?e^{\left&space;\langle&space;t,t'&space;\right&space;\rangle}" title="e^{\left \langle t,t' \right \rangle}" /></a> can be learnt by training a small neural network where the inputs are represented by the hidden state activation in the previous time step <a href="https://www.codecogs.com/eqnedit.php?latex=s^{\left&space;\langle&space;t-1&space;\right&space;\rangle}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?s^{\left&space;\langle&space;t-1&space;\right&space;\rangle}" title="s^{\left \langle t-1 \right \rangle}" /></a> and the features from the current time step <a href="https://www.codecogs.com/eqnedit.php?latex=a^{\left&space;\langle&space;t'&space;\right&space;\rangle}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?a^{\left&space;\langle&space;t'&space;\right&space;\rangle}" title="a^{\left \langle t' \right \rangle}" /></a>.
+
+    <img src="Resources/deep_learning/rnn/attention_nn.png" width=200>
+
+    <img src="Resources/deep_learning/rnn/attention_nn2.png" width=350>
+
+  - The algorithm runs in quadratic cost. If we have <a href="https://www.codecogs.com/eqnedit.php?latex=T_x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?T_x" title="T_x" /></a> words as input and <a href="https://www.codecogs.com/eqnedit.php?latex=T_y" target="_blank"><img src="https://latex.codecogs.com/gif.latex?T_y" title="T_y" /></a> for the output, the total number of attention parameters is <a href="https://www.codecogs.com/eqnedit.php?latex=T_y" target="_blank"><img src="https://latex.codecogs.com/gif.latex?T_y" title="T_y" /></a>.
+
+- #### Visualization of attention
+
+  <img src="Resources/deep_learning/rnn/attention_visual.png" width=300>
+
+### 3.5. Speech recognition - audio data
+
+- #### Speech recognition problem
+
+  <img src="Resources/deep_learning/rnn/speech_recognition_problem.png" width=400>
+
+  - Note that phonemes (hand-engineered) representation is no longer necessary, because there are much larger datasets available.
+  - Using a spectrogram and optionally a 1D conv layer is a common pre-processing step prior to passing audio data to an RNN, GRU or LSTM.
+
+- #### Attention model for speech recognition
+
+  <img src="Resources/deep_learning/rnn/speech_recognition_attention.png" width=550>
+
+- #### CTC cost for speech recognition
+
+  CTC (Connectionist temporal classification) basic rule: collapse repeated characters not separated by “blank”
+
+  <img src="Resources/deep_learning/rnn/speech_recognition_ctc.png" width=500>
+
+  [Graves et al., 2006. Connectionist Temporal Classification: Labeling unsegmented sequence data with recurrent neural networks]
+
+- #### Trigger word detection
+
+  - Trigger word applications
+
+    <img src="Resources/deep_learning/rnn/trigger_word.png" width=400>
+
+  - Trigger word detection algorithm
+
+    <img src="Resources/deep_learning/rnn/trigger_word_detection.png" width=600>
