@@ -607,7 +607,7 @@
 
 - #### Refinements to beam search
 
-  - Problem with bean search
+  - Problem with beam search
 
     <a href="https://www.codecogs.com/eqnedit.php?latex=\arg&space;\max_y&space;\prod_{t=1}^{T_y}p(\hat{y}^{\left&space;\langle&space;t&space;\right&space;\rangle}|x,&space;\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;...,&space;\hat{y}^{\left&space;\langle&space;t-1&space;\right&space;\rangle})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\arg&space;\max_y&space;\prod_{t=1}^{T_y}p(\hat{y}^{\left&space;\langle&space;t&space;\right&space;\rangle}|x,&space;\hat{y}^{\left&space;\langle&space;1&space;\right&space;\rangle},&space;...,&space;\hat{y}^{\left&space;\langle&space;t-1&space;\right&space;\rangle})" title="\arg \max_y \prod_{t=1}^{T_y}p(\hat{y}^{\left \langle t \right \rangle}|x, \hat{y}^{\left \langle 1 \right \rangle}, ..., \hat{y}^{\left \langle t-1 \right \rangle})" /></a>
 
