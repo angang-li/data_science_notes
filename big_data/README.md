@@ -4,5 +4,6 @@
 
 - [Big data](big_data.md)
 - [Hadoop](hadoop.md)
-- [Spark data wrangling](spark.md)
-- [Spark machine learning](spark_ml.md)
+- [Spark](spark.md)
+  - [Data wrangling with pyspark](pyspark_df.md)
+  - [Machine learning with pyspark](pyspark_ml.md)

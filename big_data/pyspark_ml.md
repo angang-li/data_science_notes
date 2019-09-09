@@ -1,6 +1,6 @@
-# Machine learning with Spark
+# Machine learning with Pyspark
 
-- [Machine learning with Spark](#machine-learning-with-spark)
+- [Machine learning with Pyspark](#machine-learning-with-pyspark)
   - [1. Spark ML](#1-spark-ml)
   - [2. Getting started](#2-getting-started)
     - [2.1. Spark session](#21-spark-session)
