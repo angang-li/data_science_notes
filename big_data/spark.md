@@ -5,18 +5,18 @@
     - [1.1. Spark vs. Hadoop](#11-spark-vs-hadoop)
     - [1.2. Spark ecosystem](#12-spark-ecosystem)
     - [1.3. Four different modes to setup Spark](#13-four-different-modes-to-setup-spark)
-    - [1.4. Spark architecture](#14-spark-architecture)
-    - [1.5. Spark use cases](#15-spark-use-cases)
-    - [1.6. You don't always need Spark](#16-you-dont-always-need-spark)
-    - [1.7. Spark's limitations](#17-sparks-limitations)
-    - [1.8. Beyond Spark for Storing and Processing Big Data](#18-beyond-spark-for-storing-and-processing-big-data)
-  - [2. Spark and functional programming](#2-spark-and-functional-programming)
-    - [2.1. Functional programming](#21-functional-programming)
-    - [2.2. Directed Acyclic Graph (DAG)](#22-directed-acyclic-graph-dag)
-    - [2.3. Maps and lambda functions](#23-maps-and-lambda-functions)
-    - [2.4. Imperative vs declarative programming](#24-imperative-vs-declarative-programming)
-    - [2.5. Resilient distributed dataset (RDD)](#25-resilient-distributed-dataset-rdd)
-    - [2.6. RDDs, Datasets, and DataFrames](#26-rdds-datasets-and-dataframes)
+    - [1.4. Spark use cases](#14-spark-use-cases)
+    - [1.5. You don't always need Spark](#15-you-dont-always-need-spark)
+    - [1.6. Spark's limitations](#16-sparks-limitations)
+    - [1.7. Beyond Spark for Storing and Processing Big Data](#17-beyond-spark-for-storing-and-processing-big-data)
+  - [2. Spark architecture and functional programming](#2-spark-architecture-and-functional-programming)
+    - [2.1. Spark architecture](#21-spark-architecture)
+    - [2.2. Functional programming](#22-functional-programming)
+    - [2.3. Directed Acyclic Graph (DAG)](#23-directed-acyclic-graph-dag)
+    - [2.4. Maps and lambda functions](#24-maps-and-lambda-functions)
+    - [2.5. Imperative vs declarative programming](#25-imperative-vs-declarative-programming)
+    - [2.6. Resilient distributed dataset (RDD)](#26-resilient-distributed-dataset-rdd)
+    - [2.7. RDDs, Datasets, and DataFrames](#27-rdds-datasets-and-dataframes)
   - [3. Data wrangling with Spark](#3-data-wrangling-with-spark)
     - [3.1. Spark session](#31-spark-session)
     - [3.2. Read and write data into Spark dataframe](#32-read-and-write-data-into-spark-dataframe)
@@ -63,13 +63,44 @@
 
 - Other three modes - distributed and declares a cluster manager.
 
-  - The **cluster manager** is a separate process that monitors the available resources, and makes sure that all machines are responsive during the job.
-  - 3 different options of cluster managers
-    - Standalone cluster manager
-    - YARN (from Hadoop)
-    - Mesos (open source from UC Berkeley's AMPLab Coordinators)
+### 1.4. Spark use cases
 
-### 1.4. Spark architecture
+Here are a few resources about different Spark use cases.
+
+- [Data Analytics](http://spark.apache.org/sql/)
+- [Machine Learning](http://spark.apache.org/mllib/)
+- [Streaming](http://spark.apache.org/streaming/)
+- [Graph Analytics](http://spark.apache.org/graphx/)
+
+### 1.5. You don't always need Spark
+
+- Spark is meant for big data sets that cannot fit on one computer. But you don't need Spark if you are working on smaller data sets.
+
+- Sometimes, you can still use pandas on a single, local machine even if your data set is only a little bit larger than memory. E.g., `pandas` can read data in chunks.
+
+- If the data is already stored in a relational database, you can leverage SQL to extract, filter and aggregate the data. If you would like to leverage `pandas` and SQL simultaneously, you can use libraries such as `SQLAlchemy`, which provides an abstraction layer to manipulate SQL tables with generative Python expressions.
+
+- The most commonly used Python Machine Learning libraries are `scikit-learn` and `TensorFlow` or `PyTorch`.
+
+### 1.6. Spark's limitations
+
+- For streaming data, Spark is slower than native streaming tools such as [Storm](http://storm.apache.org/), [Apex](https://apex.apache.org/), and [Flink](https://flink.apache.org/).
+
+- For machine learning, Spark has limited selection of machine learning algorithms. Currently, Spark only supports algorithms that scale linearly with the input data size. In general, deep learning is not available either, though there are many projects integrate Spark with Tensorflow and other deep learning tools.
+
+### 1.7. Beyond Spark for Storing and Processing Big Data
+
+- Spark is not a data storage system, and there are a number of tools besides Spark that can be used to process and analyze large datasets.
+
+- Sometimes it makes sense to use the power and simplicity of SQL on big data. For these cases, a new class of databases, know as NoSQL and NewSQL, have been developed.
+
+- E.g., newer database storage systems like [HBase](https://hbase.apache.org/) or [Cassandra](http://cassandra.apache.org/); distributed SQL engines like [Impala](https://impala.apache.org/) and [Presto](https://prestodb.io/). Many of these technologies use query syntax.
+
+## 2. Spark architecture and functional programming
+
+Spark is written in Scala, which is a functional programming. There are application programming interfaces in Java, R, Python; e.g. Python API - `PySpark`
+
+### 2.1. Spark architecture
 
 <img src="resources/spark_architecture.png" width=450>
 
@@ -101,44 +132,24 @@ Spark cluster is set up in the classic master/worker configuration. The master n
 
 - **SparkContext**, hosted by the Driver program, is the entry point to Spark application
 
-### 1.5. Spark use cases
+  - Interact with all the Spark constructs for distributed data processing, e.g. create RDDs, accumulators, and run jobs
+  - SparkContext is wrapped in SparkSession that encapsulates SQLContext, HiveContext, etc.
 
-Here are a few resources about different Spark use cases.
+- **Cluster manager**
 
-- [Data Analytics](http://spark.apache.org/sql/)
-- [Machine Learning](http://spark.apache.org/mllib/)
-- [Streaming](http://spark.apache.org/streaming/)
-- [Graph Analytics](http://spark.apache.org/graphx/)
+  - The cluster manager is a separate process that monitors the available resources, and makes sure that all machines are responsive during the job.
+  - 3 different options of cluster managers
+    - Standalone cluster manager
+    - YARN (from Hadoop)
+    - Mesos (open source from UC Berkeley's AMPLab Coordinators)
 
-### 1.6. You don't always need Spark
+- **Workers**
 
-- Spark is meant for big data sets that cannot fit on one computer. But you don't need Spark if you are working on smaller data sets.
+  - Compute nodes in cluster that are responsible for running the Spark application code
+  - When SparkContext is created, each worker starts executors
+    - **Executors**: distributed agents that execute tasks - the basic units of execution
 
-- Sometimes, you can still use pandas on a single, local machine even if your data set is only a little bit larger than memory. E.g., `pandas` can read data in chunks.
-
-- If the data is already stored in a relational database, you can leverage SQL to extract, filter and aggregate the data. If you would like to leverage `pandas` and SQL simultaneously, you can use libraries such as `SQLAlchemy`, which provides an abstraction layer to manipulate SQL tables with generative Python expressions.
-
-- The most commonly used Python Machine Learning libraries are `scikit-learn` and `TensorFlow` or `PyTorch`.
-
-### 1.7. Spark's limitations
-
-- For streaming data, Spark is slower than native streaming tools such as [Storm](http://storm.apache.org/), [Apex](https://apex.apache.org/), and [Flink](https://flink.apache.org/).
-
-- For machine learning, Spark has limited selection of machine learning algorithms. Currently, Spark only supports algorithms that scale linearly with the input data size. In general, deep learning is not available either, though there are many projects integrate Spark with Tensorflow and other deep learning tools.
-
-### 1.8. Beyond Spark for Storing and Processing Big Data
-
-- Spark is not a data storage system, and there are a number of tools besides Spark that can be used to process and analyze large datasets.
-
-- Sometimes it makes sense to use the power and simplicity of SQL on big data. For these cases, a new class of databases, know as NoSQL and NewSQL, have been developed.
-
-- E.g., newer database storage systems like [HBase](https://hbase.apache.org/) or [Cassandra](http://cassandra.apache.org/); distributed SQL engines like [Impala](https://impala.apache.org/) and [Presto](https://prestodb.io/). Many of these technologies use query syntax.
-
-## 2. Spark and functional programming
-
-Spark is written in Scala, which is a functional programming. There are application programming interfaces in Java, R, Python; e.g. Python API - `PySpark`
-
-### 2.1. Functional programming
+### 2.2. Functional programming
 
 - **Functional programming** is the process of building software by composing **pure functions**, avoiding **shared state**, **mutable data**, and **side-effects**.
 
@@ -152,7 +163,7 @@ Spark is written in Scala, which is a functional programming. There are applicat
 
     - **Side-effects:** any application state change that is observable outside the called function other than its return value.
 
-### 2.2. Directed Acyclic Graph (DAG)
+### 2.3. Directed Acyclic Graph (DAG)
 
 Spark features an advanced Directed Acyclic Graph (DAG) engine supporting cyclic data flow. Each Spark job creates a DAG of task stages to be performed on the cluster.
 
@@ -162,7 +173,7 @@ Spark features an advanced Directed Acyclic Graph (DAG) engine supporting cyclic
 
 - Compared to MapReduce, which creates a DAG with two predefined stages - Map and Reduce, DAGs created by Spark can contain any number of stages.
 
-### 2.3. Maps and lambda functions
+### 2.4. Maps and lambda functions
 
 In Spark, maps take data as input and then transform that data with whatever function you put in the map. They are like directions for the data telling how each input should get to the output.
 
@@ -223,13 +234,13 @@ In Spark, maps take data as input and then transform that data with whatever fun
 
     Spark is not changing the original data set: Spark is merely making a copy.
 
-### 2.4. Imperative vs declarative programming
+### 2.5. Imperative vs declarative programming
 
 - How to achieve the result vs. what result to get
 
     <img src="resources/spark_imp_dec.png" width=500>
 
-### 2.5. Resilient distributed dataset (RDD)
+### 2.6. Resilient distributed dataset (RDD)
 
 - **RDD** is a fundamental data structure of Spark. It is an **immutable distributed collection of objects** (rows, records). RDDs are a low-level abstraction of the data. You can think of RDDs as long lists distributed across various machines. You can still use RDDs as part of your Spark code although data frames and SQL are easier.
 
@@ -265,7 +276,7 @@ In Spark, maps take data as input and then transform that data with whatever fun
 
   - Link to the Spark documentation's [RDD programming guide](https://spark.apache.org/docs/latest/rdd-programming-guide.html).
 
-### 2.6. RDDs, Datasets, and DataFrames
+### 2.7. RDDs, Datasets, and DataFrames
 
 - DataFrame
 
