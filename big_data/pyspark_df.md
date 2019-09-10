@@ -1,18 +1,21 @@
-# Data wrangling with Pyspark
+# Data wrangling with PySpark
 
-- [Data wrangling with Pyspark](#data-wrangling-with-pyspark)
-  - [1. Data wrangling with pyspark](#1-data-wrangling-with-pyspark)
+- [Data wrangling with PySpark](#data-wrangling-with-pyspark)
+  - [1. Creating DataFrame](#1-creating-dataframe)
     - [1.1. Spark session](#11-spark-session)
-    - [1.2. Read and write data into Spark dataframe](#12-read-and-write-data-into-spark-dataframe)
-    - [1.3. Overview of the loaded data](#13-overview-of-the-loaded-data)
-    - [1.4. General functions](#14-general-functions)
-    - [1.5. Aggregate functions](#15-aggregate-functions)
-    - [1.6. User defined functions (UDF)](#16-user-defined-functions-udf)
-    - [1.7. Window functions](#17-window-functions)
-    - [1.8. Convert PySpark dataframe to pandas dataframe](#18-convert-pyspark-dataframe-to-pandas-dataframe)
-    - [1.9. Date](#19-date)
+    - [1.2. Read data file into dataframe](#12-read-data-file-into-dataframe)
+    - [1.3. Create dataframe](#13-create-dataframe)
+    - [1.4. Write data file from dataframe](#14-write-data-file-from-dataframe)
+    - [1.5. Convert PySpark dataframe into pandas dataframe](#15-convert-pyspark-dataframe-into-pandas-dataframe)
+    - [1.6. Overview of the loaded data](#16-overview-of-the-loaded-data)
+  - [2. Dataframe functions](#2-dataframe-functions)
+    - [2.1. General functions](#21-general-functions)
+    - [2.2. Aggregate functions](#22-aggregate-functions)
+    - [2.3. User defined functions (UDF)](#23-user-defined-functions-udf)
+    - [2.4. Window functions](#24-window-functions)
+    - [2.5. Date](#25-date)
 
-## 1. Data wrangling with pyspark
+## 1. Creating DataFrame
 
 ### 1.1. Spark session
 
@@ -42,7 +45,7 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
     spark.stop()
     ```
 
-### 1.2. Read and write data into Spark dataframe
+### 1.2. Read data file into dataframe
 
 - Read json
 
@@ -94,6 +97,45 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
     dataframe = spark.read.csv(SparkFiles.get("food.csv"), sep=",", header=True, schema=final)
     ```
 
+### 1.3. Create dataframe
+
+- Create dataframe from RDD using Row function
+
+    ```python
+    # Row functions allow specifying column names for dataframes
+    data = sc.parallelize([
+        Row(id=1, name="Alice", score=50),
+        Row(id=2, name="Bob", score=80)
+    ])
+    df = data.toDF()
+    ```
+
+- Create dataframe from raw data using SQLContext
+
+    ```python
+    # SQLContext can create dataframes directly from raw data
+    sqlContext = SQLContext(sc)
+    data = [
+        ('Alice', 50),
+        ('Bob', 80),
+    ]
+    df = sqlContext.createDataFrame(data, ['Name', 'Score'])
+    ```
+
+- Create dataframe using SQL Context and the Row function
+
+    ```python
+    data = sc.parallelize([
+        Row(1, "Alice", 50),
+        Row(2, "Bob", 80),
+    ])
+    column_names = Row('id', 'name', 'score')  
+    students = data.map(lambda r: column_names(*r))
+    df = sqlContext.createDataFrame(students)
+    ```
+
+### 1.4. Write data file from dataframe
+
 - Write csv
 
     ```python
@@ -103,7 +145,16 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
     df.write.save(out_path, format="csv", header=True)
     ```
 
-### 1.3. Overview of the loaded data
+### 1.5. Convert PySpark dataframe into pandas dataframe
+
+- Convert to pandas dataframe
+
+    ```python
+    pandas_df = df.toPandas()
+    pandas_df.head()
+    ```
+
+### 1.6. Overview of the loaded data
 
 - Print table schema
 
@@ -136,6 +187,11 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
     ```
 
     ```python
+    # Show the first row
+    df.first()
+    ```
+
+    ```python
     df.head()
     ```
 
@@ -157,7 +213,9 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
     df.count()
     ```
 
-### 1.4. General functions
+## 2. Dataframe functions
+
+### 2.1. General functions
 
 - [Declarative]: create a view to run SQL queries
 
@@ -290,7 +348,7 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
     songs_in_hour.show()
     ```
 
-### 1.5. Aggregate functions
+### 2.2. Aggregate functions
 
 Spark SQL provides built-in methods for the most common aggregations such as `count()`, `countDistinct()`, `avg()`, `max()`, `min()`, etc. in the pyspark.sql.functions module. These methods are not the same as the built-in methods in the Python Standard Library
 
@@ -316,7 +374,7 @@ Spark SQL provides built-in methods for the most common aggregations such as `co
     df.agg(avg("points")).show()
     ```
 
-### 1.6. User defined functions (UDF)
+### 2.3. User defined functions (UDF)
 
 The default type of the returned variable for UDFs is string. If we would like to return an other type we need to explicitly do so by using the different types from the pyspark.sql.types module.
 
@@ -361,7 +419,7 @@ The default type of the returned variable for UDFs is string. If we would like t
     )
     ```
 
-### 1.7. Window functions
+### 2.4. Window functions
 
 Window functions are a way of combining the values of ranges of rows in a dataframe. When defining the window we can choose how to sort and group (with the partitionBy method) the rows and how wide of a window we'd like to use (described by rangeBetween or rowsBetween).
 
@@ -393,16 +451,7 @@ For further information see the [Spark SQL, DataFrames and Datasets Guide](https
     )
     ```
 
-### 1.8. Convert PySpark dataframe to pandas dataframe
-
-- Convert to pandas dataframe
-
-    ```python
-    pandas_df = df.toPandas()
-    pandas_df.head()
-    ```
-
-### 1.9. Date
+### 2.5. Date
 
 - Show the year and month for the date column
 
