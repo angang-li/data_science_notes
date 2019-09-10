@@ -6,14 +6,15 @@
     - [1.2. Read data file into dataframe](#12-read-data-file-into-dataframe)
     - [1.3. Create dataframe](#13-create-dataframe)
     - [1.4. Write data file from dataframe](#14-write-data-file-from-dataframe)
-    - [1.5. Convert PySpark dataframe into pandas dataframe](#15-convert-pyspark-dataframe-into-pandas-dataframe)
-    - [1.6. Overview of the loaded data](#16-overview-of-the-loaded-data)
-  - [2. Dataframe functions](#2-dataframe-functions)
-    - [2.1. General functions](#21-general-functions)
-    - [2.2. Aggregate functions](#22-aggregate-functions)
-    - [2.3. User defined functions (UDF)](#23-user-defined-functions-udf)
-    - [2.4. Window functions](#24-window-functions)
-    - [2.5. Date](#25-date)
+    - [1.5. Convert between PySpark dataframe and pandas dataframe](#15-convert-between-pyspark-dataframe-and-pandas-dataframe)
+  - [2. Exploring DataFrame](#2-exploring-dataframe)
+    - [2.1. Overview of dataframe](#21-overview-of-dataframe)
+    - [2.2. Access and modify data from dataframe](#22-access-and-modify-data-from-dataframe)
+  - [3. DataFrame functions](#3-dataframe-functions)
+    - [3.1. Aggregate functions](#31-aggregate-functions)
+    - [3.2. User defined functions (UDF)](#32-user-defined-functions-udf)
+    - [3.3. Window functions](#33-window-functions)
+    - [3.4. Date](#34-date)
 
 ## 1. Creating DataFrame
 
@@ -145,16 +146,24 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
     df.write.save(out_path, format="csv", header=True)
     ```
 
-### 1.5. Convert PySpark dataframe into pandas dataframe
+### 1.5. Convert between PySpark dataframe and pandas dataframe
 
-- Convert to pandas dataframe
+- Convert pyspark dataframe into pandas dataframe
 
     ```python
     pandas_df = df.toPandas()
     pandas_df.head()
     ```
 
-### 1.6. Overview of the loaded data
+- Convert pandas dataframe into pyspark dataframe
+
+    ```python
+    sqlContext.createDataFrame(pandas_df).show()
+    ```
+
+## 2. Exploring DataFrame
+
+### 2.1. Overview of dataframe
 
 - Print table schema
 
@@ -213,9 +222,7 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
     df.count()
     ```
 
-## 2. Dataframe functions
-
-### 2.1. General functions
+### 2.2. Access and modify data from dataframe
 
 - [Declarative]: create a view to run SQL queries
 
@@ -288,6 +295,15 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
     df.select("page").dropDuplicates().sort("page").show()
     ```
 
+- Edit column
+
+    ```python
+    # Edit using map function
+    complex_data_df.rdd\
+        .map(lambda x: (x.col_string + " Boo"))\
+        .collect()
+    ```
+
 - Add new column
 
     ```python
@@ -308,7 +324,13 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
 - Update column name
 
     ```python
+    # Rename a column
     df.withColumnRenamed('price','newerprice').show()
+    ```
+
+    ```python
+    # Equivalently, set alias
+    df.select(df.price.alias("newerprice")).show()
     ```
 
 - Group by
@@ -348,7 +370,9 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
     songs_in_hour.show()
     ```
 
-### 2.2. Aggregate functions
+## 3. DataFrame functions
+
+### 3.1. Aggregate functions
 
 Spark SQL provides built-in methods for the most common aggregations such as `count()`, `countDistinct()`, `avg()`, `max()`, `min()`, etc. in the pyspark.sql.functions module. These methods are not the same as the built-in methods in the Python Standard Library
 
@@ -374,7 +398,7 @@ Spark SQL provides built-in methods for the most common aggregations such as `co
     df.agg(avg("points")).show()
     ```
 
-### 2.3. User defined functions (UDF)
+### 3.2. User defined functions (UDF)
 
 The default type of the returned variable for UDFs is string. If we would like to return an other type we need to explicitly do so by using the different types from the pyspark.sql.types module.
 
@@ -419,7 +443,7 @@ The default type of the returned variable for UDFs is string. If we would like t
     )
     ```
 
-### 2.4. Window functions
+### 3.3. Window functions
 
 Window functions are a way of combining the values of ranges of rows in a dataframe. When defining the window we can choose how to sort and group (with the partitionBy method) the rows and how wide of a window we'd like to use (described by rangeBetween or rowsBetween).
 
@@ -451,7 +475,7 @@ For further information see the [Spark SQL, DataFrames and Datasets Guide](https
     )
     ```
 
-### 2.5. Date
+### 3.4. Date
 
 - Show the year and month for the date column
 
