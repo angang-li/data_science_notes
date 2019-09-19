@@ -741,6 +741,63 @@ For further information see the [Spark SQL, DataFrames and Datasets Guide](https
     )
     ```
 
+- Rank function within partitions
+
+    ```python
+    # Add a rank column based on price within each category
+    import sys
+    from pyspark.sql.window import Window
+    import pyspark.sql.functions as func
+
+    windowSpec1 = Window \
+    .partitionBy(products['category']) \
+    .orderBy(products['price'].desc())
+
+    product_rank = products.select(
+            products['product'],
+            products['category'],
+            products['price']
+    ).withColumn('rank', func.rank().over(windowSpec1))
+    product_rank.show()
+    ```
+
+- Max function between rows
+
+    ```python
+    # Add a column that shows the max value between the current and previous rows
+    windowSpec2 = Window \
+        .partitionBy(products['category']) \
+        .orderBy(products['price'].desc()) \
+        .rowsBetween(-1, 0)
+
+    price_max = (func.max(products['price']).over(windowSpec2))
+
+    products.select(
+        products['product'],
+        products['category'],
+        products['price'],
+        price_max.alias("price_max")).show()
+    ```
+
+- Difference from max within partitions
+
+    ```python
+    # Add a columns that shows the difference from the max value of the partition
+    windowSpec3 = Window \
+        .partitionBy(products['category']) \
+        .orderBy(products['price'].desc()) \
+        .rangeBetween(-sys.maxsize, sys.maxsize) # all rows within that partition
+
+    price_difference = \
+    (func.max(products['price']).over(windowSpec3) - products['price'])
+
+    products.select(
+        products['product'],
+        products['category'],
+        products['price'],
+        price_difference.alias("price_difference")).show()
+    ```
+
 ### 3.5. Date
 
 - Show the year and month for the date column
