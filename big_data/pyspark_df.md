@@ -88,16 +88,20 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
 
     ```python
     # Import struct fields that we can use
-    from pyspark.sql.types import StructField, StringType, IntegerType, StructType
+    from pyspark.sql.types import StructField, StringType, IntegerType, StructType, LongType
 
     # Next we need to create the list of struct fields
-    schema = [StructField("food", StringType(), True), StructField("price", IntegerType(), True),]
+    schema_fields = [
+        StructField("food", StringType(), True),
+        StructField("price", LongType(), True),
+        StructField("amount", IntegerType(), True)
+    ]
 
     # Pass in our fields
-    final = StructType(fields=schema)
+    schema = StructType(fields=schema_fields)
 
     # Read our data with our new schema
-    dataframe = spark.read.csv(SparkFiles.get("food.csv"), sep=",", header=True, schema=final)
+    dataframe = spark.read.csv(SparkFiles.get("food.csv"), sep=",", header=True, schema=schema)
     ```
 
 ### 1.3. Create dataframe
@@ -135,6 +139,49 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
     column_names = Row('id', 'name', 'score')  
     students = data.map(lambda r: column_names(*r))
     df = sqlContext.createDataFrame(students)
+    ```
+
+- Create dataframe with inferred schema
+
+    ```python
+    # Read text
+    lines = sc.textFile("../datasets/students.txt")
+    # ['Emily,44,55,78', 'Andy,47,34,89', 'Rick,55,78,55', 'Aaron,66,34,98']
+
+    # Map into a list of lists of values
+    parts = lines.map(lambda l: l.split(","))
+
+    # Map into rows
+    students = parts.map(lambda p: Row(name=p[0], math=int(p[1]), english=int(p[2]), science=int(p[3])))
+
+    # Create dataframe
+    schemaStudents = spark.createDataFrame(students)
+
+    # Checkout inferred schema
+    schemaStudents.schema
+    ```
+
+- Create dataframe with explicit schema
+
+    ```python
+    # Import struct fields that we can use
+    from pyspark.sql.types import StructField, StringType, IntegerType, StructType, LongType
+
+    # Next we need to create the list of struct fields
+    schema_fields = [
+        StructField("food", StringType(), True),
+        StructField("price", LongType(), True),
+        StructField("amount", IntegerType(), True)
+    ]
+
+    # Pass in our fields
+    schema = StructType(fields=schema_fields)
+
+    # Create dataframe with explicit schema
+    schemaStudents = spark.createDataFrame(parts, schema)
+
+    # Checkout schema
+    schemaStudents.schema
     ```
 
 ### 1.4. Write data file from dataframe
@@ -252,7 +299,34 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
 - [Declarative]: create a view to run SQL queries
 
     ```python
+    # The view is valid for one session
+    # This is required to run SQL commands on the dataframe
     df.createOrReplaceTempView("df_table")
+    ```
+
+    ```python
+    # Access the view
+    spark.sql(
+        '''
+        SELECT *
+        FROM df_table
+        WHERE userID == '1046'
+        LIMIT 2
+        '''
+    ).show() # or .collect()
+    ```
+
+- [Declarative]: create a global view across all Spark sessions
+
+    ```python
+    # Temporary view shared across multiple sessions
+    # Kept alive till the Spark application terminates
+    df.createGlobalTempView("df_table")
+    ```
+
+    ```python
+    # Access global view
+    spark.sql('SELECT * FROM global_temp.df_table').show()
     ```
 
 - Select column(s)
@@ -282,19 +356,6 @@ The first component of a Spark program is a `SparkContext`, or equivalently `Spa
     ```python
     # Select with "where" condition
     df.select(['userId', 'firstName']).where(df.userID == "1046").collect()
-    ```
-
-- [Declarative]: select clause with SQL syntax
-
-    ```python
-    spark.sql(
-        '''
-        SELECT *
-        FROM df_table
-        WHERE userID == '1046'
-        LIMIT 2
-        '''
-    ).show() # or .collect()
     ```
 
 - Filter rows with given condition
