@@ -120,6 +120,19 @@ Spark cluster is set up in the classic master/worker configuration. The master n
     - Store data in registers, not RAM/cache
     - Perform compiler optimization, e.g. loop unrolling. pipelining
 
+  - **Catalyst optimizer** is the optimization engine that powers Spark SQL as well as DataFrame API
+
+    <img src="resources/spark_catalyst.png" width=550>
+
+    - SQL query and DataFrame: relations to be processed
+    - Unresolved logical plan: unresolved as column types and existence yet to be ascertained
+    - Catalog: tracks tables in all data sources to resolve plan
+    - Logical plan: output of the analysis phase
+    - Optimized logical plan: optimize costs of predicate pushdown, projection pruning, null propagation, expression simplification
+    - Physical plan: generate different alternative physical plans for this optimized logical plan. Here Catalyst interfaces with the Spark execution engine Tungsten
+    - Cost models: apply cost models to find the best physical plan
+    - Selected physical plan: generate Java bytecode to run on each machine
+
 - **SparkContext**, hosted by the Driver program, is the entry point to Spark application
 
   - Interact with all the Spark constructs for distributed data processing, e.g. create RDDs, accumulators, and run jobs
