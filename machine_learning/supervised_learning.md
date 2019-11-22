@@ -11,6 +11,12 @@
     - [V. Feature importance](#v-feature-importance)
   - [1. Linear regression](#1-linear-regression)
     - [1.1 Gradient descent](#11-gradient-descent)
+      - [Absolute trick](#absolute-trick)
+      - [Square trick](#square-trick)
+      - [Mean absolute error](#mean-absolute-error)
+      - [Mean squared error](#mean-squared-error)
+      - [Gradient step](#gradient-step)
+      - [Mini-batch gradient descent](#mini-batch-gradient-descent)
     - [1.2. Analytic solution](#12-analytic-solution)
     - [1.3. Regularization](#13-regularization)
     - [1.4. Linear Regression in sklearn](#14-linear-regression-in-sklearn)
@@ -33,13 +39,19 @@
     - [5.1. Error function](#51-error-function)
     - [5.2. Kernel trick](#52-kernel-trick)
     - [5.3. Support vector machine in sklearn](#53-support-vector-machine-in-sklearn)
+      - [Hyperparameters](#hyperparameters)
   - [6. Ensemble methods](#6-ensemble-methods)
     - [6.1. Bias and variance](#61-bias-and-variance)
     - [6.2. Ensemble techniques](#62-ensemble-techniques)
+      - [To optimize bias and variance](#to-optimize-bias-and-variance)
+      - [Some ensemble methods](#some-ensemble-methods)
     - [6.3. Adaboost](#63-adaboost)
     - [6.4. Adaboost in sklearn](#64-adaboost-in-sklearn)
+      - [Hyperparameters](#hyperparameters-1)
+      - [Common process to perform machine learning](#common-process-to-perform-machine-learning)
   - [7. Model evaluation metrics](#7-model-evaluation-metrics)
     - [7.1. Testing the model](#71-testing-the-model)
+      - [Never use testing data for training](#never-use-testing-data-for-training)
     - [7.2. Evaluation matrix](#72-evaluation-matrix)
     - [7.3. Classification metrics](#73-classification-metrics)
     - [7.4. Regression metrics](#74-regression-metrics)
@@ -294,7 +306,7 @@ Penalize large coefficients to prevent overfitting
 
 - <a href="https://www.codecogs.com/eqnedit.php?latex=\lambda" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\lambda" title="\lambda" /></a>: regularization parameter
 
-- L1
+- L1 (Lasso)
 
   - Error function with L1 regularization
 
@@ -303,7 +315,7 @@ Penalize large coefficients to prevent overfitting
   - Small weights tend to go to 0, such that <a href="https://www.codecogs.com/eqnedit.php?latex=w" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w" title="w" /></a> will be sparse
   - (+) Good for feature selection
 
-- L2
+- L2 (Ridge)
 
   - Error function with L2 regularization
 
@@ -311,6 +323,10 @@ Penalize large coefficients to prevent overfitting
 
   - L2 maintains all weights small
   - (+) Better for training models than L1
+
+- Elastic Net
+  
+  A combination of Lasso and Ridge
 
 ### 1.4. Linear Regression in sklearn
 
