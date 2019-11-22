@@ -7,9 +7,10 @@
     - [1.1. What is unsupervised learning](#11-what-is-unsupervised-learning)
     - [1.2. Types of Unsupervised Learning](#12-types-of-unsupervised-learning)
     - [1.3. Cluster analysis process](#13-cluster-analysis-process)
+    - [1.4. Unsupervised learning use cases](#14-unsupervised-learning-use-cases)
   - [2. K-means Clustering](#2-k-means-clustering)
     - [2.1. K-means applications](#21-k-means-applications)
-    - [2.2. Choosing k](#22-choosing-k)
+    - [2.2. Choosing k - the number of clusters](#22-choosing-k---the-number-of-clusters)
     - [2.3. Scikit learn K-means](#23-scikit-learn-k-means)
     - [2.4. K-means algorithm](#24-k-means-algorithm)
     - [2.5. K-means concerns](#25-k-means-concerns)
@@ -32,6 +33,8 @@
   - [5. Cluster validation](#5-cluster-validation)
     - [5.1. Visualization](#51-visualization)
     - [5.2. Cluster validation indices](#52-cluster-validation-indices)
+      - [5.1.1. External validation indices](#511-external-validation-indices)
+      - [5.1.2. Internal validation indices](#512-internal-validation-indices)
   - [5. Principal Component Analysis (PCA)](#5-principal-component-analysis-pca)
     - [5.1. How PCA works](#51-how-pca-works)
     - [5.2. PCA with scikit learn](#52-pca-with-scikit-learn)
@@ -60,10 +63,14 @@ Unsupervised learning is about understanding how to group data when we either:
 ### 1.2. Types of Unsupervised Learning
 
 - **Clustering** - which groups data together based on similarities
+
+  The goal is to maximize intra-cluster similarity and to minimize inter-cluster similarity
+
   - K-means clustering
   - Hierarchical clustering
   - Density clustering (DBSCAN)
   - Gaussian mixture model clustering
+
 - **Dimensionality Reduction** - which condenses a large number of features into a (usually much) smaller set of features.
 
   <img src="Resources/unsupervised_learning/types.png" width=700>
@@ -84,25 +91,27 @@ Unsupervised learning is about understanding how to group data when we either:
 4. Results interpretation
     - Needs domain expertise
 
+### 1.4. Unsupervised learning use cases
+
+<img src="Resources/unsupervised_learning/use_cases.png" width=500>
+
 ## 2. K-means Clustering
 
 ### 2.1. K-means applications
 
-K-means can group together
+- K-means can group together
 
-- Books of similar genres or written by the same authors.
-- Similar movies.
-- Similar music.
-- Similar groups of customers.
+  - Books of similar genres or written by the same authors.
+  - Similar movies.
+  - Similar music.
+  - Similar groups of customers.
 
-Product, movie, music and other types of recommender systems
+- Product, movie, music and other types of recommender systems
 
-- Use k-means to cluster users according to their ratings.
-- Based on this, when one user did not have a rating for a certain movie, we averaged the ratings of all the other users in the cluster, and that was our guess to how this one user would like the movie.
+  - Use k-means to cluster users according to their ratings.
+  - Based on this, when one user did not have a rating for a certain movie, we averaged the ratings of all the other users in the cluster, and that was our guess to how this one user would like the movie.
 
-### 2.2. Choosing k
-
-`k`: the number of clusters
+### 2.2. Choosing k - the number of clusters
 
 - Visual inspection
 - Prior knowledge
