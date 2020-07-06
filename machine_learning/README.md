@@ -8,3 +8,4 @@
   - [Convolutional Neural Networks](cnn.md)
   - [Sequence Models](rnn.md)
 - [Recommender](recommender.md)
+- [Introduction to Reinforcement Learning](reinforcement_learning.md)
