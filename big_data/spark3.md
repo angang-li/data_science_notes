@@ -55,7 +55,7 @@ Re-optimizes queries based on the most up-to-date runtime statistics.
 
 Optimizes query by reading only the data you need.
 
-<img src="resources/spark3/DPP.png">
+<img src="resources/spark3/DPP.png" width=800>
 
 - Benefit
   
@@ -70,7 +70,7 @@ Optimizes query by reading only the data you need.
 Join hints enable the user to override the optimizer to select their own
 join strategies. Spark 3.0 extends the existing broadcast join hint by implementing other join strategy hints: Shuffle hash, Sort-merge, and Cartesian Product
 
-<img src="resources/spark3/join_strategies.png">
+<img src="resources/spark3/join_strategies.png" width=800>
 
 ## 2. Usability
 
@@ -95,7 +95,7 @@ Get real-time metrics via the structured streaming tab including
 
 Python Type Hints
 
-<img src="resources/spark3/pandas_udf.png">
+<img src="resources/spark3/pandas_udf.png" width=800>
 
 ### 2.4. Data Source API V2
 
@@ -133,7 +133,7 @@ View notable compatibility/behavior changes
   - Code will fail if developers set config keys to invalid values
 - spark.driver.allowMultipleContexts is removed. Use sub spark sessions that share a single context instead.
 
-<img src="resources/spark3/spark_core.png">
+<img src="resources/spark3/spark_core.png" width=600>
 
 ### 3.3. Spark SQL, Datasets, and DataFrames
 
@@ -144,7 +144,7 @@ Spark 3.0 using spark.sql.legacy._______
 
 ### 3.4. SparkML
 
-<img src="resources/spark3/sparkML.png">
+<img src="resources/spark3/sparkML.png" width=500>
 
 ### 3.5. PySpark
 
@@ -199,11 +199,11 @@ Delta Lake is a file format that improves upon Parque format, adding ACID transa
   - Based on open source and open format (Parquet)
   - Fully backwards compatible with Apache Spark
   
-  <img src="resources/spark3/delta_lake_solution.png">
+  <img src="resources/spark3/delta_lake_solution.png" width=500>
 
 ### 4.3. MLfLow
 
-<img src="resources/spark3/MLflow.png">
+<img src="resources/spark3/MLflow.png" width=500>
 
 - MLflow model registry benefits
   - One Collaborative Hub: The Model Registry provides a central hub for making models discoverable, improving collaboration and knowledge sharing across the organization.

@@ -59,7 +59,7 @@ Introduction to different tabs of Spark UI, and identify some key points to pay 
 
   - Stage summary
 
-    <img src="resources/spark_tuning/stage_summary.png" width=200>
+    <img src="resources/spark_tuning/stage_summary.png" width=300>
 
     **Spill** occurs when Spark is processing data. Executor core processes a partition of data while accumulating the results in memory. If the results cannot fit in memory and there are still more data to process, Spark spills live data to disk to be able to keep processing the remaining data. By spilling to disk, we are adding disk IO to the processing of this task. Because disk IO is much slower than CPU execution time, performance plummets whenever we start getting spill in our application.
 
@@ -189,7 +189,7 @@ An imbalance in the size of partitions
 
 - Caused by
 
-  <img src="resources/spark_tuning/skew_before_after.png" width=400>
+  <img src="resources/spark_tuning/skew_before_after.png" width=700>
 
   - e.g. before vs. after aggregation
   - e.g. after skew join
@@ -218,7 +218,7 @@ The exchange of data between executors between stages. Involves disk IO (reading
 
 A set of problems indicative of high overhead due to tiny files
 
-<img src="resources/spark_tuning/tiny-files-high-res.gif" width=600> ([animation](https://files.training.databricks.com/images/animations/tiny-files-high-res.gif))
+<img src="resources/spark_tuning/tiny-files-high-res.gif" width=650> ([animation](https://files.training.databricks.com/images/animations/tiny-files-high-res.gif))
 
 - **Storage**
 
@@ -241,7 +241,7 @@ A set of problems indicative of high overhead due to tiny files
 
     - Manually compact tiny files
 
-      <img src="resources/spark_tuning/small_files_compact_manually.png" width=600>
+      <img src="resources/spark_tuning/small_files_compact_manually.png" width=700>
 
     - Automatically compact tiny files
 
@@ -287,7 +287,7 @@ A set of problems indicative of high overhead due to tiny files
 - Predicate pushdown to reduce data ingestion
 
   - Predicate pushdown is applying a condition to records read in by a Spark job to be selective when reading.
-    - E.g. `filter()`, `where()`, `select()`, `drop()` transformations are pushed down to the underlying data store.
+    - E.g. `filter()`, `where()`, `select()`, `drop()` transformations are pushed down to the underlying data store. <br>
     <img src="resources/spark_tuning/predicate_pushdown.png">
   - Reducing Data Ingestion is one of the best strategies for mitigating performance problems in Apache Spark. The Predicate Pushdown is the basis for most of the reduction strategies
 
@@ -304,7 +304,7 @@ A set of problems indicative of high overhead due to tiny files
   - For files with columnar file format using either truncated schema or select/drop transformations
     - Columnar File formats store data by column: Delta, Parquet, and ORC
     - Row-Based File formats store data by row: CSV, TSV, JSON, and AVRO
-    <img src="resources/spark_tuning/columnar_vs_row_based.png" width=600>
+    <img src="resources/spark_tuning/columnar_vs_row_based.png" width=800>
 
 ### 3.2. Disk Partitioning
 
@@ -314,7 +314,7 @@ A set of problems indicative of high overhead due to tiny files
   - E.g., file paths for dataset not partitioned <br>
     <img src="resources/spark_tuning/file_path_not_partitioned.png" width=600>
   - E.g., file paths for dataset partitioned <br>
-    <img src="resources/spark_tuning/file_path_partitioned.png" width=600>
+    <img src="resources/spark_tuning/file_path_partitioned.png" width=700>
 
 - The part-file does not necessarily retain partitioned columns
 
