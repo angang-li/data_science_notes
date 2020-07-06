@@ -139,13 +139,13 @@ A list of SQL queries that have been evaluated on the cluster
 
   - Query plan visualization
 
-    <img src="resources/spark_tuning/sql_detail_visual.png" width=300>
+    <img src="resources/spark_tuning/sql_detail_visual.png" width=500>
 
     Another place that indicates if we have spill as part of the execution of a stage
 
   - Details of query plans
 
-    <img src="resources/spark_tuning/sql_detail.png" width=300>
+    <img src="resources/spark_tuning/sql_detail.png">
 
     Presented in the form of lineage
 
@@ -203,7 +203,7 @@ An imbalance in the size of partitions
 
 The exchange of data between executors between stages. Involves disk IO (reading writing of shuffle files) and network IO (data transmission between executors).
 
-<img src="resources/spark_tuning/spark-shuffle.gif" width=400> ([animation](https://files.training.databricks.com/images/animations/spark-shuffle.gif))
+<img src="resources/spark_tuning/spark-shuffle.gif" width=500> ([animation](https://files.training.databricks.com/images/animations/spark-shuffle.gif))
 
 - Caused by
 
@@ -218,7 +218,7 @@ The exchange of data between executors between stages. Involves disk IO (reading
 
 A set of problems indicative of high overhead due to tiny files
 
-<img src="resources/spark_tuning/tiny-files-high-res.gif" width=400> ([animation](https://files.training.databricks.com/images/animations/tiny-files-high-res.gif))
+<img src="resources/spark_tuning/tiny-files-high-res.gif" width=600> ([animation](https://files.training.databricks.com/images/animations/tiny-files-high-res.gif))
 
 - **Storage**
 
@@ -311,14 +311,14 @@ A set of problems indicative of high overhead due to tiny files
 - Disk-Partitioning applies to partitions of data on disk
 
   - Disk-Partitioning uses a special directory structure to aggregate like records together
-  - E.g., file paths for dataset not partitioned
+  - E.g., file paths for dataset not partitioned <br>
     <img src="resources/spark_tuning/file_path_not_partitioned.png" width=600>
-  - E.g., file paths for dataset partitioned
+  - E.g., file paths for dataset partitioned <br>
     <img src="resources/spark_tuning/file_path_partitioned.png" width=600>
 
 - The part-file does not necessarily retain partitioned columns
 
-  <img src="resources/spark_tuning/disk_partition_columns.png" width=600>
+  <img src="resources/spark_tuning/disk_partition_columns.png" width=800>
 
   - Virtual columns as an artifact of storage based partitioning
 
@@ -348,7 +348,7 @@ This feature requires Delta on Databricks
 
 - Syntax
 
-  <img src="resources/spark_tuning/z_ordering.png" width=600>
+  <img src="resources/spark_tuning/z_ordering.png" width=700>
 
 ### 3.4. Bucketing
 
@@ -378,11 +378,11 @@ later, after multiple reads and joins against the bucketed data
   - The total number of part-files will equal N-partitions * M-buckets (e.g. 100 partitions * 400 buckets = 40,000 part-files)
   - That are 40,000 bucketed part-files vs. the original 100 part-files
   - The number of files can be reduced by first partitioning the data in Spark
-  <img src="resources/spark_tuning/bucketing.png" width=600>
+  <img src="resources/spark_tuning/bucketing.png" width=800>
 
 ### 3.5. Combined strategies
 
-<img src="resources/spark_tuning/ingestion_strategies.png" width=600>
+<img src="resources/spark_tuning/ingestion_strategies.png" width=800>
 
 - What file format to use: Parquet, ORC, Delta
 - Disk-partitioning: Partition by the largest segment
