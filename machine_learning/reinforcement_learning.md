@@ -1,6 +1,6 @@
 # Introduction to Reinforcement Learning
 
-Credit: [David Silver lecture](https://www.davidsilver.uk/teaching/); [Spark+AI Summit conference slides](https://brookewenig.com/RL.html#/1)
+Notes taken from [David Silver lecture](https://www.davidsilver.uk/teaching/) and Spark+AI Summit training by Amir Issaei
 
 - [Introduction to Reinforcement Learning](#introduction-to-reinforcement-learning)
   - [1. About Reinforcement Learning](#1-about-reinforcement-learning)
