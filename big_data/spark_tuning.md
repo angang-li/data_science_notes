@@ -92,7 +92,7 @@ Introduction to different tabs of Spark UI, and identify some key points to pay 
 
     - Duration: executor computing time
     - Compare median duration with median of the rest of the overhead
-    - **Gabage Collection**: a feature of Java Virtual Machine. The executors are Java processes that are subject to JVM memory management. When memory is filled, garbage collection is triggered to take out all the dead objects
+    - **Garbage Collection**: a feature of Java Virtual Machine. The executors are Java processes that are subject to JVM memory management. When memory is filled, garbage collection is triggered to take out all the dead objects
 
   - Should investigate excessive garbage collection
     - Caching consumes memory that can be otherwised used for processing data, and also generating garbage. The way that data are represented in cache is different from the way that they are represented when processing task. When caching, Spark has to do a conversion, which has side effect of generating garbage. So the more is cached, the more garbage is generated, and the more time will spent during garbage collection.
